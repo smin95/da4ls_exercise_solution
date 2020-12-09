@@ -5,7 +5,10 @@ editor_options:
   chunk_output_type: console
 ---
 # Inference
-
+First, upload necessary package(s).
+```{r}
+library(tidyverse) #also has dplyr
+```
 ## 2.7 Exercises 
 
 ```{r}
@@ -14,6 +17,14 @@ filename <- "femaleControlsPopulation.csv"
 url <- paste0(dir, filename)
 x <- unlist(read.csv(url))
 ```
+
+Or if you already have downloaded the data, then just upload it.
+
+```{r}
+x <- read.csv('femaleMiceWeights.csv') %>% unlist()
+```
+
+Check out what unlist does by typing ?unlist in the command. 
 ### Question 1
 
 <div class="question">
@@ -21,3 +32,7 @@ What is the average of these weights?
 </div>
 
 <div class="answer">
+
+```{r}
+mean(x)
+```
