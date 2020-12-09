@@ -5,7 +5,7 @@ editor_options:
   chunk_output_type: console
 ---
 # Inference
-Note: **bolded** parts in the questions denote whereI have modified the wordings for clarity and brevity.
+Note: **bolded** parts in the questions denote where I have modified the wordings for clarity and brevity.
 
 First, upload necessary package(s).
 
