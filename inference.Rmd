@@ -7,10 +7,11 @@ editor_options:
 # Inference
 First, upload necessary package(s).
 ```{r}
-library(tidyverse) #also has dplyr
+library(tidyverse) #also uploads  dplyr
 ```
 ## 2.7 Exercises 
 
+If you have not downloaded the data before,
 ```{r}
 dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
 filename <- "femaleControlsPopulation.csv"
@@ -21,10 +22,17 @@ x <- unlist(read.csv(url))
 Or if you already have downloaded the data, then just upload it.
 
 ```{r}
+x <- read.csv('femaleMiceWeights.csv')
+x <- unlist(x)
+
+# or 
+
 x <- read.csv('femaleMiceWeights.csv') %>% unlist()
+
 ```
 
-Check out what unlist does by typing ?unlist in the command. 
+Check out what unlist does by typing ?unlist in the command. The second method is more concise because of the pipe %>%. 
+
 ### Question 1
 
 <div class="question">
@@ -36,3 +44,52 @@ What is the average of these weights?
 ```{r}
 mean(x)
 ```
+
+### Question 2
+<div class="question">
+After setting the seed at 1, `set.seed(1)` take a random sample size 5. What is the absolute value (use `abs`) of the difference between the average of the sample and the average of all the values?
+</div>
+
+<div class="answer">
+
+```{r}
+set.seed(1)
+avg_sample <- mean(sample(x,5)) # average of the sample of 5
+avg_pop <- mean(x) # average of all values
+abs(avg_sample - avg_pop) # absolute difference
+```
+
+### Question 3
+<div class="question">
+After setting the seed at 5, `set.seed(5)` take a random sample size 5. What is the absolute value (use `abs`) of the difference between the average of the sample and the average of all the values?
+</div>
+
+<div class="answer">
+
+```{r}
+set.seed(5)
+avg_sample <- mean(sample(x,5)) # average of the sample of 5
+avg_pop <- mean(x) # average of all values
+abs(avg_sample - avg_pop) # absolute difference
+```
+
+### Question 4
+<div class="question">
+Why are the answers from 2 and 3 different?
+</div>
+
+<div class="answer">
+```{r}
+set.seed(2)
+a <- sample(x,5)
+a
+```
+```{r}
+set.seed(3)
+b <- sample(x,5)
+b
+```
+```{r}
+identical(a,b)
+```
+Notice that samples `a` and `b` differ. Since the seeds were different (`2` vs `3`), different random numbers were generated. Therefore, the answer is C: Because the average of the samples is a random variable.
