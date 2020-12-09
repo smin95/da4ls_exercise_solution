@@ -1342,5 +1342,5 @@ Compute Fisher's exact test fisher.test for the same table. What is the p-value 
 <div class="answer">
 
 ```{r}
-fisher.test(tab)
+fisher.test(tab)$p.value
 ```

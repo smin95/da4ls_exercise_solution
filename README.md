@@ -9,7 +9,7 @@ This repository contains the Markdown files for the book "Data Analysis for the 
 No. All of the work was done by myself independently. 
 
 **2\. If it is not official, why did you make it?**
-At time of making posting the solutions, there has been no official solution. Also, I wanted to add snippets of tips throughout the solution to help others to navigate the book easily. This book can be quite dense, especially for those who do not know R and matrix algebra. In near future, I would like to translate the R codes of some exercise solutions into Matlab/Python to widen the readership of the book.
+At time of making posting the solutions, there has been no official solution. Also, I wanted to add snippets of tips throughout the solution to help others navigate the book more easily. This book is great but can be quite overwhelming, especially to those who do not know R and matrix algebra. In near future, I would like to translate the R codes of some exercise solutions into Matlab/Python to widen the readership of the book.
 
 **3\. Did you receive permission from the author to make the solution?**
 Yes. 

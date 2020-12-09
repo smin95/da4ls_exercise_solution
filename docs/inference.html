@@ -1498,18 +1498,8 @@ is the permutation derived p-value for our observation?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">fisher.test</span>(tab)</a></code></pre></div>
-<pre><code>## 
-##  Fisher&#39;s Exact Test for Count Data
-## 
-## data:  tab
-## p-value = 0.05194
-## alternative hypothesis: true odds ratio is not equal to 1
-## 95 percent confidence interval:
-##  0.940442 8.493001
-## sample estimates:
-## odds ratio 
-##   2.758532</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">fisher.test</span>(tab)<span class="op">$</span>p.value</a></code></pre></div>
+<pre><code>## [1] 0.05193834</code></pre>
 
 </div>
 </div>
