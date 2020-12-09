@@ -174,7 +174,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.12" data-path="inference.html"><a href="inference.html#question-12"><i class="fa fa-check"></i><b>2.3.12</b> Question 12</a></li>
 <li class="chapter" data-level="2.3.13" data-path="inference.html"><a href="inference.html#question-13"><i class="fa fa-check"></i><b>2.3.13</b> Question 13</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="inference.html"><a href="inference.html#ch.-2.13-exercises"><i class="fa fa-check"></i><b>2.4</b> Ch. 2.13 Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="inference.html"><a href="inference.html#ch.-2.13-exercises"><i class="fa fa-check"></i><b>2.4</b> Ch. 2.13 Exercises</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="inference.html"><a href="inference.html#question-1-3"><i class="fa fa-check"></i><b>2.4.1</b> Question 1</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -761,6 +763,8 @@ deviation. Set the seed at 1, using the <code>replicate</code> function, create 
 <a class="sourceLine" id="cb85-2" title="2">filename &lt;-<span class="st"> &quot;femaleMiceWeights.csv&quot;</span></a>
 <a class="sourceLine" id="cb85-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
 <a class="sourceLine" id="cb85-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a></code></pre></div>
+<div id="question-1-3" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Question 1</h3>
 <div class="question">
 <p>The CLT is a result from probability theory. Much of probability theory was originally inspired by gambling. This theory is still used in practice by casinos. For example, they can estimate how many people need to play slots for there to be a 99.9999% probability of earning enough money to cover expenses. Let’s try a simple example related to gambling.</p>
 <p>Suppose we are interested in the proportion of times we see a 6 when rolling n=100 die. This is a random variable which we can simulate with <code>x=sample(1:6, n, replace=TRUE)</code> and the proportion we are interested in can be expressed as an average: <code>mean(x==6)</code>. Because the die rolls are independent, the CLT applies.</p>
@@ -784,6 +788,7 @@ times <code>z</code> was larger than 2 in absolute value (CLT says it should be 
 <div class="answer">
 
 
+</div>
 </div>
 </div>
             </section>
