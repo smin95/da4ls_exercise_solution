@@ -24,7 +24,7 @@
 <meta name="author" content="Seung Hyun (Sam) Min" />
 
 
-<meta name="date" content="2020-12-08" />
+<meta name="date" content="2020-12-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.3" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i><b>2.1.3</b> Question 3</a></li>
 <li class="chapter" data-level="2.1.4" data-path="inference.html"><a href="inference.html#question-4"><i class="fa fa-check"></i><b>2.1.4</b> Question 4</a></li>
 </ul></li>
+<li class="chapter" data-level="2.2" data-path="inference.html"><a href="inference.html#question-5"><i class="fa fa-check"></i><b>2.2</b> Question 5</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -174,13 +175,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
 <a class="sourceLine" id="cb2-4" title="4">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">read.csv</span>(url))</a></code></pre></div>
 <p>Or if you already have downloaded the data, then just upload it.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleMiceWeights.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb3-2" title="2">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(x)</a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co"># or </span></a>
-<a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleMiceWeights.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a></code></pre></div>
-<p>Check out what unlist does by typing ?unlist in the command. The second method is more concise because of the pipe %&gt;%.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleMiceWeights.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">bodyweight &lt;-<span class="st"> </span><span class="kw">select</span>(dat, Bodyweight)</a>
+<a class="sourceLine" id="cb3-3" title="3">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(bodyweight)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co"># or use pipe %&gt;%</span></a>
+<a class="sourceLine" id="cb3-6" title="6">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleMiceWeights.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a></code></pre></div>
+<p>Check out what <code>unlist</code> does by typing <code>?unlist</code> in the command. The second method is more concise because of the pipe <code>%&gt;%</code>, which allows multiple lines of commands to be in one continuous line.</p>
 <div id="question-1" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Question 1</h3>
 <div class="question">
@@ -190,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">mean</span>(x)</a></code></pre></div>
-<pre><code>## [1] 13.41188</code></pre>
+<pre><code>## [1] 25.32375</code></pre>
 </div>
 <div id="question-2" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Question 2</h3>
@@ -204,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb6-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
 <a class="sourceLine" id="cb6-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
 <a class="sourceLine" id="cb6-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
-<pre><code>## [1] 2.609875</code></pre>
+<pre><code>## [1] 0.92025</code></pre>
 </div>
 <div id="question-3" class="section level3">
 <h3><span class="header-section-number">2.1.3</span> Question 3</h3>
@@ -218,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb8-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
 <a class="sourceLine" id="cb8-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
 <a class="sourceLine" id="cb8-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
-<pre><code>## [1] 2.193875</code></pre>
+<pre><code>## [1] 0.05025</code></pre>
 </div>
 <div id="question-4" class="section level3">
 <h3><span class="header-section-number">2.1.4</span> Question 4</h3>
@@ -227,21 +228,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">set.seed</span>(<span class="dv">2</span>)</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># question 2</span></a>
 <a class="sourceLine" id="cb10-2" title="2">a &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb10-3" title="3">a</a></code></pre></div>
-<pre><code>##        Diet9 Bodyweight10  Bodyweight3        Diet8 Bodyweight18 
-##         1.00        20.10        24.04         1.00        28.14</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
+<pre><code>##  Bodyweight7  Bodyweight9 Bodyweight13 Bodyweight20  Bodyweight5 
+##        28.40        22.51        25.71        30.92        23.68</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set.seed</span>(<span class="dv">5</span>) <span class="co"># question 3</span></a>
 <a class="sourceLine" id="cb12-2" title="2">b &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb12-3" title="3">b</a></code></pre></div>
-<pre><code>##        Diet9 Bodyweight14       Diet18       Diet15  Bodyweight3 
-##         1.00        26.37         2.00         2.00        24.04</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">identical</span>(a,b)</a></code></pre></div>
+<pre><code>##  Bodyweight5 Bodyweight16 Bodyweight21  Bodyweight6  Bodyweight3 
+##        23.68        25.34        34.02        19.79        24.04</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">identical</span>(a,b) <span class="co"># these two samples are not identical</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<p>Notice that samples <code>a</code> and <code>b</code> differ. Since the seeds were different (<code>2</code> vs <code>3</code>), different random numbers were generated. Therefore, the answer is C: Because the average of the samples is a random variable.</p>
-
+<p>Notice that samples <code>a</code> and <code>b</code> differ. Since the seeds were different (<code>1</code> vs <code>5</code>), different random numbers were generated. Therefore, the answer is C: Because the average of the samples is a random variable.</p>
 </div>
+</div>
+<div id="question-5" class="section level2">
+<h2><span class="header-section-number">2.2</span> Question 5</h2>
+<div class="question">
+<p>Set the seed at 1, then using a for-loop take a random sample of 5 mice in 1,000 times. Save these averages. What percent of these 1,000 averages are more than 1 gram away from the average of <code>x</code>?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb16-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n) </a>
+<a class="sourceLine" id="cb16-4" title="4"></a>
+<a class="sourceLine" id="cb16-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb16-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb16-7" title="7">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb16-8" title="8">}</a>
+<a class="sourceLine" id="cb16-9" title="9"></a>
+<a class="sourceLine" id="cb16-10" title="10"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 0.498</code></pre>
+<p>To make a for loop work in R, an empty vector needs to be created first. This can be achieved with the function <code>vector</code>. In this example, the empty vector is <code>res</code> (short for result). In the for loop, each average from one repetition gets stored in res.</p>
+
 </div>
 </div>
             </section>
