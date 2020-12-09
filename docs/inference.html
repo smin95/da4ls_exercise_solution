@@ -204,6 +204,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.11" data-path="inference.html"><a href="inference.html#question-11-2"><i class="fa fa-check"></i><b>2.5.11</b> Question 11</a></li>
 <li class="chapter" data-level="2.5.12" data-path="inference.html"><a href="inference.html#question-12-2"><i class="fa fa-check"></i><b>2.5.12</b> Question 12</a></li>
 </ul></li>
+<li class="chapter" data-level="2.6" data-path="inference.html"><a href="inference.html#ch-2.21-exercises"><i class="fa fa-check"></i><b>2.6</b> Ch 2.21 Exercises</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="inference.html"><a href="inference.html#question-1-5"><i class="fa fa-check"></i><b>2.6.1</b> Question 1</a></li>
+<li class="chapter" data-level="2.6.2" data-path="inference.html"><a href="inference.html#question-2-5"><i class="fa fa-check"></i><b>2.6.2</b> Question 2</a></li>
+<li class="chapter" data-level="2.6.3" data-path="inference.html"><a href="inference.html#question-3-5"><i class="fa fa-check"></i><b>2.6.3</b> Question 3</a></li>
+<li class="chapter" data-level="2.6.4" data-path="inference.html"><a href="inference.html#question-4-5"><i class="fa fa-check"></i><b>2.6.4</b> Question 4</a></li>
+<li class="chapter" data-level="2.6.5" data-path="inference.html"><a href="inference.html#question-5-5"><i class="fa fa-check"></i><b>2.6.5</b> Question 5</a></li>
+<li class="chapter" data-level="2.6.6" data-path="inference.html"><a href="inference.html#question-6-5"><i class="fa fa-check"></i><b>2.6.6</b> Question 6</a></li>
+<li class="chapter" data-level="2.6.7" data-path="inference.html"><a href="inference.html#question-7-5"><i class="fa fa-check"></i><b>2.6.7</b> Question 7</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="inference.html"><a href="inference.html#ch-2.23-exercises"><i class="fa fa-check"></i><b>2.7</b> Ch 2.23 Exercises</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="inference.html"><a href="inference.html#question-1-6"><i class="fa fa-check"></i><b>2.7.1</b> Question 1</a></li>
+<li class="chapter" data-level="2.7.2" data-path="inference.html"><a href="inference.html#question-2-6"><i class="fa fa-check"></i><b>2.7.2</b> Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="inference.html"><a href="inference.html#ch-2.25-exercises"><i class="fa fa-check"></i><b>2.8</b> Ch 2.25 Exercises</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="inference.html"><a href="inference.html#question-1-7"><i class="fa fa-check"></i><b>2.8.1</b> Question 1</a></li>
+<li class="chapter" data-level="2.8.2" data-path="inference.html"><a href="inference.html#question-2-7"><i class="fa fa-check"></i><b>2.8.2</b> Question 2</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1188,6 +1205,7 @@ The answer is C: From the original data alone, you can tell whether you have mad
 <a class="sourceLine" id="cb134-16" title="16"><span class="kw">print</span>(res_list) <span class="co"># sample size of 60 gives power of 80%</span></a></code></pre></div>
 <pre><code>##     30     60     90    120 
 ## 0.4933 0.7868 0.9344 0.9835</code></pre>
+<p>Sample size of 60 gives power of 80%.</p>
 </div>
 <div id="question-12-2" class="section level3">
 <h3><span class="header-section-number">2.5.12</span> Question 12</h3>
@@ -1212,9 +1230,286 @@ The answer is C: From the original data alone, you can tell whether you have mad
 <a class="sourceLine" id="cb136-13" title="13">  res_list[[i]] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">replicate</span>(B, <span class="kw">pval_calc</span>(Ns[[i]])) <span class="op">&lt;</span><span class="st"> </span>alpha)</a>
 <a class="sourceLine" id="cb136-14" title="14">}</a>
 <a class="sourceLine" id="cb136-15" title="15"><span class="kw">names</span>(res_list) &lt;-<span class="st"> </span>Ns</a>
-<a class="sourceLine" id="cb136-16" title="16"><span class="kw">print</span>(res_list) <span class="co"># sample size of 60 gives power of 80%</span></a></code></pre></div>
+<a class="sourceLine" id="cb136-16" title="16"><span class="kw">print</span>(res_list) <span class="co"># sample size of 90 gives power of 80%</span></a></code></pre></div>
 <pre><code>##     30     60     90    120 
 ## 0.2461 0.5607 0.7932 0.9241</code></pre>
+<p>Sample size of 90 gives power of 80%.</p>
+</div>
+</div>
+<div id="ch-2.21-exercises" class="section level2">
+<h2><span class="header-section-number">2.6</span> Ch 2.21 Exercises</h2>
+<p>We have used Monte Carlo simulation throughout this chapter to demonstrate statistical concepts; namely, sampling from the population. We mostly applied this to demonstrate the
+statistical properties related to inference on differences in averages. Here, we will consider examples of how Monte Carlo simulations are used in practice.</p>
+<div id="question-1-5" class="section level3">
+<h3><span class="header-section-number">2.6.1</span> Question 1</h3>
+<div class="question">
+<p>Imagine you are William Sealy Gosset and have just mathematically derived the distribution of the t-statistic when the sample comes from a normal distribution. Unlike Gosset you have access to computers and can use them to check the results.</p>
+<p>Let’s start by creating an outcome. Set the seed at 1, use <code>rnorm</code> to generate a random sample of size 5, <span class="math inline">\(X_1,...,.X_5\)</span> from a standard normal distribution, then compute the t-statistic <span class="math inline">\(t = \sqrt{5}\bar{X}/s\)</span> with <span class="math inline">\(s\)</span> the sample standard deviation. What value do you observe?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb138-2" title="2">n &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb138-3" title="3">sample1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb138-4" title="4">tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">5</span>)<span class="op">*</span><span class="kw">mean</span>(sample1)<span class="op">/</span><span class="kw">sd</span>(sample1)</a>
+<a class="sourceLine" id="cb138-5" title="5">tstat</a></code></pre></div>
+<pre><code>## [1] 0.3007746</code></pre>
+</div>
+<div id="question-2-5" class="section level3">
+<h3><span class="header-section-number">2.6.2</span> Question 2</h3>
+<div class="question">
+<p>You have just performed a Monte Carlo simulation using rnorm, a random number generator for normally distributed data. Gosset’s mathematical calculation tells us that the t-statistic defined in the previous exercise, a random variable, follows a t-distribution with <span class="math inline">\(N-1\)</span> degrees of freedom. Monte Carlo simulations can be used to check the theory: we generate many outcomes and compare them to the
+theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in <strong>Question 1</strong>. What proportion is larger than 2?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb140-2" title="2">samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb140-3" title="3">tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">5</span>)<span class="op">*</span>samp<span class="op">/</span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb140-4" title="4"></a>
+<a class="sourceLine" id="cb140-5" title="5">get_t &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb140-6" title="6">  samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb140-7" title="7">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n)<span class="op">*</span><span class="kw">mean</span>(samp)<span class="op">/</span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb140-8" title="8">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb140-9" title="9">}</a>
+<a class="sourceLine" id="cb140-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb140-11" title="11">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">get_t</span>(<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb140-12" title="12"><span class="kw">mean</span>(res_list <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## [1] 0.068</code></pre>
+</div>
+<div id="question-3-5" class="section level3">
+<h3><span class="header-section-number">2.6.3</span> Question 3</h3>
+<div class="question">
+<p>The answer to <strong>Question 2</strong> is very similar to the theoretical prediction: <code>1-pt(2,df=4)</code>. We can check several such quantiles using <code>qqplot</code> function.</p>
+<p>To obtain quantiles for the t-distribution we can generate percentiles from just above 0 to just below <code>1: B=100; ps = seq(1/(B+1), 1-1/(B+1), len = B)</code> and compute the quantiles with <code>qt(ps, df=4)</code>. Now we can use <code>qqplot</code> to compare these theoretical quantiles to those obtained in Monte Carlo simulation. Use Monte Carlo simulation developed for <strong>Question 2</strong> to corroborate that the t-statistic <span class="math inline">\(t = \sqrt{N}\bar{X}/s\)</span> follows a t-distribution for several values of N.</p>
+<p>For which sample sizes does the approximation best work?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb142-2" title="2">ps =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
+<a class="sourceLine" id="cb142-3" title="3"></a>
+<a class="sourceLine" id="cb142-4" title="4">get_t &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb142-5" title="5">  samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb142-6" title="6">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n)<span class="op">*</span><span class="kw">mean</span>(samp)<span class="op">/</span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb142-7" title="7">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb142-8" title="8">}</a>
+<a class="sourceLine" id="cb142-9" title="9"></a>
+<a class="sourceLine" id="cb142-10" title="10">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb142-11" title="11"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb142-12" title="12"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb142-13" title="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
+<a class="sourceLine" id="cb142-14" title="14">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">get_t</span>(Ns[i]))</a>
+<a class="sourceLine" id="cb142-15" title="15">  theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span>Ns[i]<span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb142-16" title="16">  <span class="kw">qqplot</span>(theory_t, res_list, <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&#39;sample size= &#39;</span>,Ns[i]),</a>
+<a class="sourceLine" id="cb142-17" title="17">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
+<a class="sourceLine" id="cb142-18" title="18">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb142-19" title="19">}</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>The approximations are spot on for all sample sizes (<strong>answer choice C</strong>).</p>
+</div>
+<div id="question-4-5" class="section level3">
+<h3><span class="header-section-number">2.6.4</span> Question 4</h3>
+<div class="question">
+<p>Use Monte Carlo simulation to corroborate that the t-statistic comparing two means and obtained with normally distributed (mean 0 and sd) data follows a t-distribution. In this case we will use the <code>t.test</code> function with <code>var.equal=TRUE</code>. With this argument the degrees of freedom will be <code>df=2*N-2</code> with <code>N</code> the sample size. For which sample sizes does the approximation best work?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1">ttestgenerator &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb143-2" title="2">  cases &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb143-3" title="3">  controls &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb143-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">t.test</span>(cases,controls)<span class="op">$</span>statistic[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb143-5" title="5">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb143-6" title="6">}</a>
+<a class="sourceLine" id="cb143-7" title="7"></a>
+<a class="sourceLine" id="cb143-8" title="8">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb143-9" title="9"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb143-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb143-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
+<a class="sourceLine" id="cb143-12" title="12">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">ttestgenerator</span>(Ns[i]))</a>
+<a class="sourceLine" id="cb143-13" title="13">  theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">2</span><span class="op">*</span>Ns[i]<span class="op">-</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb143-14" title="14">  <span class="kw">qqplot</span>(theory_t, res_list, <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&#39;sample size= &#39;</span>,Ns[i]),</a>
+<a class="sourceLine" id="cb143-15" title="15">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
+<a class="sourceLine" id="cb143-16" title="16">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb143-17" title="17">}</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p>The approximations are spot on for all sample sizes (<strong>answer choice C</strong>).</p>
+</div>
+<div id="question-5-5" class="section level3">
+<h3><span class="header-section-number">2.6.5</span> Question 5</h3>
+<div class="question">
+<p>Is the following statement true or false? If instead of generating the sample with <code>X = rnorm(15)</code>, we generate it with binary data (either positive or negative 1 with probability 0.5) <code>X = sample(c(-1,1),15,replace = TRUE)</code> then the t-statistic
+<code>tstat &lt;- sqrt(15) * mean(X) / sd(X)</code>
+is approximated by a t-distribution with 14 degrees of freedom.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb144-2" title="2">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb144-3" title="3">  X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="dv">15</span>,<span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb144-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">15</span>) <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)<span class="op">/</span><span class="kw">sd</span>(X)</a>
+<a class="sourceLine" id="cb144-5" title="5">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb144-6" title="6">})</a>
+<a class="sourceLine" id="cb144-7" title="7"></a>
+<a class="sourceLine" id="cb144-8" title="8">ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
+<a class="sourceLine" id="cb144-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">14</span>)</a>
+<a class="sourceLine" id="cb144-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p><strong>False</strong>. Instead, it is approximated by binomial distribution because the data are binary (only two values).</p>
+</div>
+<div id="question-6-5" class="section level3">
+<h3><span class="header-section-number">2.6.6</span> Question 6</h3>
+<div class="question">
+<p>Is the following statement true or false? If instead of generating the sample with <code>X = rnorm(N)</code> with <code>N = 1000</code>, we generate it with binary data <code>X = sample(c(-1,1),15,replace = TRUE)</code> then the t-statistic
+<code>tstat &lt;- sqrt(15) * mean(X) / sd(X)</code>
+is approximated by a t-distribution with 999 degrees of freedom.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb145-2" title="2">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb145-3" title="3">  X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="dv">1000</span>,<span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb145-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1000</span>) <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)<span class="op">/</span><span class="kw">sd</span>(X)</a>
+<a class="sourceLine" id="cb145-5" title="5">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb145-6" title="6">})</a>
+<a class="sourceLine" id="cb145-7" title="7">B&lt;-<span class="dv">1000</span></a>
+<a class="sourceLine" id="cb145-8" title="8">ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
+<a class="sourceLine" id="cb145-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">999</span>)</a>
+<a class="sourceLine" id="cb145-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a>
+<a class="sourceLine" id="cb145-11" title="11"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+</div>
+<div id="question-7-5" class="section level3">
+<h3><span class="header-section-number">2.6.7</span> Question 7</h3>
+<div class="question">
+<p>We can derive approximation of the distribution of the sample average or the t-statistic theoretically. However, suppose we are interested in the distribution of a statistic for which a theoretical approximation is not immediately obvious.</p>
+<p>Consider the sample median as an example. Use a Monte Carlo to determine which of the following best approximates the median of a sample taken from normally distributed population with mean 0 and standard deviation 1.</p>
+</div>
+<div class="answer">
+
+<p>The answer is <strong>A: Just like for the average, the sample median is approximately normal with mean 0 and SD <span class="math inline">\(1/\sqrt{N}\)</span>.</strong></p>
+</div>
+</div>
+<div id="ch-2.23-exercises" class="section level2">
+<h2><span class="header-section-number">2.7</span> Ch 2.23 Exercises</h2>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">babies &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;babies.txt&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb146-2" title="2">bwt.nonsmoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
+<a class="sourceLine" id="cb146-3" title="3">bwt.smoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a></code></pre></div>
+<div id="question-1-6" class="section level3">
+<h3><span class="header-section-number">2.7.1</span> Question 1</h3>
+<div class="question">
+<p>We will generate the following random variable based on a sample size of 10 and observe the following difference:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">N=<span class="dv">10</span></a>
+<a class="sourceLine" id="cb147-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb147-3" title="3">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke , N)</a>
+<a class="sourceLine" id="cb147-4" title="4">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke , N)</a>
+<a class="sourceLine" id="cb147-5" title="5">obs &lt;-<span class="st"> </span><span class="kw">mean</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokers)</a></code></pre></div>
+<p>The question is whether this observed difference is statistically significant. We do not want to rely on the assumptions needed for the normal or t-distribution approximations to hold, so instead we will use permutations. We will reshuffle the data and recompute the mean. We can create one permuted sample with the following code:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
+<a class="sourceLine" id="cb148-2" title="2">shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>( dat )</a>
+<a class="sourceLine" id="cb148-3" title="3">smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
+<a class="sourceLine" id="cb148-4" title="4">nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
+<a class="sourceLine" id="cb148-5" title="5"><span class="kw">mean</span>(smokersstar)<span class="op">-</span><span class="kw">mean</span>(nonsmokersstar)</a></code></pre></div>
+<pre><code>## [1] -8.5</code></pre>
+<p>The last value is one observation from the null distribution we will construct. Set the
+seed at 1, and then repeat the permutation 1,000 times to create a null distribution. What
+is the permutation derived p-value for our observation?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1">N &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb150-2" title="2"></a>
+<a class="sourceLine" id="cb150-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb150-4" title="4">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
+<a class="sourceLine" id="cb150-5" title="5">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
+<a class="sourceLine" id="cb150-6" title="6">obs &lt;-<span class="st"> </span><span class="kw">mean</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokers)</a>
+<a class="sourceLine" id="cb150-7" title="7"></a>
+<a class="sourceLine" id="cb150-8" title="8"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb150-9" title="9">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb150-10" title="10">  dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
+<a class="sourceLine" id="cb150-11" title="11">  shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>(dat)</a>
+<a class="sourceLine" id="cb150-12" title="12">  smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
+<a class="sourceLine" id="cb150-13" title="13">  nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
+<a class="sourceLine" id="cb150-14" title="14">  avgdiff &lt;-<span class="st"> </span><span class="kw">mean</span>(smokersstar) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokersstar)</a>
+<a class="sourceLine" id="cb150-15" title="15">  <span class="kw">return</span>(avgdiff)</a>
+<a class="sourceLine" id="cb150-16" title="16">  </a>
+<a class="sourceLine" id="cb150-17" title="17">})</a>
+<a class="sourceLine" id="cb150-18" title="18"></a>
+<a class="sourceLine" id="cb150-19" title="19">(<span class="kw">sum</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(obs)) <span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(res_list)<span class="op">+</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 0.05294705</code></pre>
+<p>Due to the random numbers, the actual answer might differ.</p>
+</div>
+<div id="question-2-6" class="section level3">
+<h3><span class="header-section-number">2.7.2</span> Question 2</h3>
+<div class="question">
+<p>Repeat the above exercise, but instead of the differences in mean, consider the differences in median <code>obs &lt;- median(smokers) - median(nonsmokers)</code>. What is the permutation based p-value?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1">N &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb152-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb152-3" title="3">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
+<a class="sourceLine" id="cb152-4" title="4">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
+<a class="sourceLine" id="cb152-5" title="5">obs &lt;-<span class="st"> </span><span class="kw">median</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(nonsmokers)</a>
+<a class="sourceLine" id="cb152-6" title="6"></a>
+<a class="sourceLine" id="cb152-7" title="7"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb152-8" title="8">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb152-9" title="9">  dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
+<a class="sourceLine" id="cb152-10" title="10">  shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>(dat)</a>
+<a class="sourceLine" id="cb152-11" title="11">  smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
+<a class="sourceLine" id="cb152-12" title="12">  nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
+<a class="sourceLine" id="cb152-13" title="13">  avgdiff &lt;-<span class="st"> </span><span class="kw">median</span>(smokersstar) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(nonsmokersstar)</a>
+<a class="sourceLine" id="cb152-14" title="14">  <span class="kw">return</span>(avgdiff)</a>
+<a class="sourceLine" id="cb152-15" title="15">  </a>
+<a class="sourceLine" id="cb152-16" title="16">})</a>
+<a class="sourceLine" id="cb152-17" title="17">(<span class="kw">sum</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(obs)) <span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(res_list)<span class="op">+</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 0.01798202</code></pre>
+<p>Due to the random numbers, the actual answer might differ.</p>
+</div>
+</div>
+<div id="ch-2.25-exercises" class="section level2">
+<h2><span class="header-section-number">2.8</span> Ch 2.25 Exercises</h2>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1">d =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;assoctest.csv&#39;</span>)</a></code></pre></div>
+<div id="question-1-7" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> Question 1</h3>
+<div class="question">
+<p>This dataframe refects the allele status (either AA/Aa or aa) and the case/control status for 72 individuals. Compute the Chi-square test for the association of genotype with case/control status (using the <code>table</code> function and the <code>chisq.test</code> function). Examine the table to see if it looks enriched for association by eye. What is the X-squared statistic?</p>
+</div>
+<div class="answer">
+
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1">tab &lt;-<span class="st"> </span><span class="kw">table</span>(d)</a>
+<a class="sourceLine" id="cb155-2" title="2"><span class="kw">chisq.test</span>(tab)<span class="op">$</span>statistic</a></code></pre></div>
+<pre><code>## X-squared 
+##  3.343653</code></pre>
+</div>
+<div id="question-2-7" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> Question 2</h3>
+<div class="question">
+<p>Compute Fisher’s exact test fisher.test for the same table. What is the p-value <strong>(two-tailed)</strong>?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">fisher.test</span>(tab)</a></code></pre></div>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  tab
+## p-value = 0.05194
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##  0.940442 8.493001
+## sample estimates:
+## odds ratio 
+##   2.758532</code></pre>
 
 </div>
 </div>

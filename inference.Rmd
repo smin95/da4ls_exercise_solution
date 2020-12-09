@@ -1045,3 +1045,302 @@ print(res_list) # sample size of 90 gives power of 80%
 ```
 
 Sample size of 90 gives power of 80%.
+
+## Ch 2.21 Exercises
+
+We have used Monte Carlo simulation throughout this chapter to demonstrate statistical concepts; namely, sampling from the population. We mostly applied this to demonstrate the
+statistical properties related to inference on differences in averages. Here, we will consider examples of how Monte Carlo simulations are used in practice.
+
+### Question 1
+
+<div class="question">
+Imagine you are William Sealy Gosset and have just mathematically derived the distribution of the t-statistic when the sample comes from a normal distribution. Unlike Gosset you have access to computers and can use them to check the results.
+
+Let's start by creating an outcome. Set the seed at 1, use `rnorm` to generate a random sample of size 5, $X_1,...,.X_5$ from a standard normal distribution, then compute the t-statistic $t = \sqrt{5}\bar{X}/s$ with $s$ the sample standard deviation. What value do you observe?
+
+</div>
+
+<div class="answer">
+
+```{r}
+set.seed(1)
+n <- 5
+sample1 <- rnorm(n)
+tstat <- sqrt(5)*mean(sample1)/sd(sample1)
+tstat
+```
+
+### Question 2
+
+<div class="question">
+You have just performed a Monte Carlo simulation using rnorm, a random number generator for normally distributed data. Gosset's mathematical calculation tells us that the t-statistic defined in the previous exercise, a random variable, follows a t-distribution with $N-1$ degrees of freedom. Monte Carlo simulations can be used to check the theory: we generate many outcomes and compare them to the
+theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in **Question 1**. What proportion is larger than 2?
+</div>
+
+<div class="answer">
+
+```{r}
+set.seed(1)
+samp <- rnorm(5)
+tstat <- sqrt(5)*samp/sd(samp)
+
+get_t <- function(n) {
+  samp <- rnorm(n)
+  tstat <- sqrt(n)*mean(samp)/sd(samp)
+  return(tstat)
+}
+set.seed(1)
+res_list <- replicate(1000, get_t(5))
+mean(res_list > 2)
+```
+
+### Question 3
+
+<div class="question">
+The answer to **Question 2** is very similar to the theoretical prediction: `1-pt(2,df=4)`. We can check several such quantiles using `qqplot` function.
+
+To obtain quantiles for the t-distribution we can generate percentiles from just above 0 to just below `1: B=100; ps = seq(1/(B+1), 1-1/(B+1), len = B)` and compute the quantiles with `qt(ps, df=4)`. Now we can use `qqplot` to compare these theoretical quantiles to those obtained in Monte Carlo simulation. Use Monte Carlo simulation developed for **Question 2** to corroborate that the t-statistic $t = \sqrt{N}\bar{X}/s$ follows a t-distribution for several values of N.
+
+For which sample sizes does the approximation best work?
+</div>
+
+<div class="answer">
+
+```{r}
+B <- 1000
+ps = seq(1/(B+1), 1-1/(B+1),len=B)
+
+get_t <- function(n) {
+  samp <- rnorm(n)
+  tstat <- sqrt(n)*mean(samp)/sd(samp)
+  return(tstat)
+}
+
+Ns <- c(5,10,50,100)
+mypar(2,2)
+set.seed(1)
+for (i in seq_along(Ns)) {
+  res_list <- replicate(1000, get_t(Ns[i]))
+  theory_t <- qt(ps,df=Ns[i]-1)
+  qqplot(theory_t, res_list, main = paste0('sample size= ',Ns[i]),
+         xlab = 'theory', ylab = 'sim')
+  abline(0,1)
+}
+```
+
+The approximations are spot on for all sample sizes (**answer choice C**). 
+
+### Question 4
+
+<div class="question">
+Use Monte Carlo simulation to corroborate that the t-statistic comparing two means and obtained with normally distributed (mean 0 and sd) data follows a t-distribution. In this case we will use the `t.test` function with `var.equal=TRUE`. With this argument the degrees of freedom will be `df=2*N-2` with `N` the sample size. For which sample sizes does the approximation best work?
+</div>
+
+<div class="answer">
+
+```{r}
+ttestgenerator <- function(n) {
+  cases <- rnorm(n)
+  controls <- rnorm(n)
+  tstat <- t.test(cases,controls)$statistic[[1]]
+  return(tstat)
+}
+
+Ns <- c(5,10,50,100)
+mypar(2,2)
+set.seed(1)
+for (i in seq_along(Ns)) {
+  res_list <- replicate(1000, ttestgenerator(Ns[i]))
+  theory_t <- qt(ps,df=2*Ns[i]-2)
+  qqplot(theory_t, res_list, main = paste0('sample size= ',Ns[i]),
+         xlab = 'theory', ylab = 'sim')
+  abline(0,1)
+}
+```
+
+The approximations are spot on for all sample sizes (**answer choice C**).
+
+### Question 5
+
+<div class="question">
+Is the following statement true or false? If instead of generating the sample with `X = rnorm(15)`, we generate it with binary data (either positive or negative 1 with probability 0.5) `X = sample(c(-1,1),15,replace = TRUE)` then the t-statistic 
+`tstat <- sqrt(15) * mean(X) / sd(X)`
+is approximated by a t-distribution with 14 degrees of freedom. 
+
+</div>
+
+<div class="answer">
+
+```{r}
+set.seed(1)
+res_list <- replicate(1000, {
+  X <- sample(c(-1,1),15,replace = T)
+  tstat <- sqrt(15) * mean(X)/sd(X)
+  return(tstat)
+})
+
+ps <- seq(1/(B+1), 1-1/(B+1),len=B)
+theory_t <- qt(ps,df=14)
+qqplot(res_list, theory_t)
+```
+
+**False**. Instead, it is approximated by binomial distribution because the data are binary (only two values).
+
+### Question 6
+
+<div class="question">
+Is the following statement true or false? If instead of generating the sample with `X = rnorm(N)` with `N = 1000`, we generate it with binary data  `X = sample(c(-1,1),15,replace = TRUE)` then the t-statistic 
+`tstat <- sqrt(15) * mean(X) / sd(X)`
+is approximated by a t-distribution with 999 degrees of freedom. 
+</div>
+
+<div class="answer">
+
+```{r}
+set.seed(1)
+res_list <- replicate(1000, {
+  X <- sample(c(-1,1),1000,replace = T)
+  tstat <- sqrt(1000) * mean(X)/sd(X)
+  return(tstat)
+})
+B<-1000
+ps <- seq(1/(B+1), 1-1/(B+1),len=B)
+theory_t <- qt(ps,df=999)
+qqplot(res_list, theory_t)
+abline(0,1)
+```
+
+### Question 7
+
+<div class="question">
+We can derive approximation of the distribution of the sample average or the t-statistic theoretically. However, suppose we are interested in the distribution of a statistic for which a theoretical approximation is not immediately obvious.
+
+Consider the sample median as an example. Use a Monte Carlo to determine which of the following best approximates the median of a sample taken from normally distributed population with mean 0 and standard deviation 1.
+</div>
+
+<div class="answer">
+
+The answer is **A: Just like for the average, the sample median is approximately normal with mean 0 and SD $1/\sqrt{N}$.**
+
+## Ch 2.23 Exercises
+
+```{r}
+babies <- read.table("babies.txt", header=TRUE)
+bwt.nonsmoke <- filter(babies, smoke==0) %>% select(bwt) %>% unlist
+bwt.smoke <- filter(babies, smoke==1) %>% select(bwt) %>% unlist
+```
+
+### Question 1
+
+<div class="question">
+We will generate the following random variable based on a sample size of 10 and observe the following difference:
+
+```{r}
+N=10
+set.seed(1)
+nonsmokers <- sample(bwt.nonsmoke , N)
+smokers <- sample(bwt.smoke , N)
+obs <- mean(smokers) - mean(nonsmokers)
+```
+
+The question is whether this observed difference is statistically significant. We do not want to rely on the assumptions needed for the normal or t-distribution approximations to hold, so instead we will use permutations. We will reshuffle the data and recompute the mean. We can create one permuted sample with the following code:
+
+```{r}
+dat <- c(smokers,nonsmokers)
+shuffle <- sample( dat )
+smokersstar <- shuffle[1:N]
+nonsmokersstar <- shuffle[(N+1):(2*N)]
+mean(smokersstar)-mean(nonsmokersstar)
+```
+
+The last value is one observation from the null distribution we will construct. Set the
+seed at 1, and then repeat the permutation 1,000 times to create a null distribution. What
+is the permutation derived p-value for our observation?
+
+</div>
+
+<div class="answer">
+
+```{r}
+N <- 10
+
+set.seed(1)
+nonsmokers <- sample(bwt.nonsmoke,N)
+smokers <- sample(bwt.smoke,N)
+obs <- mean(smokers) - mean(nonsmokers)
+
+set.seed(1)
+res_list <- replicate(1000, {
+  dat <- c(smokers,nonsmokers)
+  shuffle <- sample(dat)
+  smokersstar <- shuffle[1:N]
+  nonsmokersstar <- shuffle[(N+1):(2*N)]
+  avgdiff <- mean(smokersstar) - mean(nonsmokersstar)
+  return(avgdiff)
+  
+})
+
+(sum(abs(res_list) > abs(obs)) +1)/(length(res_list)+1)
+```
+
+Due to the random numbers, the actual answer might differ. 
+
+### Question 2
+
+<div class="question">
+Repeat the above exercise, but instead of the differences in mean, consider the differences in median `obs <- median(smokers) - median(nonsmokers)`. What is the permutation based p-value?
+</div>
+
+<div class="answer">
+
+```{r}
+N <- 10
+set.seed(1)
+nonsmokers <- sample(bwt.nonsmoke,N)
+smokers <- sample(bwt.smoke,N)
+obs <- median(smokers) - median(nonsmokers)
+
+set.seed(1)
+res_list <- replicate(1000, {
+  dat <- c(smokers,nonsmokers)
+  shuffle <- sample(dat)
+  smokersstar <- shuffle[1:N]
+  nonsmokersstar <- shuffle[(N+1):(2*N)]
+  avgdiff <- median(smokersstar) - median(nonsmokersstar)
+  return(avgdiff)
+  
+})
+(sum(abs(res_list) > abs(obs)) +1)/(length(res_list)+1)
+```
+
+Due to the random numbers, the actual answer might differ.
+
+## Ch 2.25 Exercises
+
+```{r}
+d = read.csv('assoctest.csv')
+```
+
+### Question 1
+
+<div class="question">
+This dataframe refects the allele status (either AA/Aa or aa) and the case/control status for 72 individuals. Compute the Chi-square test for the association of genotype with case/control status (using the `table` function and the `chisq.test` function). Examine the table to see if it looks enriched for association by eye. What is the X-squared statistic?
+</div>
+
+<div class="answer">
+```{r}
+tab <- table(d)
+chisq.test(tab)$statistic
+```
+
+### Question 2
+
+<div class="question">
+Compute Fisher's exact test fisher.test for the same table. What is the p-value **(two-tailed)**?
+</div>
+
+<div class="answer">
+
+```{r}
+fisher.test(tab)
+```
