@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">DA4LS with R: Exercise Solutions</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
@@ -141,8 +141,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.2" data-path="inference.html"><a href="inference.html#question-2"><i class="fa fa-check"></i><b>2.1.2</b> Question 2</a></li>
 <li class="chapter" data-level="2.1.3" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i><b>2.1.3</b> Question 3</a></li>
 <li class="chapter" data-level="2.1.4" data-path="inference.html"><a href="inference.html#question-4"><i class="fa fa-check"></i><b>2.1.4</b> Question 4</a></li>
+<li class="chapter" data-level="2.1.5" data-path="inference.html"><a href="inference.html#question-5"><i class="fa fa-check"></i><b>2.1.5</b> Question 5</a></li>
+<li class="chapter" data-level="2.1.6" data-path="inference.html"><a href="inference.html#question-6"><i class="fa fa-check"></i><b>2.1.6</b> Question 6</a></li>
+<li class="chapter" data-level="2.1.7" data-path="inference.html"><a href="inference.html#question-7"><i class="fa fa-check"></i><b>2.1.7</b> Question 7</a></li>
+<li class="chapter" data-level="2.1.8" data-path="inference.html"><a href="inference.html#question-8"><i class="fa fa-check"></i><b>2.1.8</b> Question 8</a></li>
+<li class="chapter" data-level="2.1.9" data-path="inference.html"><a href="inference.html#question-9"><i class="fa fa-check"></i><b>2.1.9</b> Question 9</a></li>
+<li class="chapter" data-level="2.1.10" data-path="inference.html"><a href="inference.html#question-10"><i class="fa fa-check"></i><b>2.1.10</b> Question 10</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="inference.html"><a href="inference.html#question-5"><i class="fa fa-check"></i><b>2.2</b> Question 5</a></li>
+<li class="chapter" data-level="2.2" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i><b>2.2</b> 2.9 Exercises</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="inference.html"><a href="inference.html#question-1-1"><i class="fa fa-check"></i><b>2.2.1</b> Question 1</a></li>
+<li class="chapter" data-level="2.2.2" data-path="inference.html"><a href="inference.html#question-2-1"><i class="fa fa-check"></i><b>2.2.2</b> Question 2</a></li>
+<li class="chapter" data-level="2.2.3" data-path="inference.html"><a href="inference.html#question-3-1"><i class="fa fa-check"></i><b>2.2.3</b> Question 3</a></li>
+<li class="chapter" data-level="2.2.4" data-path="inference.html"><a href="inference.html#question-4-1"><i class="fa fa-check"></i><b>2.2.4</b> Question 4</a></li>
+<li class="chapter" data-level="2.2.5" data-path="inference.html"><a href="inference.html#question-5-1"><i class="fa fa-check"></i><b>2.2.5</b> Question 5</a></li>
+<li class="chapter" data-level="2.2.6" data-path="inference.html"><a href="inference.html#question-6-1"><i class="fa fa-check"></i><b>2.2.6</b> Question 6</a></li>
+<li class="chapter" data-level="2.2.7" data-path="inference.html"><a href="inference.html#question-7-1"><i class="fa fa-check"></i><b>2.2.7</b> Question 7</a></li>
+<li class="chapter" data-level="2.2.8" data-path="inference.html"><a href="inference.html#question-8-1"><i class="fa fa-check"></i><b>2.2.8</b> Question 8</a></li>
+<li class="chapter" data-level="2.2.9" data-path="inference.html"><a href="inference.html#question-9-1"><i class="fa fa-check"></i><b>2.2.9</b> Question 9</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -166,7 +182,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="inference" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Inference</h1>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse) <span class="co">#also uploads  dplyr</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse) <span class="co">#also uploads  dplyr</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
 <div id="exercises" class="section level2">
 <h2><span class="header-section-number">2.1</span> 2.7 Exercises</h2>
 <p>If you have not downloaded the data before,</p>
@@ -175,12 +192,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
 <a class="sourceLine" id="cb2-4" title="4">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">read.csv</span>(url))</a></code></pre></div>
 <p>Or if you already have downloaded the data, then just upload it.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleMiceWeights.csv&#39;</span>)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>)</a>
 <a class="sourceLine" id="cb3-2" title="2">bodyweight &lt;-<span class="st"> </span><span class="kw">select</span>(dat, Bodyweight)</a>
 <a class="sourceLine" id="cb3-3" title="3">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(bodyweight)</a>
 <a class="sourceLine" id="cb3-4" title="4"></a>
 <a class="sourceLine" id="cb3-5" title="5"><span class="co"># or use pipe %&gt;%</span></a>
-<a class="sourceLine" id="cb3-6" title="6">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleMiceWeights.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb3-6" title="6">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a></code></pre></div>
 <p>Check out what <code>unlist</code> does by typing <code>?unlist</code> in the command. The second method is more concise because of the pipe <code>%&gt;%</code>, which allows multiple lines of commands to be in one continuous line.</p>
 <div id="question-1" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Question 1</h3>
@@ -191,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">mean</span>(x)</a></code></pre></div>
-<pre><code>## [1] 25.32375</code></pre>
+<pre><code>## [1] 23.89338</code></pre>
 </div>
 <div id="question-2" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Question 2</h3>
@@ -205,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb6-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
 <a class="sourceLine" id="cb6-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
 <a class="sourceLine" id="cb6-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
-<pre><code>## [1] 0.92025</code></pre>
+<pre><code>## [1] 0.2706222</code></pre>
 </div>
 <div id="question-3" class="section level3">
 <h3><span class="header-section-number">2.1.3</span> Question 3</h3>
@@ -219,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb8-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
 <a class="sourceLine" id="cb8-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
 <a class="sourceLine" id="cb8-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
-<pre><code>## [1] 0.05025</code></pre>
+<pre><code>## [1] 1.433378</code></pre>
 </div>
 <div id="question-4" class="section level3">
 <h3><span class="header-section-number">2.1.4</span> Question 4</h3>
@@ -231,20 +248,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># question 2</span></a>
 <a class="sourceLine" id="cb10-2" title="2">a &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb10-3" title="3">a</a></code></pre></div>
-<pre><code>##  Bodyweight7  Bodyweight9 Bodyweight13 Bodyweight20  Bodyweight5 
-##        28.40        22.51        25.71        30.92        23.68</code></pre>
+<pre><code>##  Bodyweight60  Bodyweight84 Bodyweight128 Bodyweight202 
+##         21.51         28.14         24.04         23.45 
+##  Bodyweight45 
+##         23.68</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set.seed</span>(<span class="dv">5</span>) <span class="co"># question 3</span></a>
 <a class="sourceLine" id="cb12-2" title="2">b &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb12-3" title="3">b</a></code></pre></div>
-<pre><code>##  Bodyweight5 Bodyweight16 Bodyweight21  Bodyweight6  Bodyweight3 
-##        23.68        25.34        34.02        19.79        24.04</code></pre>
+<pre><code>##  Bodyweight46 Bodyweight154 Bodyweight205  Bodyweight64 
+##         21.86         20.30         22.95         21.92 
+##  Bodyweight24 
+##         25.27</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">identical</span>(a,b) <span class="co"># these two samples are not identical</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Notice that samples <code>a</code> and <code>b</code> differ. Since the seeds were different (<code>1</code> vs <code>5</code>), different random numbers were generated. Therefore, the answer is C: Because the average of the samples is a random variable.</p>
 </div>
-</div>
-<div id="question-5" class="section level2">
-<h2><span class="header-section-number">2.2</span> Question 5</h2>
+<div id="question-5" class="section level3">
+<h3><span class="header-section-number">2.1.5</span> Question 5</h3>
 <div class="question">
 <p>Set the seed at 1, then using a for-loop take a random sample of 5 mice in 1,000 times. Save these averages. What percent of these 1,000 averages are more than 1 gram away from the average of <code>x</code>?</p>
 </div>
@@ -262,8 +282,236 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb16-9" title="9"></a>
 <a class="sourceLine" id="cb16-10" title="10"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.498</code></pre>
-<p>To make a for loop work in R, an empty vector needs to be created first. This can be achieved with the function <code>vector</code>. In this example, the empty vector is <code>res</code> (short for result). In the for loop, each average from one repetition gets stored in res.</p>
+<p>To make a for loop work in R, an empty vector needs to be created first. This can be achieved with the function <code>vector</code>. In this example, the empty vector is <code>res</code> (short for result). In the for loop, each average (<code>avg_sample</code>) from one repetition gets stored in <code>res</code>.</p>
+</div>
+<div id="question-6" class="section level3">
+<h3><span class="header-section-number">2.1.6</span> Question 6</h3>
+<div class="question">
+<p>We are now going to increase the number of times we redo the sample from 1,000 to 10,000. Set the seed at 1, then using a for-loop take a random sample of 5 mice 10,000 times. Save these averages. What percent of these 10,000 averages are more than 1 gram away from the average of <code>x</code>?</p>
+</div>
+<div class="answer">
 
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb18-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb18-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb18-5" title="5">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb18-6" title="6">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb18-7" title="7">}</a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 0.4976</code></pre>
+</div>
+<div id="question-7" class="section level3">
+<h3><span class="header-section-number">2.1.7</span> Question 7</h3>
+<div class="question">
+<p>Note that the answers to 5 and 6 barely changed. This is expected. The way we think about the random value distributions is as the distribution of the list of values obtained if we repeated the experiment an infinite number of times. On a computer, we can’t perform an infinite number of iterations so instead, for our examples, we consider 1,000 to be large enough, thus 10,000 is as well. Now if instead we change the sample size, then we change the random variable and thus its distribution.</p>
+<p>Set the seed at 1, then using a for-loop take a random sample of 50 mice 1,000 times. Save these averages. What percent of these 1,000 averages are more than 1 gram away from the average of <code>x</code>?</p>
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb20-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb20-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb20-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb20-5" title="5">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">50</span>))</a>
+<a class="sourceLine" id="cb20-6" title="6">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb20-7" title="7">}</a>
+<a class="sourceLine" id="cb20-8" title="8"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] 0.019</code></pre>
+</div>
+<div id="question-8" class="section level3">
+<h3><span class="header-section-number">2.1.8</span> Question 8</h3>
+<div class="question">
+<p>Use a histogram to “look” at the distribution of averages we get with a sample size of 5 and sample size of 50. How would you say they differ?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="co"># sample size = 5</span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb22-3" title="3">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb22-4" title="4">res5 &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb22-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb22-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb22-7" title="7">  res5[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb22-8" title="8">}</a>
+<a class="sourceLine" id="cb22-9" title="9"><span class="kw">sd</span>(res5) <span class="co"># standard deviation = spread of the histogram</span></a></code></pre></div>
+<pre><code>## [1] 1.52445</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># sample size = 50</span></a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb24-3" title="3">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb24-4" title="4">res50 &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb24-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb24-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">50</span>))</a>
+<a class="sourceLine" id="cb24-7" title="7">  res50[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb24-8" title="8">}</a>
+<a class="sourceLine" id="cb24-9" title="9"><span class="kw">sd</span>(res50) <span class="co"># standard deviation = spread of the histogram</span></a></code></pre></div>
+<pre><code>## [1] 0.4260116</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># plot histograms</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="kw">hist</span>(res5)</a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="kw">hist</span>(res50)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><code>mypar</code> is a function from the package <code>rafalib</code>. It helps to align multiple plots in a single plot. <code>mypar(1,1)</code> contains one panel only, <code>mypar(2,1)</code> contains 2 rows of panels and 1 column, <code>mypar(1,2)</code> contains 1 row of panels and 2 columns, etc. Type <code>?mypar</code> for more information. <code>hist</code> plots a histogram.</p>
+<p>The answer is B: They both look normal, but with a sample size of 50 the spread is smaller.</p>
+</div>
+<div id="question-9" class="section level3">
+<h3><span class="header-section-number">2.1.9</span> Question 9</h3>
+<div class="question">
+<p>For the last set of averages, the ones obtained from a sample size of 50, what percent are between 23 and 25?</p>
+</div>
+<div class="answer">
+
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">mean</span>((res50 <span class="op">&gt;=</span><span class="dv">23</span>) <span class="op">&amp;</span><span class="st"> </span>(res50 <span class="op">&lt;=</span><span class="st"> </span><span class="dv">25</span>))</a></code></pre></div>
+<pre><code>## [1] 0.976</code></pre>
+</div>
+<div id="question-10" class="section level3">
+<h3><span class="header-section-number">2.1.10</span> Question 10</h3>
+<div class="question">
+<p>Now ask the same question of a normal distribution with average 23.9 and standard deviation 0.43.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">pnorm</span>(<span class="dv">25</span>,<span class="fl">23.9</span>,<span class="fl">0.43</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">23</span>,<span class="fl">23.9</span>,<span class="fl">0.43</span>)</a></code></pre></div>
+<pre><code>## [1] 0.9765648</code></pre>
+<p>The answers to 9 and 10 were very similar. This is because we can approximate the distribution of the sample average with a normal distribution. We will learn more about the reason for this next.</p>
+</div>
+</div>
+<div id="exercises-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> 2.9 Exercises</h2>
+<p>If you have not downloaded the data before:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
+<a class="sourceLine" id="cb31-2" title="2">filename &lt;-<span class="st"> &quot;mice_pheno.csv&quot;</span></a>
+<a class="sourceLine" id="cb31-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
+<a class="sourceLine" id="cb31-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a>
+<a class="sourceLine" id="cb31-5" title="5">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(dat)</a></code></pre></div>
+<p>If you have the data already in your directory:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">raw_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;mice_pheno.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb32-2" title="2">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(raw_data)</a></code></pre></div>
+<div id="question-1-1" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Question 1</h3>
+<div class="question">
+<p>Use <code>dplyr</code> to create a vector x with the body weight of all males on the control (chow) diet. What is this population’s average?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">x &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="kw">mean</span>(x)</a></code></pre></div>
+<pre><code>## [1] 30.96381</code></pre>
+<p>Throughout the book, I will be using <code>%&gt;%</code> for brevity. If you don’t understand it, please check out Chapter 18 of <a href="https://r4ds.had.co.nz/pipes.html">*R for Data Science</a>.</p>
+</div>
+<div id="question-2-1" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Question 2</h3>
+<div class="question">
+<p>Now use the <code>rafalib</code> package and use the <code>popsd</code> function to compute the population standard deviation.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">popsd</span>(x)</a></code></pre></div>
+<pre><code>## [1] 4.420501</code></pre>
+</div>
+<div id="question-3-1" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Question 3</h3>
+<div class="question">
+<p>Set the seed at 1. Take a random sample X of size 25 from x. What is the sample average?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb37-2" title="2">samp_x &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">25</span>) <span class="co"># sample of x</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="kw">mean</span>(samp_x)</a></code></pre></div>
+<pre><code>## [1] 32.0956</code></pre>
+</div>
+<div id="question-4-1" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Question 4</h3>
+<div class="question">
+<p>Use <code>dplyr</code> to create a vector <code>y</code> with the body weight of all males on the high fat (hf) diet. What is this population’s average?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb39-3" title="3"><span class="kw">mean</span>(y)</a></code></pre></div>
+<pre><code>## [1] 34.84793</code></pre>
+</div>
+<div id="question-5-1" class="section level3">
+<h3><span class="header-section-number">2.2.5</span> Question 5</h3>
+<div class="question">
+<p>Now use the <code>rafalib</code> package and use the <code>popsd</code> function to compute the population standard deviation.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">popsd</span>(y)</a></code></pre></div>
+<pre><code>## [1] 5.574609</code></pre>
+</div>
+<div id="question-6-1" class="section level3">
+<h3><span class="header-section-number">2.2.6</span> Question 6</h3>
+<div class="question">
+<p>Set the seed at 1. Take a random sample Y of size 25 from y. What is the sample average?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb43-2" title="2">samp_y &lt;-<span class="st"> </span><span class="kw">sample</span>(y,<span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="kw">mean</span>(samp_y)</a></code></pre></div>
+<pre><code>## [1] 34.768</code></pre>
+</div>
+<div id="question-7-1" class="section level3">
+<h3><span class="header-section-number">2.2.7</span> Question 7</h3>
+<div class="question">
+<p>What is the difference in absolute value between <span class="math inline">\(\bar{y}-\bar{x}\)</span> and <span class="math inline">\(\bar{Y}-\bar{X}\)</span>?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">pop_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x)</a>
+<a class="sourceLine" id="cb45-2" title="2">sample_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(samp_y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(samp_x)</a>
+<a class="sourceLine" id="cb45-3" title="3"><span class="kw">abs</span>(sample_diff <span class="op">-</span><span class="st"> </span>pop_diff)</a></code></pre></div>
+<pre><code>## [1] 1.211716</code></pre>
+</div>
+<div id="question-8-1" class="section level3">
+<h3><span class="header-section-number">2.2.8</span> Question 8</h3>
+<div class="question">
+<p>Repeat the above for females. Make sure to set the seed to 1 before each <code>sample</code> call. What is the difference in absolute value between <span class="math inline">\(\bar{y}-\bar{x}\)</span> and <span class="math inline">\(\bar{Y}-\bar{X}\)</span>?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">chow_f_pop &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="co"># x</span></a>
+<a class="sourceLine" id="cb47-3" title="3">hf_f_pop &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-4" title="4"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="co"># y</span></a>
+<a class="sourceLine" id="cb47-5" title="5"></a>
+<a class="sourceLine" id="cb47-6" title="6"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb47-7" title="7">sample_chow_f_pop &lt;-<span class="st"> </span><span class="kw">sample</span>(chow_f_pop, <span class="dv">25</span>) <span class="co"># X</span></a>
+<a class="sourceLine" id="cb47-8" title="8">sample_hf_f_pop &lt;-<span class="st"> </span><span class="kw">sample</span>(hf_f_pop,<span class="dv">25</span>) <span class="co"># Y</span></a>
+<a class="sourceLine" id="cb47-9" title="9"></a>
+<a class="sourceLine" id="cb47-10" title="10">pop_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(hf_f_pop) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(chow_f_pop) <span class="co"># y - x</span></a>
+<a class="sourceLine" id="cb47-11" title="11">sample_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(sample_hf_f_pop) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(sample_chow_f_pop) <span class="co"># Y - X</span></a>
+<a class="sourceLine" id="cb47-12" title="12"></a>
+<a class="sourceLine" id="cb47-13" title="13"><span class="kw">abs</span>(sample_diff <span class="op">-</span><span class="st"> </span>pop_diff)</a></code></pre></div>
+<pre><code>## [1] 0.07888278</code></pre>
+</div>
+<div id="question-9-1" class="section level3">
+<h3><span class="header-section-number">2.2.9</span> Question 9</h3>
+<div class="question">
+<p>For the females, our sample estimates were closer to the population difference than with males. What is a possible explanation for this?</p>
+</div>
+<div class="answer">
+
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">popsd</span>(hf_f_pop), <span class="kw">popsd</span>(chow_f_pop), <span class="kw">popsd</span>(y), <span class="kw">popsd</span>(x))</a>
+<a class="sourceLine" id="cb49-2" title="2"><span class="kw">names</span>(ans) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hf female&#39;</span>, <span class="st">&#39;chow female&#39;</span>, <span class="st">&#39;hf male&#39;</span>, <span class="st">&#39;chow male&#39;</span>)</a>
+<a class="sourceLine" id="cb49-3" title="3">ans</a></code></pre></div>
+<pre><code>##   hf female chow female     hf male   chow male 
+##    5.069870    3.416438    5.574609    4.420501</code></pre>
+<p>The answer is A: The population variance of the females is smaller than that of the males; thus, the sample variable has less variability.</p>
+
+</div>
 </div>
 </div>
             </section>
@@ -322,6 +570,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
