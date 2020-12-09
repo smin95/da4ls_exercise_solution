@@ -1,0 +1,3 @@
+# Getting started
+
+Since this chapter does not deal with statistics, I have decided to skip this chapter altogether.

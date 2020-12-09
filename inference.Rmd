@@ -1,0 +1,23 @@
+---
+output: html_document
+chapter: Inference
+editor_options:
+  chunk_output_type: console
+---
+# Inference
+
+## 2.7 Exercises 
+
+```{r}
+dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
+filename <- "femaleControlsPopulation.csv"
+url <- paste0(dir, filename)
+x <- unlist(read.csv(url))
+```
+### Question 1
+
+<div class="question">
+What is the average of these weights?
+</div>
+
+<div class="answer">
