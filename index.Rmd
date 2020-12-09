@@ -12,4 +12,7 @@ site: bookdown::bookdown_site
 This book contains **unofficial exercise solutions** for the book [Data Analysis for the Life Sciences with R](https://leanpub.com/dataanalysisforthelifesciences) by Rafael A. Irizarry and Michael I. Love. The PDF copy of the book is available for free and the physical copy is available in [Amazon](https://www.amazon.com/Data-Analysis-Life-Sciences-R/dp/1498775675/ref=sr_1_2?dchild=1&keywords=Data+Analysis+for+the+Life+Sciences&qid=1607484629&sr=8-2).
 
 ## Acknowledgment {-}
-I would like to thank Rafael A. Irizarry and Michael I. Love for writing this wonderful book. 
+I would like to thank Rafael A. Irizarry and Michael I. Love for writing this wonderful book, and my friends who encouraged me to undertake this project. 
+
+## Frequently Asked Questions {-}
+You can read the FAQs in [the github page](https://github.com/smin95/da4ls_exercise_solution).

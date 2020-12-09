@@ -5,11 +5,14 @@ editor_options:
   chunk_output_type: console
 ---
 # Inference
+Note: **bolded** parts in the questions denote modified wordings for clarity and brevity.
+
 First, upload necessary package(s).
 ```{r}
 library(tidyverse) #also uploads  dplyr
 library(rafalib) # important for plotting with base R
 ```
+ 
 ## Ch 2.7 Exercises
 
 If you have not downloaded the data before,
@@ -612,7 +615,7 @@ for (i in seq_along(df_list)) {
 
 The answer is **C: The t-distribution has larger tails up until 30 degrees of freedom, at which point it is practically the same as the normal distribution.**
 
-## Ch. 2.13 Exercises
+## Ch 2.13 Exercises
 
 ```{r}
 dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
@@ -633,11 +636,12 @@ We want to roll `n` dice 10,000 times and keep these proportions. This random va
 times `z` was larger than 2 in absolute value (CLT says it should be about 0.05).
 </div>
 
+<div class="answer">
 ```{r}
 n <- 100
 B <- 10000
 p <- 1/6
-mean(x==6)
+
 set.seed(1)
 res_list <- replicate(B, {
   x = sample(1:6,n, replace = T)
@@ -646,4 +650,276 @@ res_list <- replicate(B, {
 })
 mean(abs(res_list) > 2)
 ```
+
+### Question 2
+<div class="question">
+For the last simulation you can make a qqplot to confirm the normal approximation. Now, the CLT is an asymptotic result, meaning it is closer and closer to being a perfect approximation as the sample size increases. In practice, however, we need to decide if it is appropriate for actual sample sizes. Is 10 enough? 15? 30?
+
+In the example used in exercise 1, the original data is binary (either 6 or not). In this case, the success probability also affects the appropriateness of the CLT. With very low probabilities, we need larger sample sizes for the CLT to "kick in".
+
+Run the simulation from exercise 1, but for different values of `p` and `n`. For which of the following is the normal approximation best?
+</div>
+
 <div class="answer">
+```{r}
+Ps <- c(0.01,0.5)
+Ns <- c(5,30,100)
+set.seed(1)
+question2 <- function(n,p, B = 10000) {
+  res_list <- replicate(B, {
+    sides <- 1/p
+    x = sample(1:sides, n, replace = T)
+    z <- (mean(x==1)-p) / sqrt(p*(1-p)/n)
+    return(z)
+  })
+}
+mypar(2,2)
+qqnorm(question2(5,0.5), main = 'n=5, p=0.5')
+qqnorm(question2(30,0.5), main = 'n=30, p=0.5') # the answer is B
+qqnorm(question2(30,0.01), main = 'n=30, p=0.01')
+qqnorm(question2(100,0.01), main = 'n=100, p=0.01')
+
+mypar(1,2)
+hist(question2(30,0.5), main = 'n=30, p=0.5')
+hist(question2(100,0.01), main = 'n=100, p=0.01')
+
+```
+
+### Question 3
+<div class="question">
+As we have already seen, the CLT also applies to averages of quantitative data. A major difference with binary data, for which we know the variance is p(1-p), is that with quantitative data we need to estimate the population standard
+deviation.
+
+In several previous exercises we have illustrated statistical concepts with the unrealistic situation of having access to the entire population. In practice, we do not have access to
+entire populations. Instead, we obtain one random sample and need to reach conclusions analyzing that data. dat is an example of a typical simple dataset representing just one
+sample. We have 12 measurements for each of two populations:
+
+```{r}
+X <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
+Y <- filter(dat, Diet=="hf") %>% select(Bodyweight) %>% unlist
+```
+
+We think of X as a random sample from the population of all mice in the control diet and Y as a random sample from the population of all mice in the high fat diet.
+Define the parameter $\mu_x$ as the average of the control population. We estimate this parameter with the sample average $\bar{X}$. What is the sample average?
+</div>
+
+<div class="answer">
+
+```{r}
+mean(X)
+```
+
+### Question 4
+<div class="question">
+We don't know $\mu_x$, but want to use $\bar{X}$ to understand $\mu_x$. Which of the following uses CLT to understand how well $\bar{X}$ approximates $\mu_x$?
+</div>
+
+<div class="answer">
+
+The answer is **D: $\bar{X}$ follows a normal distribution with mean $\mu_x$ and standard deviation of $\frac{\sigma_x}{\sqrt{12}}$ where $\sigma_x$ is the population of standard deviation.**
+
+### Question 5
+<div class="question">
+The result above tells us the distribution of the following random variable $Z = \sqrt{12}\frac{\bar{X}-\mu_x}{\sigma_x}$. What does the CLT tell us is the mean of $Z$ (you don't need code)?
+</div>
+
+<div class="answer">
+
+The answer is **0**. Z refers to t-statistic (something that the book does not explicitly highlight), which is not raw data. Instead, we use raw data and then compute t-statistic. This is the value that is used to compute p-value based on the normal distribution. In the case of z-score or t-statistic, it is 0 at the mean of the sample due to its mathematical definition.
+
+### Question 6
+<div class="question">
+The result of 4 and 5 tell us that we know the distribution of the difference between our estimate and what we want to estimate, but don't know. However, the equation involves the population standard deviation $\sigma_X$, which we don't know. Given what we discussed, what is your estimate of $\sigma_x$?
+</div>
+
+<div class="answer">
+
+```{r}
+sd(X)
+```
+
+### Question 7
+<div class="question">
+Use the CLT to approximate the probability that our estimate $\bar{X}$ is off by more than 2 grams from $\mu_x$.
+</div>
+
+<div class="answer">
+
+```{r}
+z_score <- 2/(sqrt(sd(X)^2/12))
+pnorm(-z_score) + 1- pnorm(z_score)
+```
+
+### Question 8
+<div class="question">
+Now we introduce the concept of a null hypothesis. We don't know $\mu_x$ nor $mu_y$. We want to quantify what the data say about the possibility that the diet has
+no effect: $\mu_x = \mu_y$. If we use CLT, then we approximate the distribution of $\bar{X}$ as normal with mean $mu_X$ and standard deviation of $\frac{\sigma_X}{\sqrt{M}}$ and the distribution of $\bar{Y}$ and standard deviation of $\frac{\sigma_y}{\sqrt{N}}$, with $M$ and $N$ as the sample sizes for $X$ and $Y$ respectively, in this case 12. This implies that the difference $\bar{Y} - \bar{X}$ has mean $0$. We described that the standard deviation of this statistic (the standard error) is $SE(\bar{Y} - \bar{X}) = \sqrt{\sigma_y^2/12 + \sigma_x^2/12}$ and that we estimate the population standard deviations $\sigma_x$ and $\sigma_y$ with the sample estimates. What is the estimate of $SE(\bar{Y} - \bar{X}) = \sqrt{\sigma_y^2/12 + \sigma_x^2/12}$?
+</div>
+
+<div class="answer">
+```{r}
+sqrt((sd(X)^2 + sd(Y)^2)/12)
+```
+
+### Question 9
+<div class="question">
+So now we can compute $\bar{Y}-\bar{X}$ as well as an estimate of this standard error and construct a t-statistic. What is this t-statistic?
+</div>
+
+```{r}
+(mean(Y) - mean(X))/ sqrt((sd(X)^2 + sd(Y)^2)/12)
+```
+
+### Question 10
+<div class="question">
+If we apply the CLT, what is the distribution of this t-statistic?
+</div>
+
+<div class="answer">
+
+The answer is **A: Normal with mean 0 and standard deviation 1**.
+
+### Question 11
+<div class="question">
+Now we are ready to compute a p-value using the CLT. What is the probability of observing a quantity as large as what we computed for **t-statistic in Question 9**, when the null distribution is true?
+</div>
+
+<div class="answer">
+
+```{r}
+tstat <- (mean(X) - mean(Y))/ sqrt((sd(X)^2 + sd(Y)^2)/12) # from question 9
+pnorm(tstat) + 1- pnorm(tstat)
+```
+
+### Question 12
+<div class="question">
+CLT provides an approximation for cases in which the sample size is large. In practice, we can't check the assumption because we only get to see 1 outcome (which you computed above). As a result, if this approximation is off, so is our p-value. As described earlier, there is another approach that does not require a large sample size, but rather that the distribution of the population is approximately normal. We don't get to see this distribution so it is again an assumption, although we can look at the distribution of the sample with `qqnorm(X)` and `qqnorm(Y)`. If we are willing to assume this, then it follows that the t-statistic follows t-
+distribution. What is the p-value under the t-distribution approximation? Hint: use the `t.test` function.
+</div>
+
+<div class="answer">
+
+```{r}
+mypar(1,2)
+qqnorm(X, main = 'Theoretical normal quantiles vs X')
+qqline(X)
+qqnorm(Y, main = 'Theoretical normal quantiles vs Y')
+qqline(Y)
+t.test(X,Y)
+```
+
+### Question 13
+<div class="question">
+With the CLT distribution, we obtained a p-value smaller than 0.05 and with the t-distribution, one that is larger. They can't both be right. What best describes the difference?
+</div>
+
+<div class="answer">
+
+The answer is **B: These are two different assumptions. The t-distribution accounts for the variability introduced by the estimation of the standard error and thus, under the null, large values are more probable under the null distribution.**
+
+## Ch 2.18 Exercises
+For these exercises we will load the babies dataset from `babies.txt`. We will use this data to review the concepts behind the p-values and then test confidence interval concepts.
+
+```{r}
+babies <- read.table("babies.txt", header=TRUE)
+```
+
+This is a large dataset (1,236 cases), and we will pretend that it contains the entire population in which we are interested. We will study the differences in birth weight between babies born to smoking and non-smoking mothers.
+First, let's split this into two birth weight datasets: one of birth weights to non-smoking mothers and the other of birth weights to smoking mothers.
+
+```{r}
+bwt.nonsmoke <- filter(babies, smoke==0) %>% select(bwt) %>% unlist
+bwt.smoke <- filter(babies, smoke==1) %>% select(bwt) %>% unlist
+```
+
+Now, we can look for the true population difference in means between smoking and non-smoking birth weights.
+
+```{r}
+library(rafalib)
+mean(bwt.nonsmoke)-mean(bwt.smoke)
+popsd(bwt.nonsmoke)
+popsd(bwt.smoke)
+```
+
+The population difference of mean birth weights is about 8.9 ounces. The standard deviations of the nonsmoking and smoking groups are about 17.4 and 18.1 ounces, respectively.
+
+As we did with the mouse weight data, this assessment interactively reviews inference concepts using simulations in R. We will treat the babies dataset as the full population
+and draw samples from it to simulate individual experiments. We will then ask whether somebody who only received the random samples would be able to draw correct conclusions
+about the population.
+
+We are interested in testing whether the birth weights of babies born to non-smoking mothers are significantly different from the birth weights of babies born to smoking mothers.
+
+### Question 1
+<div class="question">
+Set the seed at 1 and obtain two samples, each of size N = 25, from non-smoking mothers (dat.ns) and smoking mothers (dat.s). Compute the t-statistic (call it tval).
+</div>
+
+<div class="answer">
+
+```{r}
+N <- 25
+set.seed(1)
+dat.ns <- sample(bwt.nonsmoke,N)
+dat.s <- sample(bwt.smoke,N)
+tval <- (mean(dat.s) - mean(dat.ns)) / sqrt(var(dat.s)/N + var(dat.ns)/N)
+t.test(dat.s,dat.ns)$statistic[[1]]
+pt(tval, df = N*2-2)*2
+```
+
+### Question 2
+
+<div class="question">
+Recall that we summarize our data using a t-statistics because we know that in situations where the null hypothesis is true (what we mean when we say "under the null") and the sample size is relatively large, this t-value will have an approximate standard normal distribution. Because we know the distribution of the t-value under the null, we can quantitatively determine how unusual the observed t-value would be if the null hypothesis were true.
+
+The standard procedure is to examine the probability a t-statistic that actually does follow the null hypothesis would have larger absolute value than the absolute value of the t-value we just observed- this is called a two-sided test.
+
+We have computed these by taking one minus the area under the standard normal curve between `-abs(tval)` and `abs(tval)`. In R, we can do this by using the pnorm function, which computes the area under a normal curve from negative infinity up to the value given as its first argument. **What is the estimated p-value?**
+</div>
+
+<div class="answer">
+
+```{r}
+(pnorm(tval) + 1 - pnorm(-tval))
+```
+
+### Question 3
+
+<div class="question">
+Because of the symmetry of the standard normal distribution, there is a simpler way to calculate the probability that a t-value under the null could have a larger absolute value than `tval`. **Choose a simplified calculation from the four choices.**
+</div>
+
+<div class="answer">
+
+```{r}
+1 - 2*pnorm(-abs(tval)) 
+```
+
+### Question 4
+
+<div class="question">
+By reporting only p-values, many scientific publications provide an incomplete story of their findings. As we have mentioned, with very large sample sizes, scientifically insignificant differences between two groups can lead to small p-values. Confidence intervals are more informative as they include the estimate itself. Our estimate of the difference between babies of smokers and non-smokers: `mean(dat.s) - mean( dat.ns)`. If we use the CLT, what quantity would we add and subtract to this estimate to obtain a 99% confidence interval?
+</div>
+
+<div class="answer">
+
+```{r}
+mean(dat.s) - mean(dat.ns)
+Q <- qnorm(0.5 + 0.99/2)
+se <- sqrt(var(dat.ns)/N + var(dat.s)/N)
+c(-Q*se + mean(dat.s) - mean(dat.ns), mean(dat.s) - mean(dat.ns) + Q*se)
+```
+
+### Question 5
+
+<div class="question">
+If instead of CLT, we use the t-distribution approximation, what do we add and subtract (use `2*N-2` degrees of freedom)?
+</div>
+
+<div class="answer">
+
+```{r}
+Qt <- qt(0.5 + 0.99/2, df = N*2-2)
+se <- sqrt(var(dat.ns)/N + var(dat.s)/N)
+c(-Qt*se + mean(dat.s) - mean(dat.ns), mean(dat.s) - mean(dat.ns) + Qt*se)
+t.test(dat.s, dat.ns)
+```
