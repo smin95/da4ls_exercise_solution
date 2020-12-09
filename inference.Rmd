@@ -5,9 +5,10 @@ editor_options:
   chunk_output_type: console
 ---
 # Inference
-Note: **bolded** parts in the questions denote modified wordings for clarity and brevity.
+Note: **bolded** parts in the questions denote whereI have modified the wordings for clarity and brevity.
 
 First, upload necessary package(s).
+
 ```{r}
 library(tidyverse) #also uploads  dplyr
 library(rafalib) # important for plotting with base R
@@ -923,3 +924,124 @@ se <- sqrt(var(dat.ns)/N + var(dat.s)/N)
 c(-Qt*se + mean(dat.s) - mean(dat.ns), mean(dat.s) - mean(dat.ns) + Qt*se)
 t.test(dat.s, dat.ns)
 ```
+
+### Question 6
+
+<div class="question">
+Why are the values from 4 and 5 so similar?
+</div>
+
+<div class="answer">
+
+The answer is **C: `N` and thus the degrees of freedom is large enough to make the normal and t-distributions very similar.**
+
+### Question 7
+<div class="question">
+Which of the following sentences about a Type I error is **false**? 
+</div>
+
+<div class="answer">
+
+The answer is C: From the original data alone, you can tell whether you have made a Type I error.
+<div class="answer">
+
+### Question 8
+<div class="question">
+Set the seed at 1 and take a random sample of $N = 5$ measurements from each of the smoking and nonsmoking datasets. What is the p-value (use the `t-test` function)?
+</div>
+
+<div class="answer">
+
+```{r}
+N <- 5
+set.seed(1)
+ns_sample <- sample(bwt.nonsmoke, N)
+s_sample <- sample(bwt.smoke, N)
+t.test(ns_sample, s_sample)
+```
+
+### Question 9
+<div class="question">
+The p-value is larger than 0.05 so using the typical cut-off, we would not reject. This is a type II error **(false negative)**. Which of the following is not a way to decrease this type of error?
+</div>
+
+<div class="answer">
+
+The answer is **C: Find a population for which the null is not true.**
+
+### Question 10
+<div class="question">
+Set the seed at 1, then use the `replicate` function to repeat the code in Exercise 9 10,000 times. What proportion of the time do we reject at the 0.05 level?
+</div>
+
+<div class="answer">
+
+```{r}
+B <- 10000
+alpha <- 0.05
+set.seed(1)
+N <- 5
+res_list<- replicate(B, {
+  ns_sample <- sample(bwt.nonsmoke, N)
+  s_sample <- sample(bwt.smoke, N)
+  pval <- t.test(ns_sample, s_sample)$p.value
+  return(alpha > pval) # this returns logical (i.e., TRUE if pval is smaller than 0.05 = alpha), and stores in the vector res_list.
+})
+mean(res_list) 
+```
+
+### Question 11
+<div class="question">
+Note that, not surprisingly, the power is lower than 10%. Repeat the exercise above for sample sizes of 30, 60, 90 and 120. Which of these four gives you power of about 80%?
+</div>
+
+<div class="answer">
+
+```{r}
+pval_calc <- function(N) {
+  ns_sample <- sample(bwt.nonsmoke, N)
+  s_sample <- sample(bwt.smoke, N)
+  pval <- t.test(ns_sample, s_sample)$p.value
+  return(pval)
+}
+
+Ns <- c(30,60,90,120)
+B <- 10000
+alpha <- 0.05
+res_list <- vector('double',length(Ns))
+for (i in seq_along(Ns)) {
+  res_list[[i]] <- mean(replicate(B, pval_calc(Ns[[i]])) < alpha)
+}
+names(res_list) <- Ns
+print(res_list) # sample size of 60 gives power of 80%
+```
+
+Sample size of 60 gives power of 80%.
+
+### Question 12
+<div class="question">
+Repeat **Question 11**, but now require an $\alpha$ level of 0.01. Which of these four gives you power of 80%?
+</div>
+
+<div class="answer">
+
+```{r}
+pval_calc <- function(N) {
+  ns_sample <- sample(bwt.nonsmoke, N)
+  s_sample <- sample(bwt.smoke, N)
+  pval <- t.test(ns_sample, s_sample)$p.value
+  return(pval)
+}
+
+Ns <- c(30,60,90,120)
+B <- 10000
+alpha <- 0.01
+res_list <- vector('double',length(Ns))
+for (i in seq_along(Ns)) {
+  res_list[[i]] <- mean(replicate(B, pval_calc(Ns[[i]])) < alpha)
+}
+names(res_list) <- Ns
+print(res_list) # sample size of 90 gives power of 80%
+```
+
+Sample size of 90 gives power of 80%.
