@@ -530,40 +530,15 @@ so an approximation is used, which is fine for our purposes.</p>
 <a class="sourceLine" id="cb214-3" title="3"></a>
 <a class="sourceLine" id="cb214-4" title="4">y &lt;-<span class="st"> </span>chick <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Diet <span class="op">==</span><span class="st"> </span><span class="dv">4</span>) </a>
 <a class="sourceLine" id="cb214-5" title="5">y &lt;-<span class="st"> </span>y[,<span class="st">&#39;weight.4&#39;</span>]</a>
-<a class="sourceLine" id="cb214-6" title="6"><span class="kw">t.test</span>(x,y)</a></code></pre></div>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  x and y
-## t = -5.8393, df = 21.827, p-value = 7.32e-06
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -10.513134  -5.000755
-## sample estimates:
-## mean of x mean of y 
-##  56.68750  64.44444</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="kw">wilcox.test</span>(x,y) </a></code></pre></div>
+<a class="sourceLine" id="cb214-6" title="6"><span class="kw">t.test</span>(x,y)<span class="op">$</span>p.value</a></code></pre></div>
+<pre><code>## [1] 7.320259e-06</code></pre>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="kw">wilcox.test</span>(x,y)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(x, y): cannot compute exact p-
 ## value with ties</code></pre>
-<pre><code>## 
-##  Wilcoxon rank sum test with continuity correction
-## 
-## data:  x and y
-## W = 6, p-value = 0.0002012
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<pre><code>## [1] 0.0002011939</code></pre>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1">x_add &lt;-<span class="st"> </span><span class="kw">c</span>(x,<span class="dv">200</span>) <span class="co"># outlier added</span></a>
-<a class="sourceLine" id="cb219-2" title="2"><span class="kw">t.test</span>(x_add,y) <span class="co"># t-test after outlier</span></a></code></pre></div>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  x_add and y
-## t = 0.078944, df = 16.358, p-value = 0.938
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -17.37237  18.71878
-## sample estimates:
-## mean of x mean of y 
-##  65.11765  64.44444</code></pre>
+<a class="sourceLine" id="cb219-2" title="2"><span class="kw">t.test</span>(x_add,y)<span class="op">$</span>p.value <span class="co"># t-test after outlier</span></a></code></pre></div>
+<pre><code>## [1] 0.9380347</code></pre>
 </div>
 <div id="question-7-7" class="section level3 unnumbered">
 <h3>Question 7</h3>
@@ -610,31 +585,16 @@ so an approximation is used, which is fine for our purposes.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">10</span>)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(x, y + 10): cannot compute exact
 ## p-value with ties</code></pre>
-<pre><code>## 
-##  Wilcoxon rank sum test with continuity correction
-## 
-## data:  x and y + 10
-## W = 0, p-value = 5.032e-05
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">100</span>)</a></code></pre></div>
+<pre><code>## [1] 5.032073e-05</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">100</span>)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(x, y + 100): cannot compute exact
 ## p-value with ties</code></pre>
-<pre><code>## 
-##  Wilcoxon rank sum test with continuity correction
-## 
-## data:  x and y + 100
-## W = 0, p-value = 5.032e-05
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>))</a></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum test
-## 
-## data:  c(1, 2, 3) and c(4, 5, 6)
-## W = 0, p-value = 0.1
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<pre><code>## [1] 5.032073e-05</code></pre>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>))<span class="op">$</span>p.value</a></code></pre></div>
+<pre><code>## [1] 0.1</code></pre>
 </div>
 <div id="question-10-5" class="section level3 unnumbered">
 <h3>Question 10</h3>
@@ -644,13 +604,8 @@ so an approximation is used, which is fine for our purposes.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">400</span>,<span class="dv">500</span>,<span class="dv">600</span>))</a></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum test
-## 
-## data:  c(1, 2, 3) and c(400, 500, 600)
-## W = 0, p-value = 0.1
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">400</span>,<span class="dv">500</span>,<span class="dv">600</span>))<span class="op">$</span>p.value</a></code></pre></div>
+<pre><code>## [1] 0.1</code></pre>
 
 </div>
 </div>
