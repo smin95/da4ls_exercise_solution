@@ -250,38 +250,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 2</span> Inference</h1>
 <p>Note: I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. The exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse) <span class="co">#also uploads  dplyr</span></a></code></pre></div>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
-<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
-## v tibble  3.0.4     v dplyr   0.8.5
-## v tidyr   1.0.2     v stringr 1.4.0
-## v readr   1.3.1     v forcats 0.5.0</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 3.5.3</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
-<pre><code>## Warning: package &#39;rafalib&#39; was built under R version 3.5.2</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse) <span class="co">#also uploads  dplyr</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
 <div id="ch-2.7-exercises" class="section level2">
 <h2><span class="header-section-number">2.1</span> Ch 2.7 Exercises</h2>
 <p>If you have not downloaded the data before,</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
-<a class="sourceLine" id="cb14-2" title="2">filename &lt;-<span class="st"> &quot;femaleControlsPopulation.csv&quot;</span></a>
-<a class="sourceLine" id="cb14-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
-<a class="sourceLine" id="cb14-4" title="4">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">read.csv</span>(url))</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">filename &lt;-<span class="st"> &quot;femaleControlsPopulation.csv&quot;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
+<a class="sourceLine" id="cb2-4" title="4">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">read.csv</span>(url))</a></code></pre></div>
 <p>Or if you already have downloaded the data, then just upload it.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb15-2" title="2">bodyweight &lt;-<span class="st"> </span><span class="kw">select</span>(dat, Bodyweight)</a>
-<a class="sourceLine" id="cb15-3" title="3">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(bodyweight)</a>
-<a class="sourceLine" id="cb15-4" title="4"></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="co"># or use pipe %&gt;%</span></a>
-<a class="sourceLine" id="cb15-6" title="6">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">bodyweight &lt;-<span class="st"> </span><span class="kw">select</span>(dat, Bodyweight)</a>
+<a class="sourceLine" id="cb3-3" title="3">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(bodyweight)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co"># or use pipe %&gt;%</span></a>
+<a class="sourceLine" id="cb3-6" title="6">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a></code></pre></div>
 <p>Check out what <code>unlist</code> does by typing <code>?unlist</code> in the command. The second method is more concise because of the pipe <code>%&gt;%</code>, which allows multiple lines of commands to be in one continuous line.</p>
 <div id="question-1" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Question 1</h3>
@@ -291,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">mean</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">mean</span>(x)</a></code></pre></div>
 <pre><code>## [1] 23.89338</code></pre>
 </div>
 <div id="question-2" class="section level3">
@@ -302,10 +286,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb18-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
-<a class="sourceLine" id="cb18-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
-<a class="sourceLine" id="cb18-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
+<a class="sourceLine" id="cb6-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
 <pre><code>## [1] 0.2706222</code></pre>
 </div>
 <div id="question-3" class="section level3">
@@ -316,10 +300,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">set.seed</span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb20-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
-<a class="sourceLine" id="cb20-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">set.seed</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2">avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>)) <span class="co"># average of the sample of 5</span></a>
+<a class="sourceLine" id="cb8-3" title="3">avg_pop &lt;-<span class="st"> </span><span class="kw">mean</span>(x) <span class="co"># average of all values</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="kw">abs</span>(avg_sample <span class="op">-</span><span class="st"> </span>avg_pop) <span class="co"># absolute difference</span></a></code></pre></div>
 <pre><code>## [1] 1.433378</code></pre>
 </div>
 <div id="question-4" class="section level3">
@@ -329,21 +313,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># question 2</span></a>
-<a class="sourceLine" id="cb22-2" title="2">a &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb22-3" title="3">a</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># question 2</span></a>
+<a class="sourceLine" id="cb10-2" title="2">a &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb10-3" title="3">a</a></code></pre></div>
 <pre><code>##  Bodyweight60  Bodyweight84 Bodyweight128 Bodyweight202 
 ##         21.51         28.14         24.04         23.45 
 ##  Bodyweight45 
 ##         23.68</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">set.seed</span>(<span class="dv">5</span>) <span class="co"># question 3</span></a>
-<a class="sourceLine" id="cb24-2" title="2">b &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb24-3" title="3">b</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set.seed</span>(<span class="dv">5</span>) <span class="co"># question 3</span></a>
+<a class="sourceLine" id="cb12-2" title="2">b &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb12-3" title="3">b</a></code></pre></div>
 <pre><code>##  Bodyweight46 Bodyweight154 Bodyweight205  Bodyweight64 
 ##         21.86         20.30         22.95         21.92 
 ##  Bodyweight24 
 ##         25.27</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">identical</span>(a,b) <span class="co"># these two samples are not identical</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">identical</span>(a,b) <span class="co"># these two samples are not identical</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Notice that samples <code>a</code> and <code>b</code> differ. Since the seeds were different (<code>1</code> vs <code>5</code>), different random numbers were generated. Therefore, the answer is <strong>C: Because the average of the samples is a random variable.</strong></p>
 </div>
@@ -355,16 +339,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb28-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb28-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n) </a>
-<a class="sourceLine" id="cb28-4" title="4"></a>
-<a class="sourceLine" id="cb28-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
-<a class="sourceLine" id="cb28-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb28-7" title="7">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
-<a class="sourceLine" id="cb28-8" title="8">}</a>
-<a class="sourceLine" id="cb28-9" title="9"></a>
-<a class="sourceLine" id="cb28-10" title="10"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb16-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n) </a>
+<a class="sourceLine" id="cb16-4" title="4"></a>
+<a class="sourceLine" id="cb16-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb16-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb16-7" title="7">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb16-8" title="8">}</a>
+<a class="sourceLine" id="cb16-9" title="9"></a>
+<a class="sourceLine" id="cb16-10" title="10"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.498</code></pre>
 <p>To make a for loop work in R, an empty vector needs to be created first. This can be achieved with the function <code>vector</code>. In this example, the empty vector is <code>res</code> (short for result). In the for loop, each average (<code>avg_sample</code>) from one repetition gets stored in <code>res</code>.</p>
 </div>
@@ -375,14 +359,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb30-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb30-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
-<a class="sourceLine" id="cb30-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
-<a class="sourceLine" id="cb30-5" title="5">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb30-6" title="6">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
-<a class="sourceLine" id="cb30-7" title="7">}</a>
-<a class="sourceLine" id="cb30-8" title="8"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb18-2" title="2">n &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb18-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb18-5" title="5">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb18-6" title="6">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb18-7" title="7">}</a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.4976</code></pre>
 </div>
 <div id="question-7" class="section level3">
@@ -391,14 +375,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that the answers to 5 and 6 barely changed. This is expected. The way we think about the random value distributions is as the distribution of the list of values obtained if we repeated the experiment an infinite number of times. On a computer, we can’t perform an infinite number of iterations so instead, for our examples, we consider 1,000 to be large enough, thus 10,000 is as well. Now if instead we change the sample size, then we change the random variable and thus its distribution.</p>
 <p>Set the seed at 1, then using a for-loop take a random sample of 50 mice 1,000 times. Save these averages. What percent of these 1,000 averages are more than 1 gram away from the average of <code>x</code>?</p>
 </div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb32-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb32-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
-<a class="sourceLine" id="cb32-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
-<a class="sourceLine" id="cb32-5" title="5">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">50</span>))</a>
-<a class="sourceLine" id="cb32-6" title="6">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
-<a class="sourceLine" id="cb32-7" title="7">}</a>
-<a class="sourceLine" id="cb32-8" title="8"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb20-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb20-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb20-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb20-5" title="5">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">50</span>))</a>
+<a class="sourceLine" id="cb20-6" title="6">  res[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb20-7" title="7">}</a>
+<a class="sourceLine" id="cb20-8" title="8"><span class="kw">mean</span>(<span class="kw">abs</span>(res<span class="op">-</span><span class="kw">mean</span>(x)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.019</code></pre>
 </div>
 <div id="question-8" class="section level3">
@@ -409,30 +393,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="co"># sample size = 5</span></a>
-<a class="sourceLine" id="cb34-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb34-3" title="3">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb34-4" title="4">res5 &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
-<a class="sourceLine" id="cb34-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
-<a class="sourceLine" id="cb34-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb34-7" title="7">  res5[[i]] &lt;-<span class="st"> </span>avg_sample</a>
-<a class="sourceLine" id="cb34-8" title="8">}</a>
-<a class="sourceLine" id="cb34-9" title="9"><span class="kw">sd</span>(res5) <span class="co"># standard deviation = spread of the histogram</span></a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="co"># sample size = 5</span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb22-3" title="3">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb22-4" title="4">res5 &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb22-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb22-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb22-7" title="7">  res5[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb22-8" title="8">}</a>
+<a class="sourceLine" id="cb22-9" title="9"><span class="kw">sd</span>(res5) <span class="co"># standard deviation = spread of the histogram</span></a></code></pre></div>
 <pre><code>## [1] 1.52445</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="co"># sample size = 50</span></a>
-<a class="sourceLine" id="cb36-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb36-3" title="3">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb36-4" title="4">res50 &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
-<a class="sourceLine" id="cb36-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
-<a class="sourceLine" id="cb36-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">50</span>))</a>
-<a class="sourceLine" id="cb36-7" title="7">  res50[[i]] &lt;-<span class="st"> </span>avg_sample</a>
-<a class="sourceLine" id="cb36-8" title="8">}</a>
-<a class="sourceLine" id="cb36-9" title="9"><span class="kw">sd</span>(res50) <span class="co"># standard deviation = spread of the histogram</span></a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># sample size = 50</span></a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb24-3" title="3">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb24-4" title="4">res50 &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,n)</a>
+<a class="sourceLine" id="cb24-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(n)) {</a>
+<a class="sourceLine" id="cb24-6" title="6">  avg_sample &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">sample</span>(x,<span class="dv">50</span>))</a>
+<a class="sourceLine" id="cb24-7" title="7">  res50[[i]] &lt;-<span class="st"> </span>avg_sample</a>
+<a class="sourceLine" id="cb24-8" title="8">}</a>
+<a class="sourceLine" id="cb24-9" title="9"><span class="kw">sd</span>(res50) <span class="co"># standard deviation = spread of the histogram</span></a></code></pre></div>
 <pre><code>## [1] 0.4260116</code></pre>
 <p>The standard deviation of <code>res50</code> is smaller than that of <code>res5</code> because of the difference in the sample sizes. A higher standard deviation leads to a wider histogram. See two figures below.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># plot histograms</span></a>
-<a class="sourceLine" id="cb38-2" title="2"><span class="kw">hist</span>(res5)</a>
-<a class="sourceLine" id="cb38-3" title="3"><span class="kw">hist</span>(res50)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># plot histograms</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="kw">hist</span>(res5)</a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="kw">hist</span>(res50)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><code>mypar</code> is a function from the package <code>rafalib</code>. It helps to align multiple plots in a single plot. <code>mypar(1,1)</code> contains one panel only, <code>mypar(2,1)</code> contains 2 rows of panels and 1 column, <code>mypar(1,2)</code> contains 1 row of panels and 2 columns, etc. Type <code>?mypar</code> for more information. You will be using this function to plot a graph throughout the entire book. <code>hist</code> plots a histogram.</p>
 <p>The answer is <strong>B: They both look normal, but with a sample size of 50 the spread is smaller.</strong></p>
@@ -444,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw">mean</span>((res50 <span class="op">&gt;=</span><span class="dv">23</span>) <span class="op">&amp;</span><span class="st"> </span>(res50 <span class="op">&lt;=</span><span class="st"> </span><span class="dv">25</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">mean</span>((res50 <span class="op">&gt;=</span><span class="dv">23</span>) <span class="op">&amp;</span><span class="st"> </span>(res50 <span class="op">&lt;=</span><span class="st"> </span><span class="dv">25</span>))</a></code></pre></div>
 <pre><code>## [1] 0.976</code></pre>
 </div>
 <div id="question-10" class="section level3">
@@ -455,7 +439,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">pnorm</span>(<span class="dv">25</span>,<span class="fl">23.9</span>,<span class="fl">0.43</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">23</span>,<span class="fl">23.9</span>,<span class="fl">0.43</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">pnorm</span>(<span class="dv">25</span>,<span class="fl">23.9</span>,<span class="fl">0.43</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">23</span>,<span class="fl">23.9</span>,<span class="fl">0.43</span>)</a></code></pre></div>
 <pre><code>## [1] 0.9765648</code></pre>
 <p>The answers to 9 and 10 were very similar. This is because we can approximate the distribution of the sample average with a normal distribution. We will learn more about the reason for this next.</p>
 </div>
@@ -463,14 +447,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ch-2.9-exercises" class="section level2">
 <h2><span class="header-section-number">2.2</span> Ch 2.9 Exercises</h2>
 <p>If you have not downloaded the data before:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
-<a class="sourceLine" id="cb43-2" title="2">filename &lt;-<span class="st"> &quot;mice_pheno.csv&quot;</span></a>
-<a class="sourceLine" id="cb43-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
-<a class="sourceLine" id="cb43-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a>
-<a class="sourceLine" id="cb43-5" title="5">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(dat)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
+<a class="sourceLine" id="cb31-2" title="2">filename &lt;-<span class="st"> &quot;mice_pheno.csv&quot;</span></a>
+<a class="sourceLine" id="cb31-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
+<a class="sourceLine" id="cb31-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a>
+<a class="sourceLine" id="cb31-5" title="5">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(dat)</a></code></pre></div>
 <p>If you have the data already in your directory:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">raw_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;mice_pheno.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb44-2" title="2">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(raw_data)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">raw_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;mice_pheno.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb32-2" title="2">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(raw_data)</a></code></pre></div>
 <div id="question-1-1" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Question 1</h3>
 <div class="question">
@@ -479,9 +463,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">x &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb45-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb45-3" title="3"><span class="kw">mean</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">x &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="kw">mean</span>(x)</a></code></pre></div>
 <pre><code>## [1] 30.96381</code></pre>
 <p>Throughout the book, I will be using <code>%&gt;%</code> for brevity. If you don’t understand it, please check out Chapter 18 of <a href="https://r4ds.had.co.nz/pipes.html">*R for Data Science</a>.</p>
 </div>
@@ -493,7 +477,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">popsd</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">popsd</span>(x)</a></code></pre></div>
 <pre><code>## [1] 4.420501</code></pre>
 <p><code>popsd</code> and <code>sd</code> are slightly different. <code>sd</code> calculates the standard deviation of the sample size, so the denominator that it uses to compute SD is <code>n-1</code>. Function <code>var</code> also uses denominator <code>n-1</code> to calculate variance. However, <code>popsd</code> (which is from <code>rafalib</code> package) uses denominator <code>n</code>.</p>
 </div>
@@ -505,9 +489,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb49-2" title="2">samp_x &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">25</span>) <span class="co"># sample of x</span></a>
-<a class="sourceLine" id="cb49-3" title="3"><span class="kw">mean</span>(samp_x)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb37-2" title="2">samp_x &lt;-<span class="st"> </span><span class="kw">sample</span>(x,<span class="dv">25</span>) <span class="co"># sample of x</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="kw">mean</span>(samp_x)</a></code></pre></div>
 <pre><code>## [1] 32.0956</code></pre>
 </div>
 <div id="question-4-1" class="section level3">
@@ -518,9 +502,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb51-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb51-3" title="3"><span class="kw">mean</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb39-3" title="3"><span class="kw">mean</span>(y)</a></code></pre></div>
 <pre><code>## [1] 34.84793</code></pre>
 </div>
 <div id="question-5-1" class="section level3">
@@ -531,7 +515,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="kw">popsd</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">popsd</span>(y)</a></code></pre></div>
 <pre><code>## [1] 5.574609</code></pre>
 </div>
 <div id="question-6-1" class="section level3">
@@ -542,9 +526,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb55-2" title="2">samp_y &lt;-<span class="st"> </span><span class="kw">sample</span>(y,<span class="dv">25</span>)</a>
-<a class="sourceLine" id="cb55-3" title="3"><span class="kw">mean</span>(samp_y)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb43-2" title="2">samp_y &lt;-<span class="st"> </span><span class="kw">sample</span>(y,<span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="kw">mean</span>(samp_y)</a></code></pre></div>
 <pre><code>## [1] 34.768</code></pre>
 </div>
 <div id="question-7-1" class="section level3">
@@ -555,9 +539,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">pop_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x)</a>
-<a class="sourceLine" id="cb57-2" title="2">sample_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(samp_y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(samp_x)</a>
-<a class="sourceLine" id="cb57-3" title="3"><span class="kw">abs</span>(sample_diff <span class="op">-</span><span class="st"> </span>pop_diff)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">pop_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x)</a>
+<a class="sourceLine" id="cb45-2" title="2">sample_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(samp_y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(samp_x)</a>
+<a class="sourceLine" id="cb45-3" title="3"><span class="kw">abs</span>(sample_diff <span class="op">-</span><span class="st"> </span>pop_diff)</a></code></pre></div>
 <pre><code>## [1] 1.211716</code></pre>
 </div>
 <div id="question-8-1" class="section level3">
@@ -568,21 +552,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1">chow_f_pop &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb59-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="co"># x</span></a>
-<a class="sourceLine" id="cb59-3" title="3">hf_f_pop &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb59-4" title="4"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="co"># y</span></a>
-<a class="sourceLine" id="cb59-5" title="5"></a>
-<a class="sourceLine" id="cb59-6" title="6"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb59-7" title="7">sample_chow_f_pop &lt;-<span class="st"> </span><span class="kw">sample</span>(chow_f_pop, <span class="dv">25</span>) <span class="co"># X</span></a>
-<a class="sourceLine" id="cb59-8" title="8"></a>
-<a class="sourceLine" id="cb59-9" title="9"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb59-10" title="10">sample_hf_f_pop &lt;-<span class="st"> </span><span class="kw">sample</span>(hf_f_pop,<span class="dv">25</span>) <span class="co"># Y</span></a>
-<a class="sourceLine" id="cb59-11" title="11"></a>
-<a class="sourceLine" id="cb59-12" title="12">pop_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(hf_f_pop) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(chow_f_pop) <span class="co"># y - x</span></a>
-<a class="sourceLine" id="cb59-13" title="13">sample_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(sample_hf_f_pop) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(sample_chow_f_pop) <span class="co"># Y - X</span></a>
-<a class="sourceLine" id="cb59-14" title="14"></a>
-<a class="sourceLine" id="cb59-15" title="15"><span class="kw">abs</span>(sample_diff <span class="op">-</span><span class="st"> </span>pop_diff)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">chow_f_pop &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="co"># x</span></a>
+<a class="sourceLine" id="cb47-3" title="3">hf_f_pop &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-4" title="4"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() <span class="co"># y</span></a>
+<a class="sourceLine" id="cb47-5" title="5"></a>
+<a class="sourceLine" id="cb47-6" title="6"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb47-7" title="7">sample_chow_f_pop &lt;-<span class="st"> </span><span class="kw">sample</span>(chow_f_pop, <span class="dv">25</span>) <span class="co"># X</span></a>
+<a class="sourceLine" id="cb47-8" title="8"></a>
+<a class="sourceLine" id="cb47-9" title="9"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb47-10" title="10">sample_hf_f_pop &lt;-<span class="st"> </span><span class="kw">sample</span>(hf_f_pop,<span class="dv">25</span>) <span class="co"># Y</span></a>
+<a class="sourceLine" id="cb47-11" title="11"></a>
+<a class="sourceLine" id="cb47-12" title="12">pop_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(hf_f_pop) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(chow_f_pop) <span class="co"># y - x</span></a>
+<a class="sourceLine" id="cb47-13" title="13">sample_diff &lt;-<span class="st"> </span><span class="kw">mean</span>(sample_hf_f_pop) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(sample_chow_f_pop) <span class="co"># Y - X</span></a>
+<a class="sourceLine" id="cb47-14" title="14"></a>
+<a class="sourceLine" id="cb47-15" title="15"><span class="kw">abs</span>(sample_diff <span class="op">-</span><span class="st"> </span>pop_diff)</a></code></pre></div>
 <pre><code>## [1] 0.7364828</code></pre>
 </div>
 <div id="question-9-1" class="section level3">
@@ -592,9 +576,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">popsd</span>(hf_f_pop), <span class="kw">popsd</span>(chow_f_pop), <span class="kw">popsd</span>(y), <span class="kw">popsd</span>(x))</a>
-<a class="sourceLine" id="cb61-2" title="2"><span class="kw">names</span>(ans) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hf female&#39;</span>, <span class="st">&#39;chow female&#39;</span>, <span class="st">&#39;hf male&#39;</span>, <span class="st">&#39;chow male&#39;</span>)</a>
-<a class="sourceLine" id="cb61-3" title="3">ans</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">popsd</span>(hf_f_pop), <span class="kw">popsd</span>(chow_f_pop), <span class="kw">popsd</span>(y), <span class="kw">popsd</span>(x))</a>
+<a class="sourceLine" id="cb49-2" title="2"><span class="kw">names</span>(ans) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;hf female&#39;</span>, <span class="st">&#39;chow female&#39;</span>, <span class="st">&#39;hf male&#39;</span>, <span class="st">&#39;chow male&#39;</span>)</a>
+<a class="sourceLine" id="cb49-3" title="3">ans</a></code></pre></div>
 <pre><code>##   hf female chow female     hf male   chow male 
 ##    5.069870    3.416438    5.574609    4.420501</code></pre>
 <p>The answer is <strong>A: The population variance of the females is smaller than that of the males; thus, the sample variable has less variability.</strong></p>
@@ -603,14 +587,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ch-2.11-exercises" class="section level2">
 <h2><span class="header-section-number">2.3</span> Ch 2.11 Exercises</h2>
 <p>If you have not downloaded the data before:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
-<a class="sourceLine" id="cb63-2" title="2">filename &lt;-<span class="st"> &quot;mice_pheno.csv&quot;</span></a>
-<a class="sourceLine" id="cb63-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
-<a class="sourceLine" id="cb63-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a>
-<a class="sourceLine" id="cb63-5" title="5">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(dat)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
+<a class="sourceLine" id="cb51-2" title="2">filename &lt;-<span class="st"> &quot;mice_pheno.csv&quot;</span></a>
+<a class="sourceLine" id="cb51-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
+<a class="sourceLine" id="cb51-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a>
+<a class="sourceLine" id="cb51-5" title="5">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(dat)</a></code></pre></div>
 <p>If you have the data already in your directory:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">raw_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;mice_pheno.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb64-2" title="2">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(raw_data)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">raw_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;mice_pheno.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb52-2" title="2">dat &lt;-<span class="st"> </span><span class="kw">na.omit</span>(raw_data)</a></code></pre></div>
 <div id="question-1-2" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Question 1</h3>
 <div class="question">
@@ -619,7 +603,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1"><span class="kw">pnorm</span>(<span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="kw">pnorm</span>(<span class="dv">1</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.6826895</code></pre>
 </div>
 <div id="question-2-2" class="section level3">
@@ -630,7 +614,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.9544997</code></pre>
 </div>
 <div id="question-3-2" class="section level3">
@@ -641,7 +625,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">pnorm</span>(<span class="dv">3</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">pnorm</span>(<span class="dv">3</span>) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] 0.9973002</code></pre>
 </div>
 <div id="question-4-2" class="section level3">
@@ -652,13 +636,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb71-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb71-3" title="3"></a>
-<a class="sourceLine" id="cb71-4" title="4">z_score &lt;-<span class="st"> </span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y))<span class="op">/</span><span class="kw">popsd</span>(y) <span class="co"># get t-statistic (i.e., z score)</span></a>
-<a class="sourceLine" id="cb71-5" title="5"><span class="kw">mean</span>(<span class="kw">abs</span>(z_score) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1">y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb59-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb59-3" title="3"></a>
+<a class="sourceLine" id="cb59-4" title="4">z_score &lt;-<span class="st"> </span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y))<span class="op">/</span><span class="kw">popsd</span>(y) <span class="co"># get t-statistic (i.e., z score)</span></a>
+<a class="sourceLine" id="cb59-5" title="5"><span class="kw">mean</span>(<span class="kw">abs</span>(z_score) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.6950673</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y)) <span class="op">&lt;=</span><span class="st"> </span><span class="kw">popsd</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y)) <span class="op">&lt;=</span><span class="st"> </span><span class="kw">popsd</span>(y))</a></code></pre></div>
 <pre><code>## [1] 0.6950673</code></pre>
 <p>It doesn’t matter which solution you use as long as you have the same answer.</p>
 </div>
@@ -670,9 +654,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(z_score) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(z_score) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.9461883</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y)) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">popsd</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y)) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">popsd</span>(y))</a></code></pre></div>
 <pre><code>## [1] 0.9461883</code></pre>
 <p>It doesn’t matter which solution you use as long as you have the same answer.</p>
 </div>
@@ -685,9 +669,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(z_score) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(z_score) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] 0.9910314</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y)) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="kw">popsd</span>(y))</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">mean</span>(<span class="kw">abs</span>(y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y)) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="kw">popsd</span>(y))</a></code></pre></div>
 <pre><code>## [1] 0.9910314</code></pre>
 <p>It doesn’t matter which solution you use as long as you have the same answer.</p>
 </div>
@@ -699,9 +683,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb83-2" title="2"><span class="kw">qqnorm</span>(y)</a>
-<a class="sourceLine" id="cb83-3" title="3"><span class="kw">qqline</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb71-2" title="2"><span class="kw">qqnorm</span>(y)</a>
+<a class="sourceLine" id="cb71-3" title="3"><span class="kw">qqline</span>(y)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>The answer is <strong>C: The mouse weights are well approximated by the normal distribution, although the larger values (right tail) are larger than predicted by the normal.This is consistent with the differences seen between question 3 and 6.</strong></p>
 </div>
@@ -713,24 +697,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">mc &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb84-3" title="3">mhf &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-4" title="4"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb84-5" title="5">fc &lt;-<span class="st"> </span>y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-6" title="6"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb84-7" title="7">fhf &lt;-<span class="st"> </span>y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb84-8" title="8"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb84-9" title="9"></a>
-<a class="sourceLine" id="cb84-10" title="10"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb84-11" title="11"><span class="kw">qqnorm</span>(mc, <span class="dt">main =</span> <span class="st">&#39;male control pop&#39;</span>)</a>
-<a class="sourceLine" id="cb84-12" title="12"><span class="kw">qqline</span>(mc)</a>
-<a class="sourceLine" id="cb84-13" title="13"><span class="kw">qqnorm</span>(mhf, <span class="dt">main =</span> <span class="st">&#39;male high fat pop&#39;</span>)</a>
-<a class="sourceLine" id="cb84-14" title="14"><span class="kw">qqline</span>(mhf)</a>
-<a class="sourceLine" id="cb84-15" title="15"><span class="kw">qqnorm</span>(fc, <span class="dt">main =</span> <span class="st">&#39;female control pop&#39;</span>)</a>
-<a class="sourceLine" id="cb84-16" title="16"><span class="kw">qqline</span>(fc)</a>
-<a class="sourceLine" id="cb84-17" title="17"><span class="kw">qqnorm</span>(fhf, <span class="dt">main =</span> <span class="st">&#39;female high fat pop&#39;</span>)</a>
-<a class="sourceLine" id="cb84-18" title="18"><span class="kw">qqline</span>(fhf)</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1">mc &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb72-3" title="3">mhf &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;M&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb72-4" title="4"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb72-5" title="5">fc &lt;-<span class="st"> </span>y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;chow&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb72-6" title="6"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb72-7" title="7">fhf &lt;-<span class="st"> </span>y &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Sex <span class="op">==</span><span class="st"> &#39;F&#39;</span> <span class="op">&amp;</span><span class="st"> </span>Diet <span class="op">==</span><span class="st"> &#39;hf&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb72-8" title="8"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb72-9" title="9"></a>
+<a class="sourceLine" id="cb72-10" title="10"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb72-11" title="11"><span class="kw">qqnorm</span>(mc, <span class="dt">main =</span> <span class="st">&#39;male control pop&#39;</span>)</a>
+<a class="sourceLine" id="cb72-12" title="12"><span class="kw">qqline</span>(mc)</a>
+<a class="sourceLine" id="cb72-13" title="13"><span class="kw">qqnorm</span>(mhf, <span class="dt">main =</span> <span class="st">&#39;male high fat pop&#39;</span>)</a>
+<a class="sourceLine" id="cb72-14" title="14"><span class="kw">qqline</span>(mhf)</a>
+<a class="sourceLine" id="cb72-15" title="15"><span class="kw">qqnorm</span>(fc, <span class="dt">main =</span> <span class="st">&#39;female control pop&#39;</span>)</a>
+<a class="sourceLine" id="cb72-16" title="16"><span class="kw">qqline</span>(fc)</a>
+<a class="sourceLine" id="cb72-17" title="17"><span class="kw">qqnorm</span>(fhf, <span class="dt">main =</span> <span class="st">&#39;female high fat pop&#39;</span>)</a>
+<a class="sourceLine" id="cb72-18" title="18"><span class="kw">qqline</span>(fhf)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>The answer is <strong>B: This just happens to be how nature behaves. Perhaps the result of many biological factors averaging out.</strong></p>
 </div>
@@ -741,33 +725,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 this distribution, it will follow a normal distribution. However, it is important to remember that stating that some quantity has a distribution does not necessarily imply this quantity is random. Also, keep in mind that this is not related to the central limit theorem. The central limit applies to averages of random variables. Let’s explore this concept.</p>
 <p>We will now take a sample of size 25 from the population of males on the chow diet. The average of this sample is our random variable. We will use the <code>replicate</code> to observe 10,000 realizations of this random variable. Set the seed at 1, generate these 10,000 averages. Make a histogram and qq-plot of these 10,000 numbers against the normal distribution.</p>
 <p>We can see that, as predicted by the CLT, the distribution of the random variable is very well approximated by the normal distribution.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">y &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Sex<span class="op">==</span><span class="st">&quot;M&quot;</span> <span class="op">&amp;</span><span class="st"> </span>Diet<span class="op">==</span><span class="st">&quot;chow&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
-<a class="sourceLine" id="cb85-2" title="2">avgs &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, <span class="kw">mean</span>( <span class="kw">sample</span>(y, <span class="dv">25</span>)))</a>
-<a class="sourceLine" id="cb85-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb85-4" title="4"><span class="kw">hist</span>(avgs)</a>
-<a class="sourceLine" id="cb85-5" title="5"><span class="kw">qqnorm</span>(avgs)</a>
-<a class="sourceLine" id="cb85-6" title="6"><span class="kw">qqline</span>(avgs)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1">y &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Sex<span class="op">==</span><span class="st">&quot;M&quot;</span> <span class="op">&amp;</span><span class="st"> </span>Diet<span class="op">==</span><span class="st">&quot;chow&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
+<a class="sourceLine" id="cb73-2" title="2">avgs &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, <span class="kw">mean</span>( <span class="kw">sample</span>(y, <span class="dv">25</span>)))</a>
+<a class="sourceLine" id="cb73-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb73-4" title="4"><span class="kw">hist</span>(avgs)</a>
+<a class="sourceLine" id="cb73-5" title="5"><span class="kw">qqnorm</span>(avgs)</a>
+<a class="sourceLine" id="cb73-6" title="6"><span class="kw">qqline</span>(avgs)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>What is the average of the distribution of the sample average?</p>
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1">m &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb86-2" title="2">n &lt;-<span class="st"> </span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb86-3" title="3">y &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Sex<span class="op">==</span><span class="st">&quot;M&quot;</span> <span class="op">&amp;</span><span class="st"> </span>Diet<span class="op">==</span><span class="st">&quot;chow&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb86-4" title="4"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
-<a class="sourceLine" id="cb86-5" title="5"></a>
-<a class="sourceLine" id="cb86-6" title="6"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb86-7" title="7">avg_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(m, {</a>
-<a class="sourceLine" id="cb86-8" title="8">  <span class="kw">mean</span>(<span class="kw">sample</span>(y,<span class="dv">25</span>))</a>
-<a class="sourceLine" id="cb86-9" title="9">})</a>
-<a class="sourceLine" id="cb86-10" title="10"></a>
-<a class="sourceLine" id="cb86-11" title="11"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb86-12" title="12"><span class="kw">hist</span>(avg_list) <span class="co"># distribution</span></a>
-<a class="sourceLine" id="cb86-13" title="13"><span class="kw">qqnorm</span>(avg_list) <span class="co"># qq-plot</span></a>
-<a class="sourceLine" id="cb86-14" title="14"><span class="kw">qqline</span>(avg_list)</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">m &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb74-2" title="2">n &lt;-<span class="st"> </span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb74-3" title="3">y &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Sex<span class="op">==</span><span class="st">&quot;M&quot;</span> <span class="op">&amp;</span><span class="st"> </span>Diet<span class="op">==</span><span class="st">&quot;chow&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb74-4" title="4"><span class="st">  </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
+<a class="sourceLine" id="cb74-5" title="5"></a>
+<a class="sourceLine" id="cb74-6" title="6"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb74-7" title="7">avg_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(m, {</a>
+<a class="sourceLine" id="cb74-8" title="8">  <span class="kw">mean</span>(<span class="kw">sample</span>(y,<span class="dv">25</span>))</a>
+<a class="sourceLine" id="cb74-9" title="9">})</a>
+<a class="sourceLine" id="cb74-10" title="10"></a>
+<a class="sourceLine" id="cb74-11" title="11"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb74-12" title="12"><span class="kw">hist</span>(avg_list) <span class="co"># distribution</span></a>
+<a class="sourceLine" id="cb74-13" title="13"><span class="kw">qqnorm</span>(avg_list) <span class="co"># qq-plot</span></a>
+<a class="sourceLine" id="cb74-14" title="14"><span class="kw">qqline</span>(avg_list)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">mean</span>(avg_list) <span class="co"># mean of the sample averages</span></a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="kw">mean</span>(avg_list) <span class="co"># mean of the sample averages</span></a></code></pre></div>
 <pre><code>## [1] 30.95581</code></pre>
 </div>
 <div id="question-10-1" class="section level3">
@@ -778,7 +762,7 @@ this distribution, it will follow a normal distribution. However, it is importan
 <div class="answer">
 
 
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">popsd</span>(avg_list)</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="kw">popsd</span>(avg_list)</a></code></pre></div>
 <pre><code>## [1] 0.8368192</code></pre>
 </div>
 <div id="question-11" class="section level3">
@@ -789,7 +773,7 @@ this distribution, it will follow a normal distribution. However, it is importan
 <div class="answer">
 
 
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">popsd</span>(y)<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">25</span>) <span class="co"># answer is C</span></a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="kw">popsd</span>(y)<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">25</span>) <span class="co"># answer is C</span></a></code></pre></div>
 <pre><code>## [1] 0.8841001</code></pre>
 </div>
 <div id="question-12" class="section level3">
@@ -802,15 +786,15 @@ deviation. Set the seed at 1, using the <code>replicate</code> function, create 
 <div class="answer">
 
 
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1">m &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb93-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb93-3" title="3">sd_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(m, {</a>
-<a class="sourceLine" id="cb93-4" title="4">  <span class="kw">sd</span>(<span class="kw">sample</span>(y,<span class="dv">25</span>))</a>
-<a class="sourceLine" id="cb93-5" title="5">})</a>
-<a class="sourceLine" id="cb93-6" title="6"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb93-7" title="7"><span class="kw">hist</span>(sd_list)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1">m &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb81-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb81-3" title="3">sd_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(m, {</a>
+<a class="sourceLine" id="cb81-4" title="4">  <span class="kw">sd</span>(<span class="kw">sample</span>(y,<span class="dv">25</span>))</a>
+<a class="sourceLine" id="cb81-5" title="5">})</a>
+<a class="sourceLine" id="cb81-6" title="6"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb81-7" title="7"><span class="kw">hist</span>(sd_list)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1"><span class="kw">mean</span>(sd_list <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">mean</span>(sd_list <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.5</span>)</a></code></pre></div>
 <pre><code>## [1] 0.0964</code></pre>
 </div>
 <div id="question-13" class="section level3">
@@ -821,22 +805,22 @@ deviation. Set the seed at 1, using the <code>replicate</code> function, create 
 <div class="answer">
 
 
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">x =<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0001</span>, <span class="fl">0.9999</span>, <span class="dt">len =</span> <span class="dv">300</span>)</a>
-<a class="sourceLine" id="cb96-2" title="2">df_list &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb96-3" title="3"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb96-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df_list)) {</a>
-<a class="sourceLine" id="cb96-5" title="5">  <span class="kw">qqnorm</span>(<span class="kw">qt</span>(x,df_list[i]), <span class="dt">main =</span> df_list[i])</a>
-<a class="sourceLine" id="cb96-6" title="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">x =<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0001</span>, <span class="fl">0.9999</span>, <span class="dt">len =</span> <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb84-2" title="2">df_list &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb84-3" title="3"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb84-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df_list)) {</a>
+<a class="sourceLine" id="cb84-5" title="5">  <span class="kw">qqnorm</span>(<span class="kw">qt</span>(x,df_list[i]), <span class="dt">main =</span> df_list[i])</a>
+<a class="sourceLine" id="cb84-6" title="6">}</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>The answer is <strong>C: The t-distribution has larger tails up until 30 degrees of freedom, at which point it is practically the same as the normal distribution.</strong></p>
 </div>
 </div>
 <div id="ch-2.13-exercises" class="section level2">
 <h2><span class="header-section-number">2.4</span> Ch 2.13 Exercises</h2>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
-<a class="sourceLine" id="cb97-2" title="2">filename &lt;-<span class="st"> &quot;femaleMiceWeights.csv&quot;</span></a>
-<a class="sourceLine" id="cb97-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
-<a class="sourceLine" id="cb97-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">dir &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/&quot;</span></a>
+<a class="sourceLine" id="cb85-2" title="2">filename &lt;-<span class="st"> &quot;femaleMiceWeights.csv&quot;</span></a>
+<a class="sourceLine" id="cb85-3" title="3">url &lt;-<span class="st"> </span><span class="kw">paste0</span>(dir, filename)</a>
+<a class="sourceLine" id="cb85-4" title="4">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url)</a></code></pre></div>
 <div id="question-1-3" class="section level3">
 <h3><span class="header-section-number">2.4.1</span> Question 1</h3>
 <div class="question">
@@ -848,17 +832,17 @@ times <code>z</code> was larger than 2 in absolute value (CLT says it should be 
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">n &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb98-2" title="2">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb98-3" title="3">p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb98-4" title="4"></a>
-<a class="sourceLine" id="cb98-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb98-6" title="6">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb98-7" title="7">  x =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,n, <span class="dt">replace =</span> T)</a>
-<a class="sourceLine" id="cb98-8" title="8">  z &lt;-<span class="st"> </span>(<span class="kw">mean</span>(x<span class="op">==</span><span class="dv">6</span>)<span class="op">-</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>n)</a>
-<a class="sourceLine" id="cb98-9" title="9">  <span class="kw">return</span>(z)</a>
-<a class="sourceLine" id="cb98-10" title="10">})</a>
-<a class="sourceLine" id="cb98-11" title="11"><span class="kw">mean</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1">n &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb86-2" title="2">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb86-3" title="3">p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb86-4" title="4"></a>
+<a class="sourceLine" id="cb86-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb86-6" title="6">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
+<a class="sourceLine" id="cb86-7" title="7">  x =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,n, <span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb86-8" title="8">  z &lt;-<span class="st"> </span>(<span class="kw">mean</span>(x<span class="op">==</span><span class="dv">6</span>)<span class="op">-</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>n)</a>
+<a class="sourceLine" id="cb86-9" title="9">  <span class="kw">return</span>(z)</a>
+<a class="sourceLine" id="cb86-10" title="10">})</a>
+<a class="sourceLine" id="cb86-11" title="11"><span class="kw">mean</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.0424</code></pre>
 </div>
 <div id="question-2-3" class="section level3">
@@ -870,26 +854,26 @@ times <code>z</code> was larger than 2 in absolute value (CLT says it should be 
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">Ps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb100-2" title="2">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">30</span>,<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb100-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb100-4" title="4">question2 &lt;-<span class="st"> </span><span class="cf">function</span>(n,p, <span class="dt">B =</span> <span class="dv">10000</span>) {</a>
-<a class="sourceLine" id="cb100-5" title="5">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb100-6" title="6">    sides &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>p</a>
-<a class="sourceLine" id="cb100-7" title="7">    x =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>sides, n, <span class="dt">replace =</span> T)</a>
-<a class="sourceLine" id="cb100-8" title="8">    z &lt;-<span class="st"> </span>(<span class="kw">mean</span>(x<span class="op">==</span><span class="dv">1</span>)<span class="op">-</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>n)</a>
-<a class="sourceLine" id="cb100-9" title="9">    <span class="kw">return</span>(z)</a>
-<a class="sourceLine" id="cb100-10" title="10">  })</a>
-<a class="sourceLine" id="cb100-11" title="11">}</a>
-<a class="sourceLine" id="cb100-12" title="12"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb100-13" title="13"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">5</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=5, p=0.5&#39;</span>)</a>
-<a class="sourceLine" id="cb100-14" title="14"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.5&#39;</span>) <span class="co"># the answer is B</span></a>
-<a class="sourceLine" id="cb100-15" title="15"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.01&#39;</span>)</a>
-<a class="sourceLine" id="cb100-16" title="16"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">100</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=100, p=0.01&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1">Ps &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb88-2" title="2">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">30</span>,<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb88-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb88-4" title="4">question2 &lt;-<span class="st"> </span><span class="cf">function</span>(n,p, <span class="dt">B =</span> <span class="dv">10000</span>) {</a>
+<a class="sourceLine" id="cb88-5" title="5">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
+<a class="sourceLine" id="cb88-6" title="6">    sides &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>p</a>
+<a class="sourceLine" id="cb88-7" title="7">    x =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>sides, n, <span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb88-8" title="8">    z &lt;-<span class="st"> </span>(<span class="kw">mean</span>(x<span class="op">==</span><span class="dv">1</span>)<span class="op">-</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>n)</a>
+<a class="sourceLine" id="cb88-9" title="9">    <span class="kw">return</span>(z)</a>
+<a class="sourceLine" id="cb88-10" title="10">  })</a>
+<a class="sourceLine" id="cb88-11" title="11">}</a>
+<a class="sourceLine" id="cb88-12" title="12"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb88-13" title="13"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">5</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=5, p=0.5&#39;</span>)</a>
+<a class="sourceLine" id="cb88-14" title="14"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.5&#39;</span>) <span class="co"># the answer is B</span></a>
+<a class="sourceLine" id="cb88-15" title="15"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.01&#39;</span>)</a>
+<a class="sourceLine" id="cb88-16" title="16"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">100</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=100, p=0.01&#39;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb101-2" title="2"><span class="kw">hist</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.5&#39;</span>)</a>
-<a class="sourceLine" id="cb101-3" title="3"><span class="kw">hist</span>(<span class="kw">question2</span>(<span class="dv">100</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=100, p=0.01&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb89-2" title="2"><span class="kw">hist</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.5&#39;</span>)</a>
+<a class="sourceLine" id="cb89-3" title="3"><span class="kw">hist</span>(<span class="kw">question2</span>(<span class="dv">100</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=100, p=0.01&#39;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-2.png" width="672" /></p>
 <p>The answer is <strong>B, n = 30, p = 0.5.</strong> I created a custom function for this question. However, another approach (and maybe more concise) is to use a for loop.</p>
 <p>This is tricky question, primarily because not all dice has number 6 (as is the case in Question 1, <code>mean(x==6)</code>). So you had to calculate the probability where the dice ends up in another side by modifying the code; since all dice has sdie 1, <code>mean(x==1)</code> seems like a safe choice. Also, the number of the sides for each die changes since it is defined by the <code>p</code> value. For instance, if <code>p</code> equals <code>0.01</code> for side 1, then there are 100 sides total (<code>1/0.01 = 100</code>).</p>
@@ -902,15 +886,15 @@ deviation.</p>
 <p>In several previous exercises we have illustrated statistical concepts with the unrealistic situation of having access to the entire population. In practice, we do not have access to
 entire populations. Instead, we obtain one random sample and need to reach conclusions analyzing that data. dat is an example of a typical simple dataset representing just one
 sample. We have 12 measurements for each of two populations:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">X &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Diet<span class="op">==</span><span class="st">&quot;chow&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
-<a class="sourceLine" id="cb102-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Diet<span class="op">==</span><span class="st">&quot;hf&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1">X &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Diet<span class="op">==</span><span class="st">&quot;chow&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
+<a class="sourceLine" id="cb90-2" title="2">Y &lt;-<span class="st"> </span><span class="kw">filter</span>(dat, Diet<span class="op">==</span><span class="st">&quot;hf&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Bodyweight) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a></code></pre></div>
 <p>We think of X as a random sample from the population of all mice in the control diet and Y as a random sample from the population of all mice in the high fat diet.
 Define the parameter <span class="math inline">\(\mu_x\)</span> as the average of the control population. We estimate this parameter with the sample average <span class="math inline">\(\bar{X}\)</span>. What is the sample average?</p>
 </div>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1"><span class="kw">mean</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">mean</span>(X)</a></code></pre></div>
 <pre><code>## [1] 23.81333</code></pre>
 </div>
 <div id="question-4-3" class="section level3">
@@ -940,7 +924,7 @@ Define the parameter <span class="math inline">\(\mu_x\)</span> as the average o
 <div class="answer">
 
 
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1"><span class="kw">sd</span>(X)</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">sd</span>(X)</a></code></pre></div>
 <pre><code>## [1] 3.022541</code></pre>
 </div>
 <div id="question-7-3" class="section level3">
@@ -951,8 +935,8 @@ Define the parameter <span class="math inline">\(\mu_x\)</span> as the average o
 <div class="answer">
 
 
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1">z_score &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">/</span>(<span class="kw">sqrt</span>(<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb107-2" title="2"><span class="kw">pnorm</span>(<span class="op">-</span>z_score) <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(z_score)</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">z_score &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">/</span>(<span class="kw">sqrt</span>(<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb95-2" title="2"><span class="kw">pnorm</span>(<span class="op">-</span>z_score) <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(z_score)</a></code></pre></div>
 <pre><code>## [1] 0.02189533</code></pre>
 </div>
 <div id="question-8-3" class="section level3">
@@ -963,7 +947,7 @@ no effect: <span class="math inline">\(\mu_x = \mu_y\)</span>. If we use CLT, th
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1"><span class="kw">sqrt</span>((<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">sd</span>(Y)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">12</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">sqrt</span>((<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">sd</span>(Y)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">12</span>)</a></code></pre></div>
 <pre><code>## [1] 1.469867</code></pre>
 </div>
 <div id="question-9-3" class="section level3">
@@ -971,7 +955,7 @@ no effect: <span class="math inline">\(\mu_x = \mu_y\)</span>. If we use CLT, th
 <div class="question">
 <p>So now we can compute <span class="math inline">\(\bar{Y}-\bar{X}\)</span> as well as an estimate of this standard error and construct a t-statistic. What is this t-statistic?</p>
 </div>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">(<span class="kw">mean</span>(Y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(X))<span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">sd</span>(Y)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">12</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">(<span class="kw">mean</span>(Y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(X))<span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">sd</span>(Y)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">12</span>)</a></code></pre></div>
 <pre><code>## [1] 2.055174</code></pre>
 <p>This is a good formula to memorize because it will return in later chapters. Knowing this formula can enable us to compute p-values from scratch.</p>
 </div>
@@ -993,8 +977,8 @@ no effect: <span class="math inline">\(\mu_x = \mu_y\)</span>. If we use CLT, th
 <div class="answer">
 
 
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1">tstat &lt;-<span class="st"> </span>(<span class="kw">mean</span>(Y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(X))<span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">sd</span>(Y)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">12</span>) <span class="co"># from question 9</span></a>
-<a class="sourceLine" id="cb113-2" title="2"><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(tstat))</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">tstat &lt;-<span class="st"> </span>(<span class="kw">mean</span>(Y) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(X))<span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="kw">sd</span>(X)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">sd</span>(Y)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">12</span>) <span class="co"># from question 9</span></a>
+<a class="sourceLine" id="cb101-2" title="2"><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(tstat))</a></code></pre></div>
 <pre><code>## [1] 0.0398622</code></pre>
 </div>
 <div id="question-12-1" class="section level3">
@@ -1006,13 +990,13 @@ distribution. What is the p-value under the t-distribution approximation? Hint: 
 <div class="answer">
 
 
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb115-2" title="2"><span class="kw">qqnorm</span>(X, <span class="dt">main =</span> <span class="st">&#39;Theoretical normal quantiles vs X&#39;</span>)</a>
-<a class="sourceLine" id="cb115-3" title="3"><span class="kw">qqline</span>(X)</a>
-<a class="sourceLine" id="cb115-4" title="4"><span class="kw">qqnorm</span>(Y, <span class="dt">main =</span> <span class="st">&#39;Theoretical normal quantiles vs Y&#39;</span>)</a>
-<a class="sourceLine" id="cb115-5" title="5"><span class="kw">qqline</span>(Y)</a></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb103-2" title="2"><span class="kw">qqnorm</span>(X, <span class="dt">main =</span> <span class="st">&#39;Theoretical normal quantiles vs X&#39;</span>)</a>
+<a class="sourceLine" id="cb103-3" title="3"><span class="kw">qqline</span>(X)</a>
+<a class="sourceLine" id="cb103-4" title="4"><span class="kw">qqnorm</span>(Y, <span class="dt">main =</span> <span class="st">&#39;Theoretical normal quantiles vs Y&#39;</span>)</a>
+<a class="sourceLine" id="cb103-5" title="5"><span class="kw">qqline</span>(Y)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1"><span class="kw">t.test</span>(X,Y)<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="kw">t.test</span>(X,Y)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## [1] 0.05299888</code></pre>
 </div>
 <div id="question-13-1" class="section level3">
@@ -1028,18 +1012,18 @@ distribution. What is the p-value under the t-distribution approximation? Hint: 
 <div id="ch-2.18-exercises" class="section level2">
 <h2><span class="header-section-number">2.5</span> Ch 2.18 Exercises</h2>
 <p>For these exercises we will load the babies dataset from <code>babies.txt</code>. We will use this data to review the concepts behind the p-values and then test confidence interval concepts.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1">babies &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;babies.txt&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1">babies &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;babies.txt&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>This is a large dataset (1,236 cases), and we will pretend that it contains the entire population in which we are interested. We will study the differences in birth weight between babies born to smoking and non-smoking mothers.
 First, let’s split this into two birth weight datasets: one of birth weights to non-smoking mothers and the other of birth weights to smoking mothers.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1">bwt.nonsmoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
-<a class="sourceLine" id="cb119-2" title="2">bwt.smoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1">bwt.nonsmoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
+<a class="sourceLine" id="cb107-2" title="2">bwt.smoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a></code></pre></div>
 <p>Now, we can look for the true population difference in means between smoking and non-smoking birth weights.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1"><span class="kw">library</span>(rafalib)</a>
-<a class="sourceLine" id="cb120-2" title="2"><span class="kw">mean</span>(bwt.nonsmoke)<span class="op">-</span><span class="kw">mean</span>(bwt.smoke)</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="kw">library</span>(rafalib)</a>
+<a class="sourceLine" id="cb108-2" title="2"><span class="kw">mean</span>(bwt.nonsmoke)<span class="op">-</span><span class="kw">mean</span>(bwt.smoke)</a></code></pre></div>
 <pre><code>## [1] 8.937666</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">popsd</span>(bwt.nonsmoke)</a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1"><span class="kw">popsd</span>(bwt.nonsmoke)</a></code></pre></div>
 <pre><code>## [1] 17.38696</code></pre>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1"><span class="kw">popsd</span>(bwt.smoke)</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="kw">popsd</span>(bwt.smoke)</a></code></pre></div>
 <pre><code>## [1] 18.08024</code></pre>
 <p>The population difference of mean birth weights is about 8.9 ounces. The standard deviations of the nonsmoking and smoking groups are about 17.4 and 18.1 ounces, respectively.</p>
 <p>As we did with the mouse weight data, this assessment interactively reviews inference concepts using simulations in R. We will treat the babies dataset as the full population
@@ -1054,14 +1038,14 @@ about the population.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1">N &lt;-<span class="st"> </span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb126-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb126-3" title="3">dat.ns &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
-<a class="sourceLine" id="cb126-4" title="4">dat.s &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
-<a class="sourceLine" id="cb126-5" title="5">tval &lt;-<span class="st"> </span>(<span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns)) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(dat.s)<span class="op">/</span>N <span class="op">+</span><span class="st"> </span><span class="kw">var</span>(dat.ns)<span class="op">/</span>N)</a>
-<a class="sourceLine" id="cb126-6" title="6"><span class="kw">t.test</span>(dat.s,dat.ns)<span class="op">$</span>statistic[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">N &lt;-<span class="st"> </span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb114-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb114-3" title="3">dat.ns &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
+<a class="sourceLine" id="cb114-4" title="4">dat.s &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
+<a class="sourceLine" id="cb114-5" title="5">tval &lt;-<span class="st"> </span>(<span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns)) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(dat.s)<span class="op">/</span>N <span class="op">+</span><span class="st"> </span><span class="kw">var</span>(dat.ns)<span class="op">/</span>N)</a>
+<a class="sourceLine" id="cb114-6" title="6"><span class="kw">t.test</span>(dat.s,dat.ns)<span class="op">$</span>statistic[[<span class="dv">1</span>]]</a></code></pre></div>
 <pre><code>## [1] -2.120904</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1"><span class="kw">pt</span>(tval, <span class="dt">df =</span> N<span class="op">*</span><span class="dv">2-2</span>)<span class="op">*</span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1"><span class="kw">pt</span>(tval, <span class="dt">df =</span> N<span class="op">*</span><span class="dv">2-2</span>)<span class="op">*</span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 0.03912225</code></pre>
 </div>
 <div id="question-2-4" class="section level3">
@@ -1074,7 +1058,7 @@ about the population.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">(<span class="kw">pnorm</span>(tval) <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>tval))</a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1">(<span class="kw">pnorm</span>(tval) <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>tval))</a></code></pre></div>
 <pre><code>## [1] 0.03392985</code></pre>
 </div>
 <div id="question-3-4" class="section level3">
@@ -1085,7 +1069,7 @@ about the population.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(tval))</a></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1"><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(tval))</a></code></pre></div>
 <pre><code>## [1] 0.03392985</code></pre>
 </div>
 <div id="question-4-4" class="section level3">
@@ -1096,13 +1080,13 @@ about the population.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1"><span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns)</a></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns)</a></code></pre></div>
 <pre><code>## [1] -9.92</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1">Q &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.99</span><span class="op">/</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb136-2" title="2">se &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(dat.ns)<span class="op">/</span>N <span class="op">+</span><span class="st"> </span><span class="kw">var</span>(dat.s)<span class="op">/</span>N)</a>
-<a class="sourceLine" id="cb136-3" title="3"><span class="kw">c</span>(<span class="op">-</span>Q<span class="op">*</span>se <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns), <span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns) <span class="op">+</span><span class="st"> </span>Q<span class="op">*</span>se)</a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1">Q &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.99</span><span class="op">/</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb124-2" title="2">se &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(dat.ns)<span class="op">/</span>N <span class="op">+</span><span class="st"> </span><span class="kw">var</span>(dat.s)<span class="op">/</span>N)</a>
+<a class="sourceLine" id="cb124-3" title="3"><span class="kw">c</span>(<span class="op">-</span>Q<span class="op">*</span>se <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns), <span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns) <span class="op">+</span><span class="st"> </span>Q<span class="op">*</span>se)</a></code></pre></div>
 <pre><code>## [1] -21.967797   2.127797</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="kw">print</span>(Q<span class="op">*</span>se)</a></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1"><span class="kw">print</span>(Q<span class="op">*</span>se)</a></code></pre></div>
 <pre><code>## [1] 12.0478</code></pre>
 </div>
 <div id="question-5-4" class="section level3">
@@ -1113,11 +1097,11 @@ about the population.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1">Qt &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.99</span><span class="op">/</span><span class="dv">2</span>, <span class="dt">df =</span> N<span class="op">*</span><span class="dv">2-2</span>)</a>
-<a class="sourceLine" id="cb140-2" title="2">se &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(dat.ns)<span class="op">/</span>N <span class="op">+</span><span class="st"> </span><span class="kw">var</span>(dat.s)<span class="op">/</span>N)</a>
-<a class="sourceLine" id="cb140-3" title="3"><span class="kw">c</span>(<span class="op">-</span>Qt<span class="op">*</span>se <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns), <span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns) <span class="op">+</span><span class="st"> </span>Qt<span class="op">*</span>se)</a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1">Qt &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.99</span><span class="op">/</span><span class="dv">2</span>, <span class="dt">df =</span> N<span class="op">*</span><span class="dv">2-2</span>)</a>
+<a class="sourceLine" id="cb128-2" title="2">se &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(dat.ns)<span class="op">/</span>N <span class="op">+</span><span class="st"> </span><span class="kw">var</span>(dat.s)<span class="op">/</span>N)</a>
+<a class="sourceLine" id="cb128-3" title="3"><span class="kw">c</span>(<span class="op">-</span>Qt<span class="op">*</span>se <span class="op">+</span><span class="st"> </span><span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns), <span class="kw">mean</span>(dat.s) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(dat.ns) <span class="op">+</span><span class="st"> </span>Qt<span class="op">*</span>se)</a></code></pre></div>
 <pre><code>## [1] -22.465339   2.625339</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1"><span class="kw">t.test</span>(dat.s, dat.ns)</a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1"><span class="kw">t.test</span>(dat.s, dat.ns)</a></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -1129,7 +1113,7 @@ about the population.</p>
 ## sample estimates:
 ## mean of x mean of y 
 ##    114.76    124.68</code></pre>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">print</span>(Qt<span class="op">*</span>se)</a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="kw">print</span>(Qt<span class="op">*</span>se)</a></code></pre></div>
 <pre><code>## [1] 12.54534</code></pre>
 </div>
 <div id="question-6-4" class="section level3">
@@ -1160,11 +1144,11 @@ The answer is <strong>C: From the original data alone, you can tell whether you 
 <div class="answer">
 
 
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">N &lt;-<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb146-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb146-3" title="3">ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
-<a class="sourceLine" id="cb146-4" title="4">s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
-<a class="sourceLine" id="cb146-5" title="5"><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1">N &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb134-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb134-3" title="3">ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
+<a class="sourceLine" id="cb134-4" title="4">s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
+<a class="sourceLine" id="cb134-5" title="5"><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## [1] 0.1366428</code></pre>
 </div>
 <div id="question-9-4" class="section level3">
@@ -1184,17 +1168,17 @@ The answer is <strong>C: From the original data alone, you can tell whether you 
 <div class="answer">
 
 
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb148-2" title="2">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb148-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb148-4" title="4">N &lt;-<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb148-5" title="5">res_list&lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb148-6" title="6">  ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
-<a class="sourceLine" id="cb148-7" title="7">  s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
-<a class="sourceLine" id="cb148-8" title="8">  pval &lt;-<span class="st"> </span><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb148-9" title="9">  <span class="kw">return</span>(alpha <span class="op">&gt;</span><span class="st"> </span>pval) <span class="co"># this returns logical (i.e., TRUE if pval is smaller than 0.05 = alpha), and stores in the vector res_list.</span></a>
-<a class="sourceLine" id="cb148-10" title="10">})</a>
-<a class="sourceLine" id="cb148-11" title="11"><span class="kw">mean</span>(res_list) </a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb136-2" title="2">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb136-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb136-4" title="4">N &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb136-5" title="5">res_list&lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
+<a class="sourceLine" id="cb136-6" title="6">  ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
+<a class="sourceLine" id="cb136-7" title="7">  s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
+<a class="sourceLine" id="cb136-8" title="8">  pval &lt;-<span class="st"> </span><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb136-9" title="9">  <span class="kw">return</span>(alpha <span class="op">&gt;</span><span class="st"> </span>pval) <span class="co"># this returns logical (i.e., TRUE if pval is smaller than 0.05 = alpha), and stores in the vector res_list.</span></a>
+<a class="sourceLine" id="cb136-10" title="10">})</a>
+<a class="sourceLine" id="cb136-11" title="11"><span class="kw">mean</span>(res_list) </a></code></pre></div>
 <pre><code>## [1] 0.0984</code></pre>
 </div>
 <div id="question-11-2" class="section level3">
@@ -1205,22 +1189,22 @@ The answer is <strong>C: From the original data alone, you can tell whether you 
 <div class="answer">
 
 
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1">pval_calc &lt;-<span class="st"> </span><span class="cf">function</span>(N) {</a>
-<a class="sourceLine" id="cb150-2" title="2">  ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
-<a class="sourceLine" id="cb150-3" title="3">  s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
-<a class="sourceLine" id="cb150-4" title="4">  pval &lt;-<span class="st"> </span><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb150-5" title="5">  <span class="kw">return</span>(pval)</a>
-<a class="sourceLine" id="cb150-6" title="6">}</a>
-<a class="sourceLine" id="cb150-7" title="7"></a>
-<a class="sourceLine" id="cb150-8" title="8">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">120</span>)</a>
-<a class="sourceLine" id="cb150-9" title="9">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb150-10" title="10">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb150-11" title="11">res_list &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">length</span>(Ns))</a>
-<a class="sourceLine" id="cb150-12" title="12"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
-<a class="sourceLine" id="cb150-13" title="13">  res_list[[i]] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">replicate</span>(B, <span class="kw">pval_calc</span>(Ns[[i]])) <span class="op">&lt;</span><span class="st"> </span>alpha)</a>
-<a class="sourceLine" id="cb150-14" title="14">}</a>
-<a class="sourceLine" id="cb150-15" title="15"><span class="kw">names</span>(res_list) &lt;-<span class="st"> </span>Ns</a>
-<a class="sourceLine" id="cb150-16" title="16"><span class="kw">print</span>(res_list) <span class="co"># sample size of 60 gives power of 80%</span></a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1">pval_calc &lt;-<span class="st"> </span><span class="cf">function</span>(N) {</a>
+<a class="sourceLine" id="cb138-2" title="2">  ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
+<a class="sourceLine" id="cb138-3" title="3">  s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
+<a class="sourceLine" id="cb138-4" title="4">  pval &lt;-<span class="st"> </span><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb138-5" title="5">  <span class="kw">return</span>(pval)</a>
+<a class="sourceLine" id="cb138-6" title="6">}</a>
+<a class="sourceLine" id="cb138-7" title="7"></a>
+<a class="sourceLine" id="cb138-8" title="8">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb138-9" title="9">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb138-10" title="10">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb138-11" title="11">res_list &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">length</span>(Ns))</a>
+<a class="sourceLine" id="cb138-12" title="12"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
+<a class="sourceLine" id="cb138-13" title="13">  res_list[[i]] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">replicate</span>(B, <span class="kw">pval_calc</span>(Ns[[i]])) <span class="op">&lt;</span><span class="st"> </span>alpha)</a>
+<a class="sourceLine" id="cb138-14" title="14">}</a>
+<a class="sourceLine" id="cb138-15" title="15"><span class="kw">names</span>(res_list) &lt;-<span class="st"> </span>Ns</a>
+<a class="sourceLine" id="cb138-16" title="16"><span class="kw">print</span>(res_list) <span class="co"># sample size of 60 gives power of 80%</span></a></code></pre></div>
 <pre><code>##     30     60     90    120 
 ## 0.4933 0.7868 0.9344 0.9835</code></pre>
 <p>Sample size of 60 gives power of 80%.</p>
@@ -1233,22 +1217,22 @@ The answer is <strong>C: From the original data alone, you can tell whether you 
 <div class="answer">
 
 
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1">pval_calc &lt;-<span class="st"> </span><span class="cf">function</span>(N) {</a>
-<a class="sourceLine" id="cb152-2" title="2">  ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
-<a class="sourceLine" id="cb152-3" title="3">  s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
-<a class="sourceLine" id="cb152-4" title="4">  pval &lt;-<span class="st"> </span><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb152-5" title="5">  <span class="kw">return</span>(pval)</a>
-<a class="sourceLine" id="cb152-6" title="6">}</a>
-<a class="sourceLine" id="cb152-7" title="7"></a>
-<a class="sourceLine" id="cb152-8" title="8">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">120</span>)</a>
-<a class="sourceLine" id="cb152-9" title="9">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb152-10" title="10">alpha &lt;-<span class="st"> </span><span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb152-11" title="11">res_list &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">length</span>(Ns))</a>
-<a class="sourceLine" id="cb152-12" title="12"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
-<a class="sourceLine" id="cb152-13" title="13">  res_list[[i]] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">replicate</span>(B, <span class="kw">pval_calc</span>(Ns[[i]])) <span class="op">&lt;</span><span class="st"> </span>alpha)</a>
-<a class="sourceLine" id="cb152-14" title="14">}</a>
-<a class="sourceLine" id="cb152-15" title="15"><span class="kw">names</span>(res_list) &lt;-<span class="st"> </span>Ns</a>
-<a class="sourceLine" id="cb152-16" title="16"><span class="kw">print</span>(res_list) <span class="co"># sample size of 90 gives power of 80%</span></a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1">pval_calc &lt;-<span class="st"> </span><span class="cf">function</span>(N) {</a>
+<a class="sourceLine" id="cb140-2" title="2">  ns_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke, N)</a>
+<a class="sourceLine" id="cb140-3" title="3">  s_sample &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke, N)</a>
+<a class="sourceLine" id="cb140-4" title="4">  pval &lt;-<span class="st"> </span><span class="kw">t.test</span>(ns_sample, s_sample)<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb140-5" title="5">  <span class="kw">return</span>(pval)</a>
+<a class="sourceLine" id="cb140-6" title="6">}</a>
+<a class="sourceLine" id="cb140-7" title="7"></a>
+<a class="sourceLine" id="cb140-8" title="8">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">60</span>,<span class="dv">90</span>,<span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb140-9" title="9">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb140-10" title="10">alpha &lt;-<span class="st"> </span><span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb140-11" title="11">res_list &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">length</span>(Ns))</a>
+<a class="sourceLine" id="cb140-12" title="12"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
+<a class="sourceLine" id="cb140-13" title="13">  res_list[[i]] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">replicate</span>(B, <span class="kw">pval_calc</span>(Ns[[i]])) <span class="op">&lt;</span><span class="st"> </span>alpha)</a>
+<a class="sourceLine" id="cb140-14" title="14">}</a>
+<a class="sourceLine" id="cb140-15" title="15"><span class="kw">names</span>(res_list) &lt;-<span class="st"> </span>Ns</a>
+<a class="sourceLine" id="cb140-16" title="16"><span class="kw">print</span>(res_list) <span class="co"># sample size of 90 gives power of 80%</span></a></code></pre></div>
 <pre><code>##     30     60     90    120 
 ## 0.2461 0.5607 0.7932 0.9241</code></pre>
 <p>Sample size of 90 gives power of 80%.</p>
@@ -1267,11 +1251,11 @@ statistical properties related to inference on differences in averages. Here, we
 <div class="answer">
 
 
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb154-2" title="2">n &lt;-<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb154-3" title="3">sample1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
-<a class="sourceLine" id="cb154-4" title="4">tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">5</span>)<span class="op">*</span><span class="kw">mean</span>(sample1)<span class="op">/</span><span class="kw">sd</span>(sample1)</a>
-<a class="sourceLine" id="cb154-5" title="5">tstat</a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb142-2" title="2">n &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb142-3" title="3">sample1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb142-4" title="4">tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">5</span>)<span class="op">*</span><span class="kw">mean</span>(sample1)<span class="op">/</span><span class="kw">sd</span>(sample1)</a>
+<a class="sourceLine" id="cb142-5" title="5">tstat</a></code></pre></div>
 <pre><code>## [1] 0.3007746</code></pre>
 </div>
 <div id="question-2-5" class="section level3">
@@ -1283,18 +1267,18 @@ theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in
 <div class="answer">
 
 
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb156-2" title="2">samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb156-3" title="3">tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">5</span>)<span class="op">*</span>samp<span class="op">/</span><span class="kw">sd</span>(samp)</a>
-<a class="sourceLine" id="cb156-4" title="4"></a>
-<a class="sourceLine" id="cb156-5" title="5">get_t &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
-<a class="sourceLine" id="cb156-6" title="6">  samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
-<a class="sourceLine" id="cb156-7" title="7">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n)<span class="op">*</span><span class="kw">mean</span>(samp)<span class="op">/</span><span class="kw">sd</span>(samp)</a>
-<a class="sourceLine" id="cb156-8" title="8">  <span class="kw">return</span>(tstat)</a>
-<a class="sourceLine" id="cb156-9" title="9">}</a>
-<a class="sourceLine" id="cb156-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb156-11" title="11">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">get_t</span>(<span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb156-12" title="12"><span class="kw">mean</span>(res_list <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb144-2" title="2">samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb144-3" title="3">tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">5</span>)<span class="op">*</span>samp<span class="op">/</span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb144-4" title="4"></a>
+<a class="sourceLine" id="cb144-5" title="5">get_t &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb144-6" title="6">  samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb144-7" title="7">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n)<span class="op">*</span><span class="kw">mean</span>(samp)<span class="op">/</span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb144-8" title="8">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb144-9" title="9">}</a>
+<a class="sourceLine" id="cb144-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb144-11" title="11">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">get_t</span>(<span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb144-12" title="12"><span class="kw">mean</span>(res_list <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.068</code></pre>
 </div>
 <div id="question-3-5" class="section level3">
@@ -1307,25 +1291,25 @@ theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in
 <div class="answer">
 
 
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb158-2" title="2">ps =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
-<a class="sourceLine" id="cb158-3" title="3"></a>
-<a class="sourceLine" id="cb158-4" title="4">get_t &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
-<a class="sourceLine" id="cb158-5" title="5">  samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
-<a class="sourceLine" id="cb158-6" title="6">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n)<span class="op">*</span><span class="kw">mean</span>(samp)<span class="op">/</span><span class="kw">sd</span>(samp)</a>
-<a class="sourceLine" id="cb158-7" title="7">  <span class="kw">return</span>(tstat)</a>
-<a class="sourceLine" id="cb158-8" title="8">}</a>
-<a class="sourceLine" id="cb158-9" title="9"></a>
-<a class="sourceLine" id="cb158-10" title="10">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb158-11" title="11"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb158-12" title="12"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb158-13" title="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
-<a class="sourceLine" id="cb158-14" title="14">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">get_t</span>(Ns[i]))</a>
-<a class="sourceLine" id="cb158-15" title="15">  theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span>Ns[i]<span class="op">-</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb158-16" title="16">  <span class="kw">qqplot</span>(theory_t, res_list, <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&#39;sample size= &#39;</span>,Ns[i]),</a>
-<a class="sourceLine" id="cb158-17" title="17">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
-<a class="sourceLine" id="cb158-18" title="18">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb158-19" title="19">}</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb146-2" title="2">ps =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
+<a class="sourceLine" id="cb146-3" title="3"></a>
+<a class="sourceLine" id="cb146-4" title="4">get_t &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb146-5" title="5">  samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb146-6" title="6">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n)<span class="op">*</span><span class="kw">mean</span>(samp)<span class="op">/</span><span class="kw">sd</span>(samp)</a>
+<a class="sourceLine" id="cb146-7" title="7">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb146-8" title="8">}</a>
+<a class="sourceLine" id="cb146-9" title="9"></a>
+<a class="sourceLine" id="cb146-10" title="10">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb146-11" title="11"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb146-12" title="12"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb146-13" title="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
+<a class="sourceLine" id="cb146-14" title="14">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">get_t</span>(Ns[i]))</a>
+<a class="sourceLine" id="cb146-15" title="15">  theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span>Ns[i]<span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb146-16" title="16">  <span class="kw">qqplot</span>(theory_t, res_list, <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&#39;sample size= &#39;</span>,Ns[i]),</a>
+<a class="sourceLine" id="cb146-17" title="17">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
+<a class="sourceLine" id="cb146-18" title="18">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb146-19" title="19">}</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 <p>The approximations are spot on for all sample sizes (<strong>answer choice C</strong>).</p>
 </div>
@@ -1337,23 +1321,23 @@ theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in
 <div class="answer">
 
 
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1">ttestgenerator &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
-<a class="sourceLine" id="cb159-2" title="2">  cases &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
-<a class="sourceLine" id="cb159-3" title="3">  controls &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
-<a class="sourceLine" id="cb159-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">t.test</span>(cases,controls)<span class="op">$</span>statistic[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb159-5" title="5">  <span class="kw">return</span>(tstat)</a>
-<a class="sourceLine" id="cb159-6" title="6">}</a>
-<a class="sourceLine" id="cb159-7" title="7"></a>
-<a class="sourceLine" id="cb159-8" title="8">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb159-9" title="9"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb159-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb159-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
-<a class="sourceLine" id="cb159-12" title="12">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">ttestgenerator</span>(Ns[i]))</a>
-<a class="sourceLine" id="cb159-13" title="13">  theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">2</span><span class="op">*</span>Ns[i]<span class="op">-</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb159-14" title="14">  <span class="kw">qqplot</span>(theory_t, res_list, <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&#39;sample size= &#39;</span>,Ns[i]),</a>
-<a class="sourceLine" id="cb159-15" title="15">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
-<a class="sourceLine" id="cb159-16" title="16">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb159-17" title="17">}</a></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">ttestgenerator &lt;-<span class="st"> </span><span class="cf">function</span>(n) {</a>
+<a class="sourceLine" id="cb147-2" title="2">  cases &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb147-3" title="3">  controls &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb147-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">t.test</span>(cases,controls)<span class="op">$</span>statistic[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb147-5" title="5">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb147-6" title="6">}</a>
+<a class="sourceLine" id="cb147-7" title="7"></a>
+<a class="sourceLine" id="cb147-8" title="8">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb147-9" title="9"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb147-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb147-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
+<a class="sourceLine" id="cb147-12" title="12">  res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, <span class="kw">ttestgenerator</span>(Ns[i]))</a>
+<a class="sourceLine" id="cb147-13" title="13">  theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">2</span><span class="op">*</span>Ns[i]<span class="op">-</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb147-14" title="14">  <span class="kw">qqplot</span>(theory_t, res_list, <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&#39;sample size= &#39;</span>,Ns[i]),</a>
+<a class="sourceLine" id="cb147-15" title="15">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
+<a class="sourceLine" id="cb147-16" title="16">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb147-17" title="17">}</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 <p>The approximations are spot on for all sample sizes (<strong>answer choice C</strong>).</p>
 </div>
@@ -1367,16 +1351,16 @@ is approximated by a t-distribution with 14 degrees of freedom.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb160-2" title="2">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb160-3" title="3">  X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="dv">15</span>,<span class="dt">replace =</span> T)</a>
-<a class="sourceLine" id="cb160-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">15</span>) <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)<span class="op">/</span><span class="kw">sd</span>(X)</a>
-<a class="sourceLine" id="cb160-5" title="5">  <span class="kw">return</span>(tstat)</a>
-<a class="sourceLine" id="cb160-6" title="6">})</a>
-<a class="sourceLine" id="cb160-7" title="7"></a>
-<a class="sourceLine" id="cb160-8" title="8">ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
-<a class="sourceLine" id="cb160-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">14</span>)</a>
-<a class="sourceLine" id="cb160-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb148-2" title="2">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb148-3" title="3">  X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="dv">15</span>,<span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb148-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">15</span>) <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)<span class="op">/</span><span class="kw">sd</span>(X)</a>
+<a class="sourceLine" id="cb148-5" title="5">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb148-6" title="6">})</a>
+<a class="sourceLine" id="cb148-7" title="7"></a>
+<a class="sourceLine" id="cb148-8" title="8">ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
+<a class="sourceLine" id="cb148-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">14</span>)</a>
+<a class="sourceLine" id="cb148-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 <p><strong>False</strong>. Instead, it is approximated by binomial distribution because the data are binary (only two values).</p>
 </div>
@@ -1390,17 +1374,17 @@ is approximated by a t-distribution with 999 degrees of freedom.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb161-2" title="2">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb161-3" title="3">  X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="dv">1000</span>,<span class="dt">replace =</span> T)</a>
-<a class="sourceLine" id="cb161-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1000</span>) <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)<span class="op">/</span><span class="kw">sd</span>(X)</a>
-<a class="sourceLine" id="cb161-5" title="5">  <span class="kw">return</span>(tstat)</a>
-<a class="sourceLine" id="cb161-6" title="6">})</a>
-<a class="sourceLine" id="cb161-7" title="7">B&lt;-<span class="dv">1000</span></a>
-<a class="sourceLine" id="cb161-8" title="8">ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
-<a class="sourceLine" id="cb161-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">999</span>)</a>
-<a class="sourceLine" id="cb161-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a>
-<a class="sourceLine" id="cb161-11" title="11"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb149-2" title="2">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb149-3" title="3">  X &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="dv">1000</span>,<span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb149-4" title="4">  tstat &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1000</span>) <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)<span class="op">/</span><span class="kw">sd</span>(X)</a>
+<a class="sourceLine" id="cb149-5" title="5">  <span class="kw">return</span>(tstat)</a>
+<a class="sourceLine" id="cb149-6" title="6">})</a>
+<a class="sourceLine" id="cb149-7" title="7">B&lt;-<span class="dv">1000</span></a>
+<a class="sourceLine" id="cb149-8" title="8">ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
+<a class="sourceLine" id="cb149-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">999</span>)</a>
+<a class="sourceLine" id="cb149-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a>
+<a class="sourceLine" id="cb149-11" title="11"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" />
 <strong>True</strong>.</p>
 </div>
@@ -1417,24 +1401,24 @@ is approximated by a t-distribution with 999 degrees of freedom.</p>
 </div>
 <div id="ch-2.23-exercises" class="section level2">
 <h2><span class="header-section-number">2.7</span> Ch 2.23 Exercises</h2>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1">babies &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;babies.txt&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb162-2" title="2">bwt.nonsmoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
-<a class="sourceLine" id="cb162-3" title="3">bwt.smoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1">babies &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;babies.txt&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb150-2" title="2">bwt.nonsmoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a>
+<a class="sourceLine" id="cb150-3" title="3">bwt.smoke &lt;-<span class="st"> </span><span class="kw">filter</span>(babies, smoke<span class="op">==</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bwt) <span class="op">%&gt;%</span><span class="st"> </span>unlist</a></code></pre></div>
 <div id="question-1-6" class="section level3">
 <h3><span class="header-section-number">2.7.1</span> Question 1</h3>
 <div class="question">
 <p>We will generate the following random variable based on a sample size of 10 and observe the following difference:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1">N=<span class="dv">10</span></a>
-<a class="sourceLine" id="cb163-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb163-3" title="3">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke , N)</a>
-<a class="sourceLine" id="cb163-4" title="4">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke , N)</a>
-<a class="sourceLine" id="cb163-5" title="5">obs &lt;-<span class="st"> </span><span class="kw">mean</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokers)</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1">N=<span class="dv">10</span></a>
+<a class="sourceLine" id="cb151-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb151-3" title="3">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke , N)</a>
+<a class="sourceLine" id="cb151-4" title="4">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke , N)</a>
+<a class="sourceLine" id="cb151-5" title="5">obs &lt;-<span class="st"> </span><span class="kw">mean</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokers)</a></code></pre></div>
 <p>The question is whether this observed difference is statistically significant. We do not want to rely on the assumptions needed for the normal or t-distribution approximations to hold, so instead we will use permutations. We will reshuffle the data and recompute the mean. We can create one permuted sample with the following code:</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
-<a class="sourceLine" id="cb164-2" title="2">shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>( dat )</a>
-<a class="sourceLine" id="cb164-3" title="3">smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
-<a class="sourceLine" id="cb164-4" title="4">nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
-<a class="sourceLine" id="cb164-5" title="5"><span class="kw">mean</span>(smokersstar)<span class="op">-</span><span class="kw">mean</span>(nonsmokersstar)</a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
+<a class="sourceLine" id="cb152-2" title="2">shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>( dat )</a>
+<a class="sourceLine" id="cb152-3" title="3">smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
+<a class="sourceLine" id="cb152-4" title="4">nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
+<a class="sourceLine" id="cb152-5" title="5"><span class="kw">mean</span>(smokersstar)<span class="op">-</span><span class="kw">mean</span>(nonsmokersstar)</a></code></pre></div>
 <pre><code>## [1] -8.5</code></pre>
 <p>The last value is one observation from the null distribution we will construct. Set the
 seed at 1, and then repeat the permutation 1,000 times to create a null distribution. What
@@ -1443,25 +1427,25 @@ is the permutation derived p-value for our observation?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1">N &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb166-2" title="2"></a>
-<a class="sourceLine" id="cb166-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb166-4" title="4">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
-<a class="sourceLine" id="cb166-5" title="5">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
-<a class="sourceLine" id="cb166-6" title="6">obs &lt;-<span class="st"> </span><span class="kw">mean</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokers)</a>
-<a class="sourceLine" id="cb166-7" title="7"></a>
-<a class="sourceLine" id="cb166-8" title="8"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb166-9" title="9">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb166-10" title="10">  dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
-<a class="sourceLine" id="cb166-11" title="11">  shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>(dat)</a>
-<a class="sourceLine" id="cb166-12" title="12">  smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
-<a class="sourceLine" id="cb166-13" title="13">  nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
-<a class="sourceLine" id="cb166-14" title="14">  avgdiff &lt;-<span class="st"> </span><span class="kw">mean</span>(smokersstar) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokersstar)</a>
-<a class="sourceLine" id="cb166-15" title="15">  <span class="kw">return</span>(avgdiff)</a>
-<a class="sourceLine" id="cb166-16" title="16">  </a>
-<a class="sourceLine" id="cb166-17" title="17">})</a>
-<a class="sourceLine" id="cb166-18" title="18"></a>
-<a class="sourceLine" id="cb166-19" title="19">(<span class="kw">sum</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(obs)) <span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(res_list)<span class="op">+</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1">N &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb154-2" title="2"></a>
+<a class="sourceLine" id="cb154-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb154-4" title="4">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
+<a class="sourceLine" id="cb154-5" title="5">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
+<a class="sourceLine" id="cb154-6" title="6">obs &lt;-<span class="st"> </span><span class="kw">mean</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokers)</a>
+<a class="sourceLine" id="cb154-7" title="7"></a>
+<a class="sourceLine" id="cb154-8" title="8"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb154-9" title="9">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb154-10" title="10">  dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
+<a class="sourceLine" id="cb154-11" title="11">  shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>(dat)</a>
+<a class="sourceLine" id="cb154-12" title="12">  smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
+<a class="sourceLine" id="cb154-13" title="13">  nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
+<a class="sourceLine" id="cb154-14" title="14">  avgdiff &lt;-<span class="st"> </span><span class="kw">mean</span>(smokersstar) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(nonsmokersstar)</a>
+<a class="sourceLine" id="cb154-15" title="15">  <span class="kw">return</span>(avgdiff)</a>
+<a class="sourceLine" id="cb154-16" title="16">  </a>
+<a class="sourceLine" id="cb154-17" title="17">})</a>
+<a class="sourceLine" id="cb154-18" title="18"></a>
+<a class="sourceLine" id="cb154-19" title="19">(<span class="kw">sum</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(obs)) <span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(res_list)<span class="op">+</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.05294705</code></pre>
 <p>Due to the random numbers, the actual answer might differ.</p>
 </div>
@@ -1473,30 +1457,30 @@ is the permutation derived p-value for our observation?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1">N &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb168-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb168-3" title="3">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
-<a class="sourceLine" id="cb168-4" title="4">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
-<a class="sourceLine" id="cb168-5" title="5">obs &lt;-<span class="st"> </span><span class="kw">median</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(nonsmokers)</a>
-<a class="sourceLine" id="cb168-6" title="6"></a>
-<a class="sourceLine" id="cb168-7" title="7"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb168-8" title="8">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb168-9" title="9">  dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
-<a class="sourceLine" id="cb168-10" title="10">  shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>(dat)</a>
-<a class="sourceLine" id="cb168-11" title="11">  smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
-<a class="sourceLine" id="cb168-12" title="12">  nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
-<a class="sourceLine" id="cb168-13" title="13">  avgdiff &lt;-<span class="st"> </span><span class="kw">median</span>(smokersstar) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(nonsmokersstar)</a>
-<a class="sourceLine" id="cb168-14" title="14">  <span class="kw">return</span>(avgdiff)</a>
-<a class="sourceLine" id="cb168-15" title="15">  </a>
-<a class="sourceLine" id="cb168-16" title="16">})</a>
-<a class="sourceLine" id="cb168-17" title="17">(<span class="kw">sum</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(obs)) <span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(res_list)<span class="op">+</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1">N &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb156-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb156-3" title="3">nonsmokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.nonsmoke,N)</a>
+<a class="sourceLine" id="cb156-4" title="4">smokers &lt;-<span class="st"> </span><span class="kw">sample</span>(bwt.smoke,N)</a>
+<a class="sourceLine" id="cb156-5" title="5">obs &lt;-<span class="st"> </span><span class="kw">median</span>(smokers) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(nonsmokers)</a>
+<a class="sourceLine" id="cb156-6" title="6"></a>
+<a class="sourceLine" id="cb156-7" title="7"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb156-8" title="8">res_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb156-9" title="9">  dat &lt;-<span class="st"> </span><span class="kw">c</span>(smokers,nonsmokers)</a>
+<a class="sourceLine" id="cb156-10" title="10">  shuffle &lt;-<span class="st"> </span><span class="kw">sample</span>(dat)</a>
+<a class="sourceLine" id="cb156-11" title="11">  smokersstar &lt;-<span class="st"> </span>shuffle[<span class="dv">1</span><span class="op">:</span>N]</a>
+<a class="sourceLine" id="cb156-12" title="12">  nonsmokersstar &lt;-<span class="st"> </span>shuffle[(N<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(<span class="dv">2</span><span class="op">*</span>N)]</a>
+<a class="sourceLine" id="cb156-13" title="13">  avgdiff &lt;-<span class="st"> </span><span class="kw">median</span>(smokersstar) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(nonsmokersstar)</a>
+<a class="sourceLine" id="cb156-14" title="14">  <span class="kw">return</span>(avgdiff)</a>
+<a class="sourceLine" id="cb156-15" title="15">  </a>
+<a class="sourceLine" id="cb156-16" title="16">})</a>
+<a class="sourceLine" id="cb156-17" title="17">(<span class="kw">sum</span>(<span class="kw">abs</span>(res_list) <span class="op">&gt;</span><span class="st"> </span><span class="kw">abs</span>(obs)) <span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(<span class="kw">length</span>(res_list)<span class="op">+</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 0.01798202</code></pre>
 <p>Due to the random numbers, the actual answer might differ.</p>
 </div>
 </div>
 <div id="ch-2.25-exercises" class="section level2">
 <h2><span class="header-section-number">2.8</span> Ch 2.25 Exercises</h2>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1">d =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;assoctest.csv&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1">d =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;assoctest.csv&#39;</span>)</a></code></pre></div>
 <div id="question-1-7" class="section level3">
 <h3><span class="header-section-number">2.8.1</span> Question 1</h3>
 <div class="question">
@@ -1504,8 +1488,8 @@ is the permutation derived p-value for our observation?</p>
 </div>
 <div class="answer">
 
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1">tab &lt;-<span class="st"> </span><span class="kw">table</span>(d)</a>
-<a class="sourceLine" id="cb171-2" title="2"><span class="kw">chisq.test</span>(tab)<span class="op">$</span>statistic</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1">tab &lt;-<span class="st"> </span><span class="kw">table</span>(d)</a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="kw">chisq.test</span>(tab)<span class="op">$</span>statistic</a></code></pre></div>
 <pre><code>## X-squared 
 ##  3.343653</code></pre>
 </div>
@@ -1517,7 +1501,7 @@ is the permutation derived p-value for our observation?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">fisher.test</span>(tab)<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">fisher.test</span>(tab)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## [1] 0.05193834</code></pre>
 
 </div>
