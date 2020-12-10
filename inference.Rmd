@@ -5,7 +5,7 @@ editor_options:
   chunk_output_type: console
 ---
 # Inference
-Note: **bolded** parts in the questions denote where I have modified the wordings for clarity and brevity.
+Note: I have rephrased some parts of the questions for clarity. These changes are **bolded**. The exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
 
 First, upload necessary package(s).
 
@@ -187,13 +187,15 @@ for (i in seq(n)) {
 sd(res50) # standard deviation = spread of the histogram
 ```
 
+The standard deviation of `res50` is smaller than that of `res5` because of the difference in the sample sizes.  A higher standard deviation leads to a wider histogram. See two figures below. 
+
 ```{r}
 mypar(1,2) # plot histograms
 hist(res5)
 hist(res50)
 ```
 
-`mypar` is a function from the package `rafalib`. It helps to align multiple plots in a single plot. `mypar(1,1)` contains one panel only, `mypar(2,1)` contains 2 rows of panels and 1 column, `mypar(1,2)` contains 1 row of panels and 2 columns, etc. Type `?mypar` for more information. `hist` plots a  histogram.
+`mypar` is a function from the package `rafalib`. It helps to align multiple plots in a single plot. `mypar(1,1)` contains one panel only, `mypar(2,1)` contains 2 rows of panels and 1 column, `mypar(1,2)` contains 1 row of panels and 2 columns, etc. Type `?mypar` for more information. You will be using this function to plot a graph throughout the entire book. `hist` plots a  histogram.
 
 The answer is **B: They both look normal, but with a sample size of 50 the spread is smaller.**
 
@@ -261,6 +263,8 @@ Now use the `rafalib` package and use the `popsd` function to compute the popula
 ```{r}
 popsd(x)
 ```
+
+`popsd` and `sd` are slightly different. `sd` calculates the standard deviation of the sample size, so the denominator that it uses to compute SD is `n-1`. Function `var` also uses denominator `n-1` to calculate variance. However, `popsd` (which is from `rafalib` package) uses denominator `n`. 
 
 ### Question 3
 <div class="question">
@@ -341,6 +345,8 @@ hf_f_pop <- dat %>% filter(Sex == 'F' & Diet == 'hf') %>%
 
 set.seed(1)
 sample_chow_f_pop <- sample(chow_f_pop, 25) # X
+
+set.seed(1)
 sample_hf_f_pop <- sample(hf_f_pop,25) # Y
 
 pop_diff <- mean(hf_f_pop) - mean(chow_f_pop) # y - x
@@ -433,11 +439,16 @@ mean(abs(z_score) <= 1)
 ```{r}
 mean(abs(y - mean(y)) <= popsd(y))
 ```
+
+It doesn't matter which solution you use as long as you have the same answer. 
+
 ### Question 5
 
 <div class="question">
 What proportion of these numbers are within two standard deviations away from the list's average?
 </div>
+
+<div class="answer">
 
 ```{r}
 mean(abs(z_score) <= 2)
@@ -447,7 +458,7 @@ mean(abs(z_score) <= 2)
 mean(abs(y - mean(y)) <= 2*popsd(y))
 ```
 
-<div class="answer">
+It doesn't matter which solution you use as long as you have the same answer. 
 
 ### Question 6
 
@@ -465,6 +476,8 @@ mean(abs(z_score) <= 3)
 ```{r}
 mean(abs(y - mean(y)) <= 3*popsd(y))
 ```
+
+It doesn't matter which solution you use as long as you have the same answer. 
 
 ### Question 7
 
@@ -686,6 +699,11 @@ hist(question2(100,0.01), main = 'n=100, p=0.01')
 
 ```
 
+The answer is **B, n = 30, p = 0.5.** I created a custom function for this question. However, another approach (and maybe more concise) is to use a for loop.
+
+This is tricky question, primarily because not all dice has number 6 (as is the case in Question 1, `mean(x==6)`). So you had to calculate the probability where the dice ends up in another side by modifying the code; since all dice has sdie 1, `mean(x==1)` seems like a safe choice. Also,  the number of the sides for each die changes since it is defined by the `p` value. For instance, if `p` equals `0.01` for side 1, then there are 100 sides total (`1/0.01 = 100`).
+
+
 ### Question 3
 <div class="question">
 As we have already seen, the CLT also applies to averages of quantitative data. A major difference with binary data, for which we know the variance is p(1-p), is that with quantitative data we need to estimate the population standard
@@ -718,6 +736,8 @@ We don't know $\mu_x$, but want to use $\bar{X}$ to understand $\mu_x$. Which of
 <div class="answer">
 
 The answer is **D: $\bar{X}$ follows a normal distribution with mean $\mu_x$ and standard deviation of $\frac{\sigma_x}{\sqrt{12}}$ where $\sigma_x$ is the population of standard deviation.**
+
+It is important to be aware of the fact that $\bar{X}$ is based on raw data. So the mean of the distribution can be approximated by the population mean $\mu_x$. However, if the question asked about z-score, then it would be at 0, because z-score (i.e., t-statistic) is standardized. 
 
 ### Question 5
 <div class="question">
@@ -771,6 +791,8 @@ So now we can compute $\bar{Y}-\bar{X}$ as well as an estimate of this standard 
 (mean(Y) - mean(X))/ sqrt((sd(X)^2 + sd(Y)^2)/12)
 ```
 
+This is a good formula to memorize because it will return in later chapters. Knowing this formula can enable us to compute p-values from scratch. 
+
 ### Question 10
 <div class="question">
 If we apply the CLT, what is the distribution of this t-statistic?
@@ -778,7 +800,9 @@ If we apply the CLT, what is the distribution of this t-statistic?
 
 <div class="answer">
 
-The answer is **A: Normal with mean 0 and standard deviation 1**.
+The answer is **A: Normal with mean 0 and standard deviation 1**. 
+
+T-statistic is z-score, so the values are standardized to the sample mean. Therefore, the mean is 0.
 
 ### Question 11
 <div class="question">
@@ -788,8 +812,8 @@ Now we are ready to compute a p-value using the CLT. What is the probability of 
 <div class="answer">
 
 ```{r}
-tstat <- (mean(X) - mean(Y))/ sqrt((sd(X)^2 + sd(Y)^2)/12) # from question 9
-pnorm(tstat) + 1- pnorm(tstat)
+tstat <- (mean(Y) - mean(X))/ sqrt((sd(X)^2 + sd(Y)^2)/12) # from question 9
+2*(1-pnorm(tstat))
 ```
 
 ### Question 12
@@ -806,7 +830,7 @@ qqnorm(X, main = 'Theoretical normal quantiles vs X')
 qqline(X)
 qqnorm(Y, main = 'Theoretical normal quantiles vs Y')
 qqline(Y)
-t.test(X,Y)
+t.test(X,Y)$p.value
 ```
 
 ### Question 13
@@ -892,7 +916,7 @@ Because of the symmetry of the standard normal distribution, there is a simpler 
 <div class="answer">
 
 ```{r}
-1 - 2*pnorm(-abs(tval)) 
+2*pnorm(-abs(tval))
 ```
 
 ### Question 4
@@ -908,6 +932,7 @@ mean(dat.s) - mean(dat.ns)
 Q <- qnorm(0.5 + 0.99/2)
 se <- sqrt(var(dat.ns)/N + var(dat.s)/N)
 c(-Q*se + mean(dat.s) - mean(dat.ns), mean(dat.s) - mean(dat.ns) + Q*se)
+print(Q*se)
 ```
 
 ### Question 5
@@ -923,6 +948,7 @@ Qt <- qt(0.5 + 0.99/2, df = N*2-2)
 se <- sqrt(var(dat.ns)/N + var(dat.s)/N)
 c(-Qt*se + mean(dat.s) - mean(dat.ns), mean(dat.s) - mean(dat.ns) + Qt*se)
 t.test(dat.s, dat.ns)
+print(Qt*se)
 ```
 
 ### Question 6
@@ -942,7 +968,7 @@ Which of the following sentences about a Type I error is **false**?
 
 <div class="answer">
 
-The answer is C: From the original data alone, you can tell whether you have made a Type I error.
+The answer is **C: From the original data alone, you can tell whether you have made a Type I error.**
 <div class="answer">
 
 ### Question 8
@@ -957,7 +983,7 @@ N <- 5
 set.seed(1)
 ns_sample <- sample(bwt.nonsmoke, N)
 s_sample <- sample(bwt.smoke, N)
-t.test(ns_sample, s_sample)
+t.test(ns_sample, s_sample)$p.value
 ```
 
 ### Question 9
@@ -1209,6 +1235,7 @@ theory_t <- qt(ps,df=999)
 qqplot(res_list, theory_t)
 abline(0,1)
 ```
+**True**.
 
 ### Question 7
 

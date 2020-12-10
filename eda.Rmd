@@ -1,0 +1,25 @@
+---
+output: html_document
+chapter: Exploratory Data Analysis
+editor_options:
+  chunk_output_type: console
+---
+# Exploratory Data Analysis
+Note: I have rephrased some parts of the questions for clarity. These changes are **bolded**. The exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
+
+First, upload necessary package(s).
+
+```{r}
+library(tidyverse) #also uploads  dplyr
+library(rafalib) # important for plotting with base R
+```
+ 
+## Ch 3.8 Exercises
+
+### Question 1
+
+<div class="question">
+Given the above histogram, how many people are between the ages of 35 and 45?
+</div>
+
+<div class="answer">

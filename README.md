@@ -1,4 +1,4 @@
-# Data Analysis for the Life Sciences with R: Exercise Solutions
+# Data Analysis for the Life Sciences with R: Exercise Solutions (Unofficial)
 
 Seung Hyun (Sam) Min
 
