@@ -5,16 +5,16 @@ editor_options:
   chunk_output_type: console
 ---
 # Inference
-Note: I have rephrased some parts of the questions for clarity. These changes are **bolded**. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
+**Note:** I have rephrased some parts of the questions for clarity. These changes are **bolded**. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
 
 First, upload necessary package(s).
 
 ```{r}
-library(dplyr) # uplaods the function filter() and %>%
+library(dplyr) # uplaods the functions filter() and %>%
 library(rafalib) # important for plotting with base R
 ```
  
-## Ch 2.7 Exercises
+## 2.7 Exercises {-}
 
 If you have not downloaded the data before,
 ```{r}
@@ -38,7 +38,7 @@ x <- read.csv('femaleControlsPopulation.csv') %>% select(Bodyweight) %>% unlist(
 
 Check out what `unlist` does by typing `?unlist` in the command. The second method is more concise because of the pipe `%>%`, which allows multiple lines of commands to be in one continuous line. 
 
-### Question 1
+### Question 1 {-}
 
 <div class="question">
 What is the average of these weights?
@@ -50,7 +50,7 @@ What is the average of these weights?
 mean(x)
 ```
 
-### Question 2
+### Question 2 {-}
 <div class="question">
 After setting the seed at 1, `set.seed(1)` take a random sample size 5. What is the absolute value (use `abs`) of the difference between the average of the sample and the average of all the values?
 </div>
@@ -64,7 +64,7 @@ avg_pop <- mean(x) # average of all values
 abs(avg_sample - avg_pop) # absolute difference
 ```
 
-### Question 3
+### Question 3 {-}
 <div class="question">
 After setting the seed at 5, `set.seed(5)` take a random sample size 5. What is the absolute value (use `abs`) of the difference between the average of the sample and the average of all the values?
 </div>
@@ -78,7 +78,7 @@ avg_pop <- mean(x) # average of all values
 abs(avg_sample - avg_pop) # absolute difference
 ```
 
-### Question 4
+### Question 4 {-}
 <div class="question">
 Why are the answers from 2 and 3 different?
 </div>
@@ -99,7 +99,7 @@ identical(a,b) # these two samples are not identical
 ```
 Notice that samples `a` and `b` differ. Since the seeds were different (`1` vs `5`), different random numbers were generated. Therefore, the answer is **C: Because the average of the samples is a random variable.**
 
-### Question 5
+### Question 5 {-}
 <div class="question">
 Set the seed at 1, then using a for-loop take a random sample of 5 mice in 1,000 times. Save these averages. What percent of these 1,000 averages are more than 1 gram away from the average of `x`?
 </div>
@@ -120,7 +120,7 @@ mean(abs(res-mean(x)) > 1)
 ```
 To make a for loop work in R, an empty vector needs to be created first. This can be achieved with the function `vector`. In this example, the empty vector is `res` (short for result). In the for loop, each average (`avg_sample`) from one repetition gets stored in `res`. 
 
-### Question 6
+### Question 6 {-}
 <div class="question">
 We are now going to increase the number of times we redo the sample from 1,000 to 10,000. Set the seed at 1, then using a for-loop take a random sample of 5 mice 10,000 times. Save these averages. What percent of these 10,000 averages are more than 1 gram away from the average of `x`?
 </div>
@@ -137,7 +137,7 @@ for (i in seq(n)) {
 mean(abs(res-mean(x)) > 1)
 ```
 
-### Question 7
+### Question 7 {-}
 <div class="question">
 Note that the answers to 5 and 6 barely changed. This is expected. The way we think about the random value distributions is as the distribution of the list of values obtained if we repeated the experiment an infinite number of times. On a computer, we can't perform an infinite number of iterations so instead, for our examples, we consider 1,000 to be large enough, thus 10,000 is as well. Now if instead we change the sample size, then we change the random variable and thus its distribution.
 
@@ -155,7 +155,7 @@ for (i in seq(n)) {
 mean(abs(res-mean(x)) > 1)
 ```
 
-### Question 8
+### Question 8 {-}
 
 <div class="question">
 Use a histogram to "look" at the distribution of averages we get with a sample size of 5 and sample size of 50. How would you say they differ?
@@ -199,7 +199,7 @@ hist(res50)
 
 The answer is **B: They both look normal, but with a sample size of 50 the spread is smaller.**
 
-### Question 9
+### Question 9 {-}
 <div class="question">
 For the last set of averages, the ones obtained from a sample size of 50, what percent are between 23 and 25?
 </div>
@@ -209,7 +209,7 @@ For the last set of averages, the ones obtained from a sample size of 50, what p
 mean((res50 >=23) & (res50 <= 25))
 ```
 
-### Question 10
+### Question 10 {-}
 <div class="question">
 Now ask the same question of a normal distribution with average 23.9 and standard deviation 0.43.
 </div>
@@ -222,7 +222,7 @@ pnorm(25,23.9,0.43) - pnorm(23,23.9,0.43)
 
 The answers to 9 and 10 were very similar. This is because we can approximate the distribution of the sample average with a normal distribution. We will learn more about the reason for this next.
 
-## Ch 2.9 Exercises
+## 2.9 Exercises {-}
 
 If you have not downloaded the data before:
 ```{r}
@@ -238,7 +238,7 @@ If you have  the data already in your directory:
 raw_data <- read.csv('mice_pheno.csv')
 dat <- na.omit(raw_data)
 ```
-### Question 1
+### Question 1 {-}
 <div class="question">
 Use `dplyr` to create a vector x with the body weight of all males on the control (chow) diet. What is this population's average?
 </div>
@@ -253,7 +253,7 @@ mean(x)
 
 Throughout the book, I will be using `%>%` for brevity. If you don't understand it, please check out Chapter 18 of [*R for Data Science](https://r4ds.had.co.nz/pipes.html).
 
-### Question 2
+### Question 2 {-}
 <div class="question">
 Now use the `rafalib` package and use the `popsd` function to compute the population standard deviation.
 </div>
@@ -266,7 +266,7 @@ popsd(x)
 
 `popsd` and `sd` are slightly different. `sd` calculates the standard deviation of the sample size, so the denominator that it uses to compute SD is `n-1`. Function `var` also uses denominator `n-1` to calculate variance. However, `popsd` (which is from `rafalib` package) uses denominator `n`. 
 
-### Question 3
+### Question 3 {-}
 <div class="question">
 Set the seed at 1. Take a random sample X of size 25 from x. What is the sample average?
 </div>
@@ -279,7 +279,7 @@ samp_x <- sample(x,25) # sample of x
 mean(samp_x)
 ```
 
-### Question 4
+### Question 4 {-}
 <div class="question">
 Use `dplyr` to create a vector `y` with the body weight of all males on the high fat (hf) diet. What is this population's average?
 </div>
@@ -292,7 +292,7 @@ y <- dat %>% filter(Sex == 'M' & Diet == 'hf') %>%
 mean(y)
 ```
 
-### Question 5
+### Question 5 {-}
 <div class="question">
 Now use the `rafalib` package and use the `popsd` function to compute the population standard deviation.
 </div>
@@ -304,7 +304,7 @@ popsd(y)
 ```
 
 
-### Question 6
+### Question 6 {-}
 <div class="question">
 Set the seed at 1. Take a random sample Y of size 25 from y. What is the sample average?
 </div>
@@ -317,7 +317,7 @@ samp_y <- sample(y,25)
 mean(samp_y)
 ```
 
-### Question 7
+### Question 7 {-}
 <div class="question">
 What is the difference in absolute value between $\bar{y}-\bar{x}$ and $\bar{Y}-\bar{X}$?
 </div>
@@ -330,7 +330,7 @@ sample_diff <- mean(samp_y) - mean(samp_x)
 abs(sample_diff - pop_diff)
 ```
 
-### Question 8
+### Question 8 {-}
 <div class="question">
 Repeat the above for females. Make sure to set the seed to 1 before each `sample` call. What is the difference in absolute value between $\bar{y}-\bar{x}$ and $\bar{Y}-\bar{X}$?
 </div>
@@ -355,7 +355,7 @@ sample_diff <- mean(sample_hf_f_pop) - mean(sample_chow_f_pop) # Y - X
 abs(sample_diff - pop_diff)
 ```
 
-### Question 9
+### Question 9 {-}
 <div class="question">
 For the females, our sample estimates were closer to the population difference than with males. What is a possible explanation for this?
 </div>
@@ -369,7 +369,7 @@ ans
 
 The answer is **A: The population variance of the females is smaller than that of the males; thus, the sample variable has less variability.**
 
-## Ch 2.11 Exercises
+## 2.11 Exercises {-}
 
 If you have not downloaded the data before:
 ```{r}
@@ -386,7 +386,7 @@ raw_data <- read.csv('mice_pheno.csv')
 dat <- na.omit(raw_data)
 ```
 
-### Question 1
+### Question 1 {-}
 
 <div class="question">
 If a list of numbers has a distribution that is well approximated by the normal distribution, what proportion of these numbers are within one standard deviation away from the list's average?
@@ -398,7 +398,7 @@ If a list of numbers has a distribution that is well approximated by the normal 
 pnorm(1) - pnorm(-1)
 ```
 
-### Question 2
+### Question 2 {-}
 <div class="question">
 What proportion of these numbers are within two standard deviations away from the list's average?
 </div>
@@ -408,7 +408,7 @@ What proportion of these numbers are within two standard deviations away from th
 ```{r}
 pnorm(2) - pnorm(-2)
 ```
-### Question 3
+### Question 3 {-}
 
 <div class="question">
 What proportion of these numbers are within three standard deviations away from the list's average?
@@ -420,7 +420,7 @@ What proportion of these numbers are within three standard deviations away from 
 pnorm(3) - pnorm(-3)
 ```
 
-### Question 4
+### Question 4 {-}
 
 <div class="question">
 Define `y` to be the weights of males on the control diet. What proportion of the mice are within one standard deviation away from the average weight (remember to use `popsd` for the population `sd`)?
@@ -442,7 +442,7 @@ mean(abs(y - mean(y)) <= popsd(y))
 
 It doesn't matter which solution you use as long as you have the same answer. 
 
-### Question 5
+### Question 5 {-}
 
 <div class="question">
 What proportion of these numbers are within two standard deviations away from the list's average?
@@ -460,7 +460,7 @@ mean(abs(y - mean(y)) <= 2*popsd(y))
 
 It doesn't matter which solution you use as long as you have the same answer. 
 
-### Question 6
+### Question 6 {-}
 
 <div class="question">
 What proportion of these numbers are within three standard deviations away from the list's average?
@@ -479,7 +479,7 @@ mean(abs(y - mean(y)) <= 3*popsd(y))
 
 It doesn't matter which solution you use as long as you have the same answer. 
 
-### Question 7
+### Question 7 {-}
 
 <div class="question">
 Note that the numbers for the normal distribution and our weights are relatively close. Also, notice that we are indirectly comparing quantiles of the normal distribution to quantiles of the mouse weight distribution. We can actually compare all quantiles using a qq-plot. Which of the following best describes the qq-plot comparing mouse weights to the normal distribution?
@@ -495,7 +495,7 @@ qqline(y)
 
 The answer is **C: The mouse weights are well approximated by the normal distribution, although the larger values (right tail) are larger than predicted by the normal.This is consistent with the differences seen between question 3 and 6.**
 
-### Question 8
+### Question 8 {-}
 
 <div class="question">
 Create the above qq-plot for the four populations: male/females on each of the two diets. What is the most likely explanation for the mouse weights being well approximated? What is the best explanation for all these being well approximated by the normal distribution?
@@ -526,7 +526,7 @@ qqline(fhf)
 
 The answer is **B: This just happens to be how nature behaves. Perhaps the result of many biological factors averaging out.**
 
-### Question 9
+### Question 9 {-}
 
 <div class="question">
 Here we are going to use the function `replicate` to learn about the distribution of random variables. All the above exercises relate to the normal distribution as an approximation of the distribution of a fixed list of numbers or a population. We have not yet discussed probability in these exercises. If the distribution of a list of numbers is approximately normal, then if we pick a number at random from
@@ -568,7 +568,7 @@ qqline(avg_list)
 mean(avg_list) # mean of the sample averages
 ```
 
-### Question 10
+### Question 10 {-}
 
 <div class="question">
 What is the standard deviation of the distribution of sample averages?
@@ -580,7 +580,7 @@ What is the standard deviation of the distribution of sample averages?
 popsd(avg_list)
 ```
 
-### Question 11
+### Question 11 {-}
 <div class="question">
 According to the CLT, the answer to exercise 9 should be the same as `mean(y)`. You should be able to confirm that these two numbers are very close. Which of the following does the CLT tell us should be close to your answer to exercise 10?
 </div>
@@ -591,7 +591,7 @@ According to the CLT, the answer to exercise 9 should be the same as `mean(y)`. 
 popsd(y)/sqrt(25) # answer is C
 ```
 
-### Question 12
+### Question 12 {-}
 <div class="question">
 In practice we do not know $\sigma$ (`popsd(y)`) which is why we can't use the CLT directly. This is because we see a sample and not the entire distribution. We also
 can't use `popsd(avgs)` because to construct averages, we have to take 10,000 samples and this is never practical. We usually just get one sample. Instead we have to estimate `popsd(y)`. As described, what we use is the sample standard
@@ -610,7 +610,7 @@ mypar(1,1)
 hist(sd_list)
 mean(sd_list <= 3.5)
 ```
-### Question 13
+### Question 13 {-}
 
 <div class="question">
 What the answer to question 12 reveals is that the denominator of the t-test is a random variable. By decreasing the sample size, you can see how this variability can increase. It therefore adds variability. The smaller the sample size, the more variability is added. The normal distribution stops providing a useful approximation. When the distribution of the population values is approximately normal, as it is for the weights, the t-distribution provides a better approximation. We will see this later on. Here we will look at the difference between the t-distribution and normal. Use the function `qt` and `qnorm` to get the quantiles of `x=seq(0.0001,0.9999,len=300)`. Do this for degrees of freedom 3, 10, 30, and 100. Which of the following is true?
@@ -629,7 +629,7 @@ for (i in seq_along(df_list)) {
 
 The answer is **C: The t-distribution has larger tails up until 30 degrees of freedom, at which point it is practically the same as the normal distribution.**
 
-## Ch 2.13 Exercises
+## 2.13 Exercises {-}
 
 ```{r}
 dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
@@ -638,7 +638,7 @@ url <- paste0(dir, filename)
 dat <- read.csv(url)
 ```
 
-### Question 1
+### Question 1 {-}
 
 <div class="question">
 The CLT is a result from probability theory. Much of probability theory was originally inspired by gambling. This theory is still used in practice by casinos. For example, they can estimate how many people need to play slots for there to be a 99.9999% probability of earning enough money to cover expenses. Let's try a simple example related to gambling.
@@ -665,7 +665,7 @@ res_list <- replicate(B, {
 mean(abs(res_list) > 2)
 ```
 
-### Question 2
+### Question 2 {-}
 <div class="question">
 For the last simulation you can make a qqplot to confirm the normal approximation. Now, the CLT is an asymptotic result, meaning it is closer and closer to being a perfect approximation as the sample size increases. In practice, however, we need to decide if it is appropriate for actual sample sizes. Is 10 enough? 15? 30?
 
@@ -704,7 +704,7 @@ The answer is **B, n = 30, p = 0.5.** I created a custom function for this quest
 This is tricky question, primarily because not all dice has number 6 (as is the case in Question 1, `mean(x==6)`). So you had to calculate the probability where the dice ends up in another side by modifying the code; since all dice has sdie 1, `mean(x==1)` seems like a safe choice. Also,  the number of the sides for each die changes since it is defined by the `p` value. For instance, if `p` equals `0.01` for side 1, then there are 100 sides total (`1/0.01 = 100`).
 
 
-### Question 3
+### Question 3 {-}
 <div class="question">
 As we have already seen, the CLT also applies to averages of quantitative data. A major difference with binary data, for which we know the variance is p(1-p), is that with quantitative data we need to estimate the population standard
 deviation.
@@ -728,7 +728,7 @@ Define the parameter $\mu_x$ as the average of the control population. We estima
 mean(X)
 ```
 
-### Question 4
+### Question 4 {-}
 <div class="question">
 We don't know $\mu_x$, but want to use $\bar{X}$ to understand $\mu_x$. Which of the following uses CLT to understand how well $\bar{X}$ approximates $\mu_x$?
 </div>
@@ -739,7 +739,7 @@ The answer is **D: $\bar{X}$ follows a normal distribution with mean $\mu_x$ and
 
 It is important to be aware of the fact that $\bar{X}$ is based on raw data. So the mean of the distribution can be approximated by the population mean $\mu_x$. However, if the question asked about z-score, then it would be at 0, because z-score (i.e., t-statistic) is standardized. 
 
-### Question 5
+### Question 5 {-}
 <div class="question">
 The result above tells us the distribution of the following random variable $Z = \sqrt{12}\frac{\bar{X}-\mu_x}{\sigma_x}$. What does the CLT tell us is the mean of $Z$ (you don't need code)?
 </div>
@@ -748,7 +748,7 @@ The result above tells us the distribution of the following random variable $Z =
 
 The answer is **0**. Z refers to t-statistic (something that the book does not explicitly highlight), which is not raw data. Instead, we use raw data and then compute t-statistic. This is the value that is used to compute p-value based on the normal distribution. In the case of z-score or t-statistic, it is 0 at the mean of the sample due to its mathematical definition.
 
-### Question 6
+### Question 6 {-}
 <div class="question">
 The result of 4 and 5 tell us that we know the distribution of the difference between our estimate and what we want to estimate, but don't know. However, the equation involves the population standard deviation $\sigma_X$, which we don't know. Given what we discussed, what is your estimate of $\sigma_x$?
 </div>
@@ -759,7 +759,7 @@ The result of 4 and 5 tell us that we know the distribution of the difference be
 sd(X)
 ```
 
-### Question 7
+### Question 7 {-}
 <div class="question">
 Use the CLT to approximate the probability that our estimate $\bar{X}$ is off by more than 2 grams from $\mu_x$.
 </div>
@@ -771,7 +771,7 @@ z_score <- 2/(sqrt(sd(X)^2/12))
 pnorm(-z_score) + 1- pnorm(z_score)
 ```
 
-### Question 8
+### Question 8 {-}
 <div class="question">
 Now we introduce the concept of a null hypothesis. We don't know $\mu_x$ nor $mu_y$. We want to quantify what the data say about the possibility that the diet has
 no effect: $\mu_x = \mu_y$. If we use CLT, then we approximate the distribution of $\bar{X}$ as normal with mean $mu_X$ and standard deviation of $\frac{\sigma_X}{\sqrt{M}}$ and the distribution of $\bar{Y}$ and standard deviation of $\frac{\sigma_y}{\sqrt{N}}$, with $M$ and $N$ as the sample sizes for $X$ and $Y$ respectively, in this case 12. This implies that the difference $\bar{Y} - \bar{X}$ has mean $0$. We described that the standard deviation of this statistic (the standard error) is $SE(\bar{Y} - \bar{X}) = \sqrt{\sigma_y^2/12 + \sigma_x^2/12}$ and that we estimate the population standard deviations $\sigma_x$ and $\sigma_y$ with the sample estimates. What is the estimate of $SE(\bar{Y} - \bar{X}) = \sqrt{\sigma_y^2/12 + \sigma_x^2/12}$?
@@ -782,7 +782,7 @@ no effect: $\mu_x = \mu_y$. If we use CLT, then we approximate the distribution 
 sqrt((sd(X)^2 + sd(Y)^2)/12)
 ```
 
-### Question 9
+### Question 9 {-}
 <div class="question">
 So now we can compute $\bar{Y}-\bar{X}$ as well as an estimate of this standard error and construct a t-statistic. What is this t-statistic?
 </div>
@@ -793,7 +793,7 @@ So now we can compute $\bar{Y}-\bar{X}$ as well as an estimate of this standard 
 
 This is a good formula to memorize because it will return in later chapters. Knowing this formula can enable us to compute p-values from scratch. 
 
-### Question 10
+### Question 10 {-}
 <div class="question">
 If we apply the CLT, what is the distribution of this t-statistic?
 </div>
@@ -804,7 +804,7 @@ The answer is **A: Normal with mean 0 and standard deviation 1**.
 
 T-statistic is z-score, so the values are standardized to the sample mean. Therefore, the mean is 0.
 
-### Question 11
+### Question 11 {-}
 <div class="question">
 Now we are ready to compute a p-value using the CLT. What is the probability of observing a quantity as large as what we computed for **t-statistic in Question 9**, when the null distribution is true?
 </div>
@@ -816,7 +816,7 @@ tstat <- (mean(Y) - mean(X))/ sqrt((sd(X)^2 + sd(Y)^2)/12) # from question 9
 2*(1-pnorm(tstat))
 ```
 
-### Question 12
+### Question 12 {-}
 <div class="question">
 CLT provides an approximation for cases in which the sample size is large. In practice, we can't check the assumption because we only get to see 1 outcome (which you computed above). As a result, if this approximation is off, so is our p-value. As described earlier, there is another approach that does not require a large sample size, but rather that the distribution of the population is approximately normal. We don't get to see this distribution so it is again an assumption, although we can look at the distribution of the sample with `qqnorm(X)` and `qqnorm(Y)`. If we are willing to assume this, then it follows that the t-statistic follows t-
 distribution. What is the p-value under the t-distribution approximation? Hint: use the `t.test` function.
@@ -833,7 +833,7 @@ qqline(Y)
 t.test(X,Y)$p.value
 ```
 
-### Question 13
+### Question 13 {-}
 <div class="question">
 With the CLT distribution, we obtained a p-value smaller than 0.05 and with the t-distribution, one that is larger. They can't both be right. What best describes the difference?
 </div>
@@ -842,7 +842,7 @@ With the CLT distribution, we obtained a p-value smaller than 0.05 and with the 
 
 The answer is **B: These are two different assumptions. The t-distribution accounts for the variability introduced by the estimation of the standard error and thus, under the null, large values are more probable under the null distribution.**
 
-## Ch 2.18 Exercises
+## 2.18 Exercises {-}
 For these exercises we will load the babies dataset from `babies.txt`. We will use this data to review the concepts behind the p-values and then test confidence interval concepts.
 
 ```{r}
@@ -874,7 +874,7 @@ about the population.
 
 We are interested in testing whether the birth weights of babies born to non-smoking mothers are significantly different from the birth weights of babies born to smoking mothers.
 
-### Question 1
+### Question 1 {-}
 <div class="question">
 Set the seed at 1 and obtain two samples, each of size N = 25, from non-smoking mothers (dat.ns) and smoking mothers (dat.s). Compute the t-statistic (call it tval).
 </div>
@@ -891,7 +891,7 @@ t.test(dat.s,dat.ns)$statistic[[1]]
 pt(tval, df = N*2-2)*2
 ```
 
-### Question 2
+### Question 2 {-}
 
 <div class="question">
 Recall that we summarize our data using a t-statistics because we know that in situations where the null hypothesis is true (what we mean when we say "under the null") and the sample size is relatively large, this t-value will have an approximate standard normal distribution. Because we know the distribution of the t-value under the null, we can quantitatively determine how unusual the observed t-value would be if the null hypothesis were true.
@@ -907,7 +907,7 @@ We have computed these by taking one minus the area under the standard normal cu
 (pnorm(tval) + 1 - pnorm(-tval))
 ```
 
-### Question 3
+### Question 3 {-}
 
 <div class="question">
 Because of the symmetry of the standard normal distribution, there is a simpler way to calculate the probability that a t-value under the null could have a larger absolute value than `tval`. **Choose a simplified calculation from the four choices.**
@@ -919,7 +919,7 @@ Because of the symmetry of the standard normal distribution, there is a simpler 
 2*pnorm(-abs(tval))
 ```
 
-### Question 4
+### Question 4 {-}
 
 <div class="question">
 By reporting only p-values, many scientific publications provide an incomplete story of their findings. As we have mentioned, with very large sample sizes, scientifically insignificant differences between two groups can lead to small p-values. Confidence intervals are more informative as they include the estimate itself. Our estimate of the difference between babies of smokers and non-smokers: `mean(dat.s) - mean( dat.ns)`. If we use the CLT, what quantity would we add and subtract to this estimate to obtain a 99% confidence interval?
@@ -935,7 +935,7 @@ c(-Q*se + mean(dat.s) - mean(dat.ns), mean(dat.s) - mean(dat.ns) + Q*se)
 print(Q*se)
 ```
 
-### Question 5
+### Question 5 {-}
 
 <div class="question">
 If instead of CLT, we use the t-distribution approximation, what do we add and subtract (use `2*N-2` degrees of freedom)?
@@ -951,7 +951,7 @@ t.test(dat.s, dat.ns)
 print(Qt*se)
 ```
 
-### Question 6
+### Question 6 {-}
 
 <div class="question">
 Why are the values from 4 and 5 so similar?
@@ -961,7 +961,7 @@ Why are the values from 4 and 5 so similar?
 
 The answer is **C: `N` and thus the degrees of freedom is large enough to make the normal and t-distributions very similar.**
 
-### Question 7
+### Question 7 {-}
 <div class="question">
 Which of the following sentences about a Type I error is **false**? 
 </div>
@@ -971,7 +971,7 @@ Which of the following sentences about a Type I error is **false**?
 The answer is **C: From the original data alone, you can tell whether you have made a Type I error.**
 <div class="answer">
 
-### Question 8
+### Question 8 {-}
 <div class="question">
 Set the seed at 1 and take a random sample of $N = 5$ measurements from each of the smoking and nonsmoking datasets. What is the p-value (use the `t-test` function)?
 </div>
@@ -986,7 +986,7 @@ s_sample <- sample(bwt.smoke, N)
 t.test(ns_sample, s_sample)$p.value
 ```
 
-### Question 9
+### Question 9 {-}
 <div class="question">
 The p-value is larger than 0.05 so using the typical cut-off, we would not reject. This is a type II error **(false negative)**. Which of the following is not a way to decrease this type of error?
 </div>
@@ -995,7 +995,7 @@ The p-value is larger than 0.05 so using the typical cut-off, we would not rejec
 
 The answer is **C: Find a population for which the null is not true.**
 
-### Question 10
+### Question 10 {-}
 <div class="question">
 Set the seed at 1, then use the `replicate` function to repeat the code in Exercise 9 10,000 times. What proportion of the time do we reject at the 0.05 level?
 </div>
@@ -1016,7 +1016,7 @@ res_list<- replicate(B, {
 mean(res_list) 
 ```
 
-### Question 11
+### Question 11 {-}
 <div class="question">
 Note that, not surprisingly, the power is lower than 10%. Repeat the exercise above for sample sizes of 30, 60, 90 and 120. Which of these four gives you power of about 80%?
 </div>
@@ -1044,7 +1044,7 @@ print(res_list) # sample size of 60 gives power of 80%
 
 Sample size of 60 gives power of 80%.
 
-### Question 12
+### Question 12 {-}
 <div class="question">
 Repeat **Question 11**, but now require an $\alpha$ level of 0.01. Which of these four gives you power of 80%?
 </div>
@@ -1072,12 +1072,12 @@ print(res_list) # sample size of 90 gives power of 80%
 
 Sample size of 90 gives power of 80%.
 
-## Ch 2.21 Exercises
+## 2.21 Exercises {-}
 
 We have used Monte Carlo simulation throughout this chapter to demonstrate statistical concepts; namely, sampling from the population. We mostly applied this to demonstrate the
 statistical properties related to inference on differences in averages. Here, we will consider examples of how Monte Carlo simulations are used in practice.
 
-### Question 1
+### Question 1 {-}
 
 <div class="question">
 Imagine you are William Sealy Gosset and have just mathematically derived the distribution of the t-statistic when the sample comes from a normal distribution. Unlike Gosset you have access to computers and can use them to check the results.
@@ -1096,7 +1096,7 @@ tstat <- sqrt(5)*mean(sample1)/sd(sample1)
 tstat
 ```
 
-### Question 2
+### Question 2 {-}
 
 <div class="question">
 You have just performed a Monte Carlo simulation using rnorm, a random number generator for normally distributed data. Gosset's mathematical calculation tells us that the t-statistic defined in the previous exercise, a random variable, follows a t-distribution with $N-1$ degrees of freedom. Monte Carlo simulations can be used to check the theory: we generate many outcomes and compare them to the
@@ -1120,7 +1120,7 @@ res_list <- replicate(1000, get_t(5))
 mean(res_list > 2)
 ```
 
-### Question 3
+### Question 3 {-}
 
 <div class="question">
 The answer to **Question 2** is very similar to the theoretical prediction: `1-pt(2,df=4)`. We can check several such quantiles using `qqplot` function.
@@ -1156,7 +1156,7 @@ for (i in seq_along(Ns)) {
 
 The approximations are spot on for all sample sizes (**answer choice C**). 
 
-### Question 4
+### Question 4 {-}
 
 <div class="question">
 Use Monte Carlo simulation to corroborate that the t-statistic comparing two means and obtained with normally distributed (mean 0 and sd) data follows a t-distribution. In this case we will use the `t.test` function with `var.equal=TRUE`. With this argument the degrees of freedom will be `df=2*N-2` with `N` the sample size. For which sample sizes does the approximation best work?
@@ -1186,7 +1186,7 @@ for (i in seq_along(Ns)) {
 
 The approximations are spot on for all sample sizes (**answer choice C**).
 
-### Question 5
+### Question 5 {-}
 
 <div class="question">
 Is the following statement true or false? If instead of generating the sample with `X = rnorm(15)`, we generate it with binary data (either positive or negative 1 with probability 0.5) `X = sample(c(-1,1),15,replace = TRUE)` then the t-statistic 
@@ -1212,7 +1212,7 @@ qqplot(res_list, theory_t)
 
 **False**. Instead, it is approximated by binomial distribution because the data are binary (only two values).
 
-### Question 6
+### Question 6 {-}
 
 <div class="question">
 Is the following statement true or false? If instead of generating the sample with `X = rnorm(N)` with `N = 1000`, we generate it with binary data  `X = sample(c(-1,1),15,replace = TRUE)` then the t-statistic 
@@ -1237,7 +1237,7 @@ abline(0,1)
 ```
 **True**.
 
-### Question 7
+### Question 7 {-}
 
 <div class="question">
 We can derive approximation of the distribution of the sample average or the t-statistic theoretically. However, suppose we are interested in the distribution of a statistic for which a theoretical approximation is not immediately obvious.
@@ -1249,7 +1249,7 @@ Consider the sample median as an example. Use a Monte Carlo to determine which o
 
 The answer is **A: Just like for the average, the sample median is approximately normal with mean 0 and SD $1/\sqrt{N}$.**
 
-## Ch 2.23 Exercises
+## 2.23 Exercises {-}
 
 ```{r}
 babies <- read.table("babies.txt", header=TRUE)
@@ -1257,7 +1257,7 @@ bwt.nonsmoke <- filter(babies, smoke==0) %>% select(bwt) %>% unlist
 bwt.smoke <- filter(babies, smoke==1) %>% select(bwt) %>% unlist
 ```
 
-### Question 1
+### Question 1 {-}
 
 <div class="question">
 We will generate the following random variable based on a sample size of 10 and observe the following difference:
@@ -1312,7 +1312,7 @@ res_list <- replicate(1000, {
 
 Due to the random numbers, the actual answer might differ. 
 
-### Question 2
+### Question 2 {-}
 
 <div class="question">
 Repeat the above exercise, but instead of the differences in mean, consider the differences in median `obs <- median(smokers) - median(nonsmokers)`. What is the permutation based p-value?
@@ -1342,13 +1342,13 @@ res_list <- replicate(1000, {
 
 Due to the random numbers, the actual answer might differ.
 
-## Ch 2.25 Exercises
+## 2.25 Exercises {-}
 
 ```{r}
 d = read.csv('assoctest.csv')
 ```
 
-### Question 1
+### Question 1 {-}
 
 <div class="question">
 This dataframe refects the allele status (either AA/Aa or aa) and the case/control status for 72 individuals. Compute the Chi-square test for the association of genotype with case/control status (using the `table` function and the `chisq.test` function). Examine the table to see if it looks enriched for association by eye. What is the X-squared statistic?
@@ -1360,7 +1360,7 @@ tab <- table(d)
 chisq.test(tab)$statistic
 ```
 
-### Question 2
+### Question 2 {-}
 
 <div class="question">
 Compute Fisher's exact test fisher.test for the same table. What is the p-value **(two-tailed)**?

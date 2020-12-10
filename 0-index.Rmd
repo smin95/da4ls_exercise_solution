@@ -11,7 +11,7 @@ documentclass: book
 knitr::opts_chunk$set(cache = FALSE)
 ```
 
-# Welcome {#index .unnumbered}
+# Welcome! {-#index}
 
 <img src="./img/book_cover.jpg" width="250" height="375" alt="Cover image" align="right" style="margin: 0 1em 0 1em"/>
 
