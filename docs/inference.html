@@ -131,9 +131,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">DA4LS with R: Exercise Solutions</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="welcome.html"><a href="welcome.html"><i class="fa fa-check"></i>Welcome</a><ul>
-<li class="chapter" data-level="" data-path="welcome.html"><a href="welcome.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
-<li class="chapter" data-level="" data-path="welcome.html"><a href="welcome.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a></li>
 <li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
@@ -413,7 +413,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="co"># plot histograms</span></a>
 <a class="sourceLine" id="cb26-2" title="2"><span class="kw">hist</span>(res5)</a>
 <a class="sourceLine" id="cb26-3" title="3"><span class="kw">hist</span>(res50)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p><code>mypar</code> is a function from the package <code>rafalib</code>. It helps to align multiple plots in a single plot. <code>mypar(1,1)</code> contains one panel only, <code>mypar(2,1)</code> contains 2 rows of panels and 1 column, <code>mypar(1,2)</code> contains 1 row of panels and 2 columns, etc. Type <code>?mypar</code> for more information. You will be using this function to plot a graph throughout the entire book. <code>hist</code> plots a histogram.</p>
 <p>The answer is <strong>B: They both look normal, but with a sample size of 50 the spread is smaller.</strong></p>
 </div>
@@ -682,7 +682,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb71-2" title="2"><span class="kw">qqnorm</span>(y)</a>
 <a class="sourceLine" id="cb71-3" title="3"><span class="kw">qqline</span>(y)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>The answer is <strong>C: The mouse weights are well approximated by the normal distribution, although the larger values (right tail) are larger than predicted by the normal.This is consistent with the differences seen between question 3 and 6.</strong></p>
 </div>
 <div id="question-8-2" class="section level3">
@@ -711,7 +711,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb72-16" title="16"><span class="kw">qqline</span>(fc)</a>
 <a class="sourceLine" id="cb72-17" title="17"><span class="kw">qqnorm</span>(fhf, <span class="dt">main =</span> <span class="st">&#39;female high fat pop&#39;</span>)</a>
 <a class="sourceLine" id="cb72-18" title="18"><span class="kw">qqline</span>(fhf)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>The answer is <strong>B: This just happens to be how nature behaves. Perhaps the result of many biological factors averaging out.</strong></p>
 </div>
 <div id="question-9-2" class="section level3">
@@ -727,7 +727,7 @@ this distribution, it will follow a normal distribution. However, it is importan
 <a class="sourceLine" id="cb73-4" title="4"><span class="kw">hist</span>(avgs)</a>
 <a class="sourceLine" id="cb73-5" title="5"><span class="kw">qqnorm</span>(avgs)</a>
 <a class="sourceLine" id="cb73-6" title="6"><span class="kw">qqline</span>(avgs)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>What is the average of the distribution of the sample average?</p>
 </div>
 <div class="answer">
@@ -746,7 +746,7 @@ this distribution, it will follow a normal distribution. However, it is importan
 <a class="sourceLine" id="cb74-12" title="12"><span class="kw">hist</span>(avg_list) <span class="co"># distribution</span></a>
 <a class="sourceLine" id="cb74-13" title="13"><span class="kw">qqnorm</span>(avg_list) <span class="co"># qq-plot</span></a>
 <a class="sourceLine" id="cb74-14" title="14"><span class="kw">qqline</span>(avg_list)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="kw">mean</span>(avg_list) <span class="co"># mean of the sample averages</span></a></code></pre></div>
 <pre><code>## [1] 30.95581</code></pre>
 </div>
@@ -789,7 +789,7 @@ deviation. Set the seed at 1, using the <code>replicate</code> function, create 
 <a class="sourceLine" id="cb81-5" title="5">})</a>
 <a class="sourceLine" id="cb81-6" title="6"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb81-7" title="7"><span class="kw">hist</span>(sd_list)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">mean</span>(sd_list <span class="op">&lt;=</span><span class="st"> </span><span class="fl">3.5</span>)</a></code></pre></div>
 <pre><code>## [1] 0.0964</code></pre>
 </div>
@@ -807,7 +807,7 @@ deviation. Set the seed at 1, using the <code>replicate</code> function, create 
 <a class="sourceLine" id="cb84-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df_list)) {</a>
 <a class="sourceLine" id="cb84-5" title="5">  <span class="kw">qqnorm</span>(<span class="kw">qt</span>(x,df_list[i]), <span class="dt">main =</span> df_list[i])</a>
 <a class="sourceLine" id="cb84-6" title="6">}</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>The answer is <strong>C: The t-distribution has larger tails up until 30 degrees of freedom, at which point it is practically the same as the normal distribution.</strong></p>
 </div>
 </div>
@@ -866,11 +866,11 @@ times <code>z</code> was larger than 2 in absolute value (CLT says it should be 
 <a class="sourceLine" id="cb88-14" title="14"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.5&#39;</span>) <span class="co"># the answer is B</span></a>
 <a class="sourceLine" id="cb88-15" title="15"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.01&#39;</span>)</a>
 <a class="sourceLine" id="cb88-16" title="16"><span class="kw">qqnorm</span>(<span class="kw">question2</span>(<span class="dv">100</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=100, p=0.01&#39;</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb89-2" title="2"><span class="kw">hist</span>(<span class="kw">question2</span>(<span class="dv">30</span>,<span class="fl">0.5</span>), <span class="dt">main =</span> <span class="st">&#39;n=30, p=0.5&#39;</span>)</a>
 <a class="sourceLine" id="cb89-3" title="3"><span class="kw">hist</span>(<span class="kw">question2</span>(<span class="dv">100</span>,<span class="fl">0.01</span>), <span class="dt">main =</span> <span class="st">&#39;n=100, p=0.01&#39;</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-50-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-51-2.png" width="672" /></p>
 <p>The answer is <strong>B, n = 30, p = 0.5.</strong> I created a custom function for this question. However, another approach (and maybe more concise) is to use a for loop.</p>
 <p>This is tricky question, primarily because not all dice has number 6 (as is the case in Question 1, <code>mean(x==6)</code>). So you had to calculate the probability where the dice ends up in another side by modifying the code; since all dice has sdie 1, <code>mean(x==1)</code> seems like a safe choice. Also, the number of the sides for each die changes since it is defined by the <code>p</code> value. For instance, if <code>p</code> equals <code>0.01</code> for side 1, then there are 100 sides total (<code>1/0.01 = 100</code>).</p>
 </div>
@@ -991,7 +991,7 @@ distribution. What is the p-value under the t-distribution approximation? Hint: 
 <a class="sourceLine" id="cb103-3" title="3"><span class="kw">qqline</span>(X)</a>
 <a class="sourceLine" id="cb103-4" title="4"><span class="kw">qqnorm</span>(Y, <span class="dt">main =</span> <span class="st">&#39;Theoretical normal quantiles vs Y&#39;</span>)</a>
 <a class="sourceLine" id="cb103-5" title="5"><span class="kw">qqline</span>(Y)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="kw">t.test</span>(X,Y)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## [1] 0.05299888</code></pre>
 </div>
@@ -1306,7 +1306,7 @@ theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in
 <a class="sourceLine" id="cb146-17" title="17">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
 <a class="sourceLine" id="cb146-18" title="18">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb146-19" title="19">}</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 <p>The approximations are spot on for all sample sizes (<strong>answer choice C</strong>).</p>
 </div>
 <div id="question-4-5" class="section level3">
@@ -1334,7 +1334,7 @@ theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in
 <a class="sourceLine" id="cb147-15" title="15">         <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;sim&#39;</span>)</a>
 <a class="sourceLine" id="cb147-16" title="16">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb147-17" title="17">}</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 <p>The approximations are spot on for all sample sizes (<strong>answer choice C</strong>).</p>
 </div>
 <div id="question-5-5" class="section level3">
@@ -1357,7 +1357,7 @@ is approximated by a t-distribution with 14 degrees of freedom.</p>
 <a class="sourceLine" id="cb148-8" title="8">ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>), <span class="dv">1-1</span><span class="op">/</span>(B<span class="op">+</span><span class="dv">1</span>),<span class="dt">len=</span>B)</a>
 <a class="sourceLine" id="cb148-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">14</span>)</a>
 <a class="sourceLine" id="cb148-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <p><strong>False</strong>. Instead, it is approximated by binomial distribution because the data are binary (only two values).</p>
 </div>
 <div id="question-6-5" class="section level3">
@@ -1381,7 +1381,7 @@ is approximated by a t-distribution with 999 degrees of freedom.</p>
 <a class="sourceLine" id="cb149-9" title="9">theory_t &lt;-<span class="st"> </span><span class="kw">qt</span>(ps,<span class="dt">df=</span><span class="dv">999</span>)</a>
 <a class="sourceLine" id="cb149-10" title="10"><span class="kw">qqplot</span>(res_list, theory_t)</a>
 <a class="sourceLine" id="cb149-11" title="11"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" />
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" />
 <strong>True</strong>.</p>
 </div>
 <div id="question-7-5" class="section level3">

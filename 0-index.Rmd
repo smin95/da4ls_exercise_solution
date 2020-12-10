@@ -3,9 +3,15 @@ title: "Data Analysis for the Life Sciences with R: Exercise Solutions (in progr
 author: "Seung Hyun (Sam) Min"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+documentclass: book
 ---
 
-# Welcome {-}
+```{r include=FALSE,cache=FALSE,purl=FALSE}
+# don't cache anything on this page
+knitr::opts_chunk$set(cache = FALSE)
+```
+
+# Welcome {#index .unnumbered}
 
 <img src="./img/book_cover.jpg" width="250" height="375" alt="Cover image" align="right" style="margin: 0 1em 0 1em"/>
 
