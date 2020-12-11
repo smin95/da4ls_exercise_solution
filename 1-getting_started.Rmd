@@ -3,7 +3,7 @@
 Since this chapter does not deal with statistics, I have decided to skip this chapter altogether. Instead, here are my thoughts on the book and each chapter.
 
 ### The Whole Book {-}
-I have had a difficulty in finding a statistics book with R that has so many exercises, except for this one. After doing this book, I no longer found statistical tests (ex. t-test, ANOVA, etc) as a black box anymore. The book seems to be good as a prerequisite before diving into machine learning.
+I have had a difficulty in finding a basic statistics book with R that has so many exercises, except for this one. After doing this book, I no longer found statistical tests (ex. t-test, ANOVA, etc) as a black box anymore. The book seems to be good as a prerequisite before diving into machine learning.
 
 
 ### Chapter 1: Getting Started {-}
