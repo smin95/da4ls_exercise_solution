@@ -1,6 +1,6 @@
 # Getting started
 
-Since this chapter does not deal with statistics, I have decided to skip this chapter altogether. Instead, here are my thoughts on the book and each chapter.
+Since this chapter does not deal with statistics, I have decided to skip this chapter altogether. 
 
 ### Before reading DA4LS with R {-}
 The book gives a brief introduction to R. But I do not think this is enough. The codes in the later part of the book can get quite complicated (especially from Chapter 6). If you do not know R (or have no coding experience), I suggest you read Chapters 5, 15, 19-21 of [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund; these chapters discuss data transformation, factors, custom functions, vectors and iterations (ex. `for` loops, `sapply`). These concepts are deeply embeded in the codes throughout the book.

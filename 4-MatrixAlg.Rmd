@@ -142,10 +142,10 @@ Suppose $X$ is a matrix in R. Which of the following is **not** equivalent to $X
 <div class="answer">
 
 ```{r}
-t(t(X)) # A
-X %*% matrix(1,ncol(X)) # B
-X*1 # C
-X %*% diag(ncol(X)) # D
+head(t(t(X))) # A
+head(X %*% matrix(1,ncol(X))) # B
+head(X*1) # C
+head(X %*% diag(ncol(X))) # D
 ```
 
 The answer is **B**. 
@@ -191,9 +191,7 @@ What is the value in the 3rd row and the 2nd column of the matrix product of `a`
 <div class="answer">
 
 ```{r}
-a <- matrix(1:12, nrow=4)
-b <- matrix(1:15, nrow=3)
-c <- a%*% b
+c <- a %*% b
 c[3,2]
 ```
 
@@ -241,7 +239,7 @@ beta <- matrix(c(5,2),nrow =2, ncol=1) # matrix form of beta
 X[1:2,] %*% beta
 ```
 
-When I perform matrix multiplication in R `%*%`, I usually make sure to make all my values in the matrix form. In this case, I rewrote the `beta` variable in the function of matrix. However, this is not necessary. `beta <- c(5,2)` works well too.
+When I perform matrix multiplication in R `%*%`, I usually make sure that all my values are in the matrix form. In this case, I rewrote the `beta` variable in the function of matrix. However, this is not necessary. `beta <- c(5,2)` works well too.
 
 ### Question 2 {-}
 
