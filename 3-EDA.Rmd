@@ -39,7 +39,7 @@ boxplot(dat)
 ### Question 3 {-}
 
 <div class="question">
-Download and load **by typing** `load(skew.RData)` into R. Use exploratory data analysis tools to determine which two columns are different from the rest. Which column has
+Download the **data and load them by typing** `load(skew.RData)` into R. Use exploratory data analysis tools to determine which two columns are different from the rest. Which column has
 positive skew (a long tail to the right)?
 </div>
 
@@ -50,6 +50,8 @@ load('skew.RData')
 boxplot(dat)
 hist(dat[,4]) # Column 4 has a positive skew.
 ```
+
+Notice that `boxplot` function automatically splits each column of the `dat` (total 9 columns). Hence, there are 9 boxplots total, each of which has 1000 points; the dimension of `dat` is 1000 x 9 (`dim(dat)`). 
 
 Negative skew refers to a longer or fatter tail on the left side of the distribution, while positive skew refers to a longer or fatter tail on the right.
 
@@ -283,8 +285,8 @@ x <- x[,'weight.4']
 
 y <- chick %>% filter(Diet == 4) 
 y <- y[,'weight.4']
-t.test(x,y)$p.value
-wilcox.test(x,y)$p.value
+t.test(x,y)$p.value # t.test result with no outlier
+wilcox.test(x,y)$p.value # wilcox result with no outlier
 
 x_add <- c(x,200) # outlier added
 t.test(x_add,y)$p.value # t-test after outlier
@@ -300,7 +302,7 @@ Do the same for the Wilcoxon test. The Wilcoxon test is robust to the outlier. I
 <div class="answer">
 
 ```{r}
-wilcox.test(x_add,y) # after outlier
+wilcox.test(x_add,y)$p.value # even with outlier, p-value is not perturbed
 ```
 
 ### Question 8 {-}
@@ -336,7 +338,7 @@ Examine the Wilcoxon test statistic for `x` and `y+10` and for `x` and `y+100`. 
 ```{r}
 wilcox.test(x,y+10)$p.value
 wilcox.test(x,y+100)$p.value
-wilcox.test(c(1,2,3),c(4,5,6))$p.value
+wilcox.test(c(1,2,3),c(4,5,6))$p.value # Answer
 ```
 
 ### Question 10 {-}
