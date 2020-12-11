@@ -1,30 +1,296 @@
----
-title: "Matrix Algebra"
-author: "Sam Min"
-date: "11/12/2020"
-output: html_document
----
+# Matrix Algebra
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+**Note:** I have rephrased some parts of the questions for clarity. These changes are **bolded**. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
+
+First, upload necessary package(s).
+
+```{r}
+library(dplyr) # uplaods the function filter() and %>%
+library(rafalib) # important for plotting with base R
 ```
 
-## R Markdown
+## 4.2 Exercises {-}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+#install.packages('UsingR')
+data('father.son', package = 'UsingR')
 ```
 
-## Including Plots
+### Question 1 {-}
+<div class="question">
+What is the average height of the sons (don't round off)?
+</div>
 
-You can also embed plots, for example:
+<div class="answer">
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+y <- father.son$sheight # son
+x <- father.son$fheight # father
+mean(y)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### Question 2 {-}
+<div class="question">
+One of the defining features of regression is that we stratify one variable based on others. In statistics, we use the verb 'condition.' For exmaple,, the linear model for son and father heights answers the question: how tall do I expect a son to be if I condition on his father being $x$ inches? The regression line answers this question for any $x$. 
+
+Using the `father.son` dataset described above, we want to know the expected height of sons, if we condition on the father being 71 inches. Create a list of son heights for sons
+that have fathers with heights of 71 inches, rounding to the nearest inch.
+
+What is the mean of the son heights for fathers that have a height of 71 inches (don't round off your answer)? Hint: use the function `round` on the fathers' heights.
+</div>
+
+<div class="answer">
+
+```{r}
+groups <- split(y, round(x))
+mean(groups['71'] %>% unlist())
+```
+
+### Question 3 {-}
+
+<div class="question">
+of the following cannot be written as a linear model?
+</div>
+
+<div class="answer">
+
+The answer is **C:** $Y = a + b^t + \epsilon$. This is because the variable $t$ is an exponent unlike all the other ansewr choices. 
+
+### Question 4 {-}
+
+<div class="question">
+Suppose you model the relationship between weight and height across individuals with a linear model. You assume that the height of individuals for a fixed weight $x$ follows a linear model $Y = a + bx + \epsilon$. Which of the following do you feel best describes what $\epsilon$ represents?
+</div>
+
+<div class="answer">
+
+The answer is **D: Between individual variability: people of the same height vary in their weight**. 
+
+Let's look at each answer choice. Let's first think $Y$ as son's height and $x$ as father's height. So in this linear model, our goal is to predict son's height based on father's height. Choice A (Measurement error: scales are not perfect) seems not wrong. However, if the father's height is 71 inches, can we gurantee that the son's height is a certain number with a small measurement variability? This is not true because the son's range of height can still be wide even if the father's height is 71 inches. In fact, siblings can have very different heights even if their biological parents are identical. Since choice A only describes the $\epsilon$ as measurement variability, the description seems inadequate. This explanation also applies to Choice B (Within individual random fluctuations: you don't weigh the same in the morning as in the afternoon) and C (Round off error introduced by the computer). Therefore, choice D seems to be most appropriate. 
+
+## 4.6 Exercises {-}
+
+### Question 1 {-}
+
+<div class="question">
+In R we have vectors and matrices. You can create your own vectors with the function `c`. 
+
+```{r}
+c(1,5,3,4)
+```
+
+They are also the output of many functions such as:
+
+```{r}
+rnorm(10)
+```
+
+You can turn vectors into matrcies using functions such as `rbind`, `cbind`, or `matrix`. Create the matrix from the vector `1:1000` like this:
+
+```{r}
+X = matrix(1:1000,100,10)
+```
+
+What is the entry in row 25, column 3?
+</div>
+
+<div class="answer">
+
+```{r}
+X[25,3]
+```
+
+### Question 2 {-}
+
+<div class="question">
+Using the function cbind, create a 10 x 5 matrix with first column `x=1:10`. Then add `2*x`, `3*x`, `4*x` and `5*x` to columns 2 through 5. What is the sum of the elements of the 7th row?
+</div>
+
+<div class="answer">
+
+```{r}
+first_column <- 1:10
+y <- cbind(x1=first_column, x2=first_column*2, x3=first_column*3, x4=first_column*4, x5=first_column*5)
+sum(y[7,])
+```
+
+### Question 3 {-}
+
+<div class="question">
+Which of the following creates a matrix with multiples of 3 in the third column?
+</div>
+
+<div class="answer">
+
+```{r}
+matrix(1:60,20,3) # choice A
+matrix(1:60,20,3, byrow=T) # choice B
+x = 11:20; rbind(x,2*x,3*x) # choice C
+x = 1:40; matrix(3*x,20,2) # choice D 
+```
+
+The answer is **B**.
+
+## 4.8 Exercises {-}
+
+### Question 1 {-}
+
+<div class="question">
+Suppose $X$ is a matrix in R. Which of the following is **not** equivalent to $X$? 
+</div>
+
+<div class="answer">
+
+```{r}
+t(t(X)) # A
+X %*% matrix(1,ncol(X)) # B
+X*1 # C
+X %*% diag(ncol(X)) # D
+```
+
+The answer is **B**. 
+
+In choice A, the trasnposed matrix $X$ gets transposed again, thereby returning to its original matrix $X$. In choice B, the matrix $X$ gets multiplied by 1, which is a scalar. So it will not be changed. In choice D, $X$ gets multiplied by an identity matrix, so $X$ does not change even after the matrix multiplication. Therefore, the answer is B.
+
+### Question 2 {-}
+
+<div class="question">
+Solve the following system of equations using R:
+$$
+\begin{align*}
+3a + 4b - 5c + d=10\\
+2a + 2b + 2c - d = 5\\
+a - b + 5c - 5d = 7 \\
+5a + 5d = 4
+\end{align*}
+$$
+What is the solution for $c$?
+</div>
+
+<div class="answer">
+
+```{r}
+X <- matrix(c(3,4,-5,1,2,2,2,-1,1,-1,5,-5,5,0,0,1),4,4,byrow=T)
+ans <- solve(X) %*% matrix(c(10,5,7,4),4,1)
+ans[3]
+```
+
+### Question 3 {-}
+
+<div class="question">
+Load the following two matrices into R:
+
+```{r}
+a <- matrix(1:12, nrow=4)
+b <- matrix(1:15, nrow=3)
+```
+
+What is the value in the 3rd row and the 2nd column of the matrix product of `a` and `b`?
+</div>
+
+<div class="answer">
+
+```{r}
+a <- matrix(1:12, nrow=4)
+b <- matrix(1:15, nrow=3)
+c <- a%*% b
+c[3,2]
+```
+
+### Question 4 {-}
+
+<div class="question">
+Multiply the 3rd row of a with the 2nd column of b, using the element-wise vector multiplication with `*`. What is the sum of the elements in the resulting vector?
+</div>
+
+<div class="answer">
+
+```{r}
+sum(a[3,] * b[,2])
+```
+
+## 4.10 Exercises {-}
+
+### Question 1 {-}
+
+<div class="question">
+Suppose we are analyzing a set of 4 samples. The first two samples are from a treatment group A and the second two samples are from a treatment group B. This design can be represented with a model matrix like so:
+
+```{r}
+X <- matrix(c(1,1,1,1,0,0,1,1),nrow=4)
+rownames(X) <- c('a','a','b','b')
+X
+```
+
+Suppose that the fitted parameters for a linear model give us:
+
+```{r}
+beta <- c(5,2)
+```
+
+Use the matrix multiplication operator, `%*%`, in R to answer the following questions: What is the fitted value for the A samples? (The fitted Y values.)
+</div>
+
+<div class="answer">
+
+```{r}
+X <- matrix(c(1,1,1,1,0,0,1,1),nrow=4)
+rownames(X) <- c('a','a','b','b')
+#beta <- c(5,2)
+beta <- matrix(c(5,2),nrow =2, ncol=1) # matrix form of beta
+X[1:2,] %*% beta
+```
+
+When I perform matrix multiplication in R `%*%`, I usually make sure to make all my values in the matrix form. In this case, I rewrote the `beta` variable in the function of matrix. However, this is not necessary. `beta <- c(5,2)` works well too.
+
+### Question 2 {-}
+
+<div class="question">
+What is the fitted value for the B samples? (The fitted Y values.)
+</div>
+
+<div class="answer">
+
+```{r}
+X[3:4,] %*% beta
+```
+
+### Question 3 {-}
+
+<div class="question">
+Suppose now we are comparing two treatments B and C to a control group A, each with two samples. This design can be represented with a model matrix like
+so:
+
+```{r}
+X <- matrix(c(1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1),nrow=6)
+rownames(X) <- c("a","a","b","b","c","c")
+X
+```
+
+Suppose that the fitted values for the linear model are given by: 
+
+```{r}
+beta <- c(10,3,-3)
+```
+
+What is the fitted values for the B sample?
+
+</div>
+
+<div class="answer">
+```{r}
+beta <- matrix(c(10,3,-3),nrow = 3)
+X[3:4,] %*% beta
+```
+
+### Question 4 {-}
+
+<div class="question">
+What is the fitted values for the C sample?
+</div>
+
+<div class="answer">
+
+```{r}
+X[5:6,] %*% beta
+```

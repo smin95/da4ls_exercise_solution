@@ -11,5 +11,6 @@ rmd_files: [
   '0-index.Rmd',
   '1-getting_started.Rmd',
   '2-inference.Rmd',
-  '3-EDA.Rmd'
+  '3-EDA.Rmd',
+  '4-MatrixAlg.Rmd'
 ]
