@@ -135,7 +135,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a></li>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#the-whole-book"><i class="fa fa-check"></i>The Whole Book</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-1-getting-started"><i class="fa fa-check"></i>Chapter 1: Getting Started</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-2-inference"><i class="fa fa-check"></i>Chapter 2: Inference</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-3-exploratory-data-analysis"><i class="fa fa-check"></i>Chapter 3: Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-4-matrix-algebra"><i class="fa fa-check"></i>Chapter 4: Matrix Algebra</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-5-linear-models"><i class="fa fa-check"></i>Chapter 5: Linear Models</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-6-inference-for-high-dimensional-data"><i class="fa fa-check"></i>Chapter 6: Inference for High Dimensional Data</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-7-statistical-models"><i class="fa fa-check"></i>Chapter 7: Statistical Models</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-8-distance-and-dimension-reduction"><i class="fa fa-check"></i>Chapter 8: Distance and Dimension Reduction</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-9-basic-machine-learning"><i class="fa fa-check"></i>Chapter 9: Basic Machine Learning</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-10-batch-effects"><i class="fa fa-check"></i>Chapter 10: Batch Effects</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
@@ -269,8 +281,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="getting-started" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Getting started</h1>
-<p>Since this chapter does not deal with statistics, I have decided to skip this chapter altogether.</p>
+<p>Since this chapter does not deal with statistics, I have decided to skip this chapter altogether. Instead, here are my thoughts on the book and each chapter.</p>
+<div id="the-whole-book" class="section level3 unnumbered">
+<h3>The Whole Book</h3>
+<p>I have had a difficulty in finding a statistics book with R that has so many exercises, except for this one. After doing this book, I no longer found statistical tests (ex. t-test, ANOVA, etc) as a black box anymore. The book seems to be good as a prerequisite before diving into machine learning.</p>
+</div>
+<div id="chapter-1-getting-started" class="section level3 unnumbered">
+<h3>Chapter 1: Getting Started</h3>
+<p>It gives a brief introduction to R. But I do not think this is enough. The codes in the later part of the book can get quite complicated (especially from Chapter 6). If you do not know R (or have no coding experience), I suggest you read Chapters 5, 15, 19-21 of <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> by Hadley Wickham and Garrett Grolemund; these chapters discuss data transformation, factors, custom functions, vectors and iterations (ex. <code>for</code> loops, <code>sapply</code>). These concepts pervade the codes in the book.</p>
+</div>
+<div id="chapter-2-inference" class="section level3 unnumbered">
+<h3>Chapter 2: Inference</h3>
+<p>After doing the exercises, you will understand p-values and confidence intervals, and how p &lt; 0.05 might not mean much depending on the context. You will also learn how to perform simulation with random numbers quite well. This chapter is slow-paced.</p>
+</div>
+<div id="chapter-3-exploratory-data-analysis" class="section level3 unnumbered">
+<h3>Chapter 3: Exploratory Data Analysis</h3>
+<p>This is probably the easiest chapter of the book. In addition to other topics, it discusses Bland-Altman plot, and the explanation for it is really good. I think every graduate student should read Chapters 2 and 3.</p>
+</div>
+<div id="chapter-4-matrix-algebra" class="section level3 unnumbered">
+<h3>Chapter 4: Matrix Algebra</h3>
+<p>This chapter summarizes some concepts of matrix algebra. However, I think this is bare minimum because I had hard time going it through. If you have not taken linear algebra (like when I first read the book), I suggest that you be familiar with matrix multiplication, dot product, orthogonal matrix, inverse matrix, square matrix before reading this chapter. Here is a link to <a href="https://www.khanacademy.org/math/algebra-home/alg-matrices">Khan Academy</a>.</p>
+</div>
+<div id="chapter-5-linear-models" class="section level3 unnumbered">
+<h3>Chapter 5: Linear Models</h3>
+<p>This chapter is where the difficulty increases quite rapidly. There are a lot of details so it is easy to forget the big picture of linear modeling (at least for me). Some exercise questions are easy enough to just solve them mechanically but it might be better to be cognizant of the big picture while doing them.</p>
+</div>
+<div id="chapter-6-inference-for-high-dimensional-data" class="section level3 unnumbered">
+<h3>Chapter 6: Inference for High Dimensional Data</h3>
+<p>At this point, the book becomes more fast-paced and difficult. It talks about why we do p-value correction (ex. Bonferroni correction), and it does so very well.</p>
+</div>
+<div id="chapter-7-statistical-models" class="section level3 unnumbered">
+<h3>Chapter 7: Statistical Models</h3>
+<p>It gives a short introduction to statistical models. It got me hooked to the subject but I wished the chapter had been more profound.</p>
+</div>
+<div id="chapter-8-distance-and-dimension-reduction" class="section level3 unnumbered">
+<h3>Chapter 8: Distance and Dimension Reduction</h3>
+<p>We are back to linear algebra. It superficially discusses principal component analysis (PCA). You might still be confused as to when you might need to use PCA even after going through the chapter (at least I was).</p>
+</div>
+<div id="chapter-9-basic-machine-learning" class="section level3 unnumbered">
+<h3>Chapter 9: Basic Machine Learning</h3>
+<p>A short and sweet introduction of machine learning. This chapter seems more like a standalone section compared to all other chapters.</p>
+</div>
+<div id="chapter-10-batch-effects" class="section level3 unnumbered">
+<h3>Chapter 10: Batch Effects</h3>
+<p>This is actually part 2 of chapter 8. It discusses PCA more in-depth in the context of the batch effect. I actually recommend that you do this section first before Chapter 9.</p>
 
+</div>
 </div>
             </section>
 

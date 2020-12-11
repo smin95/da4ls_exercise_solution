@@ -1,3 +1,37 @@
 # Getting started
 
-Since this chapter does not deal with statistics, I have decided to skip this chapter altogether.
+Since this chapter does not deal with statistics, I have decided to skip this chapter altogether. Instead, here are my thoughts on the book and each chapter.
+
+### The Whole Book {-}
+I have had a difficulty in finding a statistics book with R that has so many exercises, except for this one. After doing this book, I no longer found statistical tests (ex. t-test, ANOVA, etc) as a black box anymore. The book seems to be good as a prerequisite before diving into machine learning.
+
+
+### Chapter 1: Getting Started {-}
+It gives a brief introduction to R. But I do not think this is enough. The codes in the later part of the book can get quite complicated (especially from Chapter 6). If you do not know R (or have no coding experience), I suggest you read Chapters 5, 15, 19-21 of [R for Data Science](https://r4ds.had.co.nz/index.html) by Hadley Wickham and Garrett Grolemund; these chapters discuss data transformation, factors, custom functions, vectors and iterations (ex. `for` loops, `sapply`). These concepts pervade the codes in the book.
+
+### Chapter 2: Inference {-}
+After doing the exercises, you will understand p-values and confidence intervals, and how p < 0.05 might not mean much depending on the context. You will also learn how to perform simulation with random numbers quite well. This chapter is slow-paced.
+
+### Chapter 3: Exploratory Data Analysis {-}
+This is probably the easiest chapter of the book. In addition to other topics, it discusses Bland-Altman plot, and the explanation for it is really good. I think every graduate student should read Chapters 2 and 3.
+
+### Chapter 4: Matrix Algebra {-}
+This chapter summarizes some concepts of matrix algebra. However, I think this is bare minimum because I had hard time going it through. If you have not taken linear algebra (like when I first read the book), I suggest that you be familiar with matrix multiplication, dot product, orthogonal matrix, inverse matrix, square matrix before reading this chapter. Here is a link to [Khan Academy](https://www.khanacademy.org/math/algebra-home/alg-matrices).
+
+### Chapter 5: Linear Models {-}
+This chapter is where the difficulty increases quite rapidly. There are a lot of details so it is easy to forget the big picture of linear modeling (at least for me). Some exercise questions are easy enough to just solve them mechanically but it might be better to be cognizant of the big picture while doing them. 
+
+### Chapter 6: Inference for High Dimensional Data {-}
+At this point, the book becomes more fast-paced and  difficult. It talks about why we do p-value correction (ex. Bonferroni correction), and it does so very well.
+
+### Chapter 7: Statistical Models {-}
+It gives a short introduction to statistical models. It got me hooked to the subject but I wished the chapter had been more profound.
+
+### Chapter 8: Distance and Dimension Reduction {-}
+We are back to linear algebra. It superficially discusses principal component analysis (PCA). You might still be confused as to when you might need to use PCA even after going through the chapter (at least I was).
+
+### Chapter 9: Basic Machine Learning {-}
+A short and sweet introduction of machine learning. This chapter seems more like a standalone section compared to all other chapters.
+
+### Chapter 10: Batch Effects {-}
+This is actually part 2 of chapter 8. It discusses PCA more in-depth in the context of the batch effect. I actually recommend that you do this section first before Chapter 9. 

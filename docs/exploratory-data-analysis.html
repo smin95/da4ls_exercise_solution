@@ -135,7 +135,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a></li>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#the-whole-book"><i class="fa fa-check"></i>The Whole Book</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-1-getting-started"><i class="fa fa-check"></i>Chapter 1: Getting Started</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-2-inference"><i class="fa fa-check"></i>Chapter 2: Inference</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-3-exploratory-data-analysis"><i class="fa fa-check"></i>Chapter 3: Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-4-matrix-algebra"><i class="fa fa-check"></i>Chapter 4: Matrix Algebra</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-5-linear-models"><i class="fa fa-check"></i>Chapter 5: Linear Models</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-6-inference-for-high-dimensional-data"><i class="fa fa-check"></i>Chapter 6: Inference for High Dimensional Data</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-7-statistical-models"><i class="fa fa-check"></i>Chapter 7: Statistical Models</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-8-distance-and-dimension-reduction"><i class="fa fa-check"></i>Chapter 8: Distance and Dimension Reduction</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-9-basic-machine-learning"><i class="fa fa-check"></i>Chapter 9: Basic Machine Learning</a></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#chapter-10-batch-effects"><i class="fa fa-check"></i>Chapter 10: Batch Effects</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
@@ -271,8 +283,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 3</span> Exploratory Data Analysis</h1>
 <p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
-<a class="sourceLine" id="cb169-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
 <div id="exercises-8" class="section level2 unnumbered">
 <h2>3.8 Exercises</h2>
 <div id="question-1-8" class="section level3 unnumbered">
@@ -292,8 +304,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="answer">
 
 
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">split</span>(InsectSprays<span class="op">$</span>count, InsectSprays<span class="op">$</span>spray)</a>
-<a class="sourceLine" id="cb170-2" title="2"><span class="kw">boxplot</span>(dat)</a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">split</span>(InsectSprays<span class="op">$</span>count, InsectSprays<span class="op">$</span>spray)</a>
+<a class="sourceLine" id="cb164-2" title="2"><span class="kw">boxplot</span>(dat)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 <p><strong>C</strong> has the lowest median and is, therefore, most effective.</p>
 </div>
@@ -306,10 +318,10 @@ positive skew (a long tail to the right)?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="kw">load</span>(<span class="st">&#39;skew.RData&#39;</span>)</a>
-<a class="sourceLine" id="cb171-2" title="2"><span class="kw">boxplot</span>(dat)</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="kw">load</span>(<span class="st">&#39;skew.RData&#39;</span>)</a>
+<a class="sourceLine" id="cb165-2" title="2"><span class="kw">boxplot</span>(dat)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="kw">hist</span>(dat[,<span class="dv">4</span>]) <span class="co"># Column 4 has a positive skew.</span></a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1"><span class="kw">hist</span>(dat[,<span class="dv">4</span>]) <span class="co"># Column 4 has a positive skew.</span></a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-88-2.png" width="672" /></p>
 <p>Notice that <code>boxplot</code> function automatically splits each column of the <code>dat</code> (total 9 columns). Hence, there are 9 boxplots total, each of which has 1000 points; the dimension of <code>dat</code> is 1000 x 9 (<code>dim(dat)</code>).</p>
 <p>Negative skew refers to a longer or fatter tail on the left side of the distribution, while positive skew refers to a longer or fatter tail on the right.</p>
@@ -322,31 +334,31 @@ positive skew (a long tail to the right)?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="kw">hist</span>(dat[,<span class="dv">9</span>]) <span class="co"># Column 9 has a negative skew.</span></a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">hist</span>(dat[,<span class="dv">9</span>]) <span class="co"># Column 9 has a negative skew.</span></a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
 </div>
 <div id="question-5-6" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <div class="question">
 <p>Let’s consider a random sample of finishers from the New York City Marathon in 2002. This dataset can be found in the <code>UsingR</code> package. Load the library and then load the <code>nym.2002</code> dataset.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb174-2" title="2"><span class="kw">data</span>(nym<span class="fl">.2002</span>, <span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb168-2" title="2"><span class="kw">data</span>(nym<span class="fl">.2002</span>, <span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</a></code></pre></div>
 <p>Use boxplots and histograms to compare the finishing times of males and females. Which of the following best describes the difference?</p>
 </div>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="kw">data</span>(nym<span class="fl">.2002</span>, <span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</a>
-<a class="sourceLine" id="cb175-2" title="2">male &lt;-<span class="st"> </span>nym<span class="fl">.2002</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> &#39;Male&#39;</span>)</a>
-<a class="sourceLine" id="cb175-3" title="3">female &lt;-<span class="st"> </span>nym<span class="fl">.2002</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> &#39;Female&#39;</span>)</a>
-<a class="sourceLine" id="cb175-4" title="4"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb175-5" title="5"><span class="kw">hist</span>(female<span class="op">$</span>time, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">600</span>))</a>
-<a class="sourceLine" id="cb175-6" title="6"><span class="kw">hist</span>(male<span class="op">$</span>time, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">600</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="kw">data</span>(nym<span class="fl">.2002</span>, <span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</a>
+<a class="sourceLine" id="cb169-2" title="2">male &lt;-<span class="st"> </span>nym<span class="fl">.2002</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> &#39;Male&#39;</span>)</a>
+<a class="sourceLine" id="cb169-3" title="3">female &lt;-<span class="st"> </span>nym<span class="fl">.2002</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> &#39;Female&#39;</span>)</a>
+<a class="sourceLine" id="cb169-4" title="4"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb169-5" title="5"><span class="kw">hist</span>(female<span class="op">$</span>time, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">600</span>))</a>
+<a class="sourceLine" id="cb169-6" title="6"><span class="kw">hist</span>(male<span class="op">$</span>time, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">600</span>))</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 <p>Both histograms have a similar distribution (skewed to the right). But the center of the histogram seems to be different. We can check this by calculating the absolute difference of the mean and median.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">abs</span>(<span class="kw">mean</span>(male<span class="op">$</span>time) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(female<span class="op">$</span>time))</a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"><span class="kw">abs</span>(<span class="kw">mean</span>(male<span class="op">$</span>time) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(female<span class="op">$</span>time))</a></code></pre></div>
 <pre><code>## [1] 23.11574</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1"><span class="kw">abs</span>(<span class="kw">median</span>(male<span class="op">$</span>time) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(female<span class="op">$</span>time))</a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="kw">abs</span>(<span class="kw">median</span>(male<span class="op">$</span>time) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(female<span class="op">$</span>time))</a></code></pre></div>
 <pre><code>## [1] 21.70833</code></pre>
 <p>There is a difference of around 21-23 minutes between males and females. So answer <strong>C</strong> seems to be appropriate: <strong>Males and females have similar right skewed distributions, with the former 20 minutes shifted to the left.</strong></p>
 </div>
@@ -358,9 +370,9 @@ positive skew (a long tail to the right)?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="kw">plot</span>(male<span class="op">$</span>age, male<span class="op">$</span>time, <span class="dt">main =</span> <span class="st">&#39;male&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="kw">plot</span>(male<span class="op">$</span>age, male<span class="op">$</span>time, <span class="dt">main =</span> <span class="st">&#39;male&#39;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1"><span class="kw">cor</span>(male<span class="op">$</span>age, male<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="kw">cor</span>(male<span class="op">$</span>age, male<span class="op">$</span>time)</a></code></pre></div>
 <pre><code>## [1] 0.2432273</code></pre>
 </div>
 <div id="question-7-6" class="section level3 unnumbered">
@@ -371,9 +383,9 @@ positive skew (a long tail to the right)?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="kw">plot</span>(female<span class="op">$</span>age, female<span class="op">$</span>time, <span class="dt">main =</span> <span class="st">&#39;female&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1"><span class="kw">plot</span>(female<span class="op">$</span>age, female<span class="op">$</span>time, <span class="dt">main =</span> <span class="st">&#39;female&#39;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1"><span class="kw">cor</span>(female<span class="op">$</span>age, female<span class="op">$</span>time)</a></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1"><span class="kw">cor</span>(female<span class="op">$</span>age, female<span class="op">$</span>time)</a></code></pre></div>
 <pre><code>## [1] 0.2443156</code></pre>
 </div>
 <div id="question-8-5" class="section level3 unnumbered">
@@ -384,16 +396,16 @@ positive skew (a long tail to the right)?</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1">groups_m &lt;-<span class="st"> </span><span class="kw">split</span>(male<span class="op">$</span>time, <span class="kw">floor</span>(male<span class="op">$</span>age<span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span>) <span class="co"># 10-14, 15-19, etc</span></a>
-<a class="sourceLine" id="cb186-2" title="2">groups_f &lt;-<span class="st"> </span><span class="kw">split</span>(female<span class="op">$</span>time, <span class="kw">floor</span>(female<span class="op">$</span>age<span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span>) <span class="co"># 10-14, 15-19, etc</span></a>
-<a class="sourceLine" id="cb186-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb186-4" title="4"><span class="kw">boxplot</span>(groups_m)</a>
-<a class="sourceLine" id="cb186-5" title="5"><span class="kw">boxplot</span>(groups_f)</a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">groups_m &lt;-<span class="st"> </span><span class="kw">split</span>(male<span class="op">$</span>time, <span class="kw">floor</span>(male<span class="op">$</span>age<span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span>) <span class="co"># 10-14, 15-19, etc</span></a>
+<a class="sourceLine" id="cb180-2" title="2">groups_f &lt;-<span class="st"> </span><span class="kw">split</span>(female<span class="op">$</span>time, <span class="kw">floor</span>(female<span class="op">$</span>age<span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span>) <span class="co"># 10-14, 15-19, etc</span></a>
+<a class="sourceLine" id="cb180-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb180-4" title="4"><span class="kw">boxplot</span>(groups_m)</a>
+<a class="sourceLine" id="cb180-5" title="5"><span class="kw">boxplot</span>(groups_f)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <p>This is a tricky question because the question asks you to stratify the data into groups. Stratification can be achieved via <code>split</code> function. To have each group a range of 5 (ex. 25-30), all the age numbers will have to be rounded up or down so that the resulting numbers will be divisible by 5. I rounded the numbers down by using the <code>floor</code> function. As a result, <code>40</code> represents the <code>40-44</code> age group. You can also use the <code>ceiling</code> function to stratify the data, which will then be rounded up. So, <code>45</code> represents <code>41-45</code> age group. In the example below, age of <code>42</code> is categorized using both <code>floor</code> and <code>ceiling</code> functions.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1"><span class="kw">floor</span>(<span class="dv">42</span><span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span> </a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1"><span class="kw">floor</span>(<span class="dv">42</span><span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span> </a></code></pre></div>
 <pre><code>## [1] 40</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1"><span class="kw">ceiling</span>(<span class="dv">42</span><span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="kw">ceiling</span>(<span class="dv">42</span><span class="op">/</span><span class="dv">5</span>)<span class="op">*</span><span class="dv">5</span></a></code></pre></div>
 <pre><code>## [1] 45</code></pre>
 <p>The appropriate answer is <strong>A: Finish times are constant up until about our 40s, then we get slower.</strong></p>
 </div>
@@ -419,13 +431,13 @@ positive skew (a long tail to the right)?</p>
 <div id="exercises-9" class="section level2 unnumbered">
 <h2>3.11 Exercises</h2>
 <p>First load the data.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">data</span>(ChickWeight)</a>
-<a class="sourceLine" id="cb191-2" title="2"><span class="kw">mypar</span>()</a>
-<a class="sourceLine" id="cb191-3" title="3"><span class="kw">plot</span>(ChickWeight<span class="op">$</span>Time, ChickWeight<span class="op">$</span>weight, <span class="dt">col=</span>ChickWeight<span class="op">$</span>Diet)</a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1"><span class="kw">data</span>(ChickWeight)</a>
+<a class="sourceLine" id="cb185-2" title="2"><span class="kw">mypar</span>()</a>
+<a class="sourceLine" id="cb185-3" title="3"><span class="kw">plot</span>(ChickWeight<span class="op">$</span>Time, ChickWeight<span class="op">$</span>weight, <span class="dt">col=</span>ChickWeight<span class="op">$</span>Diet)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">chick =<span class="st"> </span><span class="kw">reshape</span>(ChickWeight, <span class="dt">idvar=</span><span class="kw">c</span>(<span class="st">&quot;Chick&quot;</span>,<span class="st">&quot;Diet&quot;</span>), <span class="dt">timevar=</span><span class="st">&quot;Time&quot;</span>,</a>
-<a class="sourceLine" id="cb192-2" title="2">                <span class="dt">direction=</span><span class="st">&quot;wide&quot;</span>)</a>
-<a class="sourceLine" id="cb192-3" title="3">chick =<span class="st"> </span><span class="kw">na.omit</span>(chick)</a></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1">chick =<span class="st"> </span><span class="kw">reshape</span>(ChickWeight, <span class="dt">idvar=</span><span class="kw">c</span>(<span class="st">&quot;Chick&quot;</span>,<span class="st">&quot;Diet&quot;</span>), <span class="dt">timevar=</span><span class="st">&quot;Time&quot;</span>,</a>
+<a class="sourceLine" id="cb186-2" title="2">                <span class="dt">direction=</span><span class="st">&quot;wide&quot;</span>)</a>
+<a class="sourceLine" id="cb186-3" title="3">chick =<span class="st"> </span><span class="kw">na.omit</span>(chick)</a></code></pre></div>
 <div id="question-1-9" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <div class="question">
@@ -436,18 +448,18 @@ to a vector.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">chick_w4 &lt;-<span class="st"> </span>chick[,<span class="st">&#39;weight.4&#39;</span>]</a>
-<a class="sourceLine" id="cb193-2" title="2">chick_w4_add &lt;-<span class="st"> </span><span class="kw">append</span>(chick_w4, <span class="dv">3000</span>)</a>
-<a class="sourceLine" id="cb193-3" title="3"><span class="co"># or use function c</span></a>
-<a class="sourceLine" id="cb193-4" title="4"><span class="co"># chick_w4_add &lt;- c(chick_w4, 3000) </span></a>
-<a class="sourceLine" id="cb193-5" title="5">chick_w4_add </a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">chick_w4 &lt;-<span class="st"> </span>chick[,<span class="st">&#39;weight.4&#39;</span>]</a>
+<a class="sourceLine" id="cb187-2" title="2">chick_w4_add &lt;-<span class="st"> </span><span class="kw">append</span>(chick_w4, <span class="dv">3000</span>)</a>
+<a class="sourceLine" id="cb187-3" title="3"><span class="co"># or use function c</span></a>
+<a class="sourceLine" id="cb187-4" title="4"><span class="co"># chick_w4_add &lt;- c(chick_w4, 3000) </span></a>
+<a class="sourceLine" id="cb187-5" title="5">chick_w4_add </a></code></pre></div>
 <pre><code>##  [1]   59   58   55   56   48   59   57   59   52   63   56   53
 ## [13]   62   61   55   54   62   64   61   58   62   57   58   58
 ## [25]   59   59   62   65   63   63   64   61   56   61   61   66
 ## [37]   66   63   69   61   62   66   62   64   67 3000</code></pre>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="kw">mean</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(chick_w4) <span class="co"># Difference between with and without outlier</span></a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1"><span class="kw">mean</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(chick_w4) <span class="co"># Difference between with and without outlier</span></a></code></pre></div>
 <pre><code>## [1] 63.90966</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="kw">mean</span>(chick_w4_add)<span class="op">/</span><span class="kw">mean</span>(chick_w4) <span class="co"># Ratio between with and without outlier</span></a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">mean</span>(chick_w4_add)<span class="op">/</span><span class="kw">mean</span>(chick_w4) <span class="co"># Ratio between with and without outlier</span></a></code></pre></div>
 <pre><code>## [1] 2.062407</code></pre>
 </div>
 <div id="question-2-9" class="section level3 unnumbered">
@@ -459,9 +471,9 @@ the day 4 chicks, including the outlier chick, divided by the median of the weig
 <div class="answer">
 
 
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="kw">median</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(chick_w4) <span class="co"># difference</span></a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1"><span class="kw">median</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(chick_w4) <span class="co"># difference</span></a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="kw">median</span>(chick_w4_add)<span class="op">/</span><span class="kw">median</span>(chick_w4) <span class="co"># ratio</span></a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="kw">median</span>(chick_w4_add)<span class="op">/</span><span class="kw">median</span>(chick_w4) <span class="co"># ratio</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-3-7" class="section level3 unnumbered">
@@ -472,9 +484,9 @@ the day 4 chicks, including the outlier chick, divided by the median of the weig
 <div class="answer">
 
 
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1"><span class="kw">sd</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">sd</span>(chick_w4) <span class="co"># difference</span></a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1"><span class="kw">sd</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">sd</span>(chick_w4) <span class="co"># difference</span></a></code></pre></div>
 <pre><code>## [1] 429.1973</code></pre>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1"><span class="kw">sd</span>(chick_w4_add)<span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(chick_w4) <span class="co"># ratio</span></a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" title="1"><span class="kw">sd</span>(chick_w4_add)<span class="op">/</span><span class="st"> </span><span class="kw">sd</span>(chick_w4) <span class="co"># ratio</span></a></code></pre></div>
 <pre><code>## [1] 101.2859</code></pre>
 </div>
 <div id="question-4-7" class="section level3 unnumbered">
@@ -485,9 +497,9 @@ the day 4 chicks, including the outlier chick, divided by the median of the weig
 <div class="answer">
 
 
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" title="1"><span class="kw">mad</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">mad</span>(chick_w4) <span class="co"># difference</span></a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="kw">mad</span>(chick_w4_add) <span class="op">-</span><span class="st"> </span><span class="kw">mad</span>(chick_w4) <span class="co"># difference</span></a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" title="1"><span class="kw">mad</span>(chick_w4_add)<span class="op">/</span><span class="st"> </span><span class="kw">mad</span>(chick_w4) <span class="co"># ratio</span></a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" title="1"><span class="kw">mad</span>(chick_w4_add)<span class="op">/</span><span class="st"> </span><span class="kw">mad</span>(chick_w4) <span class="co"># ratio</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-5-7" class="section level3 unnumbered">
@@ -501,19 +513,19 @@ day 4 and 3000 on day 21. Again, divide the Pearson correlation with the outlier
 <div class="answer">
 
 
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" title="1">chick_w21 &lt;-<span class="st"> </span>chick[, <span class="st">&#39;weight.21&#39;</span>]</a>
-<a class="sourceLine" id="cb211-2" title="2">chick_w21</a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1">chick_w21 &lt;-<span class="st"> </span>chick[, <span class="st">&#39;weight.21&#39;</span>]</a>
+<a class="sourceLine" id="cb205-2" title="2">chick_w21</a></code></pre></div>
 <pre><code>##  [1] 205 215 202 157 223 157 305  98 124 175 205  96 266 142 157
 ## [16] 117 331 167 175  74 265 251 192 233 309 150 256 305 147 341
 ## [31] 373 220 178 290 272 321 204 281 200 196 238 205 322 237 264</code></pre>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" title="1"><span class="kw">plot</span>(chick_w4, chick_w21)</a></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" title="1"><span class="kw">plot</span>(chick_w4, chick_w21)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1"><span class="kw">cor</span>(chick_w4,chick_w21) <span class="co"># correlation before</span></a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" title="1"><span class="kw">cor</span>(chick_w4,chick_w21) <span class="co"># correlation before</span></a></code></pre></div>
 <pre><code>## [1] 0.4159499</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1">chick_w21_add &lt;-<span class="st"> </span><span class="kw">append</span>(chick_w21, <span class="dv">3000</span>)</a>
-<a class="sourceLine" id="cb216-2" title="2"><span class="kw">cor</span>(chick_w4_add, chick_w21_add) <span class="co"># correlation after outlier</span></a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" title="1">chick_w21_add &lt;-<span class="st"> </span><span class="kw">append</span>(chick_w21, <span class="dv">3000</span>)</a>
+<a class="sourceLine" id="cb210-2" title="2"><span class="kw">cor</span>(chick_w4_add, chick_w21_add) <span class="co"># correlation after outlier</span></a></code></pre></div>
 <pre><code>## [1] 0.9861002</code></pre>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="kw">cor</span>(chick_w4_add, chick_w21_add)<span class="op">/</span><span class="kw">cor</span>(chick_w4,chick_w21) <span class="co"># ratio between after and before</span></a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1"><span class="kw">cor</span>(chick_w4_add, chick_w21_add)<span class="op">/</span><span class="kw">cor</span>(chick_w4,chick_w21) <span class="co"># ratio between after and before</span></a></code></pre></div>
 <pre><code>## [1] 2.370719</code></pre>
 </div>
 <div id="question-6-7" class="section level3 unnumbered">
@@ -526,19 +538,19 @@ so an approximation is used, which is fine for our purposes.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1">x &lt;-<span class="st"> </span>chick <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Diet <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) </a>
-<a class="sourceLine" id="cb220-2" title="2">x &lt;-<span class="st"> </span>x[,<span class="st">&#39;weight.4&#39;</span>]</a>
-<a class="sourceLine" id="cb220-3" title="3"></a>
-<a class="sourceLine" id="cb220-4" title="4">y &lt;-<span class="st"> </span>chick <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Diet <span class="op">==</span><span class="st"> </span><span class="dv">4</span>) </a>
-<a class="sourceLine" id="cb220-5" title="5">y &lt;-<span class="st"> </span>y[,<span class="st">&#39;weight.4&#39;</span>]</a>
-<a class="sourceLine" id="cb220-6" title="6"><span class="kw">t.test</span>(x,y)<span class="op">$</span>p.value <span class="co"># t.test result with no outlier</span></a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1">x &lt;-<span class="st"> </span>chick <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Diet <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) </a>
+<a class="sourceLine" id="cb214-2" title="2">x &lt;-<span class="st"> </span>x[,<span class="st">&#39;weight.4&#39;</span>]</a>
+<a class="sourceLine" id="cb214-3" title="3"></a>
+<a class="sourceLine" id="cb214-4" title="4">y &lt;-<span class="st"> </span>chick <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Diet <span class="op">==</span><span class="st"> </span><span class="dv">4</span>) </a>
+<a class="sourceLine" id="cb214-5" title="5">y &lt;-<span class="st"> </span>y[,<span class="st">&#39;weight.4&#39;</span>]</a>
+<a class="sourceLine" id="cb214-6" title="6"><span class="kw">t.test</span>(x,y)<span class="op">$</span>p.value <span class="co"># t.test result with no outlier</span></a></code></pre></div>
 <pre><code>## [1] 7.320259e-06</code></pre>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" title="1"><span class="kw">wilcox.test</span>(x,y)<span class="op">$</span>p.value <span class="co"># wilcox result with no outlier</span></a></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" title="1"><span class="kw">wilcox.test</span>(x,y)<span class="op">$</span>p.value <span class="co"># wilcox result with no outlier</span></a></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(x, y): cannot compute exact p-
 ## value with ties</code></pre>
 <pre><code>## [1] 0.0002011939</code></pre>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1">x_add &lt;-<span class="st"> </span><span class="kw">c</span>(x,<span class="dv">200</span>) <span class="co"># outlier added</span></a>
-<a class="sourceLine" id="cb225-2" title="2"><span class="kw">t.test</span>(x_add,y)<span class="op">$</span>p.value <span class="co"># t-test after outlier</span></a></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" title="1">x_add &lt;-<span class="st"> </span><span class="kw">c</span>(x,<span class="dv">200</span>) <span class="co"># outlier added</span></a>
+<a class="sourceLine" id="cb219-2" title="2"><span class="kw">t.test</span>(x_add,y)<span class="op">$</span>p.value <span class="co"># t-test after outlier</span></a></code></pre></div>
 <pre><code>## [1] 0.9380347</code></pre>
 </div>
 <div id="question-7-7" class="section level3 unnumbered">
@@ -549,7 +561,7 @@ so an approximation is used, which is fine for our purposes.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1"><span class="kw">wilcox.test</span>(x_add,y)<span class="op">$</span>p.value <span class="co"># even with outlier, p-value is not perturbed</span></a></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1"><span class="kw">wilcox.test</span>(x_add,y)<span class="op">$</span>p.value <span class="co"># even with outlier, p-value is not perturbed</span></a></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(x_add, y): cannot compute exact p-
 ## value with ties</code></pre>
 <pre><code>## [1] 0.0009840921</code></pre>
@@ -558,18 +570,18 @@ so an approximation is used, which is fine for our purposes.</p>
 <h3>Question 8</h3>
 <div class="question">
 <p>We will now investigate a possible downside to the Wilcoxon-Mann-Whitney test statistic. Using the following code to make three boxplots, showing the true Diet 1 vs 4 weights, and then two altered versions: one with an additional difference of 10 grams and one with an additional difference of 100 grams. Use the x and y as defined above, NOT the ones with the added outlier.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">library</span>(rafalib)</a>
-<a class="sourceLine" id="cb230-2" title="2"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb230-3" title="3"><span class="kw">boxplot</span>(x,y)</a>
-<a class="sourceLine" id="cb230-4" title="4"><span class="kw">boxplot</span>(x,y<span class="op">+</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb230-5" title="5"><span class="kw">boxplot</span>(x,y<span class="op">+</span><span class="dv">100</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="kw">library</span>(rafalib)</a>
+<a class="sourceLine" id="cb224-2" title="2"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb224-3" title="3"><span class="kw">boxplot</span>(x,y)</a>
+<a class="sourceLine" id="cb224-4" title="4"><span class="kw">boxplot</span>(x,y<span class="op">+</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb224-5" title="5"><span class="kw">boxplot</span>(x,y<span class="op">+</span><span class="dv">100</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 <p>What is the difference in t-test statistic (obtained by <code>t.test(x,y)$statistic</code>) between adding 10 and adding 100 to all the values in the group <code>y</code>? Take the the t-test statistic with <code>x</code> and <code>y+10</code> and subtract the t-test statistic with <code>x</code> and <code>y+100</code>. The value should be positive.</p>
 </div>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" title="1"><span class="kw">t.test</span>(x,y<span class="op">+</span><span class="dv">10</span>)<span class="op">$</span>statistic <span class="op">-</span><span class="st"> </span><span class="kw">t.test</span>(x,y<span class="op">+</span><span class="dv">100</span>)<span class="op">$</span>statistic </a></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1"><span class="kw">t.test</span>(x,y<span class="op">+</span><span class="dv">10</span>)<span class="op">$</span>statistic <span class="op">-</span><span class="st"> </span><span class="kw">t.test</span>(x,y<span class="op">+</span><span class="dv">100</span>)<span class="op">$</span>statistic </a></code></pre></div>
 <pre><code>##        t 
 ## 67.75097</code></pre>
 </div>
@@ -581,15 +593,15 @@ so an approximation is used, which is fine for our purposes.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">10</span>)<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">10</span>)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(x, y + 10): cannot compute exact
 ## p-value with ties</code></pre>
 <pre><code>## [1] 5.032073e-05</code></pre>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">100</span>)<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" title="1"><span class="kw">wilcox.test</span>(x,y<span class="op">+</span><span class="dv">100</span>)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## Warning in wilcox.test.default(x, y + 100): cannot compute exact
 ## p-value with ties</code></pre>
 <pre><code>## [1] 5.032073e-05</code></pre>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>))<span class="op">$</span>p.value <span class="co"># Answer</span></a></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>))<span class="op">$</span>p.value <span class="co"># Answer</span></a></code></pre></div>
 <pre><code>## [1] 0.1</code></pre>
 </div>
 <div id="question-10-5" class="section level3 unnumbered">
@@ -600,7 +612,7 @@ so an approximation is used, which is fine for our purposes.</p>
 <div class="answer">
 
 
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">400</span>,<span class="dv">500</span>,<span class="dv">600</span>))<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" title="1"><span class="kw">wilcox.test</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">400</span>,<span class="dv">500</span>,<span class="dv">600</span>))<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## [1] 0.1</code></pre>
 
 </div>
