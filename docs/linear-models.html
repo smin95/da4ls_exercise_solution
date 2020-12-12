@@ -301,6 +301,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-19"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-18"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-15"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -327,7 +332,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>First, upload necessary package(s).</p>
 <div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
 <a class="sourceLine" id="cb289-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
-<a class="sourceLine" id="cb289-3" title="3"><span class="kw">library</span>(contrast)</a></code></pre></div>
+<a class="sourceLine" id="cb289-3" title="3"><span class="kw">library</span>(contrast)</a>
+<a class="sourceLine" id="cb289-4" title="4"><span class="kw">library</span>(Matrix)</a></code></pre></div>
 <div id="exercises-14" class="section level2 unnumbered">
 <h2>5.1 Exercises</h2>
 <div id="question-1-14" class="section level3 unnumbered">
@@ -705,6 +711,124 @@ more constant.</p>
 ## Residuals 274  40.742   0.149                       
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+</div>
+<div id="exercises-19" class="section level2 unnumbered">
+<h2>5.15 Exercises</h2>
+<div id="question-1-19" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>Consider these design matrices:</p>
+<p><span class="math display">\[
+\,
+A = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0\\
+1 &amp; 0 &amp; 0 &amp; 0\\
+1 &amp; 1 &amp; 1 &amp; 0\\
+1 &amp; 1 &amp; 0 &amp; 1\\
+\end{pmatrix}
+\
+B = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 1\\
+1 &amp; 0 &amp; 1 &amp; 1\\
+1 &amp; 1 &amp; 0 &amp; 0\\
+1 &amp; 1 &amp; 1 &amp; 0\\
+\end{pmatrix}
+\
+C = \begin{pmatrix}
+1 &amp; 0 &amp; 0\\
+1 &amp; 1 &amp; 2\\
+1 &amp; 2 &amp; 4\\
+1 &amp; 3 &amp; 6\\
+\end{pmatrix}
+\]</span>
+<span class="math display">\[
+\,
+D = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+1 &amp; 0 &amp; 0 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0 &amp; 1 &amp; 0\\
+1 &amp; 1 &amp; 0 &amp; 1 &amp; 1\\
+1 &amp; 0 &amp; 1 &amp; 1 &amp; 0\\
+1 &amp; 0 &amp; 1 &amp; 1 &amp; 1\\
+\end{pmatrix}
+\
+E = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0\\
+1 &amp; 0 &amp; 1 &amp; 0\\
+1 &amp; 1 &amp; 0 &amp; 0\\
+1 &amp; 1 &amp; 1 &amp; 1\\
+\end{pmatrix}
+\
+F = \begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 1\\
+1 &amp; 0 &amp; 0 &amp; 1\\
+1 &amp; 0 &amp; 1 &amp; 1\\
+1 &amp; 1 &amp; 0 &amp; 0\\
+1 &amp; 1 &amp; 0 &amp; 0\\
+1 &amp; 1 &amp; 1 &amp; 0\\
+\end{pmatrix}
+\]</span>
+Which of the above design matrices does NOT have the problem of collinearity?</p>
+<hr />
+<p>The answer is <strong>E</strong>. Collinearity exists when a column within the matrix is a linear combination of other columns in the same matrix. If a model matrix has collinearity, then it has a confound, thereby becoming problematic. In answer A, the second column is a linear combination of the third and fourth columns. In answer B, the first column is a linear combination of the second and fourth columns. In answer C, the third column is a multiple of the second column by a factor of 2. In answer D, the fourth column is a linear combination of the second and third columns. In answer F, the first column is a linear combination of the second and fourth columns.</p>
+</div>
+<div id="question-2-18" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" title="1">sex &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;female&quot;</span>,<span class="st">&quot;male&quot;</span>),<span class="dt">each=</span><span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb342-2" title="2">trt &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;D&quot;</span>))</a>
+<a class="sourceLine" id="cb342-3" title="3">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>( <span class="op">~</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>trt)</a>
+<a class="sourceLine" id="cb342-4" title="4"><span class="kw">qr</span>(X)<span class="op">$</span>rank</a></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1">Y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb344-2" title="2">makeYstar &lt;-<span class="st"> </span><span class="cf">function</span>(a,b) Y <span class="op">-</span><span class="st"> </span>X[,<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>a <span class="op">-</span><span class="st"> </span>X[,<span class="dv">5</span>] <span class="op">*</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb344-3" title="3"></a>
+<a class="sourceLine" id="cb344-4" title="4">fitTheRest &lt;-<span class="st"> </span><span class="cf">function</span>(a,b) {</a>
+<a class="sourceLine" id="cb344-5" title="5">  Ystar &lt;-<span class="st"> </span><span class="kw">makeYstar</span>(a,b)</a>
+<a class="sourceLine" id="cb344-6" title="6">  Xrest &lt;-<span class="st"> </span>X[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)]</a>
+<a class="sourceLine" id="cb344-7" title="7">  betarest &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(Xrest) <span class="op">%*%</span><span class="st"> </span>Xrest) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(Xrest) <span class="op">%*%</span><span class="st"> </span>Ystar</a>
+<a class="sourceLine" id="cb344-8" title="8">  residuals &lt;-<span class="st"> </span>Ystar <span class="op">-</span><span class="st"> </span>Xrest <span class="op">%*%</span><span class="st"> </span>betarest</a>
+<a class="sourceLine" id="cb344-9" title="9">  <span class="kw">sum</span>(residuals<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb344-10" title="10">}</a></code></pre></div>
+<p>What is the sum of squared residuals when the male coefficient is 1 and D coefficient is 2, and the other coefficients are fit using the linear model solution?</p>
+<hr />
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1"><span class="kw">fitTheRest</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<p><code>Xrest</code> refers to the model matrix that does not have <span class="math inline">\(\beta_{male}\)</span> and <span class="math inline">\(\beta_D\)</span>. In this question, these two coefficients are fixed. Therefore, <code>Xrest</code> is used as a model matrix to compute least square estimates for the other three coefficients in <code>X &lt;- model.matrix( ~ sex + trt)</code>.Try to recreate the custom function <code>fitTheRest</code> on your own.</p>
+</div>
+<div id="question-3-15" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>We can apply our function fitTheRest to a grid of values for female and <span class="math inline">\(\beta_D\)</span>, using the <code>outer</code> function in R. <code>outer</code> takes three arguments: a grid of values for the
+first argument, a grid of values for the second argument, and finally a function which takes two arguments.</p>
+<p>Try it out:</p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1"><span class="kw">outer</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="st">&#39;*&#39;</span>)</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    4    6
+## [3,]    3    6    9</code></pre>
+<p>We can run <code>fitTheRest</code> on a grid of values, using the following code (the <code>Vectorize</code> is necessary as <code>outer</code> requires only vectorized functions)</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" title="1"><span class="kw">outer</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>,<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>,<span class="kw">Vectorize</span>(fitTheRest))</a></code></pre></div>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11]
+##  [1,]  102   83   66   51   38   27   18   11    6     3     2
+##  [2,]   83   66   51   38   27   18   11    6    3     2     3
+##  [3,]   66   51   38   27   18   11    6    3    2     3     6
+##  [4,]   51   38   27   18   11    6    3    2    3     6    11
+##  [5,]   38   27   18   11    6    3    2    3    6    11    18
+##  [6,]   27   18   11    6    3    2    3    6   11    18    27
+##  [7,]   18   11    6    3    2    3    6   11   18    27    38
+##  [8,]   11    6    3    2    3    6   11   18   27    38    51
+##  [9,]    6    3    2    3    6   11   18   27   38    51    66
+## [10,]    3    2    3    6   11   18   27   38   51    66    83
+## [11,]    2    3    6   11   18   27   38   51   66    83   102</code></pre>
+<p>In the grid of values, what is the smallest sum of squared residuals?</p>
+<hr />
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1"><span class="kw">outer</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="st">&#39;*&#39;</span>)</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    4    6
+## [3,]    3    6    9</code></pre>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">outer</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>,<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>,<span class="kw">Vectorize</span>(fitTheRest))</a>
+<a class="sourceLine" id="cb353-2" title="2">ans[<span class="kw">which</span>(ans <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(ans))]</a></code></pre></div>
+<pre><code>##  [1] 2 2 2 2 2 2 2 2 2 2 2</code></pre>
 
 </div>
 </div>
