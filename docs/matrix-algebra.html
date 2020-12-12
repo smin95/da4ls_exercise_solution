@@ -24,7 +24,7 @@
 <meta name="author" content="Seung Hyun (Sam) Min" />
 
 
-<meta name="date" content="2020-12-11" />
+<meta name="date" content="2020-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="exploratory-data-analysis.html"/>
-
+<link rel="next" href="linear-models.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -273,6 +273,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-13"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-11"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-10"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-14"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-14"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-12"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-11"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-15"><i class="fa fa-check"></i>Question 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i><b>5.1</b> 5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-12"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-18"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-17"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-14"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -587,12 +615,12 @@ What is the solution for <span class="math inline">\(c\)</span>?</p>
 <div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb278-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;b&#39;</span>)</a>
 <a class="sourceLine" id="cb278-3" title="3"><span class="co">#beta &lt;- c(5,2)</span></a>
-<a class="sourceLine" id="cb278-4" title="4">beta &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">2</span>),<span class="dt">nrow =</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">1</span>) <span class="co"># matrix form of beta</span></a>
+<a class="sourceLine" id="cb278-4" title="4">beta &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">2</span>),<span class="dt">nrow =</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">1</span>) <span class="co"># matrix form of the vector beta</span></a>
 <a class="sourceLine" id="cb278-5" title="5">X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
 <pre><code>##   [,1]
 ## a    5
 ## a    5</code></pre>
-<p>When I perform matrix multiplication in R <code>%*%</code>, I usually make sure that all my values are in the matrix form. In this case, I rewrote the <code>beta</code> variable in the function of matrix. However, this is not necessary. <code>beta &lt;- c(5,2)</code> works well too.</p>
+<p>When I perform matrix multiplication in R <code>%*%</code>, I usually make sure that all my vectors are converted into matrix. In this case, I rewrote the <code>beta</code> variable in the function of matrix. However, this is not necessary. The vector form of beta <code>beta &lt;- c(5,2)</code> works well too.</p>
 </div>
 <div id="question-2-13" class="section level3 unnumbered">
 <h3>Question 2</h3>
@@ -655,8 +683,8 @@ so:</p>
           </div>
         </div>
       </div>
-<a href="exploratory-data-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="exploratory-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="linear-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

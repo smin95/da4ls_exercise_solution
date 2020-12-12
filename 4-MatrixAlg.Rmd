@@ -235,11 +235,11 @@ Use the matrix multiplication operator, `%*%`, in R to answer the following ques
 X <- matrix(c(1,1,1,1,0,0,1,1),nrow=4)
 rownames(X) <- c('a','a','b','b')
 #beta <- c(5,2)
-beta <- matrix(c(5,2),nrow =2, ncol=1) # matrix form of beta
+beta <- matrix(c(5,2),nrow =2, ncol=1) # matrix form of the vector beta
 X[1:2,] %*% beta
 ```
 
-When I perform matrix multiplication in R `%*%`, I usually make sure that all my values are in the matrix form. In this case, I rewrote the `beta` variable in the function of matrix. However, this is not necessary. `beta <- c(5,2)` works well too.
+When I perform matrix multiplication in R `%*%`, I usually make sure that all my vectors are converted into matrix. In this case, I rewrote the `beta` variable in the function of matrix. However, this is not necessary. The vector form of beta `beta <- c(5,2)` works well too.
 
 ### Question 2 {-}
 

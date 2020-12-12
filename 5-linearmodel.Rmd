@@ -1,0 +1,397 @@
+# Linear Models 
+
+**Note:** I have rephrased some parts of the questions for clarity. These changes are **bolded**. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
+
+First, upload necessary package(s).
+
+```{r}
+library(dplyr) # uplaods the function filter() and %>%
+library(rafalib) # important for plotting with base R
+library(contrast)
+```
+
+## 5.1 Exercises {-}
+
+### Question 1 {-}
+
+<div class="question">
+We have shown how to find the least squares estimates with matrix algebra. These estimates are random variables as they are linear combinations of the data. For these estimates to be useful, we also need to compute the standard errors. Here
+we review standard errors in the context of linear models. To see this, we can run a Monte Carlo simulation to imitate the collection of falling object data. Specifically, we will generate the data repeatedly and compute the estimate for
+the quadratic term each time.
+
+```{r}
+g = 9.8
+h0 = 56.67
+v0 = 0
+n = 25
+tt = seq(0,3.4,len=n)
+y = h0 + v0 *tt - 0.5* g*tt^2 + rnorm(n,sd=1)
+```
+</div>
+
+Now we act as if we didn't know $h0$, $v0$ and $-0.5*g$ and use regression to estimate these. We can rewrite the model as $y = \beta_0 + \beta_1t + \beta_2t^2 + \epsilon$ and obtain the LSE we have used in this class. Note that $g = -2\beta_2$.
+
+To obtain the LSE in R we could write:
+
+```{r}
+X = cbind(1,tt,tt^2)
+A = solve(crossprod(X))%*%t(X)
+```
+
+Given how we have defined A, which of the following is the LSE of $g$, the accerleration due to gravity?
+
+<div class="answer">
+
+```{r}
+Y = matrix(y,nrow=length(y), ncol = 1) # convert vector y into matrix Y
+betahat <- solve(crossprod(X)) %*% t(X) %*%Y
+
+betahat  <- A %*% Y # both ways work fine
+
+betahat[[3]] * -2 # beta2 * -2 = gravity
+# this is equal to
+-2 * (A %*% Y)[3]
+```
+
+The answer is **C**. 
+
+Answer A is wrong because `9.8` is not an estimate; it is the exact value we are looking for. Due to measurement error `rnorm(n, sd=1)` that is generated in `y`, we will never  achieve `9.8`. Answer B is wrong because this gives three coefficients (intercept `h0`, `v0` and `-0.5g`). Answer D is wrong because `A` is created solely from the model matrix `X`, not also from the data `y`. 
+
+### Question 2 {-}
+
+<div class="question">
+In the lines of code above, the function `rnorm` introduced randomness. This means that each time the lines of code above are repeated, the estimate of g will be different.
+
+Use the code above in conjunction with the function replicate to generate 100,000 Monte Carlo simulated datasets. For each dataset, compute an estimate of g. (Remember to multiply by -2.)
+
+What is the standard error of this estimate?
+</div>
+
+<div class="answer">
+
+```{r}
+set.seed(1)
+gravity_list <- replicate(100000, {
+  y = h0 + v0 *tt - 0.5* g*tt^2 + rnorm(n,sd=1)
+  Y = matrix(y,nrow=length(y), ncol = 1)
+  betahat <- solve(crossprod(X)) %*% t(X) %*%Y
+  third_beta <- betahat[[3]] * -2
+  return(third_beta)
+})
+popsd(gravity_list)
+```
+
+Function `popsd`, instead of `sd`, is used because we are not dealing with a sample of coefficients. `sd` adjusts for the bias in a sample by using denominator `n-1` rather than `n`. In this case, there is no reason to adjust for the bias because we are directly interested in measuring the spread of the distribution of `third_beta`. Standard error of a random variable is the standard deviation of the distribution; `gravity_list` captures the distribution of `third_beta`. Therefore we compute standard deviation. 
+
+### Question 3 {-}
+
+<div class="question">
+In the father and son height examples, we have randomness because we have a random sample of father and son pairs. For the sake of illustration, let's assume that this is the entire population:
+
+```{r}
+library(UsingR)
+x = father.son$fheight
+y = father.son$sheight
+n = length(y)
+```
+
+Now let's run a Monte Carlo simulation in which we take a sample of size 50 over and over again. Here is how we obtain one sample:
+
+```{r}
+N = 50
+index = sample(n,N)
+sampledat = father.son[index,]
+x = sampledat$fheight
+y = sampledat$sheight
+betahat = lm(y~x)$coef
+```
+
+Use the function `replicate` to take 10,000 samples.
+What is the standard error of the slope estimate? That is, calculate the standard deviation of the estimate from the observed values obtained from many random samples.
+</div>
+
+<div class="answer">
+
+```{r}
+x = father.son$fheight
+y = father.son$sheight
+n = length(y)
+
+N = 50
+set.seed(1)
+output <- replicate(10000, {
+  index = sample(n,N)
+  sampledat = father.son[index,]
+  x = sampledat$fheight
+  y = sampledat$sheight
+  betahat = lm(y~x)$coef
+  return(betahat[[2]])
+})
+popsd(output)
+```
+
+### Question 4 {-}
+
+<div class="question">
+Which of the following is closest to the covariance between father heights and son heights?
+</div>
+
+<div class="answer">
+
+```{r}
+#x = father.son$fheight
+#y = father.son$sheight
+mean((y - mean(y))*(x-mean(x))) # closest to 4
+```
+
+## 5.3 Exercises {-}
+
+### Question 1 {-}
+
+<div class="question">
+Given the factors we have defined above and without defining any new ones, which of the following R formula will produce a design matrix (model matrix) that lets us analyze the effect of condition, controlling for the different days?
+</div>
+
+<div class="answer">
+
+```{r}
+day <- c('A','A','B','B','C','C')
+condition <- c('control','treatment','control','treatment','control','treatment')
+model.matrix(~day+condition) # answer is A
+```
+
+## 5.5 Exercises {-}
+
+### Question 1 {-}
+
+<div class="question">
+You can make a design matrix X for a two group comparison, either using model.matrix or simply with:
+
+```{r}
+#X <- cbind(rep(1,Nx + Ny),rep(c(0,1),c(Nx, Ny)))
+```
+
+In order to compare two groups, where the first group has Nx=5 samples and the second group has `Ny=7` samples, what is the element in the 1st row and 1st column of $X^TX$?
+</div>
+
+<div class="answer">
+
+```{r}
+Nx <- 5
+Ny <- 7
+X <- cbind(rep(1,Nx+Ny), rep(c(0,1),c(Nx,Ny)))
+crossprod(X)[1,1] # this is equal to Nx + Ny
+```
+
+### Question 2 {-}
+
+<div class="question">
+The other entries of $X^TX$ are all the same. What is the number?
+</div>
+
+<div class="answer">
+
+```{r}
+crossprod(X) # 7, this is equal to Ny
+```
+
+## 5.7 Exercises
+```{r}
+library(UsingR)
+N <- 50
+set.seed(1)
+index <- sample(n,N)
+sampledat <- father.son[index,]
+x <- sampledat$fheight
+y <- sampledat$sheight
+betahat <- lm(y~x)$coef
+```
+
+### Question 1 {-}
+
+<div class="question">
+The fitted values $\hat{Y}$ from a linear model can be obtained with:
+
+```{r}
+fit <- lm(y~x)
+fit$fitted.values
+```
+
+What is the sum of the squared residuals, where residuals are given by $r_i = Y_i - \hat{Y}_i$?
+</div>
+
+<div class="answer">
+
+```{r}
+sum((y -fit$fitted.values)^2)
+resid = y -fit$fitted.values # residual
+sum(resid^2) 
+```
+
+In the four questions, we will calculate the standard error of the least square estimates (i.e., coefficients / beta hats from the linear model). This can easily be achieved with function `lm()`, but we will explore what happens within `lm()`. 
+
+It is important to recall that $\hat{Y}_i$ is the fitted values from the model $X\hat{\beta}$, and that $Y$ is the actual data. A difference between these two is the residual.
+
+### Question 2 {-}
+
+<div class="question">
+Our estimate of $\sigma^2$ will be the sum of squared residuals divided by $N-p$, the sample size minus the number of terms in the model. Since we have a sample of 50 and 2 terms in the model (an intercept and a slope), our estimate of $\sigma^2$ will be the sum of squared residuals divided by 48. Use the answer from **Question 1** to provide an estimate of $\sigma^2$. 
+</div>
+
+<div class="answer">
+
+```{r}
+s2 <- sum(resid^2)/48
+s2
+```
+
+So what exactly is $\sigma^2$? To understand it, we need to revisit a typical linear model $Y_i = \beta_0 + \beta_1X_i + \epsilon_i$, where \beta_0 is the intercept. When you are estimating $Y_i$ from a model, you can get variance for $Y_i$. However, since the parameters ($\beta_0$ and $\beta_1$) are assumed to be fixed (known values), the variance of the $Y_i$ only comes from the $\epsilon_i$. Therefore $\sigma^2$ is basically the variance of $\epsilon$. 
+
+### Question 3 {-}
+
+<div class="question">
+Form the design matrix $X$ (Note: use a capital X). This can be done by combining a column of 1's with a column containing `x`, the fathers' heights.
+
+```{r}
+N <- 50
+X <- cbind(rep(1,N),x)
+```
+
+Now calculate $(X^TX)^{-1}$. Use the `solve` function for the inverse and `t` for the transpose. What is the element in the first row, first column?
+</div>
+
+<div class="answer">
+
+```{r}
+X <- model.matrix(~x)
+solve(crossprod(X))[1,1]
+```
+
+Remember that `crossprod(X)` is equivalent to `t(X) %*% X`.
+
+### Question 4 {-}
+
+<div class="question">
+Now we are one step away from the standard error of $\hat{\beta}$. Take the diagonals from the $(X^TX)^{-1}$ matrix above, using the `diag` function. Multiply our estmate of $\sigma^2$ and the diagonals of this matrix. This is the estimated variance of $\hat{\beta}$, so take the square root of this. You should end up two numbers: the standard error for the intercept and the standard error for the slope. What is the standard error for the slope?
+</div>
+
+<div class="answer">
+
+```{r}
+sqrt(diag(solve(crossprod(X))) * s2)[2]
+```
+
+Although the questions are relatively straightforward, the math derivation is not. Do not worry if you do not understand the derivation. The only thing that matters is that we have just computed the standard error of a coefficient in linear regression. And this can all be done with function `lm`. 
+
+## 5.11 Exercises {-}
+
+Suppose we have an experiment with two species A and B, and two conditions, control and treated.
+
+```{r}
+species <- factor(c("A","A","B","B"))
+condition <- factor(c("control","treated","control","treated"))
+```
+
+We will use the formula of `~ species + condition` to create the model matrix: `model.matrix(~species + condition)`
+
+### Question 1 {-}
+
+<div class="question">
+Suppose we want to build a contrast of coefficients for the above experimental design. You can either figure this question out by looking at the design matrix, or by using
+the contrast function from the contrast library with random numbers for `y`. The contrast vector will be returned as `contrast(...)$X`.
+What should the contrast vector be, to obtain the difference between the species B control group and the species A treatment group (species B control - species A treatment)?
+Assume that the coeffcients (columns of design matrix) are: Intercept, speciesB, condition-treated.
+</div>
+
+<div class="answer">
+
+```{r}
+fit <- lm(rnorm(4) ~ species + condition)
+table(species,condition) # just like in the species vector, there are four units total. 
+etc <- contrast(fit, list(species ='B',condition='control'),
+         list(species ='A',condition='treated'))
+etc$X
+```
+
+I made a model matrix by using `rnorm(4)`, which generates four random numbers (mean=0, sd=1). Then I performed a contrast between species B control and species A treatment groups using the `contrast` function. I stored the results in `etc`, which shows that the answer is **D (0,1,-1)**.
+
+### Question 2 {-}
+
+<div class="question">
+Use the Rmd script to load the spider dataset. Suppose we build a model using two variables: `~ type + leg`. What is the t-statistic for the contrast of leg pair L4 vs. leg pair L2?
+</div>
+
+<div class="answer">
+
+```{r}
+spider <- read.csv("spider_wolff_gorb_2013.csv", skip=1)
+fit <- lm(friction~type+leg, data = spider)
+res <- contrast(fit, list(leg ='L4',type = 'pull'),
+         list(leg = 'L2',type='pull'))
+res$testStat
+```
+
+### Question 3 {-}
+
+<div class="question">
+```{r}
+X <- model.matrix(~ type + leg, data=spider)
+Sigma.hat <- sum(fit$residuals^2)/(nrow(X) - ncol(X)) * solve(t(X) %*% X)
+```
+
+Using the estimate $\Sigma$ **(estimated covariance matrix)**, what is your estimate of $cov(\hat{\beta}_{L4},\hat{\beta}_{L2})$? Our contrast matrix for the desired comparison is:
+
+```{r}
+C <- matrix(c(0,0,-1,0,1),1,5)
+```
+
+</div>
+
+<div class="answer">
+
+```{r}
+Sigma.hat <- sum(fit$residuals^2)/(nrow(X)-ncol(X)) *
+  solve(t(X)%*%X) # covariance matrix
+```
+
+The answer is 0.0006389179. It is important to know that `sqrt(diag(Sigma.hat))` gives standard error of the least square estimates. 
+
+### Question 4 {-}
+
+<div class="question">
+Suppose that we notice that the within-group variances for the groups with smaller frictional coeffcients are generally smaller, and so we try to apply a transformation to the frictional coeffcients to make the within-group variances
+more constant.
+
+Add a new variable `log2friction` to the spider dataframe:
+
+```{r}
+spider$log2friction <- log2(spider$friction)
+```
+
+The `Y` values now look like:
+
+```{r}
+boxplot(log2friction ~ type*leg, data=spider)
+```
+
+Run a linear model of `log2friction` with type, leg and interactions between type and leg. What is the t-statistic for the interaction of type push and leg L4? If this t-statistic is sufficiently large, we would reject the null hypothesis that the push vs. pull effect on `log2(friction)` is the same in L4 as in L1.
+</div>
+
+<div class="answer">
+
+```{r}
+logfit <- lm(log2friction~type+leg+type:leg, data = spider)
+summary(logfit)[[4]] # t-statistic for each factor
+```
+
+### Question 5 {-}
+
+<div class="question">
+Using the same analysis of log2 transformed data, what is the F-value for all of the `type:leg` interaction terms in an ANOVA? If this value is sufficiently large, we would reject the null hypothesis that the push vs. pull effect on `log2(friction)` is the same for all leg pairs.
+</div>
+
+<div class="answer">
+
+```{r}
+anova(logfit)
+```

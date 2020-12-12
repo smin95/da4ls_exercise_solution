@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Linear Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</title>
+  <meta name="description" content="Chapter 5 Linear Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Linear Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Linear Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  
+  
+  
+
+<meta name="author" content="Seung Hyun (Sam) Min" />
+
+
+<meta name="date" content="2020-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="matrix-algebra.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">DA4LS with R: Exercise Solutions</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#before-reading-da4ls-with-r"><i class="fa fa-check"></i>Before reading DA4LS with R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-1"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-1"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-1"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-1"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-1"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-1"><i class="fa fa-check"></i>Question 9</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-2"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-2"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-2"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-2"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-2"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-2"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-2"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-2"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-1"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13"><i class="fa fa-check"></i>Question 13</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-3"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-3"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-3"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-3"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-3"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-2"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-1"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-1"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13-1"><i class="fa fa-check"></i>Question 13</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-4"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-4"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-4"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-4"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-4"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-3"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-2"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-2"><i class="fa fa-check"></i>Question 12</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-5"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-5"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-5"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-5"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-5"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-5"><i class="fa fa-check"></i>Question 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-6"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-6"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-7"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-7"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-8"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-8"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-6"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-6"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-6"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-5"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-5"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-4"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-9"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-9"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-7"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-7"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-7"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-7"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-6"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-6"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-5"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-10"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-10"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-8"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-8"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-11"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-11"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-9"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-12"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-12"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-10"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-9"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-13"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-13"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-11"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-10"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-14"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-14"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-12"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-11"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-15"><i class="fa fa-check"></i>Question 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i><b>5.1</b> 5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-12"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-18"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-17"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-14"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-models" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Linear Models</h1>
+<p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
+<p>First, upload necessary package(s).</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb289-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
+<a class="sourceLine" id="cb289-3" title="3"><span class="kw">library</span>(contrast)</a></code></pre></div>
+<div id="exercises-14" class="section level2 unnumbered">
+<h2>5.1 Exercises</h2>
+<div id="question-1-14" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<div class="question">
+<p>We have shown how to find the least squares estimates with matrix algebra. These estimates are random variables as they are linear combinations of the data. For these estimates to be useful, we also need to compute the standard errors. Here
+we review standard errors in the context of linear models. To see this, we can run a Monte Carlo simulation to imitate the collection of falling object data. Specifically, we will generate the data repeatedly and compute the estimate for
+the quadratic term each time.</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">g =<span class="st"> </span><span class="fl">9.8</span></a>
+<a class="sourceLine" id="cb290-2" title="2">h0 =<span class="st"> </span><span class="fl">56.67</span></a>
+<a class="sourceLine" id="cb290-3" title="3">v0 =<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb290-4" title="4">n =<span class="st"> </span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb290-5" title="5">tt =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">3.4</span>,<span class="dt">len=</span>n)</a>
+<a class="sourceLine" id="cb290-6" title="6">y =<span class="st"> </span>h0 <span class="op">+</span><span class="st"> </span>v0 <span class="op">*</span>tt <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="st"> </span>g<span class="op">*</span>tt<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dt">sd=</span><span class="dv">1</span>)</a></code></pre></div>
+</div>
+<p>Now we act as if we didn’t know <span class="math inline">\(h0\)</span>, <span class="math inline">\(v0\)</span> and <span class="math inline">\(-0.5*g\)</span> and use regression to estimate these. We can rewrite the model as <span class="math inline">\(y = \beta_0 + \beta_1t + \beta_2t^2 + \epsilon\)</span> and obtain the LSE we have used in this class. Note that <span class="math inline">\(g = -2\beta_2\)</span>.</p>
+<p>To obtain the LSE in R we could write:</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1">X =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>,tt,tt<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb291-2" title="2">A =<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X))<span class="op">%*%</span><span class="kw">t</span>(X)</a></code></pre></div>
+<p>Given how we have defined A, which of the following is the LSE of <span class="math inline">\(g\)</span>, the accerleration due to gravity?</p>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1">Y =<span class="st"> </span><span class="kw">matrix</span>(y,<span class="dt">nrow=</span><span class="kw">length</span>(y), <span class="dt">ncol =</span> <span class="dv">1</span>) <span class="co"># convert vector y into matrix Y</span></a>
+<a class="sourceLine" id="cb292-2" title="2">betahat &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span>Y</a>
+<a class="sourceLine" id="cb292-3" title="3"></a>
+<a class="sourceLine" id="cb292-4" title="4">betahat  &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>Y <span class="co"># both ways work fine</span></a>
+<a class="sourceLine" id="cb292-5" title="5"></a>
+<a class="sourceLine" id="cb292-6" title="6">betahat[[<span class="dv">3</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">-2</span> <span class="co"># beta2 * -2 = gravity</span></a></code></pre></div>
+<pre><code>## [1] 9.279798</code></pre>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1"><span class="co"># this is equal to</span></a>
+<a class="sourceLine" id="cb294-2" title="2"><span class="dv">-2</span> <span class="op">*</span><span class="st"> </span>(A <span class="op">%*%</span><span class="st"> </span>Y)[<span class="dv">3</span>]</a></code></pre></div>
+<pre><code>## [1] 9.279798</code></pre>
+<p>The answer is <strong>C</strong>.</p>
+<p>Answer A is wrong because <code>9.8</code> is not an estimate; it is the exact value we are looking for. Due to measurement error <code>rnorm(n, sd=1)</code> that is generated in <code>y</code>, we will never achieve <code>9.8</code>. Answer B is wrong because this gives three coefficients (intercept <code>h0</code>, <code>v0</code> and <code>-0.5g</code>). Answer D is wrong because <code>A</code> is created solely from the model matrix <code>X</code>, not also from the data <code>y</code>.</p>
+</div>
+<div id="question-2-14" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<div class="question">
+<p>In the lines of code above, the function <code>rnorm</code> introduced randomness. This means that each time the lines of code above are repeated, the estimate of g will be different.</p>
+<p>Use the code above in conjunction with the function replicate to generate 100,000 Monte Carlo simulated datasets. For each dataset, compute an estimate of g. (Remember to multiply by -2.)</p>
+<p>What is the standard error of this estimate?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb296-2" title="2">gravity_list &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">100000</span>, {</a>
+<a class="sourceLine" id="cb296-3" title="3">  y =<span class="st"> </span>h0 <span class="op">+</span><span class="st"> </span>v0 <span class="op">*</span>tt <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="st"> </span>g<span class="op">*</span>tt<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dt">sd=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb296-4" title="4">  Y =<span class="st"> </span><span class="kw">matrix</span>(y,<span class="dt">nrow=</span><span class="kw">length</span>(y), <span class="dt">ncol =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb296-5" title="5">  betahat &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">crossprod</span>(X)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span>Y</a>
+<a class="sourceLine" id="cb296-6" title="6">  third_beta &lt;-<span class="st"> </span>betahat[[<span class="dv">3</span>]] <span class="op">*</span><span class="st"> </span><span class="dv">-2</span></a>
+<a class="sourceLine" id="cb296-7" title="7">  <span class="kw">return</span>(third_beta)</a>
+<a class="sourceLine" id="cb296-8" title="8">})</a>
+<a class="sourceLine" id="cb296-9" title="9"><span class="kw">popsd</span>(gravity_list)</a></code></pre></div>
+<pre><code>## [1] 0.4297449</code></pre>
+<p>Function <code>popsd</code>, instead of <code>sd</code>, is used because we are not dealing with a sample of coefficients. <code>sd</code> adjusts for the bias in a sample by using denominator <code>n-1</code> rather than <code>n</code>. In this case, there is no reason to adjust for the bias because we are directly interested in measuring the spread of the distribution of <code>third_beta</code>. Standard error of a random variable is the standard deviation of the distribution; <code>gravity_list</code> captures the distribution of <code>third_beta</code>. Therefore we compute standard deviation.</p>
+</div>
+<div id="question-3-12" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<div class="question">
+<p>In the father and son height examples, we have randomness because we have a random sample of father and son pairs. For the sake of illustration, let’s assume that this is the entire population:</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1"><span class="kw">library</span>(UsingR)</a>
+<a class="sourceLine" id="cb298-2" title="2">x =<span class="st"> </span>father.son<span class="op">$</span>fheight</a>
+<a class="sourceLine" id="cb298-3" title="3">y =<span class="st"> </span>father.son<span class="op">$</span>sheight</a>
+<a class="sourceLine" id="cb298-4" title="4">n =<span class="st"> </span><span class="kw">length</span>(y)</a></code></pre></div>
+<p>Now let’s run a Monte Carlo simulation in which we take a sample of size 50 over and over again. Here is how we obtain one sample:</p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1">N =<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb299-2" title="2">index =<span class="st"> </span><span class="kw">sample</span>(n,N)</a>
+<a class="sourceLine" id="cb299-3" title="3">sampledat =<span class="st"> </span>father.son[index,]</a>
+<a class="sourceLine" id="cb299-4" title="4">x =<span class="st"> </span>sampledat<span class="op">$</span>fheight</a>
+<a class="sourceLine" id="cb299-5" title="5">y =<span class="st"> </span>sampledat<span class="op">$</span>sheight</a>
+<a class="sourceLine" id="cb299-6" title="6">betahat =<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x)<span class="op">$</span>coef</a></code></pre></div>
+<p>Use the function <code>replicate</code> to take 10,000 samples.
+What is the standard error of the slope estimate? That is, calculate the standard deviation of the estimate from the observed values obtained from many random samples.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1">x =<span class="st"> </span>father.son<span class="op">$</span>fheight</a>
+<a class="sourceLine" id="cb300-2" title="2">y =<span class="st"> </span>father.son<span class="op">$</span>sheight</a>
+<a class="sourceLine" id="cb300-3" title="3">n =<span class="st"> </span><span class="kw">length</span>(y)</a>
+<a class="sourceLine" id="cb300-4" title="4"></a>
+<a class="sourceLine" id="cb300-5" title="5">N =<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb300-6" title="6"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb300-7" title="7">output &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, {</a>
+<a class="sourceLine" id="cb300-8" title="8">  index =<span class="st"> </span><span class="kw">sample</span>(n,N)</a>
+<a class="sourceLine" id="cb300-9" title="9">  sampledat =<span class="st"> </span>father.son[index,]</a>
+<a class="sourceLine" id="cb300-10" title="10">  x =<span class="st"> </span>sampledat<span class="op">$</span>fheight</a>
+<a class="sourceLine" id="cb300-11" title="11">  y =<span class="st"> </span>sampledat<span class="op">$</span>sheight</a>
+<a class="sourceLine" id="cb300-12" title="12">  betahat =<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x)<span class="op">$</span>coef</a>
+<a class="sourceLine" id="cb300-13" title="13">  <span class="kw">return</span>(betahat[[<span class="dv">2</span>]])</a>
+<a class="sourceLine" id="cb300-14" title="14">})</a>
+<a class="sourceLine" id="cb300-15" title="15"><span class="kw">popsd</span>(output)</a></code></pre></div>
+<pre><code>## [1] 0.1243209</code></pre>
+</div>
+<div id="question-4-11" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<div class="question">
+<p>Which of the following is closest to the covariance between father heights and son heights?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1"><span class="co">#x = father.son$fheight</span></a>
+<a class="sourceLine" id="cb302-2" title="2"><span class="co">#y = father.son$sheight</span></a>
+<a class="sourceLine" id="cb302-3" title="3"><span class="kw">mean</span>((y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(y))<span class="op">*</span>(x<span class="op">-</span><span class="kw">mean</span>(x))) <span class="co"># closest to 4</span></a></code></pre></div>
+<pre><code>## [1] 3.869739</code></pre>
+</div>
+</div>
+<div id="exercises-15" class="section level2 unnumbered">
+<h2>5.3 Exercises</h2>
+<div id="question-1-15" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<div class="question">
+<p>Given the factors we have defined above and without defining any new ones, which of the following R formula will produce a design matrix (model matrix) that lets us analyze the effect of condition, controlling for the different days?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1">day &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>,<span class="st">&#39;C&#39;</span>)</a>
+<a class="sourceLine" id="cb304-2" title="2">condition &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;control&#39;</span>,<span class="st">&#39;treatment&#39;</span>,<span class="st">&#39;control&#39;</span>,<span class="st">&#39;treatment&#39;</span>,<span class="st">&#39;control&#39;</span>,<span class="st">&#39;treatment&#39;</span>)</a>
+<a class="sourceLine" id="cb304-3" title="3"><span class="kw">model.matrix</span>(<span class="op">~</span>day<span class="op">+</span>condition) <span class="co"># answer is A</span></a></code></pre></div>
+<pre><code>##   (Intercept) dayB dayC conditiontreatment
+## 1           1    0    0                  0
+## 2           1    0    0                  1
+## 3           1    1    0                  0
+## 4           1    1    0                  1
+## 5           1    0    1                  0
+## 6           1    0    1                  1
+## attr(,&quot;assign&quot;)
+## [1] 0 1 1 2
+## attr(,&quot;contrasts&quot;)
+## attr(,&quot;contrasts&quot;)$day
+## [1] &quot;contr.treatment&quot;
+## 
+## attr(,&quot;contrasts&quot;)$condition
+## [1] &quot;contr.treatment&quot;</code></pre>
+</div>
+</div>
+<div id="exercises-16" class="section level2 unnumbered">
+<h2>5.5 Exercises</h2>
+<div id="question-1-16" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<div class="question">
+<p>You can make a design matrix X for a two group comparison, either using model.matrix or simply with:</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1"><span class="co">#X &lt;- cbind(rep(1,Nx + Ny),rep(c(0,1),c(Nx, Ny)))</span></a></code></pre></div>
+<p>In order to compare two groups, where the first group has Nx=5 samples and the second group has <code>Ny=7</code> samples, what is the element in the 1st row and 1st column of <span class="math inline">\(X^TX\)</span>?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1">Nx &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb307-2" title="2">Ny &lt;-<span class="st"> </span><span class="dv">7</span></a>
+<a class="sourceLine" id="cb307-3" title="3">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rep</span>(<span class="dv">1</span>,Nx<span class="op">+</span>Ny), <span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">c</span>(Nx,Ny)))</a>
+<a class="sourceLine" id="cb307-4" title="4"><span class="kw">crossprod</span>(X)[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># this is equal to Nx + Ny</span></a></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+</div>
+<div id="question-2-15" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<div class="question">
+<p>The other entries of <span class="math inline">\(X^TX\)</span> are all the same. What is the number?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1"><span class="kw">crossprod</span>(X) <span class="co"># 7, this is equal to Ny</span></a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]   12    7
+## [2,]    7    7</code></pre>
+</div>
+</div>
+<div id="exercises-17" class="section level2">
+<h2><span class="header-section-number">5.1</span> 5.7 Exercises</h2>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1"><span class="kw">library</span>(UsingR)</a>
+<a class="sourceLine" id="cb311-2" title="2">N &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb311-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb311-4" title="4">index &lt;-<span class="st"> </span><span class="kw">sample</span>(n,N)</a>
+<a class="sourceLine" id="cb311-5" title="5">sampledat &lt;-<span class="st"> </span>father.son[index,]</a>
+<a class="sourceLine" id="cb311-6" title="6">x &lt;-<span class="st"> </span>sampledat<span class="op">$</span>fheight</a>
+<a class="sourceLine" id="cb311-7" title="7">y &lt;-<span class="st"> </span>sampledat<span class="op">$</span>sheight</a>
+<a class="sourceLine" id="cb311-8" title="8">betahat &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x)<span class="op">$</span>coef</a></code></pre></div>
+<div id="question-1-17" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<div class="question">
+<p>The fitted values <span class="math inline">\(\hat{Y}\)</span> from a linear model can be obtained with:</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x)</a>
+<a class="sourceLine" id="cb312-2" title="2">fit<span class="op">$</span>fitted.values</a></code></pre></div>
+<pre><code>##        1        2        3        4        5        6        7 
+## 70.62707 70.36129 70.86093 68.73019 65.59181 70.55285 70.21256 
+##        8        9       10       11       12       13       14 
+## 68.62521 67.06729 69.64913 69.09958 71.70621 68.31598 70.57027 
+##       15       16       17       18       19       20       21 
+## 70.39537 70.39613 68.73977 68.98874 71.47021 72.03615 69.55975 
+##       22       23       24       25       26       27       28 
+## 68.15895 66.63557 71.53651 69.57083 69.71050 67.14263 70.99719 
+##       29       30       31       32       33       34       35 
+## 67.11046 69.04901 66.65243 67.82895 68.24209 70.70156 65.50431 
+##       36       37       38       39       40       41       42 
+## 67.36000 69.30065 67.94424 66.35150 71.40489 71.64301 66.81654 
+##       43       44       45       46       47       48       49 
+## 69.22900 69.11769 69.21793 69.69519 67.00674 68.67869 67.40752 
+##       50 
+## 69.28800</code></pre>
+<p>What is the sum of the squared residuals, where residuals are given by <span class="math inline">\(r_i = Y_i - \hat{Y}_i\)</span>?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1"><span class="kw">sum</span>((y <span class="op">-</span>fit<span class="op">$</span>fitted.values)<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## [1] 256.2152</code></pre>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1">resid =<span class="st"> </span>y <span class="op">-</span>fit<span class="op">$</span>fitted.values <span class="co"># residual</span></a>
+<a class="sourceLine" id="cb316-2" title="2"><span class="kw">sum</span>(resid<span class="op">^</span><span class="dv">2</span>) </a></code></pre></div>
+<pre><code>## [1] 256.2152</code></pre>
+<p>In the four questions, we will calculate the standard error of the least square estimates (i.e., coefficients / beta hats from the linear model). This can easily be achieved with function <code>lm()</code>, but we will explore what happens within <code>lm()</code>.</p>
+<p>It is important to recall that <span class="math inline">\(\hat{Y}_i\)</span> is the fitted values from the model <span class="math inline">\(X\hat{\beta}\)</span>, and that <span class="math inline">\(Y\)</span> is the actual data. A difference between these two is the residual.</p>
+</div>
+<div id="question-2-16" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<div class="question">
+<p>Our estimate of <span class="math inline">\(\sigma^2\)</span> will be the sum of squared residuals divided by <span class="math inline">\(N-p\)</span>, the sample size minus the number of terms in the model. Since we have a sample of 50 and 2 terms in the model (an intercept and a slope), our estimate of <span class="math inline">\(\sigma^2\)</span> will be the sum of squared residuals divided by 48. Use the answer from <strong>Question 1</strong> to provide an estimate of <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1">s2 &lt;-<span class="st"> </span><span class="kw">sum</span>(resid<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">48</span></a>
+<a class="sourceLine" id="cb318-2" title="2">s2</a></code></pre></div>
+<pre><code>## [1] 5.337816</code></pre>
+<p>So what exactly is <span class="math inline">\(\sigma^2\)</span>? To understand it, we need to revisit a typical linear model <span class="math inline">\(Y_i = \beta_0 + \beta_1X_i + \epsilon_i\)</span>, where _0 is the intercept. When you are estimating <span class="math inline">\(Y_i\)</span> from a model, you can get variance for <span class="math inline">\(Y_i\)</span>. However, since the parameters (<span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>) are assumed to be fixed (known values), the variance of the <span class="math inline">\(Y_i\)</span> only comes from the <span class="math inline">\(\epsilon_i\)</span>. Therefore <span class="math inline">\(\sigma^2\)</span> is basically the variance of <span class="math inline">\(\epsilon\)</span>.</p>
+</div>
+<div id="question-3-13" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<div class="question">
+<p>Form the design matrix <span class="math inline">\(X\)</span> (Note: use a capital X). This can be done by combining a column of 1’s with a column containing <code>x</code>, the fathers’ heights.</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1">N &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb320-2" title="2">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rep</span>(<span class="dv">1</span>,N),x)</a></code></pre></div>
+<p>Now calculate <span class="math inline">\((X^TX)^{-1}\)</span>. Use the <code>solve</code> function for the inverse and <code>t</code> for the transpose. What is the element in the first row, first column?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>x)</a>
+<a class="sourceLine" id="cb321-2" title="2"><span class="kw">solve</span>(<span class="kw">crossprod</span>(X))[<span class="dv">1</span>,<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] 11.30275</code></pre>
+<p>Remember that <code>crossprod(X)</code> is equivalent to <code>t(X) %*% X</code>.</p>
+</div>
+<div id="question-4-12" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<div class="question">
+<p>Now we are one step away from the standard error of <span class="math inline">\(\hat{\beta}\)</span>. Take the diagonals from the <span class="math inline">\((X^TX)^{-1}\)</span> matrix above, using the <code>diag</code> function. Multiply our estmate of <span class="math inline">\(\sigma^2\)</span> and the diagonals of this matrix. This is the estimated variance of <span class="math inline">\(\hat{\beta}\)</span>, so take the square root of this. You should end up two numbers: the standard error for the intercept and the standard error for the slope. What is the standard error for the slope?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1"><span class="kw">sqrt</span>(<span class="kw">diag</span>(<span class="kw">solve</span>(<span class="kw">crossprod</span>(X))) <span class="op">*</span><span class="st"> </span>s2)[<span class="dv">2</span>]</a></code></pre></div>
+<pre><code>##         x 
+## 0.1141966</code></pre>
+<p>Although the questions are relatively straightforward, the math derivation is not. Do not worry if you do not understand the derivation. The only thing that matters is that we have just computed the standard error of a coefficient in linear regression. And this can all be done with function <code>lm</code>.</p>
+</div>
+</div>
+<div id="exercises-18" class="section level2 unnumbered">
+<h2>5.11 Exercises</h2>
+<p>Suppose we have an experiment with two species A and B, and two conditions, control and treated.</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1">species &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;B&quot;</span>))</a>
+<a class="sourceLine" id="cb325-2" title="2">condition &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;control&quot;</span>,<span class="st">&quot;treated&quot;</span>,<span class="st">&quot;control&quot;</span>,<span class="st">&quot;treated&quot;</span>))</a></code></pre></div>
+<p>We will use the formula of <code>~ species + condition</code> to create the model matrix: <code>model.matrix(~species + condition)</code></p>
+<div id="question-1-18" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<div class="question">
+<p>Suppose we want to build a contrast of coefficients for the above experimental design. You can either figure this question out by looking at the design matrix, or by using
+the contrast function from the contrast library with random numbers for <code>y</code>. The contrast vector will be returned as <code>contrast(...)$X</code>.
+What should the contrast vector be, to obtain the difference between the species B control group and the species A treatment group (species B control - species A treatment)?
+Assume that the coeffcients (columns of design matrix) are: Intercept, speciesB, condition-treated.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">rnorm</span>(<span class="dv">4</span>) <span class="op">~</span><span class="st"> </span>species <span class="op">+</span><span class="st"> </span>condition)</a>
+<a class="sourceLine" id="cb326-2" title="2"><span class="kw">table</span>(species,condition) <span class="co"># just like in the species vector, there are four units total. </span></a></code></pre></div>
+<pre><code>##        condition
+## species control treated
+##       A       1       1
+##       B       1       1</code></pre>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" title="1">etc &lt;-<span class="st"> </span><span class="kw">contrast</span>(fit, <span class="kw">list</span>(<span class="dt">species =</span><span class="st">&#39;B&#39;</span>,<span class="dt">condition=</span><span class="st">&#39;control&#39;</span>),</a>
+<a class="sourceLine" id="cb328-2" title="2">         <span class="kw">list</span>(<span class="dt">species =</span><span class="st">&#39;A&#39;</span>,<span class="dt">condition=</span><span class="st">&#39;treated&#39;</span>))</a>
+<a class="sourceLine" id="cb328-3" title="3">etc<span class="op">$</span>X</a></code></pre></div>
+<pre><code>##   (Intercept) speciesB conditiontreated
+## 1           0        1               -1
+## attr(,&quot;assign&quot;)
+## [1] 0 1 2
+## attr(,&quot;contrasts&quot;)
+## attr(,&quot;contrasts&quot;)$species
+## [1] &quot;contr.treatment&quot;
+## 
+## attr(,&quot;contrasts&quot;)$condition
+## [1] &quot;contr.treatment&quot;</code></pre>
+<p>I made a model matrix by using <code>rnorm(4)</code>, which generates four random numbers (mean=0, sd=1). Then I performed a contrast between species B control and species A treatment groups using the <code>contrast</code> function. I stored the results in <code>etc</code>, which shows that the answer is <strong>D (0,1,-1)</strong>.</p>
+</div>
+<div id="question-2-17" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<div class="question">
+<p>Use the Rmd script to load the spider dataset. Suppose we build a model using two variables: <code>~ type + leg</code>. What is the t-statistic for the contrast of leg pair L4 vs. leg pair L2?</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1">spider &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;spider_wolff_gorb_2013.csv&quot;</span>, <span class="dt">skip=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb330-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">lm</span>(friction<span class="op">~</span>type<span class="op">+</span>leg, <span class="dt">data =</span> spider)</a>
+<a class="sourceLine" id="cb330-3" title="3">res &lt;-<span class="st"> </span><span class="kw">contrast</span>(fit, <span class="kw">list</span>(<span class="dt">leg =</span><span class="st">&#39;L4&#39;</span>,<span class="dt">type =</span> <span class="st">&#39;pull&#39;</span>),</a>
+<a class="sourceLine" id="cb330-4" title="4">         <span class="kw">list</span>(<span class="dt">leg =</span> <span class="st">&#39;L2&#39;</span>,<span class="dt">type=</span><span class="st">&#39;pull&#39;</span>))</a>
+<a class="sourceLine" id="cb330-5" title="5">res<span class="op">$</span>testStat</a></code></pre></div>
+<pre><code>##        1 
+## 2.451974</code></pre>
+</div>
+<div id="question-3-14" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<div class="question">
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>leg, <span class="dt">data=</span>spider)</a>
+<a class="sourceLine" id="cb332-2" title="2">Sigma.hat &lt;-<span class="st"> </span><span class="kw">sum</span>(fit<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw">nrow</span>(X) <span class="op">-</span><span class="st"> </span><span class="kw">ncol</span>(X)) <span class="op">*</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X)</a></code></pre></div>
+<p>Using the estimate <span class="math inline">\(\Sigma\)</span> <strong>(estimated covariance matrix)</strong>, what is your estimate of <span class="math inline">\(cov(\hat{\beta}_{L4},\hat{\beta}_{L2})\)</span>? Our contrast matrix for the desired comparison is:</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1">C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dv">1</span>,<span class="dv">5</span>)</a></code></pre></div>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1">Sigma.hat &lt;-<span class="st"> </span><span class="kw">sum</span>(fit<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw">nrow</span>(X)<span class="op">-</span><span class="kw">ncol</span>(X)) <span class="op">*</span></a>
+<a class="sourceLine" id="cb334-2" title="2"><span class="st">  </span><span class="kw">solve</span>(<span class="kw">t</span>(X)<span class="op">%*%</span>X) <span class="co"># covariance matrix</span></a></code></pre></div>
+<p>The answer is 0.0006389179. It is important to know that <code>sqrt(diag(Sigma.hat))</code> gives standard error of the least square estimates.</p>
+</div>
+<div id="question-4-13" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<div class="question">
+<p>Suppose that we notice that the within-group variances for the groups with smaller frictional coeffcients are generally smaller, and so we try to apply a transformation to the frictional coeffcients to make the within-group variances
+more constant.</p>
+<p>Add a new variable <code>log2friction</code> to the spider dataframe:</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1">spider<span class="op">$</span>log2friction &lt;-<span class="st"> </span><span class="kw">log2</span>(spider<span class="op">$</span>friction)</a></code></pre></div>
+<p>The <code>Y</code> values now look like:</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1"><span class="kw">boxplot</span>(log2friction <span class="op">~</span><span class="st"> </span>type<span class="op">*</span>leg, <span class="dt">data=</span>spider)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
+<p>Run a linear model of <code>log2friction</code> with type, leg and interactions between type and leg. What is the t-statistic for the interaction of type push and leg L4? If this t-statistic is sufficiently large, we would reject the null hypothesis that the push vs. pull effect on <code>log2(friction)</code> is the same in L4 as in L1.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1">logfit &lt;-<span class="st"> </span><span class="kw">lm</span>(log2friction<span class="op">~</span>type<span class="op">+</span>leg<span class="op">+</span>type<span class="op">:</span>leg, <span class="dt">data =</span> spider)</a>
+<a class="sourceLine" id="cb337-2" title="2"><span class="kw">summary</span>(logfit)[[<span class="dv">4</span>]] <span class="co"># t-statistic for each factor</span></a></code></pre></div>
+<pre><code>##                  Estimate Std. Error     t value     Pr(&gt;|t|)
+## (Intercept)    -0.1682816 0.06613097  -2.5446712 1.148701e-02
+## typepush       -1.2065650 0.09352331 -12.9012220 4.472641e-30
+## legL2           0.3468125 0.11952459   2.9015992 4.014075e-03
+## legL3           0.4899946 0.08504571   5.7615441 2.237221e-08
+## legL4           0.6466753 0.08994784   7.1894475 6.199475e-12
+## typepush:legL2  0.0996718 0.16903330   0.5896578 5.559060e-01
+## typepush:legL3 -0.5407473 0.12027280  -4.4960067 1.023073e-05
+## typepush:legL4 -0.4692035 0.12720545  -3.6885485 2.719589e-04</code></pre>
+</div>
+<div id="question-5-8" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<div class="question">
+<p>Using the same analysis of log2 transformed data, what is the F-value for all of the <code>type:leg</code> interaction terms in an ANOVA? If this value is sufficiently large, we would reject the null hypothesis that the push vs. pull effect on <code>log2(friction)</code> is the same for all leg pairs.</p>
+</div>
+<div class="answer">
+
+
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1"><span class="kw">anova</span>(logfit)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: log2friction
+##            Df  Sum Sq Mean Sq  F value    Pr(&gt;F)    
+## type        1 164.709 164.709 1107.714 &lt; 2.2e-16 ***
+## leg         3   7.065   2.355   15.838 1.589e-09 ***
+## type:leg    3   4.774   1.591   10.701 1.130e-06 ***
+## Residuals 274  40.742   0.149                       
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="matrix-algebra.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/smin95/da4ls_exercise_solution/edit/master/5-linearmodel.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/smin95/da4ls_exercise_solution/blob/master/5-linearmodel.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

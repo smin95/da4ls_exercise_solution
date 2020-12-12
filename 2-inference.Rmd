@@ -28,11 +28,11 @@ Or if you already have downloaded the data, then just upload it.
 
 ```{r}
 dat <- read.csv('femaleControlsPopulation.csv')
-bodyweight <- select(dat, Bodyweight)
+bodyweight <- dplyr::select(dat, Bodyweight)
 x <- unlist(bodyweight)
 
 # or use pipe %>%
-x <- read.csv('femaleControlsPopulation.csv') %>% select(Bodyweight) %>% unlist()
+x <- read.csv('femaleControlsPopulation.csv') %>% dplyr::select(Bodyweight) %>% unlist()
 
 ```
 
@@ -247,7 +247,7 @@ Use `dplyr` to create a vector x with the body weight of all males on the contro
 
 ```{r}
 x <- dat %>% filter(Sex == 'M' & Diet == 'chow') %>%
-  select(Bodyweight) %>% unlist()
+  dplyr::select(Bodyweight) %>% unlist()
 mean(x)
 ```
 
@@ -288,7 +288,7 @@ Use `dplyr` to create a vector `y` with the body weight of all males on the high
 
 ```{r}
 y <- dat %>% filter(Sex == 'M' & Diet == 'hf') %>%
-  select(Bodyweight) %>% unlist()
+  dplyr::select(Bodyweight) %>% unlist()
 mean(y)
 ```
 
@@ -339,9 +339,9 @@ Repeat the above for females. Make sure to set the seed to 1 before each `sample
 
 ```{r}
 chow_f_pop <- dat %>% filter(Sex == 'F' & Diet == 'chow') %>%
-  select(Bodyweight) %>% unlist() # x
+  dplyr::select(Bodyweight) %>% unlist() # x
 hf_f_pop <- dat %>% filter(Sex == 'F' & Diet == 'hf') %>%
-  select(Bodyweight) %>% unlist() # y
+  dplyr::select(Bodyweight) %>% unlist() # y
 
 set.seed(1)
 sample_chow_f_pop <- sample(chow_f_pop, 25) # X
@@ -430,7 +430,7 @@ Define `y` to be the weights of males on the control diet. What proportion of th
 
 ```{r}
 y <- dat %>% filter(Sex == 'M' & Diet == 'chow') %>%
-  select(Bodyweight) %>% unlist()
+  dplyr::select(Bodyweight) %>% unlist()
 
 z_score <- (y - mean(y))/popsd(y) # get t-statistic (i.e., z score)
 mean(abs(z_score) <= 1)
@@ -505,13 +505,13 @@ Create the above qq-plot for the four populations: male/females on each of the t
 
 ```{r}
 mc <- dat %>% filter(Sex == 'M' & Diet == 'chow') %>%
-  select(Bodyweight) %>% unlist()
+  dplyr::select(Bodyweight) %>% unlist()
 mhf <- dat %>% filter(Sex == 'M' & Diet == 'hf') %>%
-  select(Bodyweight) %>% unlist()
+  dplyr::select(Bodyweight) %>% unlist()
 fc <- y <- dat %>% filter(Sex == 'F' & Diet == 'chow') %>%
-  select(Bodyweight) %>% unlist()
+  dplyr::select(Bodyweight) %>% unlist()
 fhf <- y <- dat %>% filter(Sex == 'F' & Diet == 'hf') %>%
-  select(Bodyweight) %>% unlist()
+  dplyr::select(Bodyweight) %>% unlist()
 
 mypar(2,2)
 qqnorm(mc, main = 'male control pop')
@@ -537,7 +537,7 @@ We will now take a sample of size 25 from the population of males on the chow di
 We can see that, as predicted by the CLT, the distribution of the random variable is very well approximated by the normal distribution.
 
 ```{r}
-y <- filter(dat, Sex=="M" & Diet=="chow") %>% select(Bodyweight) %>% unlist
+y <- filter(dat, Sex=="M" & Diet=="chow") %>% dplyr::select(Bodyweight) %>% unlist
 avgs <- replicate(10000, mean( sample(y, 25)))
 mypar(1,2)
 hist(avgs)
@@ -553,7 +553,7 @@ What is the average of the distribution of the sample average?
 m <- 10000
 n <- 25
 y <- filter(dat, Sex=="M" & Diet=="chow") %>% 
-  select(Bodyweight) %>% unlist
+  dplyr::select(Bodyweight) %>% unlist
 
 set.seed(1)
 avg_list <- replicate(m, {
@@ -714,8 +714,8 @@ entire populations. Instead, we obtain one random sample and need to reach concl
 sample. We have 12 measurements for each of two populations:
 
 ```{r}
-X <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
-Y <- filter(dat, Diet=="hf") %>% select(Bodyweight) %>% unlist
+X <- filter(dat, Diet=="chow") %>% dplyr::select(Bodyweight) %>% unlist
+Y <- filter(dat, Diet=="hf") %>% dplyr::select(Bodyweight) %>% unlist
 ```
 
 We think of X as a random sample from the population of all mice in the control diet and Y as a random sample from the population of all mice in the high fat diet.
@@ -853,8 +853,8 @@ This is a large dataset (1,236 cases), and we will pretend that it contains the 
 First, let's split this into two birth weight datasets: one of birth weights to non-smoking mothers and the other of birth weights to smoking mothers.
 
 ```{r}
-bwt.nonsmoke <- filter(babies, smoke==0) %>% select(bwt) %>% unlist
-bwt.smoke <- filter(babies, smoke==1) %>% select(bwt) %>% unlist
+bwt.nonsmoke <- filter(babies, smoke==0) %>% dplyr::select(bwt) %>% unlist
+bwt.smoke <- filter(babies, smoke==1) %>% dplyr::select(bwt) %>% unlist
 ```
 
 Now, we can look for the true population difference in means between smoking and non-smoking birth weights.
@@ -1253,8 +1253,8 @@ The answer is **A: Just like for the average, the sample median is approximately
 
 ```{r}
 babies <- read.table("babies.txt", header=TRUE)
-bwt.nonsmoke <- filter(babies, smoke==0) %>% select(bwt) %>% unlist
-bwt.smoke <- filter(babies, smoke==1) %>% select(bwt) %>% unlist
+bwt.nonsmoke <- filter(babies, smoke==0) %>% dplyr::select(bwt) %>% unlist
+bwt.smoke <- filter(babies, smoke==1) %>% dplyr::select(bwt) %>% unlist
 ```
 
 ### Question 1 {-}
