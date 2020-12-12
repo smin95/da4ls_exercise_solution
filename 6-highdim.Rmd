@@ -1,0 +1,14 @@
+# Inference for High Dimensional Data
+
+**Note:** I have rephrased some parts of the questions for clarity. These changes are **bolded**. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
+
+First, upload necessary package(s).
+
+```{r}
+library(dplyr) # uplaods the function filter() and %>%
+library(rafalib) # important for plotting with base R
+library(genefilter) # rowttests
+library(devtools) # allows download from github
+library(qvalue) # conversion from p values to q values
+library(GSE5859Subset) # subset of gene expression data
+```

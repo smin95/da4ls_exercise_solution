@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Getting started | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</title>
-  <meta name="description" content="Chapter 1 Getting started | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <title>Chapter 6 Inference for High Dimensional Data | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</title>
+  <meta name="description" content="Chapter 6 Inference for High Dimensional Data | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Getting started | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta property="og:title" content="Chapter 6 Inference for High Dimensional Data | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Getting started | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta name="twitter:title" content="Chapter 6 Inference for High Dimensional Data | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="inference.html"/>
+<link rel="prev" href="linear-models.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -327,23 +327,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="getting-started" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Getting started</h1>
-<p>Since this chapter does not deal with statistics, I have decided to skip this chapter altogether.</p>
-<div id="before-reading-da4ls-with-r" class="section level3 unnumbered">
-<h3>Before reading DA4LS with R</h3>
-<p>The book gives a brief introduction to R. But I do not think this is enough. The codes in the later part of the book can get quite complicated (especially from Chapter 6). If you do not know R (or have no coding experience), I suggest you read Chapters 5, 15, 19-21 of <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> by Hadley Wickham and Garrett Grolemund; these chapters discuss data transformation, factors, custom functions, vectors and iterations (ex. <code>for</code> loops, <code>sapply</code>). These concepts are deeply embeded in the codes throughout the book.</p>
-<p>There is also matrix algebra (ex. singular value decomposition) in this book (from Chapter 4). However, the book reviews matrix algebra briefly. If you have not taken a course in linear algebra, I suggest that you spend some extra time reviewing key concepts such as matrix multiplication, dot product, orthogonal matrix, inverse matrix and square matrix before reading Chapter 4. Here is a link to <a href="https://www.khanacademy.org/math/algebra-home/alg-matrices">Khan Academy</a>. When you are going through Chapter 8, you might also have you look up for extra resource on principal component analysis; I recommend this <a href="https://www.youtube.com/watch?v=FgakZw6K1QQ&amp;t=942s&amp;ab_channel=StatQuestwithJoshStarmer">Youtube video by StatQuest</a>.</p>
+<div id="inference-for-high-dimensional-data" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Inference for High Dimensional Data</h1>
+<p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
+<p>First, upload necessary package(s).</p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb355-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
+<a class="sourceLine" id="cb355-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
+<a class="sourceLine" id="cb355-4" title="4"><span class="kw">library</span>(devtools) <span class="co"># allows download from github</span></a></code></pre></div>
+<pre><code>## Loading required package: usethis</code></pre>
+<pre><code>## 
+## Attaching package: &#39;devtools&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:rafalib&#39;:
+## 
+##     install_bioc</code></pre>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" title="1"><span class="kw">library</span>(qvalue) <span class="co"># conversion from p values to q values</span></a>
+<a class="sourceLine" id="cb359-2" title="2"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a></code></pre></div>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -374,7 +382,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/smin95/da4ls_exercise_solution/edit/master/1-getting_started.Rmd",
+"link": "https://github.com/smin95/da4ls_exercise_solution/edit/master/6-highdim.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -382,7 +390,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/smin95/da4ls_exercise_solution/blob/master/1-getting_started.Rmd",
+"link": "https://github.com/smin95/da4ls_exercise_solution/blob/master/6-highdim.Rmd",
 "text": null
 },
 "download": null,
