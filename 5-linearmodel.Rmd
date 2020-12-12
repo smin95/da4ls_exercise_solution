@@ -203,7 +203,7 @@ The other entries of $X^TX$ are all the same. What is the number?
 crossprod(X) # 7, this is equal to Ny
 ```
 
-## 5.7 Exercises
+## 5.7 Exercises {-}
 ```{r}
 library(UsingR)
 N <- 50
@@ -527,5 +527,5 @@ In the grid of values, what is the smallest sum of squared residuals?
 ```{r}
 outer(1:3,1:3,'*')
 ans <- outer(-2:8,-2:8,Vectorize(fitTheRest))
-ans[which(ans == min(ans))]
+unique(ans[which(ans == min(ans))])
 ```

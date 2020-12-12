@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="5.1" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i><b>5.1</b> 5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a><ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
@@ -502,8 +502,8 @@ What is the standard error of the slope estimate? That is, calculate the standar
 ## [2,]    7    7</code></pre>
 </div>
 </div>
-<div id="exercises-17" class="section level2">
-<h2><span class="header-section-number">5.1</span> 5.7 Exercises</h2>
+<div id="exercises-17" class="section level2 unnumbered">
+<h2>5.7 Exercises</h2>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1"><span class="kw">library</span>(UsingR)</a>
 <a class="sourceLine" id="cb311-2" title="2">N &lt;-<span class="st"> </span><span class="dv">50</span></a>
 <a class="sourceLine" id="cb311-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
@@ -827,8 +827,8 @@ first argument, a grid of values for the second argument, and finally a function
 ## [2,]    2    4    6
 ## [3,]    3    6    9</code></pre>
 <div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">outer</span>(<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>,<span class="op">-</span><span class="dv">2</span><span class="op">:</span><span class="dv">8</span>,<span class="kw">Vectorize</span>(fitTheRest))</a>
-<a class="sourceLine" id="cb353-2" title="2">ans[<span class="kw">which</span>(ans <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(ans))]</a></code></pre></div>
-<pre><code>##  [1] 2 2 2 2 2 2 2 2 2 2 2</code></pre>
+<a class="sourceLine" id="cb353-2" title="2"><span class="kw">unique</span>(ans[<span class="kw">which</span>(ans <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(ans))])</a></code></pre></div>
+<pre><code>## [1] 2</code></pre>
 
 </div>
 </div>
