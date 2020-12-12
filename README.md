@@ -2,7 +2,7 @@
 
 Seung Hyun (Sam) Min
 
-This repository contains the Markdown files for the book "Data Analysis for the Life Sciences with R: Exercise Solutions." The book was completed using the BookDown package (www.bookdown.org). 
+This repository contains the Markdown files for the book "Data Analysis for the Life Sciences with R: Exercise Solutions." The book was completed using the bookdown package (www.bookdown.org). 
 
 ## Frequently Asked Questions
 **1\. Is this the official solution by the book authors?**
