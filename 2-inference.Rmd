@@ -45,6 +45,7 @@ What is the average of these weights?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 mean(x)
@@ -56,6 +57,7 @@ After setting the seed at 1, `set.seed(1)` take a random sample size 5. What is 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -70,6 +72,7 @@ After setting the seed at 5, `set.seed(5)` take a random sample size 5. What is 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(5)
@@ -84,6 +87,8 @@ Why are the answers from 2 and 3 different?
 </div>
 
 <div class="answer">
+---
+
 ```{r}
 set.seed(1) # question 2
 a <- sample(x,5)
@@ -105,6 +110,7 @@ Set the seed at 1, then using a for-loop take a random sample of 5 mice in 1,000
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -126,6 +132,8 @@ We are now going to increase the number of times we redo the sample from 1,000 t
 </div>
 
 <div class="answer">
+---
+
 ```{r}
 set.seed(1)
 n <- 10000
@@ -162,6 +170,7 @@ Use a histogram to "look" at the distribution of averages we get with a sample s
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 # sample size = 5
@@ -205,6 +214,7 @@ For the last set of averages, the ones obtained from a sample size of 50, what p
 </div>
 
 <div class="answer">
+---
 ```{r}
 mean((res50 >=23) & (res50 <= 25))
 ```
@@ -215,6 +225,7 @@ Now ask the same question of a normal distribution with average 23.9 and standar
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 pnorm(25,23.9,0.43) - pnorm(23,23.9,0.43)
@@ -244,6 +255,7 @@ Use `dplyr` to create a vector x with the body weight of all males on the contro
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 x <- dat %>% filter(Sex == 'M' & Diet == 'chow') %>%
@@ -259,6 +271,7 @@ Now use the `rafalib` package and use the `popsd` function to compute the popula
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 popsd(x)
@@ -272,6 +285,7 @@ Set the seed at 1. Take a random sample X of size 25 from x. What is the sample 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -285,7 +299,7 @@ Use `dplyr` to create a vector `y` with the body weight of all males on the high
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 y <- dat %>% filter(Sex == 'M' & Diet == 'hf') %>%
   dplyr::select(Bodyweight) %>% unlist()
@@ -298,7 +312,7 @@ Now use the `rafalib` package and use the `popsd` function to compute the popula
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 popsd(y)
 ```
@@ -310,7 +324,7 @@ Set the seed at 1. Take a random sample Y of size 25 from y. What is the sample 
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 set.seed(1)
 samp_y <- sample(y,25)
@@ -323,7 +337,7 @@ What is the difference in absolute value between $\bar{y}-\bar{x}$ and $\bar{Y}-
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 pop_diff <- mean(y) - mean(x)
 sample_diff <- mean(samp_y) - mean(samp_x)
@@ -336,7 +350,7 @@ Repeat the above for females. Make sure to set the seed to 1 before each `sample
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 chow_f_pop <- dat %>% filter(Sex == 'F' & Diet == 'chow') %>%
   dplyr::select(Bodyweight) %>% unlist() # x
@@ -361,6 +375,7 @@ For the females, our sample estimates were closer to the population difference t
 </div>
 
 <div class="answer">
+---
 ```{r}
 ans <- c(popsd(hf_f_pop), popsd(chow_f_pop), popsd(y), popsd(x))
 names(ans) <- c('hf female', 'chow female', 'hf male', 'chow male')
@@ -393,7 +408,7 @@ If a list of numbers has a distribution that is well approximated by the normal 
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 pnorm(1) - pnorm(-1)
 ```
@@ -404,7 +419,7 @@ What proportion of these numbers are within two standard deviations away from th
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 pnorm(2) - pnorm(-2)
 ```
@@ -415,7 +430,7 @@ What proportion of these numbers are within three standard deviations away from 
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 pnorm(3) - pnorm(-3)
 ```
@@ -427,7 +442,7 @@ Define `y` to be the weights of males on the control diet. What proportion of th
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 y <- dat %>% filter(Sex == 'M' & Diet == 'chow') %>%
   dplyr::select(Bodyweight) %>% unlist()
@@ -449,7 +464,7 @@ What proportion of these numbers are within two standard deviations away from th
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 mean(abs(z_score) <= 2)
 ```
@@ -467,7 +482,7 @@ What proportion of these numbers are within three standard deviations away from 
 </div>
 
 <div class="answer">
-
+---
 
 ```{r}
 mean(abs(z_score) <= 3)
@@ -486,6 +501,7 @@ Note that the numbers for the normal distribution and our weights are relatively
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 mypar(1,1)
@@ -502,6 +518,7 @@ Create the above qq-plot for the four populations: male/females on each of the t
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 mc <- dat %>% filter(Sex == 'M' & Diet == 'chow') %>%
@@ -549,6 +566,8 @@ What is the average of the distribution of the sample average?
 </div>
 
 <div class="answer">
+---
+
 ```{r}
 m <- 10000
 n <- 25
@@ -576,6 +595,8 @@ What is the standard deviation of the distribution of sample averages?
 
 <div class="answer">
 
+---
+
 ```{r}
 popsd(avg_list)
 ```
@@ -587,6 +608,7 @@ According to the CLT, the answer to exercise 9 should be the same as `mean(y)`. 
 
 <div class="answer">
 
+---
 ```{r}
 popsd(y)/sqrt(25) # answer is C
 ```
@@ -600,6 +622,7 @@ deviation. Set the seed at 1, using the `replicate` function, create 10,000 samp
 
 <div class="answer">
 
+---
 ```{r}
 m <- 10000
 set.seed(1)
@@ -618,6 +641,7 @@ What the answer to question 12 reveals is that the denominator of the t-test is 
 
 <div class="answer">
 
+---
 ```{r}
 x = seq(0.0001, 0.9999, len = 300)
 df_list <- c(3,10,30,100)
@@ -651,6 +675,8 @@ times `z` was larger than 2 in absolute value (CLT says it should be about 0.05)
 </div>
 
 <div class="answer">
+
+---
 ```{r}
 n <- 100
 B <- 10000
@@ -675,6 +701,8 @@ Run the simulation from exercise 1, but for different values of `p` and `n`. For
 </div>
 
 <div class="answer">
+
+---
 ```{r}
 Ps <- c(0.01,0.5)
 Ns <- c(5,30,100)
@@ -724,6 +752,7 @@ Define the parameter $\mu_x$ as the average of the control population. We estima
 
 <div class="answer">
 
+---
 ```{r}
 mean(X)
 ```
@@ -735,6 +764,7 @@ We don't know $\mu_x$, but want to use $\bar{X}$ to understand $\mu_x$. Which of
 
 <div class="answer">
 
+---
 The answer is **D: $\bar{X}$ follows a normal distribution with mean $\mu_x$ and standard deviation of $\frac{\sigma_x}{\sqrt{12}}$ where $\sigma_x$ is the population of standard deviation.**
 
 It is important to be aware of the fact that $\bar{X}$ is based on raw data. So the mean of the distribution can be approximated by the population mean $\mu_x$. However, if the question asked about z-score, then it would be at 0, because z-score (i.e., t-statistic) is standardized. 
@@ -745,6 +775,7 @@ The result above tells us the distribution of the following random variable $Z =
 </div>
 
 <div class="answer">
+---
 
 The answer is **0**. Z refers to t-statistic (something that the book does not explicitly highlight), which is not raw data. Instead, we use raw data and then compute t-statistic. This is the value that is used to compute p-value based on the normal distribution. In the case of z-score or t-statistic, it is 0 at the mean of the sample due to its mathematical definition.
 
@@ -754,6 +785,7 @@ The result of 4 and 5 tell us that we know the distribution of the difference be
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 sd(X)
@@ -765,6 +797,7 @@ Use the CLT to approximate the probability that our estimate $\bar{X}$ is off by
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 z_score <- 2/(sqrt(sd(X)^2/12))
@@ -778,6 +811,8 @@ no effect: $\mu_x = \mu_y$. If we use CLT, then we approximate the distribution 
 </div>
 
 <div class="answer">
+---
+
 ```{r}
 sqrt((sd(X)^2 + sd(Y)^2)/12)
 ```
@@ -799,6 +834,7 @@ If we apply the CLT, what is the distribution of this t-statistic?
 </div>
 
 <div class="answer">
+---
 
 The answer is **A: Normal with mean 0 and standard deviation 1**. 
 
@@ -810,6 +846,7 @@ Now we are ready to compute a p-value using the CLT. What is the probability of 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 tstat <- (mean(Y) - mean(X))/ sqrt((sd(X)^2 + sd(Y)^2)/12) # from question 9
@@ -823,6 +860,7 @@ distribution. What is the p-value under the t-distribution approximation? Hint: 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 mypar(1,2)
@@ -839,6 +877,7 @@ With the CLT distribution, we obtained a p-value smaller than 0.05 and with the 
 </div>
 
 <div class="answer">
+---
 
 The answer is **B: These are two different assumptions. The t-distribution accounts for the variability introduced by the estimation of the standard error and thus, under the null, large values are more probable under the null distribution.**
 
@@ -880,6 +919,7 @@ Set the seed at 1 and obtain two samples, each of size N = 25, from non-smoking 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 N <- 25
@@ -902,6 +942,7 @@ We have computed these by taking one minus the area under the standard normal cu
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 (pnorm(tval) + 1 - pnorm(-tval))
@@ -914,6 +955,7 @@ Because of the symmetry of the standard normal distribution, there is a simpler 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 2*pnorm(-abs(tval))
@@ -926,6 +968,7 @@ By reporting only p-values, many scientific publications provide an incomplete s
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 mean(dat.s) - mean(dat.ns)
@@ -942,6 +985,7 @@ If instead of CLT, we use the t-distribution approximation, what do we add and s
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 Qt <- qt(0.5 + 0.99/2, df = N*2-2)
@@ -958,6 +1002,7 @@ Why are the values from 4 and 5 so similar?
 </div>
 
 <div class="answer">
+---
 
 The answer is **C: `N` and thus the degrees of freedom is large enough to make the normal and t-distributions very similar.**
 
@@ -967,6 +1012,7 @@ Which of the following sentences about a Type I error is **false**?
 </div>
 
 <div class="answer">
+---
 
 The answer is **C: From the original data alone, you can tell whether you have made a Type I error.**
 <div class="answer">
@@ -977,6 +1023,7 @@ Set the seed at 1 and take a random sample of $N = 5$ measurements from each of 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 N <- 5
@@ -992,6 +1039,7 @@ The p-value is larger than 0.05 so using the typical cut-off, we would not rejec
 </div>
 
 <div class="answer">
+---
 
 The answer is **C: Find a population for which the null is not true.**
 
@@ -1001,6 +1049,7 @@ Set the seed at 1, then use the `replicate` function to repeat the code in Exerc
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 B <- 10000
@@ -1022,6 +1071,7 @@ Note that, not surprisingly, the power is lower than 10%. Repeat the exercise ab
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 pval_calc <- function(N) {
@@ -1050,6 +1100,7 @@ Repeat **Question 11**, but now require an $\alpha$ level of 0.01. Which of thes
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 pval_calc <- function(N) {
@@ -1087,6 +1138,7 @@ Let's start by creating an outcome. Set the seed at 1, use `rnorm` to generate a
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -1104,6 +1156,7 @@ theoretical result. Set the seed to 1, generate B = 1000 t-statistics as done in
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -1131,6 +1184,7 @@ For which sample sizes does the approximation best work?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 B <- 1000
@@ -1163,6 +1217,7 @@ Use Monte Carlo simulation to corroborate that the t-statistic comparing two mea
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 ttestgenerator <- function(n) {
@@ -1196,6 +1251,7 @@ is approximated by a t-distribution with 14 degrees of freedom.
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -1221,6 +1277,7 @@ is approximated by a t-distribution with 999 degrees of freedom.
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -1246,6 +1303,7 @@ Consider the sample median as an example. Use a Monte Carlo to determine which o
 </div>
 
 <div class="answer">
+---
 
 The answer is **A: Just like for the average, the sample median is approximately normal with mean 0 and SD $1/\sqrt{N}$.**
 
@@ -1287,6 +1345,7 @@ is the permutation derived p-value for our observation?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 N <- 10
@@ -1319,6 +1378,7 @@ Repeat the above exercise, but instead of the differences in mean, consider the 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 N <- 10
@@ -1355,6 +1415,8 @@ This dataframe refects the allele status (either AA/Aa or aa) and the case/contr
 </div>
 
 <div class="answer">
+---
+
 ```{r}
 tab <- table(d)
 chisq.test(tab)$statistic
@@ -1367,6 +1429,7 @@ Compute Fisher's exact test fisher.test for the same table. What is the p-value 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 fisher.test(tab)$p.value

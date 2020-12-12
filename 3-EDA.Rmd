@@ -18,6 +18,7 @@ Given the above histogram, how many people are between the ages of 35 and 45?
 </div>
 
 <div class="answer">
+---
 
 **6 people**
 
@@ -28,6 +29,7 @@ The `InsectSprays` dataset is included in R. The dataset reports the counts of i
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 dat <- split(InsectSprays$count, InsectSprays$spray)
@@ -44,6 +46,7 @@ positive skew (a long tail to the right)?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 load('skew.RData')
@@ -62,6 +65,7 @@ Which column has negative skew (a long tail to the left)?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 hist(dat[,9]) # Column 9 has a negative skew.
@@ -81,6 +85,7 @@ Use boxplots and histograms to compare the finishing times of males and females.
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 data(nym.2002, package="UsingR")
@@ -107,6 +112,7 @@ Use `dplyr` to create two new data frames: `males` and `females`, with the data 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 plot(male$age, male$time, main = 'male')
@@ -120,6 +126,7 @@ For females, what is the Pearson correlation between age and time to finish?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 plot(female$age, female$time, main = 'female')
@@ -133,6 +140,7 @@ If we interpret these correlations without visualizing the data, we would conclu
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 groups_m <- split(male$time, floor(male$age/5)*5) # 10-14, 15-19, etc
@@ -158,6 +166,7 @@ When is it appropriate to use pie charts or donut charts?
 </div>
 
 <div class="answer">
+---
 
 **Never (answer choice D)** 
 
@@ -168,6 +177,7 @@ The use of pseudo-3D plots in the literature mostly adds:
 </div>
 
 <div class="answer">
+---
 
 **Confusion (answer choice D)**
 
@@ -193,6 +203,7 @@ to a vector.
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 chick_w4 <- chick[,'weight.4']
@@ -212,6 +223,7 @@ the day 4 chicks, including the outlier chick, divided by the median of the weig
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 median(chick_w4_add) - median(chick_w4) # difference
@@ -225,6 +237,7 @@ Now try the same thing with the sample standard deviation (the `sd` function in 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 sd(chick_w4_add) - sd(chick_w4) # difference
@@ -238,7 +251,7 @@ Compare the result above to the median absolute deviation in R, which is calcula
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 mad(chick_w4_add) - mad(chick_w4) # difference
 mad(chick_w4_add)/ mad(chick_w4) # ratio
@@ -256,7 +269,7 @@ day 4 and 3000 on day 21. Again, divide the Pearson correlation with the outlier
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 chick_w21 <- chick[, 'weight.21']
 chick_w21
@@ -278,6 +291,7 @@ Perform a t-test of `x` and `y`, after adding a single chick of weight 200 grams
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 x <- chick %>% filter(Diet == 1) 
@@ -300,6 +314,7 @@ Do the same for the Wilcoxon test. The Wilcoxon test is robust to the outlier. I
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 wilcox.test(x_add,y)$p.value # even with outlier, p-value is not perturbed
@@ -322,6 +337,7 @@ What is the difference in t-test statistic (obtained by `t.test(x,y)$statistic`)
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 t.test(x,y+10)$statistic - t.test(x,y+100)$statistic 
@@ -334,6 +350,7 @@ Examine the Wilcoxon test statistic for `x` and `y+10` and for `x` and `y+100`. 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 wilcox.test(x,y+10)$p.value
@@ -348,6 +365,7 @@ What is the p-value if we compare `c(1,2,3)` to `c(400,500,600)` using a Wilcoxo
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 wilcox.test(c(1,2,3),c(400,500,600))$p.value

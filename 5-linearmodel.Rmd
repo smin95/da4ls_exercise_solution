@@ -41,6 +41,7 @@ A = solve(crossprod(X))%*%t(X)
 Given how we have defined A, which of the following is the LSE of $g$, the accerleration due to gravity?
 
 <div class="answer">
+---
 
 ```{r}
 Y = matrix(y,nrow=length(y), ncol = 1) # convert vector y into matrix Y
@@ -68,6 +69,7 @@ What is the standard error of this estimate?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 set.seed(1)
@@ -111,6 +113,7 @@ What is the standard error of the slope estimate? That is, calculate the standar
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 x = father.son$fheight
@@ -137,6 +140,7 @@ Which of the following is closest to the covariance between father heights and s
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 #x = father.son$fheight
@@ -154,6 +158,7 @@ Given the factors we have defined above and without defining any new ones, which
 
 <div class="answer">
 
+---
 ```{r}
 day <- c('A','A','B','B','C','C')
 condition <- c('control','treatment','control','treatment','control','treatment')
@@ -176,6 +181,7 @@ In order to compare two groups, where the first group has Nx=5 samples and the s
 
 <div class="answer">
 
+---
 ```{r}
 Nx <- 5
 Ny <- 7
@@ -191,6 +197,7 @@ The other entries of $X^TX$ are all the same. What is the number?
 
 <div class="answer">
 
+---
 ```{r}
 crossprod(X) # 7, this is equal to Ny
 ```
@@ -222,6 +229,7 @@ What is the sum of the squared residuals, where residuals are given by $r_i = Y_
 
 <div class="answer">
 
+---
 ```{r}
 sum((y -fit$fitted.values)^2)
 resid = y -fit$fitted.values # residual
@@ -239,6 +247,7 @@ Our estimate of $\sigma^2$ will be the sum of squared residuals divided by $N-p$
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 s2 <- sum(resid^2)/48
@@ -262,6 +271,8 @@ Now calculate $(X^TX)^{-1}$. Use the `solve` function for the inverse and `t` fo
 
 <div class="answer">
 
+---
+
 ```{r}
 X <- model.matrix(~x)
 solve(crossprod(X))[1,1]
@@ -276,6 +287,7 @@ Now we are one step away from the standard error of $\hat{\beta}$. Take the diag
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 sqrt(diag(solve(crossprod(X))) * s2)[2]
@@ -304,6 +316,7 @@ Assume that the coeffcients (columns of design matrix) are: Intercept, speciesB,
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 fit <- lm(rnorm(4) ~ species + condition)
@@ -322,6 +335,7 @@ Use the Rmd script to load the spider dataset. Suppose we build a model using tw
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 spider <- read.csv("spider_wolff_gorb_2013.csv", skip=1)
@@ -337,6 +351,7 @@ res$testStat
 ```{r}
 X <- model.matrix(~ type + leg, data=spider)
 Sigma.hat <- sum(fit$residuals^2)/(nrow(X) - ncol(X)) * solve(t(X) %*% X)
+Sigma.hat
 ```
 
 Using the estimate $\Sigma$ **(estimated covariance matrix)**, what is your estimate of $cov(\hat{\beta}_{L4},\hat{\beta}_{L2})$? Our contrast matrix for the desired comparison is:
@@ -348,6 +363,7 @@ C <- matrix(c(0,0,-1,0,1),1,5)
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 Sigma.hat <- sum(fit$residuals^2)/(nrow(X)-ncol(X)) *
@@ -378,10 +394,11 @@ Run a linear model of `log2friction` with type, leg and interactions between typ
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 logfit <- lm(log2friction~type+leg+type:leg, data = spider)
-summary(logfit)[[4]] # t-statistic for each factor
+summary(logfit)[[4]] # t-statistic of typepush:legL4 = -3.689
 ```
 
 ### Question 5 {-}
@@ -391,7 +408,9 @@ Using the same analysis of log2 transformed data, what is the F-value for all of
 </div>
 
 <div class="answer">
+---
 
 ```{r}
-anova(logfit)
+anova(logfit) # F-value of type:leg: 10.701
 ```
+

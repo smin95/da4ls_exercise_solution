@@ -22,6 +22,7 @@ What is the average height of the sons (don't round off)?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 y <- father.son$sheight # son
@@ -40,6 +41,7 @@ What is the mean of the son heights for fathers that have a height of 71 inches 
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 groups <- split(y, round(x))
@@ -53,6 +55,7 @@ of the following cannot be written as a linear model?
 </div>
 
 <div class="answer">
+---
 
 The answer is **C:** $Y = a + b^t + \epsilon$. This is because the variable $t$ is an exponent unlike all the other ansewr choices. 
 
@@ -63,6 +66,7 @@ Suppose you model the relationship between weight and height across individuals 
 </div>
 
 <div class="answer">
+---
 
 The answer is **D: Between individual variability: people of the same height vary in their weight**. 
 
@@ -95,6 +99,7 @@ What is the entry in row 25, column 3?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 X[25,3]
@@ -107,6 +112,7 @@ Using the function cbind, create a 10 x 5 matrix with first column `x=1:10`. The
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 first_column <- 1:10
@@ -121,6 +127,7 @@ Which of the following creates a matrix with multiples of 3 in the third column?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 matrix(1:60,20,3) # choice A
@@ -140,6 +147,7 @@ Suppose $X$ is a matrix in R. Which of the following is **not** equivalent to $X
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 head(t(t(X))) # A
@@ -168,6 +176,7 @@ What is the solution for $c$?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 X <- matrix(c(3,4,-5,1,2,2,2,-1,1,-1,5,-5,5,0,0,1),4,4,byrow=T)
@@ -189,6 +198,7 @@ What is the value in the 3rd row and the 2nd column of the matrix product of `a`
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 c <- a %*% b
@@ -202,6 +212,7 @@ Multiply the 3rd row of a with the 2nd column of b, using the element-wise vecto
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 sum(a[3,] * b[,2])
@@ -230,6 +241,7 @@ Use the matrix multiplication operator, `%*%`, in R to answer the following ques
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 X <- matrix(c(1,1,1,1,0,0,1,1),nrow=4)
@@ -248,7 +260,7 @@ What is the fitted value for the B samples? (The fitted Y values.)
 </div>
 
 <div class="answer">
-
+---
 ```{r}
 X[3:4,] %*% beta
 ```
@@ -276,6 +288,8 @@ What is the fitted values for the B sample?
 </div>
 
 <div class="answer">
+---
+
 ```{r}
 beta <- matrix(c(10,3,-3),nrow = 3)
 X[3:4,] %*% beta
@@ -288,6 +302,7 @@ What is the fitted values for the C sample?
 </div>
 
 <div class="answer">
+---
 
 ```{r}
 X[5:6,] %*% beta
