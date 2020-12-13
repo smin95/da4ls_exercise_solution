@@ -352,7 +352,6 @@ res$testStat
 ```{r}
 X <- model.matrix(~ type + leg, data=spider)
 Sigma.hat <- sum(fit$residuals^2)/(nrow(X) - ncol(X)) * solve(t(X) %*% X)
-Sigma.hat
 ```
 
 Using the estimate $\Sigma$ **(estimated covariance matrix)**, what is your estimate of $cov(\hat{\beta}_{L4},\hat{\beta}_{L2})$? Our contrast matrix for the desired comparison is:
@@ -369,6 +368,7 @@ C <- matrix(c(0,0,-1,0,1),1,5)
 ```{r}
 Sigma.hat <- sum(fit$residuals^2)/(nrow(X)-ncol(X)) *
   solve(t(X)%*%X) # covariance matrix
+Sigma.hat
 ```
 
 The answer is 0.0006389179. It is important to know that `sqrt(diag(Sigma.hat))` gives standard error of the least square estimates. 

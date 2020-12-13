@@ -18,13 +18,13 @@ library(rafalib) # important for plotting with base R
 
 If you have not downloaded the data before,
 ```{r}
-dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
-filename <- "femaleControlsPopulation.csv"
-url <- paste0(dir, filename)
-x <- unlist(read.csv(url))
+#dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
+#filename <- "femaleControlsPopulation.csv"
+#url <- paste0(dir, filename)
+#x <- unlist(read.csv(url))
 ```
 
-Or if you already have downloaded the data, then just upload it.
+Or if you already have downloaded the data and they are in the directory, then just upload it.
 
 ```{r}
 dat <- read.csv('femaleControlsPopulation.csv')
@@ -1002,9 +1002,10 @@ Why are the values from 4 and 5 so similar?
 </div>
 
 <div class="answer">
+
 ---
 
-The answer is **C: `N` and thus the degrees of freedom is large enough to make the normal and t-distributions very similar.**
+The answer is **C: N and thus the degrees of freedom is large enough to make the normal and t-distributions very similar.**
 
 ### Question 7 {-}
 <div class="question">

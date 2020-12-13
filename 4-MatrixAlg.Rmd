@@ -57,7 +57,7 @@ of the following cannot be written as a linear model?
 <div class="answer">
 ---
 
-The answer is **C:** $Y = a + b^t + \epsilon$. This is because the variable $t$ is an exponent unlike all the other ansewr choices. 
+The answer is **C:** $Y = a + b^t + \epsilon$. This is because the variable $t$ is an exponent unlike all the other answer choices. 
 
 ### Question 4 {-}
 
