@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Statistical Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</title>
+  <meta name="description" content="Chapter 7 Statistical Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Statistical Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Statistical Models | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  
+  
+  
+
+<meta name="author" content="Seung Hyun (Sam) Min" />
+
+
+<meta name="date" content="2020-12-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="inference-for-high-dimensional-data.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">DA4LS with R: Exercise Solutions</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#before-reading-da4ls-with-r"><i class="fa fa-check"></i>Before reading DA4LS with R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-1"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-1"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-1"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-1"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-1"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-1"><i class="fa fa-check"></i>Question 9</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-2"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-2"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-2"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-2"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-2"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-2"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-2"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-2"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-1"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13"><i class="fa fa-check"></i>Question 13</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-3"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-3"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-3"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-3"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-3"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-2"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-1"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-1"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13-1"><i class="fa fa-check"></i>Question 13</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-4"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-4"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-4"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-4"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-4"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-3"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-2"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-2"><i class="fa fa-check"></i>Question 12</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-5"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-5"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-5"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-5"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-5"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-5"><i class="fa fa-check"></i>Question 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-6"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-6"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-7"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-7"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-8"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-8"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-6"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-6"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-6"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-5"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-5"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-4"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-9"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-9"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-7"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-7"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-7"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-7"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-6"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-6"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-5"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-10"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-10"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-8"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-8"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-11"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-11"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-9"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-12"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-12"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-10"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-9"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-13"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-13"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-11"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-10"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-14"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-14"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-12"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-11"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-15"><i class="fa fa-check"></i>Question 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-12"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-18"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-17"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-14"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-19"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-18"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-15"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-20"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-2"><i class="fa fa-check"></i>Questions 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-16"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-21"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-19"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-17"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-14"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-22"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-20"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-18"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-15"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-6-8"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-7-8"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-8-7"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-9-7"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-10-6"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-11-3"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-12-3"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-13-14"><i class="fa fa-check"></i>Questions 13 &amp; 14</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-15-16"><i class="fa fa-check"></i>Questions 15 &amp; 16</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-17-18"><i class="fa fa-check"></i>Questions 17 &amp; 18</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-23"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-21"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-19"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-16"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-24"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-22"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-20"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-17"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-9"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-7-9"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-8-8"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-9-8"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-10-7"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-11-4"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-12-4"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-13-2"><i class="fa fa-check"></i>Question 13</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-14"><i class="fa fa-check"></i>Question 14</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-15"><i class="fa fa-check"></i>Question 15</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-16"><i class="fa fa-check"></i>Question 16</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-17"><i class="fa fa-check"></i>Question 17</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-18"><i class="fa fa-check"></i>Question 18</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-19"><i class="fa fa-check"></i>Question 19</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-25"><i class="fa fa-check"></i>7.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-25"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-23"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-21"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-18"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-10"><i class="fa fa-check"></i>Question 6</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-26"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-24"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-22"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-19"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistical-models" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Statistical Models</h1>
+<p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
+<p>First, upload necessary package(s).</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the functions filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb434-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
+<div id="exercises-24" class="section level2 unnumbered">
+<h2>7.5 Exercises</h2>
+<div id="question-1-24" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>The probability of conceiving a girl is 0.49. What is the probability that a family with 4 children has 2 girls and 2 boys (you can assume that the outcomes are independent)?</p>
+<hr />
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1">p &lt;-<span class="st"> </span><span class="fl">0.49</span></a>
+<a class="sourceLine" id="cb435-2" title="2"><span class="kw">dbinom</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dt">p=</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.3747001</code></pre>
+<p><code>dbinom</code> and <code>pbinom</code> are different. <code>pbinom</code> is cumulative, whereas <code>dibnom</code> is for individual value. Here is a demonstration. They are all equal.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1">p &lt;-<span class="st"> </span><span class="fl">0.49</span></a>
+<a class="sourceLine" id="cb437-2" title="2"><span class="kw">dbinom</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dt">p=</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.3747001</code></pre>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1"><span class="kw">pbinom</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dt">p=</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.702348</code></pre>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="kw">dbinom</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="dt">p=</span>p) <span class="op">+</span><span class="st"> </span><span class="kw">dbinom</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dt">p=</span>p) <span class="op">+</span><span class="st"> </span><span class="kw">dbinom</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dt">p=</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.702348</code></pre>
+</div>
+<div id="question-2-22" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>What is the probability that a family with 10 children has 6 girls and 4 boys (assume no twins)?</p>
+<hr />
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1">p &lt;-<span class="st"> </span><span class="fl">0.49</span></a>
+<a class="sourceLine" id="cb443-2" title="2"><span class="kw">dbinom</span>(<span class="dv">6</span>,<span class="dv">10</span>,<span class="dt">p=</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.1966421</code></pre>
+</div>
+<div id="question-3-20" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>The genome has 3 billion bases. About 20% are C, 20% are G, 30% are T, and 30% are A. Suppose you take a random interval of 20 bases, what is the probability that the GC-content (proportion of Gs of Cs) is strictly above 0.5 in this interval?</p>
+<hr />
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1">p &lt;-<span class="st"> </span><span class="fl">0.4</span></a>
+<a class="sourceLine" id="cb445-2" title="2"><span class="kw">pbinom</span>(<span class="dv">20</span>,<span class="dv">20</span>,p) <span class="op">-</span><span class="st"> </span><span class="kw">pbinom</span>(<span class="dv">10</span>,<span class="dv">20</span>,p)</a></code></pre></div>
+<pre><code>## [1] 0.1275212</code></pre>
+</div>
+<div id="question-4-17" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>The probability of winning the lottery is 1 in 175,223,510. If 20,000,000 people buy a ticket, what is the probability that more than one person wins?</p>
+<hr />
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1">p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">175233510</span></a>
+<a class="sourceLine" id="cb447-2" title="2">N &lt;-<span class="st"> </span><span class="dv">20000000</span></a>
+<a class="sourceLine" id="cb447-3" title="3"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">ppois</span>(<span class="dv">1</span>,N<span class="op">*</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.006038215</code></pre>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pbinom</span>(<span class="dv">1</span>,N,p)</a></code></pre></div>
+<pre><code>## [1] 0.006038215</code></pre>
+<p>Since the poisson distrubtion is a type of binomial distribution, both distribution give the same values.</p>
+</div>
+<div id="question-5-10" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p>The genome has 3 billion bases. About 20% are C, 20% are G, 30% are T, and 30% are A. Suppose you take a random interval of 20 bases, what is the exact probability that the GC-content (proportion of Gs of Cs) is greater than 0.35 and smaller or equal to 0.45 in this interval?</p>
+<hr />
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1">p &lt;-<span class="st"> </span><span class="fl">0.4</span></a>
+<a class="sourceLine" id="cb451-2" title="2"><span class="kw">pbinom</span>(<span class="fl">0.45</span><span class="op">*</span><span class="dv">20</span>, <span class="dv">20</span>, p) <span class="op">-</span><span class="st"> </span><span class="kw">pbinom</span>(<span class="fl">0.35</span><span class="op">*</span><span class="dv">20</span>,<span class="dv">20</span>,p)</a></code></pre></div>
+<pre><code>## [1] 0.3394443</code></pre>
+</div>
+<div id="question-6-9" class="section level3 unnumbered">
+<h3>Question 6</h3>
+<p>For the question above, what is the normal approximation to the probability?</p>
+<hr />
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1">p &lt;-<span class="st"> </span><span class="fl">0.4</span></a>
+<a class="sourceLine" id="cb453-2" title="2">N &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb453-3" title="3">a &lt;-<span class="st"> </span>(<span class="fl">0.45</span><span class="op">*</span><span class="dv">20</span> <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb453-4" title="4">b &lt;-<span class="st"> </span>(<span class="fl">0.35</span><span class="op">*</span><span class="dv">20</span> <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb453-5" title="5"></a>
+<a class="sourceLine" id="cb453-6" title="6">approx &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(b) </a>
+<a class="sourceLine" id="cb453-7" title="7">approx</a></code></pre></div>
+<pre><code>## [1] 0.3519231</code></pre>
+</div>
+<div id="question-7-9" class="section level3 unnumbered">
+<h3>Question 7</h3>
+<p>Repeat <strong>Question 5</strong>, but using an interval of 1000 bases. What is the difference (in absolute value) between the normal approximation and the exact distribution of
+the GC-content being greater than 0.35 and lesser or equal to 0.45?</p>
+<hr />
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1">N &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb455-2" title="2">p &lt;-<span class="st"> </span><span class="fl">0.4</span></a>
+<a class="sourceLine" id="cb455-3" title="3">a &lt;-<span class="st"> </span>(<span class="fl">0.45</span><span class="op">*</span>N <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb455-4" title="4">b &lt;-<span class="st"> </span>(<span class="fl">0.35</span><span class="op">*</span>N <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb455-5" title="5">approx &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(b) </a>
+<a class="sourceLine" id="cb455-6" title="6"></a>
+<a class="sourceLine" id="cb455-7" title="7">exact &lt;-<span class="st"> </span><span class="kw">pbinom</span>(<span class="fl">0.45</span><span class="op">*</span>N,N,p) <span class="op">-</span><span class="st"> </span><span class="kw">pbinom</span>(<span class="fl">0.35</span><span class="op">*</span>N,N,p)</a>
+<a class="sourceLine" id="cb455-8" title="8">exact <span class="op">-</span><span class="st"> </span>approx</a></code></pre></div>
+<pre><code>## [1] 9.728752e-06</code></pre>
+</div>
+<div id="question-8-8" class="section level3 unnumbered">
+<h3>Question 8</h3>
+<p>The Cs in our genomes can be methylated or unmethylated. Suppose we have a large (millions) group of cells in which a proportion p of the Cs of interest are methylated. We break up the DNA of these cells and randomly select pieces and
+end up with <span class="math inline">\(N\)</span> pieces that contain the C we care about. This means that the probability of seeing <span class="math inline">\(k\)</span> methylated Cs is binomial:</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1">exact =<span class="st"> </span><span class="kw">dbinom</span>(k,N,p)</a></code></pre></div>
+<pre><code>## Warning in dbinom(k, N, p): non-integer x = 11.550747</code></pre>
+<p>We can approximate this with the normal distribution:</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" title="1">a &lt;-<span class="st"> </span>(k<span class="fl">+0.5</span> <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p)<span class="op">/</span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb459-2" title="2">b &lt;-<span class="st"> </span>(k<span class="fl">-0.5</span> <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p)<span class="op">/</span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb459-3" title="3">approx =<span class="st"> </span><span class="kw">pnorm</span>(a) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(b)</a></code></pre></div>
+<p>Compute the difference <code>approx-exact</code> for:</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1">N &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb460-2" title="2">p &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.25</span>)</a></code></pre></div>
+<p>Compare the approximation and exact probability of the proportion of Cs being <span class="math inline">\(p\)</span>, <span class="math inline">\(k = 1,...,N-1\)</span> plotting the exact versus the approximation for each <span class="math inline">\(p\)</span> and <span class="math inline">\(N\)</span> combination. <strong>Which statement is false?</strong></p>
+<hr />
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1">Ns &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb461-2" title="2">Ps &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.25</span>)</a>
+<a class="sourceLine" id="cb461-3" title="3"><span class="kw">mypar</span>(<span class="dv">5</span>,<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb461-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(Ns)) {</a>
+<a class="sourceLine" id="cb461-5" title="5">  n &lt;-<span class="st"> </span>Ns[[i]]</a>
+<a class="sourceLine" id="cb461-6" title="6">  k &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>n<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb461-7" title="7">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">seq_along</span>(Ps)) {</a>
+<a class="sourceLine" id="cb461-8" title="8">    p &lt;-<span class="st"> </span>Ps[[j]]</a>
+<a class="sourceLine" id="cb461-9" title="9">    exact =<span class="st"> </span><span class="kw">dbinom</span>(k, n, p)</a>
+<a class="sourceLine" id="cb461-10" title="10">    a =<span class="st"> </span>(k<span class="fl">+0.5</span><span class="op">-</span><span class="st"> </span>n<span class="op">*</span>p)<span class="op">/</span><span class="kw">sqrt</span>(n<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb461-11" title="11">    b =<span class="st"> </span>(k<span class="fl">-0.5</span><span class="op">-</span><span class="st"> </span>n<span class="op">*</span>p)<span class="op">/</span><span class="kw">sqrt</span>(n<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb461-12" title="12">    approx =<span class="st"> </span><span class="kw">pnorm</span>(a) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(b)</a>
+<a class="sourceLine" id="cb461-13" title="13">    <span class="kw">qqplot</span>(exact,approx,<span class="dt">xlab=</span><span class="st">&#39;exact&#39;</span>,<span class="dt">ylab=</span><span class="st">&#39;approx&#39;</span>,</a>
+<a class="sourceLine" id="cb461-14" title="14">           <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="st">&#39;N=&#39;</span>,n,<span class="st">&#39; &#39;</span>,<span class="st">&#39;p=&#39;</span>,p))</a>
+<a class="sourceLine" id="cb461-15" title="15">    <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb461-16" title="16">  }</a>
+<a class="sourceLine" id="cb461-17" title="17">}</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-217-1.png" width="672" /></p>
+<p>The answer is <strong>C</strong>. When p is close to 0 or 1, the normal distribution breaks down even at N = 100.</p>
+</div>
+<div id="question-9-8" class="section level3 unnumbered">
+<h3>Question 9</h3>
+<p>We saw in the previous question that when p is very small, the normal approximation breaks down. If N is very large, then we can use the Poisson approximation.</p>
+<p>Earlier we computed 1 or more people winning the lottery when the probability of winning was 1 in 175,223,510 and 20,000,000 people bought a ticket. Using the binomial, we can compute the probability of exactly two people winning to be:</p>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1">N &lt;-<span class="st"> </span><span class="dv">20000000</span></a>
+<a class="sourceLine" id="cb462-2" title="2">p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">175223510</span></a>
+<a class="sourceLine" id="cb462-3" title="3"><span class="kw">dbinom</span>(<span class="dv">2</span>,N,p)</a></code></pre></div>
+<pre><code>## [1] 0.005811321</code></pre>
+<p>If we were to use the normal approximation, we would greatly underestimate this:</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1">a &lt;-<span class="st"> </span>(<span class="dv">2</span><span class="fl">+0.5</span> <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p)<span class="op">/</span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb464-2" title="2">b &lt;-<span class="st"> </span>(<span class="dv">2</span><span class="fl">-0.5</span> <span class="op">-</span><span class="st"> </span>N<span class="op">*</span>p)<span class="op">/</span><span class="kw">sqrt</span>(N<span class="op">*</span>p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p))</a>
+<a class="sourceLine" id="cb464-3" title="3"><span class="kw">pnorm</span>(a) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(b)</a></code></pre></div>
+<pre><code>## [1] 2.04756e-05</code></pre>
+<p>To use the Poisson approximation here, use the rate <span class="math inline">\(\lambda = Np\)</span> representing the number of people per 20,000,000 that win the lottery. Note how much better the approximation is:</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1"><span class="kw">dpois</span>(<span class="dv">2</span>,N<span class="op">*</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.005811321</code></pre>
+<p>In this case, it is practically the same because N is very large and Np is not 0. These are the assumptions needed for the Poisson to work. What is the Poisson approximation for
+more than one person winning?</p>
+<hr />
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">ppois</span>(<span class="dv">1</span>,N<span class="op">*</span>p)</a></code></pre></div>
+<pre><code>## [1] 0.006038879</code></pre>
+</div>
+<div id="question-10-7" class="section level3 unnumbered">
+<h3>Question 10</h3>
+<p>Write a function that takes <span class="math inline">\(\lambda\)</span> and the vector of counts as input and returns the log-likelihood. Compute this log-likelihood for <code>lambdas = seq(0,15,len=300)</code> and make
+a plot. What value of <code>lambdas</code> maximizes the log-likelihood?</p>
+<hr />
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1"><span class="kw">library</span>(dagdata)</a>
+<a class="sourceLine" id="cb470-2" title="2"><span class="kw">data</span>(hcmv)</a>
+<a class="sourceLine" id="cb470-3" title="3"><span class="kw">mypar</span>()</a>
+<a class="sourceLine" id="cb470-4" title="4"><span class="kw">plot</span>(locations,<span class="kw">rep</span>(<span class="dv">1</span>,<span class="kw">length</span>(locations)),<span class="dt">ylab=</span><span class="st">&quot;&quot;</span>,<span class="dt">yaxt=</span><span class="st">&quot;n&quot;</span>)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-222-1.png" width="672" /></p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1">breaks=<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">4000</span><span class="op">*</span><span class="kw">round</span>(<span class="kw">max</span>(locations)<span class="op">/</span><span class="dv">4000</span>),<span class="dv">4000</span>)</a>
+<a class="sourceLine" id="cb471-2" title="2">tmp=<span class="kw">cut</span>(locations,breaks)</a>
+<a class="sourceLine" id="cb471-3" title="3">counts=<span class="kw">as.numeric</span>(<span class="kw">table</span>(tmp))</a>
+<a class="sourceLine" id="cb471-4" title="4"><span class="kw">hist</span>(counts)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-222-2.png" width="672" /></p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" title="1">probs &lt;-<span class="st"> </span><span class="kw">dpois</span>(counts,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb472-2" title="2">likelihood &lt;-<span class="st"> </span><span class="kw">prod</span>(probs)</a>
+<a class="sourceLine" id="cb472-3" title="3">likelihood</a></code></pre></div>
+<pre><code>## [1] 1.177527e-62</code></pre>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1">logprobs &lt;-<span class="st"> </span><span class="kw">dpois</span>(counts,<span class="dv">4</span>,<span class="dt">log=</span>T)</a>
+<a class="sourceLine" id="cb474-2" title="2">loglikelihood &lt;-<span class="st"> </span><span class="kw">sum</span>(logprobs)</a>
+<a class="sourceLine" id="cb474-3" title="3">loglikelihood</a></code></pre></div>
+<pre><code>## [1] -142.5969</code></pre>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1">loglike =<span class="st"> </span><span class="cf">function</span>(lambdas) {</a>
+<a class="sourceLine" id="cb476-2" title="2">  logprobs &lt;-<span class="st"> </span><span class="kw">dpois</span>(counts,lambdas,<span class="dt">log=</span>T)</a>
+<a class="sourceLine" id="cb476-3" title="3">  loglikelihood &lt;-<span class="st"> </span><span class="kw">sum</span>(logprobs)</a>
+<a class="sourceLine" id="cb476-4" title="4">  <span class="kw">return</span>(loglikelihood)</a>
+<a class="sourceLine" id="cb476-5" title="5">}</a>
+<a class="sourceLine" id="cb476-6" title="6">lambdas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dt">len=</span><span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb476-7" title="7">log_res &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">sapply</span>(lambdas,loglike))</a>
+<a class="sourceLine" id="cb476-8" title="8">optim_lambda &lt;-<span class="st"> </span>lambdas[<span class="kw">which</span>(log_res <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(log_res))]</a></code></pre></div>
+</div>
+<div id="question-11-4" class="section level3 unnumbered">
+<h3>Question 11</h3>
+<p>The point of collecting this dataset was to try to determine if there is a region of the genome that has a higher palindrome rate than expected. We can create a
+plot and see the counts per location:</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" title="1"><span class="kw">library</span>(dagdata)</a>
+<a class="sourceLine" id="cb477-2" title="2"><span class="kw">data</span>(hcmv)</a>
+<a class="sourceLine" id="cb477-3" title="3">breaks=<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">4000</span><span class="op">*</span><span class="kw">round</span>(<span class="kw">max</span>(locations)<span class="op">/</span><span class="dv">4000</span>),<span class="dv">4000</span>)</a>
+<a class="sourceLine" id="cb477-4" title="4">tmp=<span class="kw">cut</span>(locations,breaks)</a>
+<a class="sourceLine" id="cb477-5" title="5">counts=<span class="kw">as.numeric</span>(<span class="kw">table</span>(tmp))</a>
+<a class="sourceLine" id="cb477-6" title="6">binLocation=(breaks[<span class="op">-</span><span class="dv">1</span>]<span class="op">+</span>breaks[<span class="op">-</span><span class="kw">length</span>(breaks)])<span class="op">/</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb477-7" title="7"><span class="kw">plot</span>(binLocation,counts,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">xlab=</span>)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-223-1.png" width="672" /></p>
+<p>What is the center of the bin with the highest count?</p>
+<hr />
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1">binLocation[<span class="kw">which</span>(counts <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(counts))]</a></code></pre></div>
+<pre><code>## [1] 94000</code></pre>
+</div>
+<div id="question-12-4" class="section level3 unnumbered">
+<h3>Question 12</h3>
+<p>What is the maximum count?</p>
+<hr />
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1"><span class="kw">max</span>(counts)</a></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+</div>
+<div id="question-13-2" class="section level3 unnumbered">
+<h3>Question 13</h3>
+<p>Once we have identified the location with the largest palindrome count, we want to know if we could see a value this big by chance. If X is a Poisson random
+variable with rate:</p>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" title="1">lambda =<span class="st"> </span><span class="kw">mean</span>(counts[<span class="op">-</span><span class="kw">which.max</span>(counts)])</a></code></pre></div>
+<p>What is the probability of seeing a count of 14 or more?</p>
+<hr />
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">ppois</span>(<span class="dv">13</span>, optim_lambda)</a></code></pre></div>
+<pre><code>## [1] 0.0009505977</code></pre>
+<p>You subtract <code>ppois(13,optim_lambda)</code> because you need to exclude it. Since this distribution is discrete, <code>1 - ppois(13, optim_lambda)</code> will count probability from a seeing a count of 14 or more.</p>
+</div>
+<div id="question-14" class="section level3 unnumbered">
+<h3>Question 14</h3>
+<p>So we obtain a p-value smaller than 0.001 for a count of 14. Why is it problematic to report this p-value as strong evidence of a location that is different?</p>
+<hr />
+<p>The answer is <strong>B: We selected the highest region out of 57 and need to adjust for multiple testing.</strong> Answer A is wrong because we do use normal approximation in t-test to get a p-value, so there is nothing wrong with using approximation. Answer B is correct because the p-value that we obtained is from a comparison against the sample mean (z score = 0) rather than all other counts. Therefore, the p-value must be corrected (ex. Bonferroni’s procedure). Answer C is wrong because p value can also be a random variable, but this answer choice implies that p-value is not a random variable. Answer D is wrong because effect size is irrelevent.</p>
+</div>
+<div id="question-15" class="section level3 unnumbered">
+<h3>Question 15</h3>
+<p>Use the Bonferroni correction to determine the p-value cut-off that guarantees a FWER of 0.05. What is this p-value cutoff?</p>
+<hr />
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" title="1"><span class="fl">0.05</span><span class="op">/</span><span class="kw">length</span>(counts)</a></code></pre></div>
+<pre><code>## [1] 0.000877193</code></pre>
+</div>
+<div id="question-16" class="section level3 unnumbered">
+<h3>Question 16</h3>
+<p>Create a qq-plot to see if our Poisson model is a good fit:</p>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1">ps &lt;-<span class="st"> </span>(<span class="kw">seq</span>(<span class="dt">along=</span>counts) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>)<span class="op">/</span><span class="kw">length</span>(counts)</a>
+<a class="sourceLine" id="cb487-2" title="2">lambda &lt;-<span class="st"> </span><span class="kw">mean</span>( counts[ <span class="op">-</span><span class="kw">which.max</span>(counts)])</a>
+<a class="sourceLine" id="cb487-3" title="3">poisq &lt;-<span class="st"> </span><span class="kw">qpois</span>(ps,lambda)</a>
+<a class="sourceLine" id="cb487-4" title="4"><span class="kw">plot</span>(poisq,<span class="kw">sort</span>(counts))</a>
+<a class="sourceLine" id="cb487-5" title="5"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-229-1.png" width="672" /></p>
+<p>How would you characterize this qq-plot - A) Poisson is a terrible approximation. - B) Poisson is a very good approximation except for one point that we actually think is a region of interest. - C) There are too many 1s in the data. - D) A normal distribution provides a
+better approximation.</p>
+<hr />
+<p>The answer is <strong>B</strong>. You can check whether the palindrome counts are well approximated by the normal distribution.</p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" title="1"><span class="kw">qqnorm</span>(<span class="kw">sort</span>(counts))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-230-1.png" width="672" /></p>
+</div>
+<div id="question-17" class="section level3 unnumbered">
+<h3>Question 17</h3>
+<p>Load the <code>tissuesGeneExpression</code> data library:</p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb489-2" title="2"><span class="kw">data</span>(<span class="st">&quot;tissuesGeneExpression&quot;</span>)</a></code></pre></div>
+<p><strong>Then select</strong> the columns related to endometrium:</p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" title="1"><span class="kw">library</span>(genefilter)</a>
+<a class="sourceLine" id="cb490-2" title="2">y =<span class="st"> </span>e[,<span class="kw">which</span>(tissue<span class="op">==</span><span class="st">&quot;endometrium&quot;</span>)]</a></code></pre></div>
+<p>This will give you a matrix y with 15 samples. Compute the across sample variance for the first three samples. Then make a qq-plot to see if the data follow a normal distribution. Which of the following is true? - A) With the exception of a handful of outliers, the data follow a normal distribution. - B) The variance does not follow a normal distribution, but taking the square root fixes this. - C) The normal distribution is not usable here: the left
+tail is over estimated and the right tail is underestimated. - D) The normal distribution fits the data almost perfectly.</p>
+<hr />
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" title="1">vars &lt;-<span class="st"> </span><span class="kw">rowVars</span>(y[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb491-2" title="2"><span class="kw">length</span>(vars)</a></code></pre></div>
+<pre><code>## [1] 22215</code></pre>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb493-2" title="2"><span class="kw">qqnorm</span>(<span class="kw">sqrt</span>(vars)) <span class="co"># choice B is false</span></a>
+<a class="sourceLine" id="cb493-3" title="3"><span class="kw">qqnorm</span>(vars) <span class="co"># choice A and D are false</span></a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-233-1.png" width="672" /></p>
+<p>The answer is <strong>C</strong>.</p>
+</div>
+<div id="question-18" class="section level3 unnumbered">
+<h3>Question 18</h3>
+<p>Now fit an F-distribution with 14 degrees of freedom using the <code>fitFDist</code> function in the <code>limma</code> package. <strong>What are</strong> <code>df2</code> <strong>and</strong> <code>scale</code> <strong>?</strong></p>
+<hr />
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb494-1" title="1"><span class="kw">library</span>(limma)</a>
+<a class="sourceLine" id="cb494-2" title="2">res &lt;-<span class="st"> </span><span class="kw">fitFDist</span>(vars,<span class="dv">14</span>)</a>
+<a class="sourceLine" id="cb494-3" title="3">res</a></code></pre></div>
+<pre><code>## $scale
+## [1] 0.01139807
+## 
+## $df2
+## [1] 1.217793</code></pre>
+</div>
+<div id="question-19" class="section level3 unnumbered">
+<h3>Question 19</h3>
+<p>Now create a qq-plot of the observed sample variances versus the F-distribution quantiles. Which of the following best describes the qq-plot?</p>
+<hr />
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1">pf &lt;-<span class="st"> </span>(<span class="kw">seq</span>(<span class="dt">along=</span>vars)<span class="op">-</span><span class="fl">0.5</span>)<span class="op">/</span><span class="kw">length</span>(vars)</a>
+<a class="sourceLine" id="cb496-2" title="2">theory &lt;-<span class="st"> </span><span class="kw">qf</span>(pf,<span class="dv">14</span>,res<span class="op">$</span>df2) <span class="co"># theoretical quantiles from F distribution</span></a>
+<a class="sourceLine" id="cb496-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb496-4" title="4"><span class="kw">qqplot</span>(theory, <span class="kw">sort</span>(vars), <span class="dt">xlab =</span> <span class="st">&#39;theory&#39;</span>, <span class="dt">ylab =</span><span class="st">&#39;obs&#39;</span>) <span class="co"># F approximation vs variance from the data</span></a>
+<a class="sourceLine" id="cb496-5" title="5"><span class="kw">qqnorm</span>(<span class="kw">sort</span>(vars)) <span class="co"># normal approximation vs variance from the data</span></a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-235-1.png" width="672" /></p>
+<p>The answer is <strong>D : If we exclude the highest 0.1% of the data, the F-distribution provides a good fit.</strong></p>
+</div>
+</div>
+<div id="exercises-25" class="section level2 unnumbered">
+<h2>7.7 Exercises</h2>
+<div id="question-1-25" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>A test for cystic fibrosis has an accuracy of 99%. Specifically, we mean that:
+<span class="math display">\[
+\begin{align*}
+Prob(+|D) = 0.99, Prob(-|no D) = 0.99
+\end{align*}
+\]</span>
+The cystic fibrosis rate in the general population is 1 in 3,900, Prob(D) = 0:00025. If we select a random person and they test positive, what is probability that they have
+cystic fibrosis <span class="math inline">\(Prob(D|+)\)</span> ? Hint: use Bayes Rule.</p>
+<hr />
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" title="1">(<span class="fl">0.99</span><span class="op">*</span><span class="fl">0.00025</span>)<span class="op">/</span>(<span class="fl">0.99</span><span class="op">*</span><span class="fl">0.00025</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.01</span><span class="op">*</span>(<span class="dv">1</span><span class="fl">-0.00025</span>))</a></code></pre></div>
+<pre><code>## [1] 0.02415813</code></pre>
+</div>
+<div id="question-2-23" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>First download some baseball statistics.</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb499-1" title="1">tmpfile &lt;-<span class="st"> </span><span class="kw">tempfile</span>()</a>
+<a class="sourceLine" id="cb499-2" title="2">tmpdir &lt;-<span class="st"> </span><span class="kw">tempdir</span>()</a>
+<a class="sourceLine" id="cb499-3" title="3"><span class="kw">download.file</span>(<span class="st">&quot;http://seanlahman.com/files/database/lahman-csv_2014-02-14.zip&quot;</span>,tmpfile)</a>
+<a class="sourceLine" id="cb499-4" title="4"><span class="co">##this shows us files</span></a>
+<a class="sourceLine" id="cb499-5" title="5">filenames &lt;-<span class="st"> </span><span class="kw">unzip</span>(tmpfile,<span class="dt">list=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb499-6" title="6">players &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">unzip</span>(tmpfile,<span class="dt">files=</span><span class="st">&quot;Batting.csv&quot;</span>,<span class="dt">exdir=</span>tmpdir),<span class="dt">as.is=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb499-7" title="7"><span class="kw">unlink</span>(tmpdir)</a>
+<a class="sourceLine" id="cb499-8" title="8"><span class="kw">file.remove</span>(tmpfile)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>We will use the <code>dplyr</code>, which you can read about here to obtain data from 2010, 2011, and 2012, with more than 500 at bats (AB &gt;= 500).</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb501-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">filter</span>(players,yearID<span class="op">&gt;=</span><span class="dv">2010</span>, yearID <span class="op">&lt;=</span><span class="dv">2012</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">AVG=</span>H<span class="op">/</span>AB) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(AB<span class="op">&gt;</span><span class="dv">500</span>)</a></code></pre></div>
+<p>What is the average of these batting averages?</p>
+<hr />
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" title="1"><span class="kw">mean</span>(dat<span class="op">$</span>AVG,<span class="dt">na.rm=</span>T)</a></code></pre></div>
+<pre><code>## [1] 0.2753465</code></pre>
+</div>
+<div id="question-3-21" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>What is the standard deviation of these batting averages?</p>
+<hr />
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb504-1" title="1"><span class="kw">sd</span>(dat<span class="op">$</span>AVG,<span class="dt">na.rm=</span>T)</a></code></pre></div>
+<pre><code>## [1] 0.02741713</code></pre>
+</div>
+<div id="question-4-18" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>Use exploratory data analysis to decide which of the following distributions approximates our AVG:</p>
+<hr />
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb506-2" title="2"><span class="kw">hist</span>(dat<span class="op">$</span>AVG)</a>
+<a class="sourceLine" id="cb506-3" title="3"><span class="kw">qqnorm</span>(dat<span class="op">$</span>AVG)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-241-1.png" width="672" /></p>
+<p>The answer is <strong>A: Normal</strong>.</p>
+</div>
+<div id="question-5-11" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p>It is April and after 20 at bats, Jos Iglesias is batting .450 (which is very good). We can think of this as a binomial distribution with 20 trials, with probability of success p. Our sample estimate of p is .450. What is our estimate of standard deviation? Hint: This is the sum that is binomial divided by 20.</p>
+<hr />
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" title="1">p &lt;-<span class="st"> </span><span class="fl">0.45</span></a>
+<a class="sourceLine" id="cb507-2" title="2">n &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb507-3" title="3"><span class="kw">sqrt</span>(p<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>n)</a></code></pre></div>
+<pre><code>## [1] 0.111243</code></pre>
+</div>
+<div id="question-6-10" class="section level3 unnumbered">
+<h3>Question 6</h3>
+<p>The Binomial is approximated by normal, so our sampling distribution is approximately normal with mean <span class="math inline">\(Y\)</span> = 0.45 and SD <span class="math inline">\(\sigma\)</span> = 0.11. Earlier we used a baseball database to determine that our prior distribution is Normal with mean <span class="math inline">\(\mu\)</span> = 0.275 and SD <span class="math inline">\(\tau\)</span> = 0.027. We also saw that this is the posterior mean prediction of the batting average.</p>
+<p>What is your Bayes prediction for the batting average going forward?</p>
+<hr />
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" title="1">B &lt;-<span class="st"> </span>(<span class="fl">0.11</span><span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="fl">0.11</span><span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.027</span><span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb509-2" title="2">post_u &lt;-<span class="st"> </span><span class="fl">0.275</span><span class="op">*</span>B <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>B)<span class="op">*</span><span class="fl">0.45</span></a>
+<a class="sourceLine" id="cb509-3" title="3">post_u</a></code></pre></div>
+<pre><code>## [1] 0.2849443</code></pre>
+</div>
+</div>
+<div id="exericses" class="section level2 unnumbered">
+<h2>7.9 Exericses</h2>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" title="1"><span class="kw">library</span>(Biobase)</a>
+<a class="sourceLine" id="cb511-2" title="2"><span class="kw">library</span>(SpikeInSubset)</a>
+<a class="sourceLine" id="cb511-3" title="3"><span class="kw">data</span>(rma95)</a>
+<a class="sourceLine" id="cb511-4" title="4">y &lt;-<span class="st"> </span><span class="kw">exprs</span>(rma95)</a>
+<a class="sourceLine" id="cb511-5" title="5"><span class="kw">pData</span>(rma95)</a></code></pre></div>
+<pre><code>##                  37777_at 684_at 1597_at 38734_at 39058_at
+## 1521a99hpp_av06      0.00   0.25     0.5        1        2
+## 1532a99hpp_av04      0.00   0.25     0.5        1        2
+## 2353a99hpp_av08      0.00   0.25     0.5        1        2
+## 1521b99hpp_av06      0.25   0.50     1.0        2        4
+## 1532b99hpp_av04      0.25   0.50     1.0        2        4
+## 2353b99hpp_av08r     0.25   0.50     1.0        2        4
+##                  36311_at 36889_at 1024_at 36202_at 36085_at
+## 1521a99hpp_av06         4        8      16       32       64
+## 1532a99hpp_av04         4        8      16       32       64
+## 2353a99hpp_av08         4        8      16       32       64
+## 1521b99hpp_av06         8       16      32       64      128
+## 1532b99hpp_av04         8       16      32       64      128
+## 2353b99hpp_av08r        8       16      32       64      128
+##                  40322_at 407_at 1091_at 1708_at 33818_at 546_at
+## 1521a99hpp_av06       128   0.00     512    1024      256     32
+## 1532a99hpp_av04       128   0.00     512    1024      256     32
+## 2353a99hpp_av08       128   0.00     512    1024      256     32
+## 1521b99hpp_av06       256   0.25    1024       0      512     64
+## 1532b99hpp_av04       256   0.25    1024       0      512     64
+## 2353b99hpp_av08r      256   0.25    1024       0      512     64</code></pre>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb513-1" title="1">g &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">rep</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">each=</span><span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb513-2" title="2">spike &lt;-<span class="st"> </span><span class="kw">rownames</span>(y) <span class="op">%in%</span><span class="st"> </span><span class="kw">colnames</span>(<span class="kw">pData</span>(rma95))</a></code></pre></div>
+<div id="question-1-26" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>Only these 16 genes are diferentially expressed since the six samples differ only due to sampling (they all come from the same background pool of RNA). Perform a t-test on each gene using the rowttest function.</p>
+<p>What proportion of genes with a p-value &lt; 0.01 (no multiple comparison correction) are not part of the artifcially added (false positive)?</p>
+<hr />
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb514-1" title="1">pval &lt;-<span class="st"> </span><span class="kw">rowttests</span>(y,g)<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb514-2" title="2"><span class="kw">head</span>(pval <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>)</a></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb516-1" title="1"><span class="kw">nrow</span>(y[spike,])</a></code></pre></div>
+<pre><code>## [1] 16</code></pre>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb518-1" title="1"><span class="kw">sum</span>(pval[spike] <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>) <span class="co"># 11</span></a></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb520-1" title="1">(<span class="kw">nrow</span>(y[pval <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>,]) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(pval[spike] <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>))<span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(y[pval <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>,])</a></code></pre></div>
+<pre><code>## [1] 0.7608696</code></pre>
+</div>
+<div id="question-2-24" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>Now compute the within group sample standard deviation for each gene (you can use group 1). Based on the p-value cut-off, split the genes into true positives, false positives, true negatives and false negatives. Create a boxplot comparing the sample SDs for each group. Which of the following best describes the boxplot?</p>
+<hr />
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb522-1" title="1">calls &lt;-<span class="st"> </span>pval <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span> <span class="co"># calls for significance</span></a>
+<a class="sourceLine" id="cb522-2" title="2">sds_y &lt;-<span class="st"> </span><span class="kw">rowSds</span>(y) <span class="co"># std for each gene </span></a>
+<a class="sourceLine" id="cb522-3" title="3">fp &lt;-<span class="st"> </span>sds_y[calls <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>spike] <span class="co"># false positive </span></a>
+<a class="sourceLine" id="cb522-4" title="4">fn &lt;-<span class="st"> </span>sds_y[<span class="op">!</span>calls <span class="op">&amp;</span><span class="st"> </span>spike] <span class="co"># false negative</span></a>
+<a class="sourceLine" id="cb522-5" title="5">tn &lt;-<span class="st"> </span>sds_y[<span class="op">!</span>spike] <span class="co"># true negative</span></a>
+<a class="sourceLine" id="cb522-6" title="6">tp &lt;-<span class="st"> </span>sds_y[spike] <span class="co"># true positive</span></a>
+<a class="sourceLine" id="cb522-7" title="7">res &lt;-<span class="st"> </span><span class="kw">list</span>(tp,fp,tn,fn)</a>
+<a class="sourceLine" id="cb522-8" title="8"><span class="kw">names</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;tp&#39;</span>,<span class="st">&#39;fp&#39;</span>,<span class="st">&#39;tn&#39;</span>,<span class="st">&#39;fn&#39;</span>)</a>
+<a class="sourceLine" id="cb522-9" title="9"><span class="kw">boxplot</span>(res, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p>
+<p>The answer is <strong>D: The false postiives have smaller standard deviation</strong>.</p>
+</div>
+<div id="question-3-22" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>In the previous two questions, we observed results consistent with the fact that the random variability associated with the sample standard deviation leads to
+t-statistics that are large by chance.</p>
+<p>The sample standard deviation we use in the t-test is an estimate and with just a pair of triplicate samples, the variability associated with the denominator in the t-test can be large.</p>
+<p>The following steps perform the basic <code>limma</code> analysis. We specify <code>coef=2</code> because we are interested in the difference between groups, not the intercept. The <code>eBayes</code> step uses a
+hierarchical model that provides a new estimate of the gene specific standard error.</p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb523-1" title="1"><span class="kw">library</span>(limma)</a>
+<a class="sourceLine" id="cb523-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">lmFit</span>(y, <span class="dt">design=</span><span class="kw">model.matrix</span>(<span class="op">~</span><span class="st"> </span>g))</a>
+<a class="sourceLine" id="cb523-3" title="3"><span class="kw">colnames</span>(<span class="kw">coef</span>(fit))</a></code></pre></div>
+<pre><code>## [1] &quot;(Intercept)&quot; &quot;g1&quot;</code></pre>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb525-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">eBayes</span>(fit)</a></code></pre></div>
+<p>Here is a plot of the original, new, hierarchical models based estimate versus the sample based estimate:</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb526-1" title="1">sampleSD =<span class="st"> </span>fit<span class="op">$</span>sigma</a>
+<a class="sourceLine" id="cb526-2" title="2">posteriorSD =<span class="st"> </span><span class="kw">sqrt</span>(fit<span class="op">$</span>s2.post)</a></code></pre></div>
+<p>Which best describes what the hierarchical model does?</p>
+<hr />
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" title="1"><span class="kw">hist</span>(sampleSD, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-249-1.png" width="672" /></p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb528-1" title="1"><span class="kw">hist</span>(posteriorSD, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>))</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-249-2.png" width="672" /></p>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" title="1"><span class="kw">mean</span>(sampleSD)</a></code></pre></div>
+<pre><code>## [1] 0.1241865</code></pre>
+<p>The answer choice is <strong>A: Moves all esimates of standard deviation closer to 0.12</strong>.</p>
+</div>
+<div id="question-4-19" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>Use these new estimates of standard deviation in the denominator of the t-test and compute p-values. You can do it like this:</p>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" title="1"><span class="kw">library</span>(limma)</a>
+<a class="sourceLine" id="cb531-2" title="2">fit =<span class="st"> </span><span class="kw">lmFit</span>(y, <span class="dt">design=</span><span class="kw">model.matrix</span>(<span class="op">~</span><span class="st"> </span>g))</a>
+<a class="sourceLine" id="cb531-3" title="3">fit =<span class="st"> </span><span class="kw">eBayes</span>(fit)</a>
+<a class="sourceLine" id="cb531-4" title="4"><span class="co">##second coefficient relates to diffences between group</span></a>
+<a class="sourceLine" id="cb531-5" title="5">pvals =<span class="st"> </span>fit<span class="op">$</span>p.value[,<span class="dv">2</span>]</a></code></pre></div>
+<p>What proportion of genes with a p-value &lt; 0.01 (no multiple comparison correction) are not part of the artificially added (false positive)?</p>
+<hr />
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb532-1" title="1">pvals &lt;-<span class="st"> </span>fit<span class="op">$</span>p.value[,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb532-2" title="2"></a>
+<a class="sourceLine" id="cb532-3" title="3">(<span class="kw">nrow</span>(y[pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>,]) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(pvals[spike] <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>))<span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(y[pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.01</span>,])</a></code></pre></div>
+<pre><code>## [1] 0.6486486</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="inference-for-high-dimensional-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/smin95/da4ls_exercise_solution/edit/master/07-modelling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/smin95/da4ls_exercise_solution/blob/master/07-modelling.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -14,5 +14,6 @@ rmd_files: [
   '3-EDA.Rmd',
   '4-MatrixAlg.Rmd',
   '5-linearmodel.Rmd',
-  '6-highdim.Rmd'
+  '6-highdim.Rmd',
+  '07-modelling.Rmd'
 ]
