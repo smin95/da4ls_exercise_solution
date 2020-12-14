@@ -157,7 +157,7 @@ for (i in seq_along(Ns)) {
 }
 ```
 
-The answer is **C**. When p is close to 0 or 1, the normal distribution breaks down even at N = 100.
+The answer is **C**: When N is 100 all approximations are spot on. When p is close to 0 or 1, the normal distribution breaks down even at N = 100.
 
 ### Question 9 {-}
 
@@ -277,7 +277,7 @@ What is the probability of seeing a count of 14 or more?
 ---
 
 ```{r}
-1 - ppois(13, optim_lambda)
+1 - ppois(13, lambda)
 ```
 
 You subtract `ppois(13,optim_lambda)` because you need to exclude it. Since this distribution is discrete, `1 - ppois(13, optim_lambda)` will count probability from a seeing a count of 14 or more. 
@@ -527,7 +527,7 @@ names(res) <- c('tp','fp','tn','fn')
 boxplot(res, ylim = c(0,1))
 ```
 
-The answer is **D: The false postiives have smaller standard deviation**.
+The answer is **D: The false positives have smaller standard deviation**.
 
 ### Question 3 {-}
 

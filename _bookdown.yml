@@ -15,5 +15,8 @@ rmd_files: [
   '4-MatrixAlg.Rmd',
   '5-linearmodel.Rmd',
   '6-highdim.Rmd',
-  '07-modelling.Rmd'
+  '7-modelling.Rmd',
+  '8-pca.Rmd',
+  '9-ml.Rmd',
+  '10-batch.Rmd',
 ]

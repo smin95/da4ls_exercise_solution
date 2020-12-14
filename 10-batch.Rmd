@@ -1,0 +1,741 @@
+# Batch Effects
+
+**Note:** I have rephrased some parts of the questions for clarity. These changes are **bolded**. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.
+
+First, upload necessary package(s).
+
+```{r}
+library(dplyr) # uplaods the function filter() and %>%
+library(rafalib) # important for plotting with base R
+library(genefilter) # rowttests
+library(Biobase) ##available from Bioconductor
+library(genefilter)
+library(GSE5859) ##available from github
+data(GSE5859)
+library(GSE5859Subset) # subset of gene expression data
+library(tissuesGeneExpression)
+data(tissuesGeneExpression)
+library(qvalue)
+```
+
+## 10.3 Exercises {-}
+
+Load the admissions data from the `dagdata` package (which is available from the genomicsclass repository):
+
+```{r}
+library(dagdata)
+data(admissions)
+```
+
+Familiarize yourself with this table: `admissions`
+
+### Question 1 {-}
+
+Let's compute the proportion of men who were accepted:
+
+```{r}
+index = which(admissions$Gender==1)
+accepted= sum(admissions$Number[index] * admissions$Percent[index]/100)
+applied = sum(admissions$Number[index])
+accepted/applied
+```
+
+What is the proportion of women that were accepted?
+
+---
+
+```{r}
+index <- admissions$Gender == 1
+men <- admissions[index,]
+women <- admissions[!index,]
+menYes <- sum(men$Percent/100 * men$Number)
+menNo <- sum((1 - men$Percent/100) * men$Number)
+womenYes <- sum(women$Percent/100 * women$Number)
+womenNo <- sum((1-women$Percent/100) * women$Number)
+
+tab <- matrix(c(menYes,womenYes,menNo,womenNo),2,2)
+
+print(womenYes/(womenYes+womenNo))
+```
+
+### Question 2 {-}
+
+Now that we have observed different acceptance rates between genders, test for the significance of this result. If you perform an independence test, what is the p-value?
+
+---
+
+```{r}
+chisq.test(tab)$p.value
+```
+
+### Question 3 {-}
+
+We can quantify how "hard" a major is by using the percent of students that were accepted. Compute the percent that were accepted (regardless of gender) to each major and call this vector `H`. Which is the hardest major?
+
+---
+
+```{r}
+admissions1 <- admissions %>% mutate(accepted = Number * Percent/100)
+admissions2 <- cbind(admissions1[1:6,c(1,2,5)], admissions1[7:12,c(2,5)]) 
+colnames(admissions2) <- c('major','number_m','accepted_m',
+                           'number_f', 'accepted_f')
+admission3 <- admissions2 %>% group_by(major) %>%
+  transmute(total_number= number_m+number_f,
+         total_accepted= accepted_m + accepted_f,
+         proportion = total_accepted/total_number)
+
+H <- admission3 %>% dplyr::select(major,proportion)
+H
+```
+
+**Major F** is the hardest major.
+
+### Question 4 {-}
+
+What proportion is accepted for this major?
+
+---
+
+```{r}
+H[H$major == 'F', ]
+```
+
+### Question 5 {-}
+
+For men, what is the correlation between the number of applications across majors and `H`?
+
+---
+
+```{r}
+cor.test(men$Number,H$proportion)$estimate
+```
+
+### Question 6 {-}
+
+For women, what is the correlation between the number of applications across majors and `H`?
+
+---
+
+```{r}
+cor.test(women$Number,H$proportion)$estimate
+```
+
+### Question 7 {-}
+
+Given the answers to the above, which best explains the differences in admission percentages when we combine majors?
+
+---
+
+The answer is **C**: There is confounding between gender and preference for "hard" majors: females are more likely to apply to harder majors.
+
+## 10.6 Exercises {-}
+
+```{r}
+library(Biobase)
+library(GSE5859)
+data(GSE5859)
+geneExpression = exprs(e)
+sampleInfo = pData(e)
+```
+
+Familiarize yourself with the `sampleInfo` table. Note that some samples were processed at different times. This is an extraneous variable and should not affect the values in `geneExpression`. However, as we have seen in previous analyses, it does appear to have an effect so we will explore this here. You can extract the year from each date like this:
+
+```{r}
+year = format(sampleInfo$date,"%y")
+```
+
+Note that ethnic group and year is almost perfectly confounded:
+
+```{r}
+table(year,sampleInfo$ethnicity)
+```
+
+### Question 1 {-}
+
+For how many of these years do we have more than one ethnicity represented?
+
+---
+
+```{r}
+table(year,sampleInfo$ethnicity)
+```
+
+**Two** of the years have more than one ethnicity represented.
+
+### Question 2 {-}
+
+Repeat the above exercise, but now, instead of year, consider the month as well. Specifically, instead of the year variable defined above use:
+
+```{r}
+month.year = format(sampleInfo$date,"%m%y")
+```
+
+For what proportion of these `month.year` values do we have more than one ethnicity represented?
+
+---
+
+```{r}
+month.year = format(sampleInfo$date,"%m%y")
+tab <- table(month.year, sampleInfo$ethnicity)
+res <- vector('double', nrow(tab))
+for (i in seq_along(res)) {
+  res[[i]] <- length(unique(tab[i,]))
+}
+mean(res==3)
+```
+
+### Question 3 {-}
+
+Perform a t-test (use `rowttests`) comparing CEU samples processed in 2002 to those processed in 2003. Then use the `qvalue` package to obtain q-values for each gene. How many genes have q-values < 0.05?
+
+---
+
+```{r}
+eth <- sampleInfo$ethnicity
+ind <- which(eth == 'CEU' & year %in% c('02','03'))
+pvals <- rowttests(geneExpression[,ind], factor(year[ind]))$p.value
+
+qvals <- qvalue(pvals)$qvalues
+sum(qvals < 0.05)
+```
+
+### Question 4 {-}
+
+What is the estimate of `pi0` provided by `qvalue`?
+
+---
+
+```{r}
+qvalue(pvals)$pi0
+```
+
+### Question 5 {-}
+
+Now perform a t-test (use `rowttests`) comparing CEU samples processed in 2003 to those processed in 2004. Then use the `qvalue` package to obtain q-values for each gene. How many genes have q-values less than 0.05?
+
+```{r}
+ind <- which(eth == 'CEU' & year %in% c('03','04'))
+pvals <- rowttests(geneExpression[,ind], factor(year[ind]))$p.value
+qvals <- qvalue(pvals)$qvalues
+sum(qvals < 0.05)
+```
+
+### Question 6 {-}
+
+Now we are going to compare ethnicities as was done in the original publication in which these data were first presented. Use the qvalue function to compare the ASN population to the CEU population. Once again, use the qvalue function to obtain q-values. How many genes have q-values < 0.05?
+
+---
+
+```{r}
+ind <- which(eth %in% c('ASN','CEU'))
+pvals <- rowttests(geneExpression[,ind], factor(eth[ind]))$p.value
+qvals <- qvalue(pvals)$qvalues
+sum(qvals < 0.05)
+```
+
+### Question 7 {-}
+
+Over 80% of genes are called differentially expressed between ethnic groups. However, due to the confounding with processing date, we need to confirm these differences are actually due to ethnicity.This will not be easy due to the almost perfect confounding. However, above we noted that two groups were represented in 2005. Just like we stratified by majors to remove the "major effect" in our admissions example, here we can stratify by year and perform a t-test comparing ASN and CEU, but only for samples processed in 2005. How many genes have q-values < 0.05?
+
+---
+
+```{r}
+ind <- which(eth %in% c('ASN','CEU')& year == '05')
+pvals <- rowttests(geneExpression[,ind], factor(eth[ind]))$p.value
+qvals <- qvalue(pvals)$qvalues
+sum(qvals < 0.05)
+
+table(sampleInfo$ethnicity[ind])
+```
+
+### Question 8 {-}
+
+To provide a more balanced comparison, we repeat the analysis, but now taking 3 random CEU samples from 2002. Repeat the analysis above, but comparing the ASN from 2005 to three random CEU samples from 2002. Set the seed at 3,
+`set.seed(3)`. How many genes have q-values < 0.05?
+
+---
+
+```{r}
+set.seed(3)
+ind_ceu <- which(eth =='CEU' & year == '02')
+ind_ceu2 <- sample(ind_ceu,3)
+ind_asn <- which(eth == 'ASN' & year =='05')
+ind <- c(ind_ceu2,ind_asn)
+
+pvals <- rowttests(geneExpression[,ind], factor(eth[ind]))$p.value
+qvals <- qvalue(pvals)$qvalues
+sum(qvals < 0.05)
+```
+
+## 10.9 Exercises {-}
+
+```{r}
+library(GSE5859Subset)
+data(GSE5859Subset)
+sex = sampleInfo$group
+month = factor( format(sampleInfo$date,"%m"))
+table( sampleInfo$group, month)
+```
+
+### Question 1 {-}
+
+Using the functions `rowttests` and `qvalue` compare the two groups. Because this is a smaller dataset which decreases our power, we will use the more lenient FDR
+cut-off of 10%. How many gene have q-values less than 0.1?
+
+---
+
+```{r}
+pvals <- rowttests(geneExpression, factor(sex))$p.val
+qvals <- qvalue(pvals)$qvalues 
+sum(qvals<0.1)
+```
+
+### Question 2 {-}
+
+Note that `sampleInfo$group` here presents males and females. Thus, we expect differences to be in on chrY and, for genes that escape inactivation, chrX. We do not expect many autosomal genes to be different between males and females. This gives us an opportunity to evaluate false and true positives with experimental data. For example, we evaluate results using the proportion genes of the list that
+are on chrX or chrY.
+
+For the list calculated in **Question 1**, what proportion of this list is on chrX or chrY?
+
+---
+
+```{r}
+ind_qval <- (qvals<0.1) # qvalue index for significance
+chr <- geneAnnotation$CHR
+ind_xy <- (chr[ind_qval] %in% c('chrX','chrY'))
+
+sum(ind_xy)/sum(ind_qval)
+```
+
+### Question 3 {-}
+
+We can also check how many of the chromosomes X and Y genes we detected as different. How many are on Y?
+
+---
+
+```{r}
+chr_ind_xy <- which(chr[ind_qval] %in% c('chrX','chrY'))
+length(chr[ind_qval][chr_ind_xy] == 'chrY')
+```
+
+### Question 4 {-}
+
+Now for the autosomal genes (not on chrX and chrY) for which q-value < 0.1, perform a t-test comparing samples processed in June to those processed in October. What proportion of these have p-values <0.05? **Hint: Be careful about indexing.**
+
+---
+
+```{r}
+pvals <- rowttests(geneExpression, factor(sex))$p.val
+qvals <- qvalue(pvals)$qvalues 
+ind <- which(qvals < 0.1)
+
+gene_dat_non_xy <- geneExpression[ind[!chr[ind] %in% c('chrX','chrY')],]
+pvals <- rowttests(gene_dat_non_xy, factor(month))$p.val
+mean(pvals < 0.05)
+```
+
+### Question 5 {-}
+
+The above result shows that the great majority of the autosomal genes show differences due to processing data. This provides further evidence that confounding is resulting in false positives. So we are going to try to model the month effect to better estimate the sex effect. We are going to use a linear model. Which of the following creates the appropriate design matrix?
+
+---
+
+```{r}
+batch <- factor(month)
+model.matrix(~sex+batch) # answer D
+```
+
+### Question 6 {-}
+
+Now use the X defined above, to fit a regression model using lm for each gene. You can obtain p-values for estimated parameters using `summary`. Here is an example
+
+```{r}
+X = model.matrix(~sex+month)
+i = 234
+y = geneExpression[i,]
+fit = lm(y~X)
+summary(fit)$coef
+```
+
+How many of the q-values for the group comparison are now <0.1? Note the big drop from what we obtained without the correction (**Question 1**).
+
+---
+
+```{r}
+X <- model.matrix(~sex+month)
+
+res <- t(sapply(1:nrow(geneExpression), function(i) {
+  fit <- lm(geneExpression[i,]~X)
+  return(summary(fit)$coef[2,c(1,4)])
+}))
+res <- data.frame(res)
+names(res) <- c('est','pvals')
+qvals <- qvalue(res$pvals)$qvalues
+sum(qvals <0.1)
+```
+
+### Question 7 {-}
+
+With this new list, what proportion of these are chrX and chrY? Notice the big improvement.
+
+---
+
+```{r}
+ind_qval <- (qvals<0.1)
+chr <- geneAnnotation$CHR
+ind_xy <- (chr[ind_qval] %in% c('chrX','chrY')) # index for chrX and chrY
+
+sum(ind_xy)/sum(ind_qval)
+```
+
+### Question 8 {-}
+
+How many on Y or X?
+
+---
+
+```{r}
+sum(ind_xy)
+```
+
+### Question 9 {-}
+
+Now from the linear model above, extract the p-values related to the coeffcient representing the October versus June differences using the same linear model. How many of the q-values for the month comparison are now <0.1?
+This approach is basically the approach implemented by Combat.
+
+```{r}
+X <- model.matrix(~sex+month)
+
+res <- t(sapply(1:nrow(geneExpression), function(i) {
+  fit <- lm(geneExpression[i,]~X)
+  return(summary(fit)$coef[3,c(1,4)])
+}))
+
+res <- data.frame(res)
+names(res) <- c('est','pvals')
+qvals <- qvalue(res$pvals)$qvalues
+sum(qvals <0.1)
+```
+
+## 10.11 Exercises {-}
+
+### Question 1 
+
+Suppose you want to make an MA-plot of the first two samples `y = geneExpression[,1:2]`. Which of the following projections gives us the projection of y so that column 2 versus column 1 is an MA plot?
+
+$$
+\,
+A. y\begin{pmatrix}
+1/\sqrt{2} & 1/\sqrt{2} \\
+1/\sqrt{2} & -1/\sqrt{2} \\
+\end{pmatrix}
+\\
+B. y\begin{pmatrix}
+1 & 1 \\
+1 & -1 \\
+\end{pmatrix}
+\\
+C. \begin{pmatrix}
+1 & 1 \\
+1 & -1 \\
+\end{pmatrix} y
+\\
+D. \begin{pmatrix}
+1 & 1 \\
+1 & -1 \\
+\end{pmatrix} y^T
+$$
+
+---
+
+To be honest, according to my attempt, there's no correct answer among the provided answer choices. Please let me know if I am incorrect (through github or email); I will make sure to put your name in one of the contributors to this project. Here's my attempt. 
+
+```{r}
+y = geneExpression[,1:2]
+avg = (y[,1]+y[,2])/2 # average
+diff = z2 = (y[,1]-y[,2]) # difference
+z = cbind(avg,diff)
+head(z) # the actual values of average and difference
+
+# Now let's try each answer and compare to head(z).
+
+# answer A - avg = sqrt(2) x z[,1], diff = z[,2] / sqrt(2)
+head(y %*% matrix(c(1,1,1,-1),2,2)) 
+
+# answer B - avg = 2 x z[1,2], diff = z[,2]
+head(y %*% matrix(c(1,1,1,-1),2,2))
+
+# answer C - non-comfortable array, can't multiply 
+
+# answer D -  avg = 2 x z[1,2], diff = z[,2]
+head(t(matrix(c(1,1,1,-1),2,2) %*% t(y)))
+```
+
+So none of the choices are equal to `head(z)`. Instead here is my answer that transforms `y` correctly.
+
+```{r}
+ans <- head(y %*% matrix(c(1/2,1/2,1,-1),2,2))
+ans
+identical(z, ans) # they are identical
+```
+
+Therefore, my answer is:
+
+$$
+y\begin{pmatrix}
+1/2 & 1 \\
+1/2 & -1 \\
+\end{pmatrix}
+\\
+$$
+
+### Question 2
+
+Say $Y$ is $M$x$N$ in the $SVD Y = UDV^T$ which of the following is not correct?
+
+---
+
+Answer is **C**: $D$ are the coordinates of the projection $U^TY$.
+
+### Question 3 {-}
+
+Define
+
+```{r}
+y = geneExpression - rowMeans(geneExpression)
+```
+Compute and plot an image of the correlation for each sample. Make two image plots of these correlations. In the first one, plot the correlation as image. In the second, order the samples by date and then plot an image of the correlation. The only difference in these plots is the order in which the samples are plotted. Based on these plots, which of the following would you say is true?
+
+---
+
+```{r}
+n <- ncol(y)
+cors=cor(y)
+cols=colorRampPalette(rev(brewer.pal(11,"RdBu")))(100)
+
+image(1:n, 1:n, cors, col=cols, xlab = 'samples', ylab = 'samples',
+      zlim = c(-1,1)) # correlation as image
+
+ind <- order(sampleInfo$date)
+
+y2 <- y[,ind]
+n2 <- ncol(y)
+cors2=cor(y2)
+image(1:n2, 1:n2, cors2, col=cols, xlab = 'samples', ylab = 'samples',
+      zlim = c(-1,1)) # correlation as image after sorting the date. some samples are more correlated within a span of date than others.
+```
+
+The answer is **D**: The fact that in the plot ordered by month we see two groups mainly driven by month, and within these we see subgroups driven by date, seems to suggest
+date more than month per se are the hidden factors.
+
+### Question 4 {-}
+
+Based on the correlation plots above, we could argue that there are at least two hidden factors. Using PCA estimate these two factors. Specifically, apply the `svd` to `y` and use the first two PCs as estimates. Which command gives us these estimates?
+
+---
+
+```{r}
+s <- svd(y)
+head(s$v[,1:2])
+```
+
+The answer is **B**: `pcs = svd(y)$v[,1:2]`.
+
+### Question 5 {-}
+
+Plot each of the estimated factors ordered by the date. Use color to denote month. The first factor is clearly related to date. Which of the following appears to be most different according to this factor?
+
+---
+
+To be honest, I do not know what the question is actually asking for. I also think this is one of the most difficult questions in the book. It can possibly ask either of these two things: 1) which date appears to be most different in the function of PC1? 2) which dates are most different from each other in the function of PC1? To answer both of these questions, we need to visualize each date in a plot where the x-axis is PC1 and y-axis is PC2. My code below also displays the range of PC1 for each date blue. 
+
+```{r}
+s <- svd(y)
+ind_0610 <- which(sampleInfo$date == '2005-06-10')
+ind_0623 <- which(sampleInfo$date == '2005-06-23')
+ind_0627 <- which(sampleInfo$date == '2005-06-27')
+ind_1007 <- which(sampleInfo$date == '2005-10-07')
+ind_1028 <- which(sampleInfo$date == '2005-10-28')
+
+index_list <- list(ind_0610, ind_0623, ind_0627, ind_1007, ind_1028)
+res_range <- vector('double',length(index_list))
+mypar(2,3)
+for (i in seq_along(index_list)) {
+  plot(s$v[,1][index_list[[i]]],  s$v[,2][index_list[[i]]], 
+       xlab = 'PC1', ylab = 'PC2', xlim = c(-0.4,.4),
+       ylim = c(-0.4,0.6),
+       main = paste0(unique(sampleInfo$date[index_list[[i]]])))
+  res_range[[i]] <- max(s$v[,1][index_list[[i]]])-min(s$v[,1][index_list[[i]]])
+  text(0.1,0.1, signif(res_range[[i]],2), pos=2,col = 'blue')
+}
+```
+
+The plot shows data that are spread in the function of PC1. The blue numbers show the range of PC1 that each date's data span. Oct 7th has a highest difference in the function of PC1, with a range of `0.38`. However, the range of Oct 28th is merely `0.075`. Also they do not seem to be much different from each other, primarily because Oct 7th covers a wide range of PC1. This rules out answer choice B.
+
+June 10th and 23th seem to be not much different from each other. Also, the range of June 10th is `0` because it only has one point. This rules out answer choice C. Answer D is eliminated because there is no June 15th. 
+
+Answer choice **A** seems to be most appropriate because both June 23th and 27th data seem to be spread in the function of PC1. Also they do seem to be quite different from each other in terms of their location in the PC1 x-axis. 
+
+### Question 6 {-}
+
+Use the `svd` function to obtain the principal components (PCs) for our detrended gene expression data `y`. How many PCs explain more than 10% of the variability?
+
+---
+
+```{r}
+y = geneExpression - rowMeans(geneExpression)
+s <- svd(y)
+sum((s$d^2)/sum(s$d^2) > 0.1)
+```
+
+### Question 7 {-}
+
+Which PC most correlates (negative or positive correlation) with month?
+
+---
+
+```{r}
+res <- vector('double',ncol(s$v))
+month <- format(sampleInfo$date,"%m")
+month <- as.numeric(month)
+
+for (i in seq_along(res)) {
+  res[[i]] <- cor(month, s$v[,i])
+}
+ind <- which(abs(res)==max(abs(res)))
+ind
+```
+
+### Question 8 {-}
+
+What is this correlation (in absolute value)?
+
+---
+
+```{r}
+abs(res[ind])
+```
+
+### Question 9 {-}
+
+Which PC most correlates (negative or positive correlation) with sex?
+
+---
+
+```{r}
+res <- vector('double',ncol(s$v))
+sex <- sampleInfo$group
+
+for (i in seq_along(res)) {
+  res[[i]] <- cor(sex, s$v[,i])
+}
+ind <- which(abs(res)==max(abs(res)))
+ind
+```
+
+### Question 10 {-}
+
+What is this correlation (in absolute value)?
+
+---
+
+```{r}
+abs(res[ind])
+```
+
+### Question 11 {-}
+
+Now instead of using month, which we have shown does not quite describe the batch (**Question 5**), add the two estimated factors `s$v[,1:2]` to the linear model we used
+above. Apply this model to each gene and compute q-values for the sex difference. How many q-values < 0.1 for the sex comparison?
+
+---
+
+```{r}
+y = geneExpression - rowMeans(geneExpression)
+s <- svd(y)
+X <- model.matrix(~sex + s$v[,1:2])
+res <- sapply(1:nrow(y), function(i) {
+  fit <- lm(y[i,]~X)
+  return(summary(fit)$coef[2,4])
+})
+
+qvals <- qvalue(res)$qvalues 
+sum(qvals < 0.1)
+```
+
+### Question 12 {-}
+
+What proportion of the genes are on chromosomes X and Y?
+
+---
+
+```{r}
+chr <- geneAnnotation$CHR
+ind <- qvals < 0.1
+mean(chr[ind] %in% c('chrX','chrY'))
+```
+
+## 10.13 Exercises {-}
+
+```{r}
+library(sva)
+library(Biobase)
+library(GSE5859Subset)
+data(GSE5859Subset)
+```
+
+### Question 1 {-}
+
+In a previous section we estimated factors using PCA, but we noted that the first factor was correlated with our outcome of interest:
+
+```{r}
+s <- svd(geneExpression-rowMeans(geneExpression))
+cor(sampleInfo$group,s$v[,1])
+```
+
+The `svafit` function estimates factors, but downweighs the genes that appear to correlate with the outcome of interest. It also tries to estimate the number of factors and returns
+the estimated factors like this:
+
+```{r}
+sex = sampleInfo$group
+mod = model.matrix(~sex)
+svafit = sva(geneExpression,mod)
+head(svafit$sv)
+```
+
+The resulting estimated factors are not that different from the PCs.
+
+```{r}
+for(i in 1:ncol(svafit$sv)){
+  print( cor(s$v[,i],svafit$sv[,i]) )
+}
+```
+
+Now fit a linear model to each gene that instead of month includes these factors in the model. Use the `qvalue` function. How many genes have q-value < 0.1?
+
+---
+
+```{r}
+y <- geneExpression - rowMeans(geneExpression)
+X <- model.matrix(~sex + svafit$sv)
+
+res <- sapply(1:nrow(y), function(i) {
+  fit <- lm(y[i,]~X)
+  return(summary(fit)$coef[2,4])
+})
+
+qvals <- qvalue(res)$qvalues
+sum(qvals < 0.1)
+```
+
+### Question 2 {-}
+
+How many of these genes are from `chrY` or `chrX`?
+
+---
+
+```{r}
+chr <- geneAnnotation$CHR
+ind <- qvals < 0.1
+sum(chr[ind] %in% c('chrX','chrY')) 
+```

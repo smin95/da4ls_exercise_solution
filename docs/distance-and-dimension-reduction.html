@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Distance and Dimension Reduction | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</title>
+  <meta name="description" content="Chapter 8 Distance and Dimension Reduction | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Distance and Dimension Reduction | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Distance and Dimension Reduction | Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)" />
+  
+  
+  
+
+<meta name="author" content="Seung Hyun (Sam) Min" />
+
+
+<meta name="date" content="2020-12-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="statistical-models.html"/>
+<link rel="next" href="basic-machine-learning.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">DA4LS with R: Exercise Solutions</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#contribution"><i class="fa fa-check"></i>Contribution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#etc"><i class="fa fa-check"></i>Etc</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#before-reading-da4ls-with-r"><i class="fa fa-check"></i>Before reading DA4LS with R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-1"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-1"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-1"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-1"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-1"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-1"><i class="fa fa-check"></i>Question 9</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-2"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-2"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-2"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-2"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-2"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-2"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-2"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-2"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-2"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-1"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13"><i class="fa fa-check"></i>Question 13</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-3"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-3"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-3"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-3"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-3"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-3"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-2"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-1"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-1"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13-1"><i class="fa fa-check"></i>Question 13</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-4"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-4"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-4"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-4"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-4"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-4"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10-3"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-2"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-2"><i class="fa fa-check"></i>Question 12</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-5"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-5"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-5"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-5"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-5"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-5"><i class="fa fa-check"></i>Question 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-6"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-6"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-7"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-7"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-8"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-8"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-6"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-6"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-6"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-6"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-5"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-5"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-4"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-9"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-9"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-7"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-7"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-7"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-7"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-6"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-6"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-5"><i class="fa fa-check"></i>Question 10</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-10"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-10"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-8"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-8"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-11"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-11"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-9"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-12"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-12"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-10"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-9"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-13"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-13"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-11"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-10"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-14"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-14"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-12"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-11"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-15"><i class="fa fa-check"></i>Question 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-12"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-18"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-17"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-14"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-19"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-18"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-15"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-20"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-2"><i class="fa fa-check"></i>Questions 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-16"><i class="fa fa-check"></i>Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-21"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-19"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-17"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-14"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-22"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-20"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-18"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-15"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-6-8"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-7-8"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-8-7"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-9-7"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-10-6"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-11-3"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-12-3"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-13-14"><i class="fa fa-check"></i>Questions 13 &amp; 14</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-15-16"><i class="fa fa-check"></i>Questions 15 &amp; 16</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-17-18"><i class="fa fa-check"></i>Questions 17 &amp; 18</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-23"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-21"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-19"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-16"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-24"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-22"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-20"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-17"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-9"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-7-9"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-8-8"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-9-8"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-10-7"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-11-4"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-12-4"><i class="fa fa-check"></i>Question 12</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-13-2"><i class="fa fa-check"></i>Question 13</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-14"><i class="fa fa-check"></i>Question 14</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-15"><i class="fa fa-check"></i>Question 15</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-16"><i class="fa fa-check"></i>Question 16</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-17"><i class="fa fa-check"></i>Question 17</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-18"><i class="fa fa-check"></i>Question 18</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-19"><i class="fa fa-check"></i>Question 19</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-25"><i class="fa fa-check"></i>7.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-25"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-23"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-21"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-18"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-10"><i class="fa fa-check"></i>Question 6</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-26"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-24"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-22"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-19"><i class="fa fa-check"></i>Question 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html"><i class="fa fa-check"></i><b>8</b> Distance and Dimension Reduction</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-26"><i class="fa fa-check"></i>8.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-27"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-25"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-23"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-20"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-12"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-11"><i class="fa fa-check"></i>Question 6</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-27"><i class="fa fa-check"></i>8.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-28"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-26"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-24"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-21"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-13"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-12"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-10"><i class="fa fa-check"></i>Question 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-28"><i class="fa fa-check"></i>8.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-29"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-27"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-25"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-22"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-14"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-13"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-11"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-8-9"><i class="fa fa-check"></i>Question 8</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Basic Machine Learning</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-29"><i class="fa fa-check"></i>9.2 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-30"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-28"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-26"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-23"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-15"><i class="fa fa-check"></i>Question 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-30"><i class="fa fa-check"></i>9.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-31"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-29"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-31"><i class="fa fa-check"></i>9.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-32"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-30"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-32"><i class="fa fa-check"></i>9.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-33"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-31"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-27"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-24"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-16"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-6-14"><i class="fa fa-check"></i>Question 6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>10</b> Batch Effects</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-33"><i class="fa fa-check"></i>10.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-34"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-32"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-28"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-25"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-17"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-15"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-12"><i class="fa fa-check"></i>Question 7</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-34"><i class="fa fa-check"></i>10.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-35"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-33"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-29"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-26"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-18"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-16"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-13"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-10"><i class="fa fa-check"></i>Question 8</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-35"><i class="fa fa-check"></i>10.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-36"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-34"><i class="fa fa-check"></i>Question 2</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-30"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-27"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-19"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-17"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-14"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-11"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-9-9"><i class="fa fa-check"></i>Question 9</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-36"><i class="fa fa-check"></i>10.11 Exercises</a><ul>
+<li class="chapter" data-level="10.0.1" data-path="batch-effects.html"><a href="batch-effects.html#question-1-37"><i class="fa fa-check"></i><b>10.0.1</b> Question 1</a></li>
+<li class="chapter" data-level="10.0.2" data-path="batch-effects.html"><a href="batch-effects.html#question-2-35"><i class="fa fa-check"></i><b>10.0.2</b> Question 2</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-31"><i class="fa fa-check"></i>Question 3</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-28"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-20"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-18"><i class="fa fa-check"></i>Question 6</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-15"><i class="fa fa-check"></i>Question 7</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-12"><i class="fa fa-check"></i>Question 8</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-9-10"><i class="fa fa-check"></i>Question 9</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-10-8"><i class="fa fa-check"></i>Question 10</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-11-5"><i class="fa fa-check"></i>Question 11</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-12-5"><i class="fa fa-check"></i>Question 12</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-37"><i class="fa fa-check"></i>10.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-38"><i class="fa fa-check"></i>Question 1</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-36"><i class="fa fa-check"></i>Question 2</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distance-and-dimension-reduction" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Distance and Dimension Reduction</h1>
+<p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
+<p>First, upload necessary package(s).</p>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb534-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb534-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
+<a class="sourceLine" id="cb534-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
+<a class="sourceLine" id="cb534-4" title="4"><span class="co">#library(devtools) # allows download from github</span></a>
+<a class="sourceLine" id="cb534-5" title="5"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a>
+<a class="sourceLine" id="cb534-6" title="6"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb534-7" title="7"><span class="kw">data</span>(tissuesGeneExpression)</a></code></pre></div>
+<div id="exercises-26" class="section level2 unnumbered">
+<h2>8.4 Exercises</h2>
+<div id="question-1-27" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>How many biological replicates for hippocampus?</p>
+<hr />
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" title="1"><span class="kw">head</span>(tissue) <span class="co"># from data(tissuesGeneExpression)</span></a></code></pre></div>
+<pre><code>## [1] &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot;</code></pre>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb537-1" title="1"><span class="kw">table</span>(tissue)[<span class="st">&#39;hippocampus&#39;</span>]</a></code></pre></div>
+<pre><code>## hippocampus 
+##          31</code></pre>
+</div>
+<div id="question-2-25" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>What is the distance between samples 3 and 45?</p>
+<hr />
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" title="1">d &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a>
+<a class="sourceLine" id="cb539-2" title="2"><span class="kw">as.matrix</span>(d)[<span class="dv">3</span>,<span class="dv">45</span>]</a></code></pre></div>
+<pre><code>## [1] 152.5662</code></pre>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb541-1" title="1">x &lt;-<span class="st"> </span>e[,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb541-2" title="2">y &lt;-<span class="st"> </span>e[,<span class="dv">45</span>]</a>
+<a class="sourceLine" id="cb541-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(x<span class="op">-</span>y))</a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 152.5662</code></pre>
+</div>
+<div id="question-3-23" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>What is the distance between gene <code>210486</code> and <code>200805_at</code>?</p>
+<hr />
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" title="1">x &lt;-<span class="st"> </span>e[<span class="kw">which</span>(<span class="kw">rownames</span>(e)<span class="op">==</span><span class="st">&#39;210486_at&#39;</span>),]</a>
+<a class="sourceLine" id="cb543-2" title="2">y &lt;-<span class="st"> </span>e[<span class="kw">which</span>(<span class="kw">rownames</span>(e)<span class="op">==</span><span class="st">&#39;200805_at&#39;</span>),]</a>
+<a class="sourceLine" id="cb543-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(x<span class="op">-</span>y))</a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 41.01153</code></pre>
+</div>
+<div id="question-4-20" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>If I run the command (don’t run it) <code>d = as.matrix(dist(e))</code> how many cells (the number of rows times number of columns) will this matrix have?</p>
+<hr />
+<p>22215 x 22215. <code>dist</code> computes distance between each row. So there will be 22215 x 22215 combinations of distance in the <code>matrix</code> form that <code>dist</code> can compute in data <code>e</code>, which has 22215 rows. In <code>matrix</code> form of the distance data, there are repeated combinations. If we instead put <code>t(e)</code> as input to run <code>dist</code> function, we will have 189 x 189 possible distances in the <code>matrix</code> form since <code>t(e)</code> has 189 rows.</p>
+</div>
+<div id="question-5-12" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p>Compute the distance between all pair of samples:</p>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" title="1">d =<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a></code></pre></div>
+<p>Read help file for <code>dist</code>. How many distances are stored in <code>d</code>? Hint: What is the length of d?</p>
+<hr />
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" title="1"><span class="kw">length</span>(d)</a></code></pre></div>
+<pre><code>## [1] 17766</code></pre>
+</div>
+<div id="question-6-11" class="section level3 unnumbered">
+<h3>Question 6</h3>
+<p>Why is the answer to <strong>Question 5</strong> not <code>ncol(e)^2</code>?</p>
+<hr />
+<p>The answer is <strong>C: Because we take advantage of symmetry: only the lower triangular matrix of the full distance matrix is stored thus, only</strong> <code>ncol(e)*(ncol(e)-1)/2</code> <strong>values</strong>. If you are still confused, you can run this demonstration.</p>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb548-2" title="2">random_number &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">4</span><span class="op">*</span><span class="dv">4</span>),<span class="dv">4</span>,<span class="dv">4</span>) <span class="co"># 4x4 matrix of random numbers</span></a>
+<a class="sourceLine" id="cb548-3" title="3">d_random &lt;-<span class="st"> </span><span class="kw">dist</span>(random_number)</a>
+<a class="sourceLine" id="cb548-4" title="4">d_random </a></code></pre></div>
+<pre><code>##          1        2        3
+## 2 2.300929                  
+## 3 1.998475 4.147861         
+## 4 2.338790 3.100611 2.932507</code></pre>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" title="1"><span class="kw">as.matrix</span>(d_random)</a></code></pre></div>
+<pre><code>##          1        2        3        4
+## 1 0.000000 2.300929 1.998475 2.338790
+## 2 2.300929 0.000000 4.147861 3.100611
+## 3 1.998475 4.147861 0.000000 2.932507
+## 4 2.338790 3.100611 2.932507 0.000000</code></pre>
+<p>Notice that all the repeated combinations of two rows in <code>random_number</code> are removed in <code>d_random</code>. Also, there is 0 distance between the same row (1st row vs 1st row), so this is removed in <code>d_random</code> too. However, these numbers are displayed after it is converted into <code>matrix</code>.</p>
+</div>
+</div>
+<div id="exercises-27" class="section level2 unnumbered">
+<h2>8.7 Exercises</h2>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" title="1"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb552-2" title="2"><span class="kw">data</span>(tissuesGeneExpression)</a></code></pre></div>
+<div id="question-1-28" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>Compute the SVD of <code>e</code></p>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(e)</a></code></pre></div>
+<p>Now compute the mean of each row:</p>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" title="1">m =<span class="st"> </span><span class="kw">rowMeans</span>(e)</a></code></pre></div>
+<p>What is the correlation between the first column of <code>U</code> and <code>m</code>?</p>
+<hr />
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1">U &lt;-<span class="st"> </span>s<span class="op">$</span>u</a>
+<a class="sourceLine" id="cb555-2" title="2"><span class="kw">cor</span>(U[,<span class="dv">1</span>],m)</a></code></pre></div>
+<pre><code>## [1] -0.9999998</code></pre>
+</div>
+<div id="question-2-26" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>In <strong>Question 1</strong> we saw how the first column relates to the mean of the rows of <code>e</code>. If we change these means, the distances between the columns do not change. For example, changing the mean does not change the distance.</p>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" title="1">newmeans =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(e)) <span class="co">##random values we will add to create new means</span></a>
+<a class="sourceLine" id="cb557-2" title="2">newe =<span class="st"> </span>e<span class="op">+</span>newmeans <span class="co">##we change the means</span></a>
+<a class="sourceLine" id="cb557-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 152.5662</code></pre>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(newe[,<span class="dv">3</span>]<span class="op">-</span>newe[,<span class="dv">45</span>]))</a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 152.5662</code></pre>
+<p>So we might as well make the mean of each row 0, since it does not help us approximate the column distances. We will define y as the detrended e and recompute the SVD:</p>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" title="1">y =<span class="st"> </span>e <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(e)</a>
+<a class="sourceLine" id="cb561-2" title="2">s =<span class="st"> </span><span class="kw">svd</span>(y)</a></code></pre></div>
+<p>We showed that <span class="math inline">\(UDV^T\)</span> is equal to <code>y</code> up to numerical error:</p>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" title="1">resid =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span>s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(s<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
+<a class="sourceLine" id="cb562-2" title="2"><span class="kw">max</span>(<span class="kw">abs</span>(resid))</a></code></pre></div>
+<pre><code>## [1] 1.188383e-12</code></pre>
+<p>The above can be made more efficient in two ways. First using the <code>crossprod</code> and, second, not creating a diagonal matrix. In R, we can multiply matrices <code>x</code> by vector <code>a</code>. The result is a matrix with rows <code>i</code> equal to <code>x[i,]*a[i]</code>. Run the following example to see this.</p>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" title="1">x=<span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">each=</span><span class="dv">5</span>),<span class="dv">5</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb564-2" title="2">x<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    2    4
+## [3,]    3    6
+## [4,]    4    8
+## [5,]    5   10</code></pre>
+<p>which is equivalent to:</p>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" title="1"><span class="kw">sweep</span>(x,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="st">&quot;*&quot;</span>)</a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    2    4
+## [3,]    3    6
+## [4,]    4    8
+## [5,]    5   10</code></pre>
+<p>This means that we don’t have to convert <code>s$d</code> into a matrix. Which of the following gives us the same as <code>diag(s$d) %*% t(s$v)</code>?</p>
+<hr />
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb568-1" title="1"><span class="kw">identical</span>(<span class="kw">diag</span>(s<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v),<span class="kw">t</span>(s<span class="op">$</span>v) <span class="op">*</span><span class="st"> </span>s<span class="op">$</span>d)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb570-1" title="1"><span class="kw">identical</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v), <span class="kw">t</span>(s<span class="op">$</span>v) <span class="op">*</span><span class="st"> </span>s<span class="op">$</span>d)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Use <code>identical</code> or <code>near</code> function to compare each answer choice. The answer is <strong>B</strong>: <code>s$d * t(s$v)</code>. To fully understand this question, you will need to understand how a vector and matrix multiply <code>*</code> together in R. <code>s$d</code> is a vector, and <code>s$v</code> is a matrix.</p>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb572-1" title="1"><span class="kw">is.vector</span>(s<span class="op">$</span>d) <span class="co"># it is not matrix</span></a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" title="1"><span class="kw">is.matrix</span>(s<span class="op">$</span>v) <span class="co"># it is not vector</span></a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="question-3-24" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>If we define <code>vd = t(s$d * t(s$v))</code>, then which of the following is not the same as <span class="math inline">\(UDV^T\)</span>?</p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" title="1">vd =<span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v))</a>
+<a class="sourceLine" id="cb576-2" title="2"><span class="kw">identical</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v), <span class="kw">t</span>(vd))</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" title="1"><span class="co">#(t(s$d) * s$u) %*% t(s$v)</span></a>
+<a class="sourceLine" id="cb578-2" title="2">yhat &lt;-<span class="st"> </span>s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(vd)</a>
+<a class="sourceLine" id="cb578-3" title="3"><span class="kw">identical</span>(s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)),yhat)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" title="1"><span class="co">#identical(s$u %*% s$d * t(s$v),yhat)</span></a>
+<a class="sourceLine" id="cb580-2" title="2"><span class="kw">all</span>(<span class="kw">near</span>(<span class="kw">tcrossprod</span>(<span class="kw">t</span>(s<span class="op">$</span>d<span class="op">*</span><span class="kw">t</span>(s<span class="op">$</span>u)),s<span class="op">$</span>v),yhat))</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>The answer is <strong>B</strong>: <code>s$u %*% s$d * t(s$v)</code>.</p>
+</div>
+<div id="question-4-21" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>Let <code>z = s$d * t(s$v)</code>. We showed a derivation demonstrating that because <code>U</code> is orthogonal, the distance between <code>e[,3]</code> and <code>e[,45]</code> is the same as the distance between <code>y[,3]</code> and <code>y[,45]</code>, which is the same as <code>vd[,3]</code> and <code>vd[,45]</code></p>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" title="1">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
+<a class="sourceLine" id="cb582-2" title="2"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>])) <span class="co"># raw data</span></a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 152.5662</code></pre>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(y[,<span class="dv">3</span>]<span class="op">-</span>y[,<span class="dv">45</span>])) <span class="co"># standardized data</span></a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 152.5662</code></pre>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[,<span class="dv">3</span>]<span class="op">-</span>z[,<span class="dv">45</span>])) <span class="co"># principal compoennt </span></a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 152.5662</code></pre>
+<p>Note that the columns of <code>z</code> have 189 entries, compared to 22,215 for e. What is the difference, in absolute value, between the actual distance:</p>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb588-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 152.5662</code></pre>
+<p>and the approximation using only two dimensions of <code>z</code>?</p>
+<hr />
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb590-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>])) <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">3</span>]<span class="op">-</span>z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">45</span>]))</a></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 40.62416</code></pre>
+<p>Recall that <code>s$d</code> describes proportion of variability for each principal component. However, each column of <code>s$v</code> represents each dimension (i.e., principal component). Since <code>z</code> is a product of <code>s$d</code> and <code>t(s$v)</code>, the column of <code>s$v</code> now becomes part of the row of <code>z</code>. Therefore, each row of <code>z</code> now represents dimension.</p>
+</div>
+<div id="question-5-13" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p>How many dimensions do we need to use for the approximation in <strong>Question 4</strong> to be within 10%?</p>
+<hr />
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb592-1" title="1">actual &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a>
+<a class="sourceLine" id="cb592-2" title="2">percent &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>, <span class="kw">nrow</span>(z))</a>
+<a class="sourceLine" id="cb592-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(percent)) {</a>
+<a class="sourceLine" id="cb592-4" title="4">  percent[[i]] &lt;-<span class="st"> </span>(actual <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[<span class="dv">1</span><span class="op">:</span>i,<span class="dv">3</span>]<span class="op">-</span>z[<span class="dv">1</span><span class="op">:</span>i,<span class="dv">45</span>])))<span class="op">/</span>actual</a>
+<a class="sourceLine" id="cb592-5" title="5">}</a>
+<a class="sourceLine" id="cb592-6" title="6">ind &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">which</span>(percent <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>))</a>
+<a class="sourceLine" id="cb592-7" title="7">ind</a></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+</div>
+<div id="question-6-12" class="section level3 unnumbered">
+<h3>Question 6</h3>
+<p>Compute distances between sample 3 and all other samples.</p>
+<hr />
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb594-1" title="1">actual &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">dist</span>(<span class="kw">t</span>(z)))[,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb594-2" title="2">actual</a></code></pre></div>
+<pre><code>##         1         2         3         4         5         6 
+##  84.38089 112.12484   0.00000  95.48853 103.02366  41.39058 
+##         7         8         9        10        11        12 
+## 120.54709  36.66649 116.54225  39.98554 104.62072  40.10262 
+##        13        14        15        16        17        18 
+##  95.22417  37.43360 103.77843  46.22469 153.60546 159.44848 
+##        19        20        21        22        23        24 
+## 158.23033 156.64142 162.45229 154.29005 155.71326 156.25691 
+##        25        26        27        28        29        30 
+## 152.20062 150.52553 161.24814 168.10634 164.49951 171.58095 
+##        31        32        33        34        35        36 
+## 170.24450 153.52016 156.55839 161.07539 154.90893 157.61983 
+##        37        38        39        40        41        42 
+## 157.12698 156.93071 148.09296 156.37590 153.24192 157.81780 
+##        43        44        45        46        47        48 
+## 148.30794 147.54293 152.56616 153.65874 164.69072 158.77685 
+##        49        50        51        52        53        54 
+## 170.34769 168.79908 164.20355 166.28936 171.72410 160.05604 
+##        55        56        57        58        59        60 
+## 164.09831 158.68927 161.63299 164.91892 164.79351 163.56547 
+##        61        62        63        64        65        66 
+## 166.59989 167.62435 169.44196 172.55600 163.57509 171.89005 
+##        67        68        69        70        71        72 
+## 158.20437 159.96501 160.61071 171.25465 166.53772 166.44195 
+##        73        74        75        76        77        78 
+## 163.15348  62.30391 119.00899 115.62884  63.82724 114.17344 
+##        79        80        81        82        83        84 
+## 110.82250 120.55301 103.46344  51.06013 113.66075 116.50881 
+##        85        86        87        88        89        90 
+## 110.49660 119.25277 131.03507 133.61119 133.14274 139.96254 
+##        91        92        93        94        95        96 
+## 132.27121 127.30041 130.97078 136.00334 137.96283 136.13730 
+##        97        98        99       100       101       102 
+## 141.05467 131.06920 137.78546 132.91823 126.05454 129.27069 
+##       103       104       105       106       107       108 
+## 138.11669 132.97576 138.75735 136.01474 135.14692 134.83457 
+##       109       110       111       112       113       114 
+## 133.94075 139.59132 129.95129 131.93296 132.09485 132.79052 
+##       115       116       117       118       119       120 
+## 135.67441 127.34644 135.19080 129.27466 127.99943 128.82659 
+##       121       122       123       124       125       126 
+##  88.05529  89.69452 102.98278 133.53410 134.44093 133.04278 
+##       127       128       129       130       131       132 
+##  89.78634  90.87303  91.06495 132.95120 135.26307 134.99663 
+##       133       134       135       136       137       138 
+##  92.81078  87.71962 154.40639 155.35270 138.55124 144.02792 
+##       139       140       141       142       143       144 
+## 137.71813 134.93648 141.51875 140.16215 165.64068 165.52451 
+##       145       146       147       148       149       150 
+## 172.36133 172.60481 138.27076 119.35965 128.31795 135.37817 
+##       151       152       153       154       155       156 
+## 129.86141 129.53708 135.17874 129.74547 127.67693 126.07782 
+##       157       158       159       160       161       162 
+## 137.80298 137.65179 132.81058 143.50110 136.17646 132.49355 
+##       163       164       165       166       167       168 
+## 135.20594 141.87962 139.84780 142.18828 141.56300 141.87962 
+##       169       170       171       172       173       174 
+## 142.18828 141.56300 139.84780 139.08274 139.02476 142.96349 
+##       175       176       177       178       179       180 
+## 143.28705 146.46947 156.49378 163.16367 154.50386 148.70081 
+##       181       182       183       184       185       186 
+## 165.59121 161.49215 175.57875 178.92871 174.51879 164.19632 
+##       187       188       189 
+## 164.93630 164.13792 169.21046</code></pre>
+</div>
+<div id="question-7-10" class="section level3 unnumbered">
+<h3>Question 7</h3>
+<p>Recompute this distance using the two dimensional approximation. What is the Spearman correlation between this approximate distance (<code>z</code>) and the actual distance?</p>
+<hr />
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb596-1" title="1">approx2 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">dist</span>(<span class="kw">t</span>(z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,])))[,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb596-2" title="2"><span class="kw">cor.test</span>(approx2,actual,<span class="dt">method=</span><span class="st">&#39;spearman&#39;</span>)<span class="op">$</span>estimate</a></code></pre></div>
+<pre><code>## Warning in cor.test.default(approx2, actual, method =
+## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
+<pre><code>##       rho 
+## 0.8620731</code></pre>
+</div>
+</div>
+<div id="exercises-28" class="section level2 unnumbered">
+<h2>8.11 Exercises</h2>
+<div id="question-1-29" class="section level3 unnumbered">
+<h3>Question 1</h3>
+<p>Using the <code>z</code> we computed in <strong>Question 4</strong> of the previous exercises</p>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" title="1"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb599-2" title="2"><span class="kw">data</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb599-3" title="3">y =<span class="st"> </span>e <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(e)</a>
+<a class="sourceLine" id="cb599-4" title="4">s =<span class="st"> </span><span class="kw">svd</span>(y)</a>
+<a class="sourceLine" id="cb599-5" title="5">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a></code></pre></div>
+<p>e can make an mds plot:</p>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb600-1" title="1"><span class="kw">library</span>(rafalib)</a>
+<a class="sourceLine" id="cb600-2" title="2">ftissue =<span class="st"> </span><span class="kw">factor</span>(tissue)</a>
+<a class="sourceLine" id="cb600-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb600-4" title="4"><span class="kw">plot</span>(z[<span class="dv">1</span>,],z[<span class="dv">2</span>,],<span class="dt">col=</span><span class="kw">as.numeric</span>(ftissue))</a>
+<a class="sourceLine" id="cb600-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="kw">levels</span>(ftissue),<span class="dt">col=</span><span class="kw">seq_along</span>(ftissue),<span class="dt">pch=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-278-1.png" width="672" /></p>
+<p>Now run the function <code>cmdscale</code> on the original data:</p>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" title="1">d =<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a>
+<a class="sourceLine" id="cb601-2" title="2">mds =<span class="st"> </span><span class="kw">cmdscale</span>(d)</a></code></pre></div>
+<p>What is the absolute value of the correlation between the first dimension of z and the first dimension in mds?</p>
+<hr />
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb602-1" title="1"><span class="kw">cor</span>(z[<span class="dv">1</span>,],mds[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## [1] -1</code></pre>
+</div>
+<div id="question-2-27" class="section level3 unnumbered">
+<h3>Question 2</h3>
+<p>What is the absolute value of the correlation between the second dimension of z and the second dimension in mds?</p>
+<hr />
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" title="1"><span class="kw">cor</span>(z[<span class="dv">2</span>,],mds[,<span class="dv">2</span>])</a></code></pre></div>
+<pre><code>## [1] -1</code></pre>
+</div>
+<div id="question-3-25" class="section level3 unnumbered">
+<h3>Question 3</h3>
+<p>Load the following dataset:</p>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb606-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
+<a class="sourceLine" id="cb606-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<p>Compute the svd and compute <code>z</code>.</p>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(geneExpression<span class="op">-</span><span class="kw">rowMeans</span>(geneExpression))</a>
+<a class="sourceLine" id="cb607-2" title="2">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a></code></pre></div>
+<p>Which dimension of <code>z</code> most correlates with the outcome <code>sampleInfo$group</code>?</p>
+<hr />
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb608-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression))</a>
+<a class="sourceLine" id="cb608-2" title="2">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
+<a class="sourceLine" id="cb608-3" title="3">sampleInfo<span class="op">$</span>group</a></code></pre></div>
+<pre><code>##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb610-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">nrow</span>(z))</a>
+<a class="sourceLine" id="cb610-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
+<a class="sourceLine" id="cb610-3" title="3">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(sampleInfo<span class="op">$</span>group, z[i,])</a>
+<a class="sourceLine" id="cb610-4" title="4">}</a>
+<a class="sourceLine" id="cb610-5" title="5"><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+</div>
+<div id="question-4-22" class="section level3 unnumbered">
+<h3>Question 4</h3>
+<p>What is this max correlation?</p>
+<hr />
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb612-1" title="1"><span class="kw">max</span>(res)</a></code></pre></div>
+<pre><code>## [1] 0.6236858</code></pre>
+</div>
+<div id="question-5-14" class="section level3 unnumbered">
+<h3>Question 5</h3>
+<p>Which dimension of <code>z</code> has the second highest correlation with the outcome <code>sampleInfo$group</code>?</p>
+<hr />
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb614-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(res,<span class="dt">decreasing =</span> T)[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb614-2" title="2">ind</a></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+</div>
+<div id="question-6-13" class="section level3 unnumbered">
+<h3>Question 6</h3>
+<p>Note these measurements were made during two months: <code>sampleInfo$date</code></p>
+<p>We can extract the month this way:</p>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb616-1" title="1">month =<span class="st"> </span><span class="kw">format</span>( sampleInfo<span class="op">$</span>date, <span class="st">&quot;%m&quot;</span>)</a>
+<a class="sourceLine" id="cb616-2" title="2">month =<span class="st"> </span><span class="kw">factor</span>( month)</a></code></pre></div>
+<p>Which dimension of <code>z</code> has the second highest correlation with the outcome <code>month</code>?</p>
+<hr />
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" title="1">month =<span class="st"> </span><span class="kw">format</span>( sampleInfo<span class="op">$</span>date, <span class="st">&quot;%m&quot;</span>)</a>
+<a class="sourceLine" id="cb617-2" title="2">month =<span class="st"> </span><span class="kw">as.numeric</span>(month)</a>
+<a class="sourceLine" id="cb617-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">nrow</span>(z))</a>
+<a class="sourceLine" id="cb617-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
+<a class="sourceLine" id="cb617-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(month, z[i,])</a>
+<a class="sourceLine" id="cb617-6" title="6">}</a>
+<a class="sourceLine" id="cb617-7" title="7">ind &lt;-<span class="st"> </span><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(res,<span class="dt">decreasing =</span> T)[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb617-8" title="8">ind</a></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+</div>
+<div id="question-7-11" class="section level3 unnumbered">
+<h3>Question 7</h3>
+<p>What is this correlation?</p>
+<hr />
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb619-1" title="1">res[ind]</a></code></pre></div>
+<pre><code>## [1] 0.4479168</code></pre>
+</div>
+<div id="question-8-9" class="section level3 unnumbered">
+<h3>Question 8</h3>
+<p>The same dimension is correlated with both the group and the date. The following are also correlated:</p>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" title="1"><span class="kw">table</span>(sampleInfo<span class="op">$</span>g, month)</a></code></pre></div>
+<pre><code>##    month
+##     6 10
+##   0 9  3
+##   1 3  9</code></pre>
+<p>So is this first dimension related directly to group or is it related only through the month? Note that the correlation with month is higher. This is related to batch effects which we will learn about later.</p>
+<p>In <strong>Question 3</strong> we saw that one of the dimensions was highly correlated to the <code>sampleInfo$group</code>. Now take the 5th column of <span class="math inline">\(U\)</span> and stratify by the gene chromosome. Remove <code>chrUn</code> and make a boxplot of the values of <span class="math inline">\(U_5\)</span> stratified by chromosome. Which chromosome looks different from the rest? Copy and paste the name as it appears in <code>geneAnnotation</code>.</p>
+<hr />
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" title="1">gene_list &lt;-<span class="st"> </span><span class="kw">split</span>(geneAnnotation<span class="op">$</span>PROBEID, geneAnnotation<span class="op">$</span>CHR)</a>
+<a class="sourceLine" id="cb623-2" title="2">res &lt;-<span class="st"> </span><span class="kw">split</span>(s<span class="op">$</span>u[,<span class="dv">5</span>], geneAnnotation<span class="op">$</span>CHR)</a>
+<a class="sourceLine" id="cb623-3" title="3">res<span class="op">$</span>chrUn &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb623-4" title="4">res &lt;-<span class="st"> </span><span class="kw">rev</span>(res) <span class="co"># reverse the order of the list so that chrY is the first x-axis tick</span></a>
+<a class="sourceLine" id="cb623-5" title="5"><span class="kw">mypar</span>()</a>
+<a class="sourceLine" id="cb623-6" title="6"><span class="kw">boxplot</span>(res)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-291-1.png" width="672" /></p>
+<p><code>chrY</code> is the answer.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="statistical-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basic-machine-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/smin95/da4ls_exercise_solution/edit/master/8-pca.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/smin95/da4ls_exercise_solution/blob/master/8-pca.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

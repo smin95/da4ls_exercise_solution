@@ -22,3 +22,12 @@ I would like to thank Rafael A. Irizarry and Michael I. Love for writing this wo
 
 ## Frequently Asked Questions {-}
 You can read the FAQs in [the github page](https://github.com/smin95/da4ls_exercise_solution).
+
+## Contribution {-}
+If you spot any mistakes in the solution manual, please pull-request on [Github](https://github.com/smin95/da4ls_exercise_solution) or email me sammin95@gmail.com. I will then acknowledge you as a contributor to this project.
+
+## License {-}
+This work is licensed under a Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/).
+
+## Etc {-}
+If you like this solution, please check out my [Youtube video](https://www.youtube.com/watch?v=FpRrlLJg4Ww&feature=emb_title&ab_channel=clarinetBTS) and press the like button! Thanks! 
