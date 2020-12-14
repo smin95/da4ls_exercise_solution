@@ -1,5 +1,5 @@
 --- 
-title: "Data Analysis for the Life Sciences with R: Exercise Solutions (in progress)"
+title: "Data Analysis for the Life Sciences with R: Exercise Solutions"
 author: "Seung Hyun (Sam) Min"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
