@@ -511,12 +511,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> Matrix Algebra</h1>
 <p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
-<a class="sourceLine" id="cb237-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb243-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a></code></pre></div>
 <div id="exercises-10" class="section level2 unnumbered">
 <h2>4.2 Exercises</h2>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" title="1"><span class="co">#install.packages(&#39;UsingR&#39;)</span></a>
-<a class="sourceLine" id="cb238-2" title="2"><span class="kw">data</span>(<span class="st">&#39;father.son&#39;</span>, <span class="dt">package =</span> <span class="st">&#39;UsingR&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" title="1"><span class="co">#install.packages(&#39;UsingR&#39;)</span></a>
+<a class="sourceLine" id="cb244-2" title="2"><span class="kw">data</span>(<span class="st">&#39;father.son&#39;</span>, <span class="dt">package =</span> <span class="st">&#39;UsingR&#39;</span>)</a></code></pre></div>
 <div id="question-1-10" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <div class="question">
@@ -524,9 +524,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" title="1">y &lt;-<span class="st"> </span>father.son<span class="op">$</span>sheight <span class="co"># son</span></a>
-<a class="sourceLine" id="cb239-2" title="2">x &lt;-<span class="st"> </span>father.son<span class="op">$</span>fheight <span class="co"># father</span></a>
-<a class="sourceLine" id="cb239-3" title="3"><span class="kw">mean</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1">y &lt;-<span class="st"> </span>father.son<span class="op">$</span>sheight <span class="co"># son</span></a>
+<a class="sourceLine" id="cb245-2" title="2">x &lt;-<span class="st"> </span>father.son<span class="op">$</span>fheight <span class="co"># father</span></a>
+<a class="sourceLine" id="cb245-3" title="3"><span class="kw">mean</span>(y)</a></code></pre></div>
 <pre><code>## [1] 68.68407</code></pre>
 </div>
 <div id="question-2-10" class="section level3 unnumbered">
@@ -539,8 +539,8 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1">groups &lt;-<span class="st"> </span><span class="kw">split</span>(y, <span class="kw">round</span>(x))</a>
-<a class="sourceLine" id="cb241-2" title="2"><span class="kw">mean</span>(groups[<span class="st">&#39;71&#39;</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1">groups &lt;-<span class="st"> </span><span class="kw">split</span>(y, <span class="kw">round</span>(x))</a>
+<a class="sourceLine" id="cb247-2" title="2"><span class="kw">mean</span>(groups[<span class="st">&#39;71&#39;</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>())</a></code></pre></div>
 <pre><code>## [1] 70.54082</code></pre>
 </div>
 <div id="question-3-8" class="section level3 unnumbered">
@@ -569,19 +569,19 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 <h3>Question 1</h3>
 <div class="question">
 <p>In R we have vectors and matrices. You can create your own vectors with the function <code>c</code>.</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## [1] 1 5 3 4</code></pre>
 <p>They are also the output of many functions such as:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" title="1"><span class="kw">rnorm</span>(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1"><span class="kw">rnorm</span>(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>##  [1] -0.8043316 -1.0565257 -1.0353958 -1.1855604 -0.5004395
 ##  [6] -0.5249887 -0.3024330  0.4719681 -0.2483839  1.2593180</code></pre>
 <p>You can turn vectors into matrcies using functions such as <code>rbind</code>, <code>cbind</code>, or <code>matrix</code>. Create the matrix from the vector <code>1:1000</code> like this:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" title="1">X =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,<span class="dv">100</span>,<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1">X =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>,<span class="dv">100</span>,<span class="dv">10</span>)</a></code></pre></div>
 <p>What is the entry in row 25, column 3?</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1">X[<span class="dv">25</span>,<span class="dv">3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1">X[<span class="dv">25</span>,<span class="dv">3</span>]</a></code></pre></div>
 <pre><code>## [1] 225</code></pre>
 </div>
 <div id="question-2-11" class="section level3 unnumbered">
@@ -591,9 +591,9 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1">first_column &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb250-2" title="2">y &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">x1=</span>first_column, <span class="dt">x2=</span>first_column<span class="op">*</span><span class="dv">2</span>, <span class="dt">x3=</span>first_column<span class="op">*</span><span class="dv">3</span>, <span class="dt">x4=</span>first_column<span class="op">*</span><span class="dv">4</span>, <span class="dt">x5=</span>first_column<span class="op">*</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb250-3" title="3"><span class="kw">sum</span>(y[<span class="dv">7</span>,])</a></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1">first_column &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb256-2" title="2">y &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">x1=</span>first_column, <span class="dt">x2=</span>first_column<span class="op">*</span><span class="dv">2</span>, <span class="dt">x3=</span>first_column<span class="op">*</span><span class="dv">3</span>, <span class="dt">x4=</span>first_column<span class="op">*</span><span class="dv">4</span>, <span class="dt">x5=</span>first_column<span class="op">*</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb256-3" title="3"><span class="kw">sum</span>(y[<span class="dv">7</span>,])</a></code></pre></div>
 <pre><code>## [1] 105</code></pre>
 </div>
 <div id="question-3-9" class="section level3 unnumbered">
@@ -603,7 +603,7 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">60</span>,<span class="dv">20</span>,<span class="dv">3</span>) <span class="co"># choice A</span></a></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">60</span>,<span class="dv">20</span>,<span class="dv">3</span>) <span class="co"># choice A</span></a></code></pre></div>
 <pre><code>##       [,1] [,2] [,3]
 ##  [1,]    1   21   41
 ##  [2,]    2   22   42
@@ -625,7 +625,7 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 ## [18,]   18   38   58
 ## [19,]   19   39   59
 ## [20,]   20   40   60</code></pre>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">60</span>,<span class="dv">20</span>,<span class="dv">3</span>, <span class="dt">byrow=</span>T) <span class="co"># choice B</span></a></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">60</span>,<span class="dv">20</span>,<span class="dv">3</span>, <span class="dt">byrow=</span>T) <span class="co"># choice B</span></a></code></pre></div>
 <pre><code>##       [,1] [,2] [,3]
 ##  [1,]    1    2    3
 ##  [2,]    4    5    6
@@ -647,12 +647,12 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 ## [18,]   52   53   54
 ## [19,]   55   56   57
 ## [20,]   58   59   60</code></pre>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" title="1">x =<span class="st"> </span><span class="dv">11</span><span class="op">:</span><span class="dv">20</span>; <span class="kw">rbind</span>(x,<span class="dv">2</span><span class="op">*</span>x,<span class="dv">3</span><span class="op">*</span>x) <span class="co"># choice C</span></a></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1">x =<span class="st"> </span><span class="dv">11</span><span class="op">:</span><span class="dv">20</span>; <span class="kw">rbind</span>(x,<span class="dv">2</span><span class="op">*</span>x,<span class="dv">3</span><span class="op">*</span>x) <span class="co"># choice C</span></a></code></pre></div>
 <pre><code>##   [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## x   11   12   13   14   15   16   17   18   19    20
 ##     22   24   26   28   30   32   34   36   38    40
 ##     33   36   39   42   45   48   51   54   57    60</code></pre>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" title="1">x =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">40</span>; <span class="kw">matrix</span>(<span class="dv">3</span><span class="op">*</span>x,<span class="dv">20</span>,<span class="dv">2</span>) <span class="co"># choice D </span></a></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1">x =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">40</span>; <span class="kw">matrix</span>(<span class="dv">3</span><span class="op">*</span>x,<span class="dv">20</span>,<span class="dv">2</span>) <span class="co"># choice D </span></a></code></pre></div>
 <pre><code>##       [,1] [,2]
 ##  [1,]    3   63
 ##  [2,]    6   66
@@ -686,7 +686,7 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" title="1"><span class="kw">head</span>(<span class="kw">t</span>(<span class="kw">t</span>(X))) <span class="co"># A</span></a></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1"><span class="kw">head</span>(<span class="kw">t</span>(<span class="kw">t</span>(X))) <span class="co"># A</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    1  101  201  301  401  501  601  701  801   901
 ## [2,]    2  102  202  302  402  502  602  702  802   902
@@ -694,7 +694,7 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 ## [4,]    4  104  204  304  404  504  604  704  804   904
 ## [5,]    5  105  205  305  405  505  605  705  805   905
 ## [6,]    6  106  206  306  406  506  606  706  806   906</code></pre>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1"><span class="kw">head</span>(X <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="kw">ncol</span>(X))) <span class="co"># B</span></a></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1"><span class="kw">head</span>(X <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="kw">ncol</span>(X))) <span class="co"># B</span></a></code></pre></div>
 <pre><code>##      [,1]
 ## [1,] 4510
 ## [2,] 4520
@@ -702,7 +702,7 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 ## [4,] 4540
 ## [5,] 4550
 ## [6,] 4560</code></pre>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1"><span class="kw">head</span>(X<span class="op">*</span><span class="dv">1</span>) <span class="co"># C</span></a></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1"><span class="kw">head</span>(X<span class="op">*</span><span class="dv">1</span>) <span class="co"># C</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    1  101  201  301  401  501  601  701  801   901
 ## [2,]    2  102  202  302  402  502  602  702  802   902
@@ -710,7 +710,7 @@ that have fathers with heights of 71 inches, rounding to the nearest inch.</p>
 ## [4,]    4  104  204  304  404  504  604  704  804   904
 ## [5,]    5  105  205  305  405  505  605  705  805   905
 ## [6,]    6  106  206  306  406  506  606  706  806   906</code></pre>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1"><span class="kw">head</span>(X <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(<span class="kw">ncol</span>(X))) <span class="co"># D</span></a></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1"><span class="kw">head</span>(X <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(<span class="kw">ncol</span>(X))) <span class="co"># D</span></a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    1  101  201  301  401  501  601  701  801   901
 ## [2,]    2  102  202  302  402  502  602  702  802   902
@@ -737,23 +737,23 @@ What is the solution for <span class="math inline">\(c\)</span>?</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">5</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dv">4</span>,<span class="dv">4</span>,<span class="dt">byrow=</span>T)</a>
-<a class="sourceLine" id="cb268-2" title="2">ans &lt;-<span class="st"> </span><span class="kw">solve</span>(X) <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>),<span class="dv">4</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb268-3" title="3">ans[<span class="dv">3</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">5</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="dv">4</span>,<span class="dv">4</span>,<span class="dt">byrow=</span>T)</a>
+<a class="sourceLine" id="cb274-2" title="2">ans &lt;-<span class="st"> </span><span class="kw">solve</span>(X) <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>),<span class="dv">4</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb274-3" title="3">ans[<span class="dv">3</span>]</a></code></pre></div>
 <pre><code>## [1] -0.8849558</code></pre>
 </div>
 <div id="question-3-10" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <div class="question">
 <p>Load the following two matrices into R:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1">a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb270-2" title="2">b &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="dt">nrow=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1">a &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb276-2" title="2">b &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="dt">nrow=</span><span class="dv">3</span>)</a></code></pre></div>
 <p>What is the value in the 3rd row and the 2nd column of the matrix product of <code>a</code> and <code>b</code>?</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1">c &lt;-<span class="st"> </span>a <span class="op">%*%</span><span class="st"> </span>b</a>
-<a class="sourceLine" id="cb271-2" title="2">c[<span class="dv">3</span>,<span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1">c &lt;-<span class="st"> </span>a <span class="op">%*%</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb277-2" title="2">c[<span class="dv">3</span>,<span class="dv">2</span>]</a></code></pre></div>
 <pre><code>## [1] 113</code></pre>
 </div>
 <div id="question-4-9" class="section level3 unnumbered">
@@ -763,7 +763,7 @@ What is the solution for <span class="math inline">\(c\)</span>?</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1"><span class="kw">sum</span>(a[<span class="dv">3</span>,] <span class="op">*</span><span class="st"> </span>b[,<span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1"><span class="kw">sum</span>(a[<span class="dv">3</span>,] <span class="op">*</span><span class="st"> </span>b[,<span class="dv">2</span>])</a></code></pre></div>
 <pre><code>## [1] 113</code></pre>
 </div>
 </div>
@@ -773,25 +773,25 @@ What is the solution for <span class="math inline">\(c\)</span>?</p>
 <h3>Question 1</h3>
 <div class="question">
 <p>Suppose we are analyzing a set of 4 samples. The first two samples are from a treatment group A and the second two samples are from a treatment group B. This design can be represented with a model matrix like so:</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb275-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;b&#39;</span>)</a>
-<a class="sourceLine" id="cb275-3" title="3">X</a></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb281-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;b&#39;</span>)</a>
+<a class="sourceLine" id="cb281-3" title="3">X</a></code></pre></div>
 <pre><code>##   [,1] [,2]
 ## a    1    0
 ## a    1    0
 ## b    1    1
 ## b    1    1</code></pre>
 <p>Suppose that the fitted parameters for a linear model give us:</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1">beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1">beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">2</span>)</a></code></pre></div>
 <p>Use the matrix multiplication operator, <code>%*%</code>, in R to answer the following questions: What is the fitted value for the A samples? (The fitted Y values.)</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb278-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;b&#39;</span>)</a>
-<a class="sourceLine" id="cb278-3" title="3"><span class="co">#beta &lt;- c(5,2)</span></a>
-<a class="sourceLine" id="cb278-4" title="4">beta &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">2</span>),<span class="dt">nrow =</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">1</span>) <span class="co"># matrix form of the vector beta</span></a>
-<a class="sourceLine" id="cb278-5" title="5">X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb284-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;b&#39;</span>)</a>
+<a class="sourceLine" id="cb284-3" title="3"><span class="co">#beta &lt;- c(5,2)</span></a>
+<a class="sourceLine" id="cb284-4" title="4">beta &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">2</span>),<span class="dt">nrow =</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">1</span>) <span class="co"># matrix form of the vector beta</span></a>
+<a class="sourceLine" id="cb284-5" title="5">X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
 <pre><code>##   [,1]
 ## a    5
 ## a    5</code></pre>
@@ -804,7 +804,7 @@ What is the solution for <span class="math inline">\(c\)</span>?</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1">X[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1">X[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
 <pre><code>##   [,1]
 ## b    7
 ## b    7</code></pre>
@@ -814,9 +814,9 @@ What is the solution for <span class="math inline">\(c\)</span>?</p>
 <div class="question">
 <p>Suppose now we are comparing two treatments B and C to a control group A, each with two samples. This design can be represented with a model matrix like
 so:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb282-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;c&quot;</span>)</a>
-<a class="sourceLine" id="cb282-3" title="3">X</a></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb288-2" title="2"><span class="kw">rownames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;c&quot;</span>)</a>
+<a class="sourceLine" id="cb288-3" title="3">X</a></code></pre></div>
 <pre><code>##   [,1] [,2] [,3]
 ## a    1    0    0
 ## a    1    0    0
@@ -825,13 +825,13 @@ so:</p>
 ## c    1    0    1
 ## c    1    0    1</code></pre>
 <p>Suppose that the fitted values for the linear model are given by:</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1">beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">3</span>,<span class="op">-</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">3</span>,<span class="op">-</span><span class="dv">3</span>)</a></code></pre></div>
 <p>What is the fitted values for the B sample?</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1">beta &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">3</span>,<span class="op">-</span><span class="dv">3</span>),<span class="dt">nrow =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb285-2" title="2">X[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1">beta &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">3</span>,<span class="op">-</span><span class="dv">3</span>),<span class="dt">nrow =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb291-2" title="2">X[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
 <pre><code>##   [,1]
 ## b   13
 ## b   13</code></pre>
@@ -843,7 +843,7 @@ so:</p>
 </div>
 <div class="answer">
 <hr />
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1">X[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1">X[<span class="dv">5</span><span class="op">:</span><span class="dv">6</span>,] <span class="op">%*%</span><span class="st"> </span>beta</a></code></pre></div>
 <pre><code>##   [,1]
 ## c    7
 ## c    7</code></pre>

@@ -511,68 +511,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 10</span> Batch Effects</h1>
 <p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb681-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
-<a class="sourceLine" id="cb681-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
-<a class="sourceLine" id="cb681-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
-<a class="sourceLine" id="cb681-4" title="4"><span class="kw">library</span>(Biobase) <span class="co">##available from Bioconductor</span></a>
-<a class="sourceLine" id="cb681-5" title="5"><span class="kw">library</span>(genefilter)</a>
-<a class="sourceLine" id="cb681-6" title="6"><span class="kw">library</span>(GSE5859) <span class="co">##available from github</span></a>
-<a class="sourceLine" id="cb681-7" title="7"><span class="kw">data</span>(GSE5859)</a>
-<a class="sourceLine" id="cb681-8" title="8"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a>
-<a class="sourceLine" id="cb681-9" title="9"><span class="kw">library</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb681-10" title="10"><span class="kw">data</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb681-11" title="11"><span class="kw">library</span>(qvalue)</a></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb744-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
+<a class="sourceLine" id="cb744-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
+<a class="sourceLine" id="cb744-4" title="4"><span class="kw">library</span>(Biobase) <span class="co">##available from Bioconductor</span></a>
+<a class="sourceLine" id="cb744-5" title="5"><span class="kw">library</span>(genefilter)</a>
+<a class="sourceLine" id="cb744-6" title="6"><span class="kw">library</span>(GSE5859) <span class="co">##available from github</span></a>
+<a class="sourceLine" id="cb744-7" title="7"><span class="kw">data</span>(GSE5859)</a>
+<a class="sourceLine" id="cb744-8" title="8"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a>
+<a class="sourceLine" id="cb744-9" title="9"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb744-10" title="10"><span class="kw">data</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb744-11" title="11"><span class="kw">library</span>(qvalue)</a></code></pre></div>
 <div id="exercises-33" class="section level2 unnumbered">
 <h2>10.3 Exercises</h2>
 <p>Load the admissions data from the <code>dagdata</code> package (which is available from the genomicsclass repository):</p>
-<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" title="1"><span class="kw">library</span>(dagdata)</a>
-<a class="sourceLine" id="cb682-2" title="2"><span class="kw">data</span>(admissions)</a></code></pre></div>
+<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" title="1"><span class="kw">library</span>(dagdata)</a>
+<a class="sourceLine" id="cb745-2" title="2"><span class="kw">data</span>(admissions)</a></code></pre></div>
 <p>Familiarize yourself with this table: <code>admissions</code></p>
 <div id="question-1-34" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>Let’s compute the proportion of men who were accepted:</p>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb683-1" title="1">index =<span class="st"> </span><span class="kw">which</span>(admissions<span class="op">$</span>Gender<span class="op">==</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb683-2" title="2">accepted=<span class="st"> </span><span class="kw">sum</span>(admissions<span class="op">$</span>Number[index] <span class="op">*</span><span class="st"> </span>admissions<span class="op">$</span>Percent[index]<span class="op">/</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb683-3" title="3">applied =<span class="st"> </span><span class="kw">sum</span>(admissions<span class="op">$</span>Number[index])</a>
-<a class="sourceLine" id="cb683-4" title="4">accepted<span class="op">/</span>applied</a></code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" title="1">index =<span class="st"> </span><span class="kw">which</span>(admissions<span class="op">$</span>Gender<span class="op">==</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb746-2" title="2">accepted=<span class="st"> </span><span class="kw">sum</span>(admissions<span class="op">$</span>Number[index] <span class="op">*</span><span class="st"> </span>admissions<span class="op">$</span>Percent[index]<span class="op">/</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb746-3" title="3">applied =<span class="st"> </span><span class="kw">sum</span>(admissions<span class="op">$</span>Number[index])</a>
+<a class="sourceLine" id="cb746-4" title="4">accepted<span class="op">/</span>applied</a></code></pre></div>
 <pre><code>## [1] 0.4451951</code></pre>
 <p>What is the proportion of women that were accepted?</p>
 <hr />
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb685-1" title="1">index &lt;-<span class="st"> </span>admissions<span class="op">$</span>Gender <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb685-2" title="2">men &lt;-<span class="st"> </span>admissions[index,]</a>
-<a class="sourceLine" id="cb685-3" title="3">women &lt;-<span class="st"> </span>admissions[<span class="op">!</span>index,]</a>
-<a class="sourceLine" id="cb685-4" title="4">menYes &lt;-<span class="st"> </span><span class="kw">sum</span>(men<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>men<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb685-5" title="5">menNo &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>men<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span>) <span class="op">*</span><span class="st"> </span>men<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb685-6" title="6">womenYes &lt;-<span class="st"> </span><span class="kw">sum</span>(women<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>women<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb685-7" title="7">womenNo &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span><span class="op">-</span>women<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span>) <span class="op">*</span><span class="st"> </span>women<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb685-8" title="8"></a>
-<a class="sourceLine" id="cb685-9" title="9">tab &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(menYes,womenYes,menNo,womenNo),<span class="dv">2</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb685-10" title="10"></a>
-<a class="sourceLine" id="cb685-11" title="11"><span class="kw">print</span>(womenYes<span class="op">/</span>(womenYes<span class="op">+</span>womenNo))</a></code></pre></div>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb748-1" title="1">index &lt;-<span class="st"> </span>admissions<span class="op">$</span>Gender <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb748-2" title="2">men &lt;-<span class="st"> </span>admissions[index,]</a>
+<a class="sourceLine" id="cb748-3" title="3">women &lt;-<span class="st"> </span>admissions[<span class="op">!</span>index,]</a>
+<a class="sourceLine" id="cb748-4" title="4">menYes &lt;-<span class="st"> </span><span class="kw">sum</span>(men<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>men<span class="op">$</span>Number)</a>
+<a class="sourceLine" id="cb748-5" title="5">menNo &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>men<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span>) <span class="op">*</span><span class="st"> </span>men<span class="op">$</span>Number)</a>
+<a class="sourceLine" id="cb748-6" title="6">womenYes &lt;-<span class="st"> </span><span class="kw">sum</span>(women<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>women<span class="op">$</span>Number)</a>
+<a class="sourceLine" id="cb748-7" title="7">womenNo &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span><span class="op">-</span>women<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span>) <span class="op">*</span><span class="st"> </span>women<span class="op">$</span>Number)</a>
+<a class="sourceLine" id="cb748-8" title="8"></a>
+<a class="sourceLine" id="cb748-9" title="9">tab &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(menYes,womenYes,menNo,womenNo),<span class="dv">2</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb748-10" title="10"></a>
+<a class="sourceLine" id="cb748-11" title="11"><span class="kw">print</span>(womenYes<span class="op">/</span>(womenYes<span class="op">+</span>womenNo))</a></code></pre></div>
 <pre><code>## [1] 0.3033351</code></pre>
 </div>
 <div id="question-2-32" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>Now that we have observed different acceptance rates between genders, test for the significance of this result. If you perform an independence test, what is the p-value?</p>
 <hr />
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb687-1" title="1"><span class="kw">chisq.test</span>(tab)<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" title="1"><span class="kw">chisq.test</span>(tab)<span class="op">$</span>p.value</a></code></pre></div>
 <pre><code>## [1] 9.139492e-22</code></pre>
 </div>
 <div id="question-3-28" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>We can quantify how “hard” a major is by using the percent of students that were accepted. Compute the percent that were accepted (regardless of gender) to each major and call this vector <code>H</code>. Which is the hardest major?</p>
 <hr />
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb689-1" title="1">admissions1 &lt;-<span class="st"> </span>admissions <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">accepted =</span> Number <span class="op">*</span><span class="st"> </span>Percent<span class="op">/</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb689-2" title="2">admissions2 &lt;-<span class="st"> </span><span class="kw">cbind</span>(admissions1[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>)], admissions1[<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)]) </a>
-<a class="sourceLine" id="cb689-3" title="3"><span class="kw">colnames</span>(admissions2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;major&#39;</span>,<span class="st">&#39;number_m&#39;</span>,<span class="st">&#39;accepted_m&#39;</span>,</a>
-<a class="sourceLine" id="cb689-4" title="4">                           <span class="st">&#39;number_f&#39;</span>, <span class="st">&#39;accepted_f&#39;</span>)</a>
-<a class="sourceLine" id="cb689-5" title="5">admission3 &lt;-<span class="st"> </span>admissions2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(major) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb689-6" title="6"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">total_number=</span> number_m<span class="op">+</span>number_f,</a>
-<a class="sourceLine" id="cb689-7" title="7">         <span class="dt">total_accepted=</span> accepted_m <span class="op">+</span><span class="st"> </span>accepted_f,</a>
-<a class="sourceLine" id="cb689-8" title="8">         <span class="dt">proportion =</span> total_accepted<span class="op">/</span>total_number)</a>
-<a class="sourceLine" id="cb689-9" title="9"></a>
-<a class="sourceLine" id="cb689-10" title="10">H &lt;-<span class="st"> </span>admission3 <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(major,proportion)</a>
-<a class="sourceLine" id="cb689-11" title="11">H</a></code></pre></div>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb752-1" title="1">admissions1 &lt;-<span class="st"> </span>admissions <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">accepted =</span> Number <span class="op">*</span><span class="st"> </span>Percent<span class="op">/</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb752-2" title="2">admissions2 &lt;-<span class="st"> </span><span class="kw">cbind</span>(admissions1[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>)], admissions1[<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)]) </a>
+<a class="sourceLine" id="cb752-3" title="3"><span class="kw">colnames</span>(admissions2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;major&#39;</span>,<span class="st">&#39;number_m&#39;</span>,<span class="st">&#39;accepted_m&#39;</span>,</a>
+<a class="sourceLine" id="cb752-4" title="4">                           <span class="st">&#39;number_f&#39;</span>, <span class="st">&#39;accepted_f&#39;</span>)</a>
+<a class="sourceLine" id="cb752-5" title="5">admission3 &lt;-<span class="st"> </span>admissions2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(major) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb752-6" title="6"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">total_number=</span> number_m<span class="op">+</span>number_f,</a>
+<a class="sourceLine" id="cb752-7" title="7">         <span class="dt">total_accepted=</span> accepted_m <span class="op">+</span><span class="st"> </span>accepted_f,</a>
+<a class="sourceLine" id="cb752-8" title="8">         <span class="dt">proportion =</span> total_accepted<span class="op">/</span>total_number)</a>
+<a class="sourceLine" id="cb752-9" title="9"></a>
+<a class="sourceLine" id="cb752-10" title="10">H &lt;-<span class="st"> </span>admission3 <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(major,proportion)</a>
+<a class="sourceLine" id="cb752-11" title="11">H</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ## # Groups:   major [6]
 ##   major proportion
@@ -589,7 +589,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 4</h3>
 <p>What proportion is accepted for this major?</p>
 <hr />
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" title="1">H[H<span class="op">$</span>major <span class="op">==</span><span class="st"> &#39;F&#39;</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" title="1">H[H<span class="op">$</span>major <span class="op">==</span><span class="st"> &#39;F&#39;</span>, ]</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ## # Groups:   major [1]
 ##   major proportion
@@ -600,7 +600,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 5</h3>
 <p>For men, what is the correlation between the number of applications across majors and <code>H</code>?</p>
 <hr />
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" title="1"><span class="kw">cor.test</span>(men<span class="op">$</span>Number,H<span class="op">$</span>proportion)<span class="op">$</span>estimate</a></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb756-1" title="1"><span class="kw">cor.test</span>(men<span class="op">$</span>Number,H<span class="op">$</span>proportion)<span class="op">$</span>estimate</a></code></pre></div>
 <pre><code>##       cor 
 ## 0.7647567</code></pre>
 </div>
@@ -608,7 +608,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 6</h3>
 <p>For women, what is the correlation between the number of applications across majors and <code>H</code>?</p>
 <hr />
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb695-1" title="1"><span class="kw">cor.test</span>(women<span class="op">$</span>Number,H<span class="op">$</span>proportion)<span class="op">$</span>estimate</a></code></pre></div>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb758-1" title="1"><span class="kw">cor.test</span>(women<span class="op">$</span>Number,H<span class="op">$</span>proportion)<span class="op">$</span>estimate</a></code></pre></div>
 <pre><code>##        cor 
 ## -0.6743393</code></pre>
 </div>
@@ -621,15 +621,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="exercises-34" class="section level2 unnumbered">
 <h2>10.6 Exercises</h2>
-<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb697-1" title="1"><span class="kw">library</span>(Biobase)</a>
-<a class="sourceLine" id="cb697-2" title="2"><span class="kw">library</span>(GSE5859)</a>
-<a class="sourceLine" id="cb697-3" title="3"><span class="kw">data</span>(GSE5859)</a>
-<a class="sourceLine" id="cb697-4" title="4">geneExpression =<span class="st"> </span><span class="kw">exprs</span>(e)</a>
-<a class="sourceLine" id="cb697-5" title="5">sampleInfo =<span class="st"> </span><span class="kw">pData</span>(e)</a></code></pre></div>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1"><span class="kw">library</span>(Biobase)</a>
+<a class="sourceLine" id="cb760-2" title="2"><span class="kw">library</span>(GSE5859)</a>
+<a class="sourceLine" id="cb760-3" title="3"><span class="kw">data</span>(GSE5859)</a>
+<a class="sourceLine" id="cb760-4" title="4">geneExpression =<span class="st"> </span><span class="kw">exprs</span>(e)</a>
+<a class="sourceLine" id="cb760-5" title="5">sampleInfo =<span class="st"> </span><span class="kw">pData</span>(e)</a></code></pre></div>
 <p>Familiarize yourself with the <code>sampleInfo</code> table. Note that some samples were processed at different times. This is an extraneous variable and should not affect the values in <code>geneExpression</code>. However, as we have seen in previous analyses, it does appear to have an effect so we will explore this here. You can extract the year from each date like this:</p>
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb698-1" title="1">year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%y&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" title="1">year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%y&quot;</span>)</a></code></pre></div>
 <p>Note that ethnic group and year is almost perfectly confounded:</p>
-<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb699-1" title="1"><span class="kw">table</span>(year,sampleInfo<span class="op">$</span>ethnicity)</a></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" title="1"><span class="kw">table</span>(year,sampleInfo<span class="op">$</span>ethnicity)</a></code></pre></div>
 <pre><code>##     
 ## year ASN CEU HAN
 ##   02   0  32   0
@@ -641,7 +641,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 1</h3>
 <p>For how many of these years do we have more than one ethnicity represented?</p>
 <hr />
-<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb701-1" title="1"><span class="kw">table</span>(year,sampleInfo<span class="op">$</span>ethnicity)</a></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb764-1" title="1"><span class="kw">table</span>(year,sampleInfo<span class="op">$</span>ethnicity)</a></code></pre></div>
 <pre><code>##     
 ## year ASN CEU HAN
 ##   02   0  32   0
@@ -654,66 +654,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="question-2-33" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>Repeat the above exercise, but now, instead of year, consider the month as well. Specifically, instead of the year variable defined above use:</p>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" title="1">month.year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb766-1" title="1">month.year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</a></code></pre></div>
 <p>For what proportion of these <code>month.year</code> values do we have more than one ethnicity represented?</p>
 <hr />
-<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb704-1" title="1">month.year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</a>
-<a class="sourceLine" id="cb704-2" title="2">tab &lt;-<span class="st"> </span><span class="kw">table</span>(month.year, sampleInfo<span class="op">$</span>ethnicity)</a>
-<a class="sourceLine" id="cb704-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>, <span class="kw">nrow</span>(tab))</a>
-<a class="sourceLine" id="cb704-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb704-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(tab[i,]))</a>
-<a class="sourceLine" id="cb704-6" title="6">}</a>
-<a class="sourceLine" id="cb704-7" title="7"><span class="kw">mean</span>(res<span class="op">==</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" title="1">month.year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</a>
+<a class="sourceLine" id="cb767-2" title="2">tab &lt;-<span class="st"> </span><span class="kw">table</span>(month.year, sampleInfo<span class="op">$</span>ethnicity)</a>
+<a class="sourceLine" id="cb767-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>, <span class="kw">nrow</span>(tab))</a>
+<a class="sourceLine" id="cb767-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
+<a class="sourceLine" id="cb767-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(tab[i,]))</a>
+<a class="sourceLine" id="cb767-6" title="6">}</a>
+<a class="sourceLine" id="cb767-7" title="7"><span class="kw">mean</span>(res<span class="op">==</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] 0.04761905</code></pre>
 </div>
 <div id="question-3-29" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Perform a t-test (use <code>rowttests</code>) comparing CEU samples processed in 2002 to those processed in 2003. Then use the <code>qvalue</code> package to obtain q-values for each gene. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" title="1">eth &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>ethnicity</a>
-<a class="sourceLine" id="cb706-2" title="2">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;02&#39;</span>,<span class="st">&#39;03&#39;</span>))</a>
-<a class="sourceLine" id="cb706-3" title="3">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(year[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb706-4" title="4"></a>
-<a class="sourceLine" id="cb706-5" title="5">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb706-6" title="6"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1">eth &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>ethnicity</a>
+<a class="sourceLine" id="cb769-2" title="2">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;02&#39;</span>,<span class="st">&#39;03&#39;</span>))</a>
+<a class="sourceLine" id="cb769-3" title="3">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(year[ind]))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb769-4" title="4"></a>
+<a class="sourceLine" id="cb769-5" title="5">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb769-6" title="6"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 4308</code></pre>
 </div>
 <div id="question-4-26" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>What is the estimate of <code>pi0</code> provided by <code>qvalue</code>?</p>
 <hr />
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" title="1"><span class="kw">qvalue</span>(pvals)<span class="op">$</span>pi0</a></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1"><span class="kw">qvalue</span>(pvals)<span class="op">$</span>pi0</a></code></pre></div>
 <pre><code>## [1] 0.3628642</code></pre>
 </div>
 <div id="question-5-18" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>Now perform a t-test (use <code>rowttests</code>) comparing CEU samples processed in 2003 to those processed in 2004. Then use the <code>qvalue</code> package to obtain q-values for each gene. How many genes have q-values less than 0.05?</p>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;03&#39;</span>,<span class="st">&#39;04&#39;</span>))</a>
-<a class="sourceLine" id="cb710-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(year[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb710-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb710-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;03&#39;</span>,<span class="st">&#39;04&#39;</span>))</a>
+<a class="sourceLine" id="cb773-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(year[ind]))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb773-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb773-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 2463</code></pre>
 </div>
 <div id="question-6-16" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Now we are going to compare ethnicities as was done in the original publication in which these data were first presented. Use the qvalue function to compare the ASN population to the CEU population. Once again, use the qvalue function to obtain q-values. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb712-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>))</a>
-<a class="sourceLine" id="cb712-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb712-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb712-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>))</a>
+<a class="sourceLine" id="cb775-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb775-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb775-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 7217</code></pre>
 </div>
 <div id="question-7-13" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>Over 80% of genes are called differentially expressed between ethnic groups. However, due to the confounding with processing date, we need to confirm these differences are actually due to ethnicity.This will not be easy due to the almost perfect confounding. However, above we noted that two groups were represented in 2005. Just like we stratified by majors to remove the “major effect” in our admissions example, here we can stratify by year and perform a t-test comparing ASN and CEU, but only for samples processed in 2005. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb714-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>)<span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st"> &#39;05&#39;</span>)</a>
-<a class="sourceLine" id="cb714-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb714-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb714-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>)<span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st"> &#39;05&#39;</span>)</a>
+<a class="sourceLine" id="cb777-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb777-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb777-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 560</code></pre>
-<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" title="1"><span class="kw">table</span>(sampleInfo<span class="op">$</span>ethnicity[ind])</a></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1"><span class="kw">table</span>(sampleInfo<span class="op">$</span>ethnicity[ind])</a></code></pre></div>
 <pre><code>## 
 ## ASN CEU HAN 
 ##  80   3   0</code></pre>
@@ -723,25 +723,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To provide a more balanced comparison, we repeat the analysis, but now taking 3 random CEU samples from 2002. Repeat the analysis above, but comparing the ASN from 2005 to three random CEU samples from 2002. Set the seed at 3,
 <code>set.seed(3)</code>. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb718-1" title="1"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb718-2" title="2">ind_ceu &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st">&#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st"> &#39;02&#39;</span>)</a>
-<a class="sourceLine" id="cb718-3" title="3">ind_ceu2 &lt;-<span class="st"> </span><span class="kw">sample</span>(ind_ceu,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb718-4" title="4">ind_asn &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;ASN&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st">&#39;05&#39;</span>)</a>
-<a class="sourceLine" id="cb718-5" title="5">ind &lt;-<span class="st"> </span><span class="kw">c</span>(ind_ceu2,ind_asn)</a>
-<a class="sourceLine" id="cb718-6" title="6"></a>
-<a class="sourceLine" id="cb718-7" title="7">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb718-8" title="8">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb718-9" title="9"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb781-2" title="2">ind_ceu &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st">&#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st"> &#39;02&#39;</span>)</a>
+<a class="sourceLine" id="cb781-3" title="3">ind_ceu2 &lt;-<span class="st"> </span><span class="kw">sample</span>(ind_ceu,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb781-4" title="4">ind_asn &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;ASN&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st">&#39;05&#39;</span>)</a>
+<a class="sourceLine" id="cb781-5" title="5">ind &lt;-<span class="st"> </span><span class="kw">c</span>(ind_ceu2,ind_asn)</a>
+<a class="sourceLine" id="cb781-6" title="6"></a>
+<a class="sourceLine" id="cb781-7" title="7">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb781-8" title="8">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb781-9" title="9"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 3695</code></pre>
 </div>
 </div>
 <div id="exercises-35" class="section level2 unnumbered">
 <h2>10.9 Exercises</h2>
-<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb720-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb720-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb720-3" title="3">sex =<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb720-4" title="4">month =<span class="st"> </span><span class="kw">factor</span>( <span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m&quot;</span>))</a>
-<a class="sourceLine" id="cb720-5" title="5"><span class="kw">table</span>( sampleInfo<span class="op">$</span>group, month)</a></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
+<a class="sourceLine" id="cb783-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a>
+<a class="sourceLine" id="cb783-3" title="3">sex =<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
+<a class="sourceLine" id="cb783-4" title="4">month =<span class="st"> </span><span class="kw">factor</span>( <span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m&quot;</span>))</a>
+<a class="sourceLine" id="cb783-5" title="5"><span class="kw">table</span>( sampleInfo<span class="op">$</span>group, month)</a></code></pre></div>
 <pre><code>##    month
 ##     06 10
 ##   0  9  3
@@ -751,9 +751,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using the functions <code>rowttests</code> and <code>qvalue</code> compare the two groups. Because this is a smaller dataset which decreases our power, we will use the more lenient FDR
 cut-off of 10%. How many gene have q-values less than 0.1?</p>
 <hr />
-<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb722-1" title="1">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(sex))<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb722-2" title="2">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues </a>
-<a class="sourceLine" id="cb722-3" title="3"><span class="kw">sum</span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(sex))<span class="op">$</span>p.val</a>
+<a class="sourceLine" id="cb785-2" title="2">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues </a>
+<a class="sourceLine" id="cb785-3" title="3"><span class="kw">sum</span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
 <pre><code>## [1] 59</code></pre>
 </div>
 <div id="question-2-34" class="section level3 unnumbered">
@@ -762,40 +762,40 @@ cut-off of 10%. How many gene have q-values less than 0.1?</p>
 are on chrX or chrY.</p>
 <p>For the list calculated in <strong>Question 1</strong>, what proportion of this list is on chrX or chrY?</p>
 <hr />
-<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb724-1" title="1">ind_qval &lt;-<span class="st"> </span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>) <span class="co"># qvalue index for significance</span></a>
-<a class="sourceLine" id="cb724-2" title="2">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb724-3" title="3">ind_xy &lt;-<span class="st"> </span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a>
-<a class="sourceLine" id="cb724-4" title="4"></a>
-<a class="sourceLine" id="cb724-5" title="5"><span class="kw">sum</span>(ind_xy)<span class="op">/</span><span class="kw">sum</span>(ind_qval)</a></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb787-1" title="1">ind_qval &lt;-<span class="st"> </span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>) <span class="co"># qvalue index for significance</span></a>
+<a class="sourceLine" id="cb787-2" title="2">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
+<a class="sourceLine" id="cb787-3" title="3">ind_xy &lt;-<span class="st"> </span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a>
+<a class="sourceLine" id="cb787-4" title="4"></a>
+<a class="sourceLine" id="cb787-5" title="5"><span class="kw">sum</span>(ind_xy)<span class="op">/</span><span class="kw">sum</span>(ind_qval)</a></code></pre></div>
 <pre><code>## [1] 0.3389831</code></pre>
 </div>
 <div id="question-3-30" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>We can also check how many of the chromosomes X and Y genes we detected as different. How many are on Y?</p>
 <hr />
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb726-1" title="1">chr_ind_xy &lt;-<span class="st"> </span><span class="kw">which</span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a>
-<a class="sourceLine" id="cb726-2" title="2"><span class="kw">length</span>(chr[ind_qval][chr_ind_xy] <span class="op">==</span><span class="st"> &#39;chrY&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb789-1" title="1">chr_ind_xy &lt;-<span class="st"> </span><span class="kw">which</span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a>
+<a class="sourceLine" id="cb789-2" title="2"><span class="kw">length</span>(chr[ind_qval][chr_ind_xy] <span class="op">==</span><span class="st"> &#39;chrY&#39;</span>)</a></code></pre></div>
 <pre><code>## [1] 20</code></pre>
 </div>
 <div id="question-4-27" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>Now for the autosomal genes (not on chrX and chrY) for which q-value &lt; 0.1, perform a t-test comparing samples processed in June to those processed in October. What proportion of these have p-values &lt;0.05? <strong>Hint: Be careful about indexing.</strong></p>
 <hr />
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb728-1" title="1">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(sex))<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb728-2" title="2">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues </a>
-<a class="sourceLine" id="cb728-3" title="3">ind &lt;-<span class="st"> </span><span class="kw">which</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb728-4" title="4"></a>
-<a class="sourceLine" id="cb728-5" title="5">gene_dat_non_xy &lt;-<span class="st"> </span>geneExpression[ind[<span class="op">!</span>chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)],]</a>
-<a class="sourceLine" id="cb728-6" title="6">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(gene_dat_non_xy, <span class="kw">factor</span>(month))<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb728-7" title="7"><span class="kw">mean</span>(pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb791-1" title="1">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(sex))<span class="op">$</span>p.val</a>
+<a class="sourceLine" id="cb791-2" title="2">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues </a>
+<a class="sourceLine" id="cb791-3" title="3">ind &lt;-<span class="st"> </span><span class="kw">which</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb791-4" title="4"></a>
+<a class="sourceLine" id="cb791-5" title="5">gene_dat_non_xy &lt;-<span class="st"> </span>geneExpression[ind[<span class="op">!</span>chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)],]</a>
+<a class="sourceLine" id="cb791-6" title="6">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(gene_dat_non_xy, <span class="kw">factor</span>(month))<span class="op">$</span>p.val</a>
+<a class="sourceLine" id="cb791-7" title="7"><span class="kw">mean</span>(pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 0.8717949</code></pre>
 </div>
 <div id="question-5-19" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>The above result shows that the great majority of the autosomal genes show differences due to processing data. This provides further evidence that confounding is resulting in false positives. So we are going to try to model the month effect to better estimate the sex effect. We are going to use a linear model. Which of the following creates the appropriate design matrix?</p>
 <hr />
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb730-1" title="1">batch &lt;-<span class="st"> </span><span class="kw">factor</span>(month)</a>
-<a class="sourceLine" id="cb730-2" title="2"><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>batch) <span class="co"># answer D</span></a></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb793-1" title="1">batch &lt;-<span class="st"> </span><span class="kw">factor</span>(month)</a>
+<a class="sourceLine" id="cb793-2" title="2"><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>batch) <span class="co"># answer D</span></a></code></pre></div>
 <pre><code>##    (Intercept) sex batch10
 ## 1            1   1       0
 ## 2            1   1       0
@@ -830,62 +830,62 @@ are on chrX or chrY.</p>
 <div id="question-6-17" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Now use the X defined above, to fit a regression model using lm for each gene. You can obtain p-values for estimated parameters using <code>summary</code>. Here is an example</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb732-1" title="1">X =<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
-<a class="sourceLine" id="cb732-2" title="2">i =<span class="st"> </span><span class="dv">234</span></a>
-<a class="sourceLine" id="cb732-3" title="3">y =<span class="st"> </span>geneExpression[i,]</a>
-<a class="sourceLine" id="cb732-4" title="4">fit =<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb732-5" title="5"><span class="kw">summary</span>(fit)<span class="op">$</span>coef</a></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb795-1" title="1">X =<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
+<a class="sourceLine" id="cb795-2" title="2">i =<span class="st"> </span><span class="dv">234</span></a>
+<a class="sourceLine" id="cb795-3" title="3">y =<span class="st"> </span>geneExpression[i,]</a>
+<a class="sourceLine" id="cb795-4" title="4">fit =<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>X)</a>
+<a class="sourceLine" id="cb795-5" title="5"><span class="kw">summary</span>(fit)<span class="op">$</span>coef</a></code></pre></div>
 <pre><code>##                Estimate Std. Error     t value     Pr(&gt;|t|)
 ## (Intercept)  9.33316105 0.06098459 153.0412990 1.714250e-33
 ## Xsex        -0.04281057 0.09220004  -0.4643227 6.471942e-01
 ## Xmonth10     0.25352885 0.09220004   2.7497696 1.200505e-02</code></pre>
 <p>How many of the q-values for the group comparison are now &lt;0.1? Note the big drop from what we obtained without the correction (<strong>Question 1</strong>).</p>
 <hr />
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb734-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
-<a class="sourceLine" id="cb734-2" title="2"></a>
-<a class="sourceLine" id="cb734-3" title="3">res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb734-4" title="4">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(geneExpression[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb734-5" title="5">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</a>
-<a class="sourceLine" id="cb734-6" title="6">}))</a>
-<a class="sourceLine" id="cb734-7" title="7">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(res)</a>
-<a class="sourceLine" id="cb734-8" title="8"><span class="kw">names</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</a>
-<a class="sourceLine" id="cb734-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res<span class="op">$</span>pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb734-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb797"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb797-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
+<a class="sourceLine" id="cb797-2" title="2"></a>
+<a class="sourceLine" id="cb797-3" title="3">res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb797-4" title="4">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(geneExpression[i,]<span class="op">~</span>X)</a>
+<a class="sourceLine" id="cb797-5" title="5">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</a>
+<a class="sourceLine" id="cb797-6" title="6">}))</a>
+<a class="sourceLine" id="cb797-7" title="7">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(res)</a>
+<a class="sourceLine" id="cb797-8" title="8"><span class="kw">names</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</a>
+<a class="sourceLine" id="cb797-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res<span class="op">$</span>pvals)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb797-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
 <pre><code>## [1] 17</code></pre>
 </div>
 <div id="question-7-14" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>With this new list, what proportion of these are chrX and chrY? Notice the big improvement.</p>
 <hr />
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb736-1" title="1">ind_qval &lt;-<span class="st"> </span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb736-2" title="2">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb736-3" title="3">ind_xy &lt;-<span class="st"> </span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) <span class="co"># index for chrX and chrY</span></a>
-<a class="sourceLine" id="cb736-4" title="4"></a>
-<a class="sourceLine" id="cb736-5" title="5"><span class="kw">sum</span>(ind_xy)<span class="op">/</span><span class="kw">sum</span>(ind_qval)</a></code></pre></div>
+<div class="sourceCode" id="cb799"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb799-1" title="1">ind_qval &lt;-<span class="st"> </span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb799-2" title="2">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
+<a class="sourceLine" id="cb799-3" title="3">ind_xy &lt;-<span class="st"> </span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) <span class="co"># index for chrX and chrY</span></a>
+<a class="sourceLine" id="cb799-4" title="4"></a>
+<a class="sourceLine" id="cb799-5" title="5"><span class="kw">sum</span>(ind_xy)<span class="op">/</span><span class="kw">sum</span>(ind_qval)</a></code></pre></div>
 <pre><code>## [1] 0.8823529</code></pre>
 </div>
 <div id="question-8-11" class="section level3 unnumbered">
 <h3>Question 8</h3>
 <p>How many on Y or X?</p>
 <hr />
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb738-1" title="1"><span class="kw">sum</span>(ind_xy)</a></code></pre></div>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb801-1" title="1"><span class="kw">sum</span>(ind_xy)</a></code></pre></div>
 <pre><code>## [1] 15</code></pre>
 </div>
 <div id="question-9-9" class="section level3 unnumbered">
 <h3>Question 9</h3>
 <p>Now from the linear model above, extract the p-values related to the coeffcient representing the October versus June differences using the same linear model. How many of the q-values for the month comparison are now &lt;0.1?
 This approach is basically the approach implemented by Combat.</p>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
-<a class="sourceLine" id="cb740-2" title="2"></a>
-<a class="sourceLine" id="cb740-3" title="3">res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb740-4" title="4">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(geneExpression[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb740-5" title="5">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">3</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</a>
-<a class="sourceLine" id="cb740-6" title="6">}))</a>
-<a class="sourceLine" id="cb740-7" title="7"></a>
-<a class="sourceLine" id="cb740-8" title="8">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(res)</a>
-<a class="sourceLine" id="cb740-9" title="9"><span class="kw">names</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</a>
-<a class="sourceLine" id="cb740-10" title="10">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res<span class="op">$</span>pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb740-11" title="11"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb803-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
+<a class="sourceLine" id="cb803-2" title="2"></a>
+<a class="sourceLine" id="cb803-3" title="3">res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb803-4" title="4">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(geneExpression[i,]<span class="op">~</span>X)</a>
+<a class="sourceLine" id="cb803-5" title="5">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">3</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</a>
+<a class="sourceLine" id="cb803-6" title="6">}))</a>
+<a class="sourceLine" id="cb803-7" title="7"></a>
+<a class="sourceLine" id="cb803-8" title="8">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(res)</a>
+<a class="sourceLine" id="cb803-9" title="9"><span class="kw">names</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</a>
+<a class="sourceLine" id="cb803-10" title="10">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res<span class="op">$</span>pvals)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb803-11" title="11"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
 <pre><code>## [1] 3170</code></pre>
 </div>
 </div>
@@ -918,11 +918,11 @@ D. \begin{pmatrix}
 \]</span></p>
 <hr />
 <p>To be honest, according to my attempt, there’s no correct answer among the provided answer choices. Please let me know if I am incorrect (through github or email); I will make sure to put your name in one of the contributors to this project. Here’s my attempt.</p>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb742-1" title="1">y =<span class="st"> </span>geneExpression[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb742-2" title="2">avg =<span class="st"> </span>(y[,<span class="dv">1</span>]<span class="op">+</span>y[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span> <span class="co"># average</span></a>
-<a class="sourceLine" id="cb742-3" title="3">diff =<span class="st"> </span>z2 =<span class="st"> </span>(y[,<span class="dv">1</span>]<span class="op">-</span>y[,<span class="dv">2</span>]) <span class="co"># difference</span></a>
-<a class="sourceLine" id="cb742-4" title="4">z =<span class="st"> </span><span class="kw">cbind</span>(avg,diff)</a>
-<a class="sourceLine" id="cb742-5" title="5"><span class="kw">head</span>(z) <span class="co"># the actual values of average and difference</span></a></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" title="1">y =<span class="st"> </span>geneExpression[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb805-2" title="2">avg =<span class="st"> </span>(y[,<span class="dv">1</span>]<span class="op">+</span>y[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span> <span class="co"># average</span></a>
+<a class="sourceLine" id="cb805-3" title="3">diff =<span class="st"> </span>z2 =<span class="st"> </span>(y[,<span class="dv">1</span>]<span class="op">-</span>y[,<span class="dv">2</span>]) <span class="co"># difference</span></a>
+<a class="sourceLine" id="cb805-4" title="4">z =<span class="st"> </span><span class="kw">cbind</span>(avg,diff)</a>
+<a class="sourceLine" id="cb805-5" title="5"><span class="kw">head</span>(z) <span class="co"># the actual values of average and difference</span></a></code></pre></div>
 <pre><code>##                avg       diff
 ## 1007_s_at 6.472712 0.14248432
 ## 1053_at   7.405128 0.28316044
@@ -930,10 +930,10 @@ D. \begin{pmatrix}
 ## 121_at    7.800149 0.18478972
 ## 1255_g_at 3.232791 0.01997527
 ## 1294_at   7.311012 0.44148316</code></pre>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb744-1" title="1"><span class="co"># Now let&#39;s try each answer and compare to head(z).</span></a>
-<a class="sourceLine" id="cb744-2" title="2"></a>
-<a class="sourceLine" id="cb744-3" title="3"><span class="co"># answer A - avg = sqrt(2) x z[,1], diff = z[,2] / sqrt(2)</span></a>
-<a class="sourceLine" id="cb744-4" title="4"><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb807-1" title="1"><span class="co"># Now let&#39;s try each answer and compare to head(z).</span></a>
+<a class="sourceLine" id="cb807-2" title="2"></a>
+<a class="sourceLine" id="cb807-3" title="3"><span class="co"># answer A - avg = sqrt(2) x z[,1], diff = z[,2] / sqrt(2)</span></a>
+<a class="sourceLine" id="cb807-4" title="4"><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>)) </a></code></pre></div>
 <pre><code>##                [,1]       [,2]
 ## 1007_s_at 12.945424 0.14248432
 ## 1053_at   14.810255 0.28316044
@@ -941,8 +941,8 @@ D. \begin{pmatrix}
 ## 121_at    15.600297 0.18478972
 ## 1255_g_at  6.465583 0.01997527
 ## 1294_at   14.622024 0.44148316</code></pre>
-<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb746-1" title="1"><span class="co"># answer B - avg = 2 x z[1,2], diff = z[,2]</span></a>
-<a class="sourceLine" id="cb746-2" title="2"><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb809-1" title="1"><span class="co"># answer B - avg = 2 x z[1,2], diff = z[,2]</span></a>
+<a class="sourceLine" id="cb809-2" title="2"><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>))</a></code></pre></div>
 <pre><code>##                [,1]       [,2]
 ## 1007_s_at 12.945424 0.14248432
 ## 1053_at   14.810255 0.28316044
@@ -950,10 +950,10 @@ D. \begin{pmatrix}
 ## 121_at    15.600297 0.18478972
 ## 1255_g_at  6.465583 0.01997527
 ## 1294_at   14.622024 0.44148316</code></pre>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb748-1" title="1"><span class="co"># answer C - non-comfortable array, can&#39;t multiply </span></a>
-<a class="sourceLine" id="cb748-2" title="2"></a>
-<a class="sourceLine" id="cb748-3" title="3"><span class="co"># answer D -  avg = 2 x z[1,2], diff = z[,2]</span></a>
-<a class="sourceLine" id="cb748-4" title="4"><span class="kw">head</span>(<span class="kw">t</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y)))</a></code></pre></div>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb811-1" title="1"><span class="co"># answer C - non-comfortable array, can&#39;t multiply </span></a>
+<a class="sourceLine" id="cb811-2" title="2"></a>
+<a class="sourceLine" id="cb811-3" title="3"><span class="co"># answer D -  avg = 2 x z[1,2], diff = z[,2]</span></a>
+<a class="sourceLine" id="cb811-4" title="4"><span class="kw">head</span>(<span class="kw">t</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y)))</a></code></pre></div>
 <pre><code>##                [,1]       [,2]
 ## 1007_s_at 12.945424 0.14248432
 ## 1053_at   14.810255 0.28316044
@@ -962,8 +962,8 @@ D. \begin{pmatrix}
 ## 1255_g_at  6.465583 0.01997527
 ## 1294_at   14.622024 0.44148316</code></pre>
 <p>So none of the choices are equal to <code>head(z)</code>. Instead here is my answer that transforms <code>y</code> correctly.</p>
-<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb750-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb750-2" title="2">ans</a></code></pre></div>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb813-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb813-2" title="2">ans</a></code></pre></div>
 <pre><code>##               [,1]       [,2]
 ## 1007_s_at 6.472712 0.14248432
 ## 1053_at   7.405128 0.28316044
@@ -971,7 +971,7 @@ D. \begin{pmatrix}
 ## 121_at    7.800149 0.18478972
 ## 1255_g_at 3.232791 0.01997527
 ## 1294_at   7.311012 0.44148316</code></pre>
-<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb752-1" title="1"><span class="kw">identical</span>(z, ans) <span class="co"># they are identical</span></a></code></pre></div>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb815-1" title="1"><span class="kw">identical</span>(z, ans) <span class="co"># they are identical</span></a></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Therefore, my answer is:</p>
 <p><span class="math display">\[
@@ -991,23 +991,23 @@ y\begin{pmatrix}
 <div id="question-3-31" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Define</p>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb754-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a></code></pre></div>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb817-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a></code></pre></div>
 <p>Compute and plot an image of the correlation for each sample. Make two image plots of these correlations. In the first one, plot the correlation as image. In the second, order the samples by date and then plot an image of the correlation. The only difference in these plots is the order in which the samples are plotted. Based on these plots, which of the following would you say is true?</p>
 <hr />
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" title="1">n &lt;-<span class="st"> </span><span class="kw">ncol</span>(y)</a>
-<a class="sourceLine" id="cb755-2" title="2">cors=<span class="kw">cor</span>(y)</a>
-<a class="sourceLine" id="cb755-3" title="3">cols=<span class="kw">colorRampPalette</span>(<span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">11</span>,<span class="st">&quot;RdBu&quot;</span>)))(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb755-4" title="4"></a>
-<a class="sourceLine" id="cb755-5" title="5"><span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dv">1</span><span class="op">:</span>n, cors, <span class="dt">col=</span>cols, <span class="dt">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;samples&#39;</span>,</a>
-<a class="sourceLine" id="cb755-6" title="6">      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image</span></a></code></pre></div>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb818-1" title="1">n &lt;-<span class="st"> </span><span class="kw">ncol</span>(y)</a>
+<a class="sourceLine" id="cb818-2" title="2">cors=<span class="kw">cor</span>(y)</a>
+<a class="sourceLine" id="cb818-3" title="3">cols=<span class="kw">colorRampPalette</span>(<span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">11</span>,<span class="st">&quot;RdBu&quot;</span>)))(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb818-4" title="4"></a>
+<a class="sourceLine" id="cb818-5" title="5"><span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dv">1</span><span class="op">:</span>n, cors, <span class="dt">col=</span>cols, <span class="dt">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;samples&#39;</span>,</a>
+<a class="sourceLine" id="cb818-6" title="6">      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image</span></a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-356-1.png" width="672" /></p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb756-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">order</span>(sampleInfo<span class="op">$</span>date)</a>
-<a class="sourceLine" id="cb756-2" title="2"></a>
-<a class="sourceLine" id="cb756-3" title="3">y2 &lt;-<span class="st"> </span>y[,ind]</a>
-<a class="sourceLine" id="cb756-4" title="4">n2 &lt;-<span class="st"> </span><span class="kw">ncol</span>(y)</a>
-<a class="sourceLine" id="cb756-5" title="5">cors2=<span class="kw">cor</span>(y2)</a>
-<a class="sourceLine" id="cb756-6" title="6"><span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span>n2, <span class="dv">1</span><span class="op">:</span>n2, cors2, <span class="dt">col=</span>cols, <span class="dt">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;samples&#39;</span>,</a>
-<a class="sourceLine" id="cb756-7" title="7">      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image after sorting the date. some samples are more correlated within a span of date than others.</span></a></code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb819-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">order</span>(sampleInfo<span class="op">$</span>date)</a>
+<a class="sourceLine" id="cb819-2" title="2"></a>
+<a class="sourceLine" id="cb819-3" title="3">y2 &lt;-<span class="st"> </span>y[,ind]</a>
+<a class="sourceLine" id="cb819-4" title="4">n2 &lt;-<span class="st"> </span><span class="kw">ncol</span>(y)</a>
+<a class="sourceLine" id="cb819-5" title="5">cors2=<span class="kw">cor</span>(y2)</a>
+<a class="sourceLine" id="cb819-6" title="6"><span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span>n2, <span class="dv">1</span><span class="op">:</span>n2, cors2, <span class="dt">col=</span>cols, <span class="dt">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;samples&#39;</span>,</a>
+<a class="sourceLine" id="cb819-7" title="7">      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image after sorting the date. some samples are more correlated within a span of date than others.</span></a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-356-2.png" width="672" /></p>
 <p>The answer is <strong>D</strong>: The fact that in the plot ordered by month we see two groups mainly driven by month, and within these we see subgroups driven by date, seems to suggest
 date more than month per se are the hidden factors.</p>
@@ -1016,8 +1016,8 @@ date more than month per se are the hidden factors.</p>
 <h3>Question 4</h3>
 <p>Based on the correlation plots above, we could argue that there are at least two hidden factors. Using PCA estimate these two factors. Specifically, apply the <code>svd</code> to <code>y</code> and use the first two PCs as estimates. Which command gives us these estimates?</p>
 <hr />
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb757-2" title="2"><span class="kw">head</span>(s<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb820-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
+<a class="sourceLine" id="cb820-2" title="2"><span class="kw">head</span>(s<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a></code></pre></div>
 <pre><code>##              [,1]        [,2]
 ## [1,] -0.232970658 -0.01693543
 ## [2,] -0.034229085 -0.13955710
@@ -1032,24 +1032,24 @@ date more than month per se are the hidden factors.</p>
 <p>Plot each of the estimated factors ordered by the date. Use color to denote month. The first factor is clearly related to date. Which of the following appears to be most different according to this factor?</p>
 <hr />
 <p>To be honest, I do not know what the question is actually asking for. I also think this is one of the most difficult questions in the book. It can possibly ask either of these two things: 1) which date appears to be most different in the function of PC1? 2) which dates are most different from each other in the function of PC1? To answer both of these questions, we need to visualize each date in a plot where the x-axis is PC1 and y-axis is PC2. My code below also displays the range of PC1 for each date blue.</p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb759-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb759-2" title="2">ind_<span class="dv">0610</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-10&#39;</span>)</a>
-<a class="sourceLine" id="cb759-3" title="3">ind_<span class="dv">0623</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-23&#39;</span>)</a>
-<a class="sourceLine" id="cb759-4" title="4">ind_<span class="dv">0627</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-27&#39;</span>)</a>
-<a class="sourceLine" id="cb759-5" title="5">ind_<span class="dv">1007</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-10-07&#39;</span>)</a>
-<a class="sourceLine" id="cb759-6" title="6">ind_<span class="dv">1028</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-10-28&#39;</span>)</a>
-<a class="sourceLine" id="cb759-7" title="7"></a>
-<a class="sourceLine" id="cb759-8" title="8">index_list &lt;-<span class="st"> </span><span class="kw">list</span>(ind_<span class="dv">0610</span>, ind_<span class="dv">0623</span>, ind_<span class="dv">0627</span>, ind_<span class="dv">1007</span>, ind_<span class="dv">1028</span>)</a>
-<a class="sourceLine" id="cb759-9" title="9">res_range &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">length</span>(index_list))</a>
-<a class="sourceLine" id="cb759-10" title="10"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb759-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(index_list)) {</a>
-<a class="sourceLine" id="cb759-12" title="12">  <span class="kw">plot</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]],  s<span class="op">$</span>v[,<span class="dv">2</span>][index_list[[i]]], </a>
-<a class="sourceLine" id="cb759-13" title="13">       <span class="dt">xlab =</span> <span class="st">&#39;PC1&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;PC2&#39;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.4</span>,.<span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb759-14" title="14">       <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.6</span>),</a>
-<a class="sourceLine" id="cb759-15" title="15">       <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="kw">unique</span>(sampleInfo<span class="op">$</span>date[index_list[[i]]])))</a>
-<a class="sourceLine" id="cb759-16" title="16">  res_range[[i]] &lt;-<span class="st"> </span><span class="kw">max</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]])<span class="op">-</span><span class="kw">min</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]])</a>
-<a class="sourceLine" id="cb759-17" title="17">  <span class="kw">text</span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>, <span class="kw">signif</span>(res_range[[i]],<span class="dv">2</span>), <span class="dt">pos=</span><span class="dv">2</span>,<span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a>
-<a class="sourceLine" id="cb759-18" title="18">}</a></code></pre></div>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb822-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
+<a class="sourceLine" id="cb822-2" title="2">ind_<span class="dv">0610</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-10&#39;</span>)</a>
+<a class="sourceLine" id="cb822-3" title="3">ind_<span class="dv">0623</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-23&#39;</span>)</a>
+<a class="sourceLine" id="cb822-4" title="4">ind_<span class="dv">0627</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-27&#39;</span>)</a>
+<a class="sourceLine" id="cb822-5" title="5">ind_<span class="dv">1007</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-10-07&#39;</span>)</a>
+<a class="sourceLine" id="cb822-6" title="6">ind_<span class="dv">1028</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-10-28&#39;</span>)</a>
+<a class="sourceLine" id="cb822-7" title="7"></a>
+<a class="sourceLine" id="cb822-8" title="8">index_list &lt;-<span class="st"> </span><span class="kw">list</span>(ind_<span class="dv">0610</span>, ind_<span class="dv">0623</span>, ind_<span class="dv">0627</span>, ind_<span class="dv">1007</span>, ind_<span class="dv">1028</span>)</a>
+<a class="sourceLine" id="cb822-9" title="9">res_range &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">length</span>(index_list))</a>
+<a class="sourceLine" id="cb822-10" title="10"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb822-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(index_list)) {</a>
+<a class="sourceLine" id="cb822-12" title="12">  <span class="kw">plot</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]],  s<span class="op">$</span>v[,<span class="dv">2</span>][index_list[[i]]], </a>
+<a class="sourceLine" id="cb822-13" title="13">       <span class="dt">xlab =</span> <span class="st">&#39;PC1&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;PC2&#39;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.4</span>,.<span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb822-14" title="14">       <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.6</span>),</a>
+<a class="sourceLine" id="cb822-15" title="15">       <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="kw">unique</span>(sampleInfo<span class="op">$</span>date[index_list[[i]]])))</a>
+<a class="sourceLine" id="cb822-16" title="16">  res_range[[i]] &lt;-<span class="st"> </span><span class="kw">max</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]])<span class="op">-</span><span class="kw">min</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]])</a>
+<a class="sourceLine" id="cb822-17" title="17">  <span class="kw">text</span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>, <span class="kw">signif</span>(res_range[[i]],<span class="dv">2</span>), <span class="dt">pos=</span><span class="dv">2</span>,<span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a>
+<a class="sourceLine" id="cb822-18" title="18">}</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-358-1.png" width="672" /></p>
 <p>The plot shows data that are spread in the function of PC1. The blue numbers show the range of PC1 that each date’s data span. Oct 7th has a highest difference in the function of PC1, with a range of <code>0.38</code>. However, the range of Oct 28th is merely <code>0.075</code>. Also they do not seem to be much different from each other, primarily because Oct 7th covers a wide range of PC1. This rules out answer choice B.</p>
 <p>June 10th and 23th seem to be not much different from each other. Also, the range of June 10th is <code>0</code> because it only has one point. This rules out answer choice C. Answer D is eliminated because there is no June 15th.</p>
@@ -1059,52 +1059,52 @@ date more than month per se are the hidden factors.</p>
 <h3>Question 6</h3>
 <p>Use the <code>svd</code> function to obtain the principal components (PCs) for our detrended gene expression data <code>y</code>. How many PCs explain more than 10% of the variability?</p>
 <hr />
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
-<a class="sourceLine" id="cb760-2" title="2">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb760-3" title="3"><span class="kw">sum</span>((s<span class="op">$</span>d<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="kw">sum</span>(s<span class="op">$</span>d<span class="op">^</span><span class="dv">2</span>) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
+<a class="sourceLine" id="cb823-2" title="2">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
+<a class="sourceLine" id="cb823-3" title="3"><span class="kw">sum</span>((s<span class="op">$</span>d<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="kw">sum</span>(s<span class="op">$</span>d<span class="op">^</span><span class="dv">2</span>) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 </div>
 <div id="question-7-15" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>Which PC most correlates (negative or positive correlation) with month?</p>
 <hr />
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">ncol</span>(s<span class="op">$</span>v))</a>
-<a class="sourceLine" id="cb762-2" title="2">month &lt;-<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m&quot;</span>)</a>
-<a class="sourceLine" id="cb762-3" title="3">month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(month)</a>
-<a class="sourceLine" id="cb762-4" title="4"></a>
-<a class="sourceLine" id="cb762-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb762-6" title="6">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(month, s<span class="op">$</span>v[,i])</a>
-<a class="sourceLine" id="cb762-7" title="7">}</a>
-<a class="sourceLine" id="cb762-8" title="8">ind &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">==</span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a>
-<a class="sourceLine" id="cb762-9" title="9">ind</a></code></pre></div>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb825-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">ncol</span>(s<span class="op">$</span>v))</a>
+<a class="sourceLine" id="cb825-2" title="2">month &lt;-<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m&quot;</span>)</a>
+<a class="sourceLine" id="cb825-3" title="3">month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(month)</a>
+<a class="sourceLine" id="cb825-4" title="4"></a>
+<a class="sourceLine" id="cb825-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
+<a class="sourceLine" id="cb825-6" title="6">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(month, s<span class="op">$</span>v[,i])</a>
+<a class="sourceLine" id="cb825-7" title="7">}</a>
+<a class="sourceLine" id="cb825-8" title="8">ind &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">==</span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a>
+<a class="sourceLine" id="cb825-9" title="9">ind</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-8-12" class="section level3 unnumbered">
 <h3>Question 8</h3>
 <p>What is this correlation (in absolute value)?</p>
 <hr />
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb764-1" title="1"><span class="kw">abs</span>(res[ind])</a></code></pre></div>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb827-1" title="1"><span class="kw">abs</span>(res[ind])</a></code></pre></div>
 <pre><code>## [1] 0.8297915</code></pre>
 </div>
 <div id="question-9-10" class="section level3 unnumbered">
 <h3>Question 9</h3>
 <p>Which PC most correlates (negative or positive correlation) with sex?</p>
 <hr />
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb766-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">ncol</span>(s<span class="op">$</span>v))</a>
-<a class="sourceLine" id="cb766-2" title="2">sex &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb766-3" title="3"></a>
-<a class="sourceLine" id="cb766-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb766-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(sex, s<span class="op">$</span>v[,i])</a>
-<a class="sourceLine" id="cb766-6" title="6">}</a>
-<a class="sourceLine" id="cb766-7" title="7">ind &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">==</span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a>
-<a class="sourceLine" id="cb766-8" title="8">ind</a></code></pre></div>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb829-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">ncol</span>(s<span class="op">$</span>v))</a>
+<a class="sourceLine" id="cb829-2" title="2">sex &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
+<a class="sourceLine" id="cb829-3" title="3"></a>
+<a class="sourceLine" id="cb829-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
+<a class="sourceLine" id="cb829-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(sex, s<span class="op">$</span>v[,i])</a>
+<a class="sourceLine" id="cb829-6" title="6">}</a>
+<a class="sourceLine" id="cb829-7" title="7">ind &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">==</span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a>
+<a class="sourceLine" id="cb829-8" title="8">ind</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-10-8" class="section level3 unnumbered">
 <h3>Question 10</h3>
 <p>What is this correlation (in absolute value)?</p>
 <hr />
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb768-1" title="1"><span class="kw">abs</span>(res[ind])</a></code></pre></div>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb831-1" title="1"><span class="kw">abs</span>(res[ind])</a></code></pre></div>
 <pre><code>## [1] 0.6236858</code></pre>
 </div>
 <div id="question-11-5" class="section level3 unnumbered">
@@ -1112,48 +1112,61 @@ date more than month per se are the hidden factors.</p>
 <p>Now instead of using month, which we have shown does not quite describe the batch (<strong>Question 5</strong>), add the two estimated factors <code>s$v[,1:2]</code> to the linear model we used
 above. Apply this model to each gene and compute q-values for the sex difference. How many q-values &lt; 0.1 for the sex comparison?</p>
 <hr />
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb770-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
-<a class="sourceLine" id="cb770-2" title="2">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb770-3" title="3">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex <span class="op">+</span><span class="st"> </span>s<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb770-4" title="4">res &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(y), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb770-5" title="5">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb770-6" title="6">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb770-7" title="7">})</a>
-<a class="sourceLine" id="cb770-8" title="8"></a>
-<a class="sourceLine" id="cb770-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res)<span class="op">$</span>qvalues </a>
-<a class="sourceLine" id="cb770-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb833-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
+<a class="sourceLine" id="cb833-2" title="2">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
+<a class="sourceLine" id="cb833-3" title="3">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex <span class="op">+</span><span class="st"> </span>s<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb833-4" title="4">res &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(y), <span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb833-5" title="5">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[i,]<span class="op">~</span>X)</a>
+<a class="sourceLine" id="cb833-6" title="6">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb833-7" title="7">})</a>
+<a class="sourceLine" id="cb833-8" title="8"></a>
+<a class="sourceLine" id="cb833-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res)<span class="op">$</span>qvalues </a>
+<a class="sourceLine" id="cb833-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
 <pre><code>## [1] 14</code></pre>
 </div>
 <div id="question-12-5" class="section level3 unnumbered">
 <h3>Question 12</h3>
 <p>What proportion of the genes are on chromosomes X and Y?</p>
 <hr />
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb772-1" title="1">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb772-2" title="2">ind &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb772-3" title="3"><span class="kw">mean</span>(chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb835-1" title="1">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
+<a class="sourceLine" id="cb835-2" title="2">ind &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb835-3" title="3"><span class="kw">mean</span>(chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 </div>
 <div id="exercises-37" class="section level2 unnumbered">
 <h2>10.13 Exercises</h2>
-<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb774-1" title="1"><span class="kw">library</span>(sva)</a>
-<a class="sourceLine" id="cb774-2" title="2"><span class="kw">library</span>(Biobase)</a>
-<a class="sourceLine" id="cb774-3" title="3"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb774-4" title="4"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb837-1" title="1"><span class="kw">library</span>(sva)</a></code></pre></div>
+<pre><code>## Warning: package &#39;sva&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Loading required package: mgcv</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## 
+## Attaching package: &#39;nlme&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:HistData&#39;:
+## 
+##     Wheat</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     collapse</code></pre>
+<pre><code>## This is mgcv 1.8-24. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<pre><code>## Loading required package: BiocParallel</code></pre>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb846-1" title="1"><span class="kw">library</span>(Biobase)</a>
+<a class="sourceLine" id="cb846-2" title="2"><span class="kw">library</span>(GSE5859Subset)</a>
+<a class="sourceLine" id="cb846-3" title="3"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
 <div id="question-1-38" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>In a previous section we estimated factors using PCA, but we noted that the first factor was correlated with our outcome of interest:</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(geneExpression<span class="op">-</span><span class="kw">rowMeans</span>(geneExpression))</a>
-<a class="sourceLine" id="cb775-2" title="2"><span class="kw">cor</span>(sampleInfo<span class="op">$</span>group,s<span class="op">$</span>v[,<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb847-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(geneExpression<span class="op">-</span><span class="kw">rowMeans</span>(geneExpression))</a>
+<a class="sourceLine" id="cb847-2" title="2"><span class="kw">cor</span>(sampleInfo<span class="op">$</span>group,s<span class="op">$</span>v[,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## [1] 0.6236858</code></pre>
 <p>The <code>svafit</code> function estimates factors, but downweighs the genes that appear to correlate with the outcome of interest. It also tries to estimate the number of factors and returns
 the estimated factors like this:</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">sex =<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb777-2" title="2">mod =<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex)</a>
-<a class="sourceLine" id="cb777-3" title="3">svafit =<span class="st"> </span><span class="kw">sva</span>(geneExpression,mod)</a></code></pre></div>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb849-1" title="1">sex =<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
+<a class="sourceLine" id="cb849-2" title="2">mod =<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex)</a>
+<a class="sourceLine" id="cb849-3" title="3">svafit =<span class="st"> </span><span class="kw">sva</span>(geneExpression,mod)</a></code></pre></div>
 <pre><code>## Number of significant surrogate variables is:  5 
 ## Iteration (out of 5 ):1  2  3  4  5</code></pre>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1"><span class="kw">head</span>(svafit<span class="op">$</span>sv)</a></code></pre></div>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb851-1" title="1"><span class="kw">head</span>(svafit<span class="op">$</span>sv)</a></code></pre></div>
 <pre><code>##             [,1]        [,2]        [,3]       [,4]         [,5]
 ## [1,] -0.26862626 -0.03838109  0.15306742 -0.3007374  0.210098158
 ## [2,] -0.06132157 -0.15755769 -0.03538763  0.0851655 -0.063869257
@@ -1162,9 +1175,9 @@ the estimated factors like this:</p>
 ## [5,] -0.01850853  0.18648507  0.17931970  0.4244993 -0.007840835
 ## [6,]  0.36062840 -0.08542758 -0.10726746  0.1074114  0.033204590</code></pre>
 <p>The resulting estimated factors are not that different from the PCs.</p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb781-1" title="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(svafit<span class="op">$</span>sv)){</a>
-<a class="sourceLine" id="cb781-2" title="2">  <span class="kw">print</span>( <span class="kw">cor</span>(s<span class="op">$</span>v[,i],svafit<span class="op">$</span>sv[,i]) )</a>
-<a class="sourceLine" id="cb781-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb853-1" title="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(svafit<span class="op">$</span>sv)){</a>
+<a class="sourceLine" id="cb853-2" title="2">  <span class="kw">print</span>( <span class="kw">cor</span>(s<span class="op">$</span>v[,i],svafit<span class="op">$</span>sv[,i]) )</a>
+<a class="sourceLine" id="cb853-3" title="3">}</a></code></pre></div>
 <pre><code>## [1] 0.9944755
 ## [1] 0.9964202
 ## [1] -0.9915972
@@ -1172,25 +1185,25 @@ the estimated factors like this:</p>
 ## [1] -0.9518427</code></pre>
 <p>Now fit a linear model to each gene that instead of month includes these factors in the model. Use the <code>qvalue</code> function. How many genes have q-value &lt; 0.1?</p>
 <hr />
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb783-1" title="1">y &lt;-<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
-<a class="sourceLine" id="cb783-2" title="2">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex <span class="op">+</span><span class="st"> </span>svafit<span class="op">$</span>sv)</a>
-<a class="sourceLine" id="cb783-3" title="3"></a>
-<a class="sourceLine" id="cb783-4" title="4">res &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(y), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb783-5" title="5">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb783-6" title="6">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb783-7" title="7">})</a>
-<a class="sourceLine" id="cb783-8" title="8"></a>
-<a class="sourceLine" id="cb783-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb783-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb855-1" title="1">y &lt;-<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
+<a class="sourceLine" id="cb855-2" title="2">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex <span class="op">+</span><span class="st"> </span>svafit<span class="op">$</span>sv)</a>
+<a class="sourceLine" id="cb855-3" title="3"></a>
+<a class="sourceLine" id="cb855-4" title="4">res &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(y), <span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb855-5" title="5">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[i,]<span class="op">~</span>X)</a>
+<a class="sourceLine" id="cb855-6" title="6">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb855-7" title="7">})</a>
+<a class="sourceLine" id="cb855-8" title="8"></a>
+<a class="sourceLine" id="cb855-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res)<span class="op">$</span>qvalues</a>
+<a class="sourceLine" id="cb855-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 </div>
 <div id="question-2-36" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>How many of these genes are from <code>chrY</code> or <code>chrX</code>?</p>
 <hr />
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb785-1" title="1">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb785-2" title="2">ind &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb785-3" title="3"><span class="kw">sum</span>(chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb857-1" title="1">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
+<a class="sourceLine" id="cb857-2" title="2">ind &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb857-3" title="3"><span class="kw">sum</span>(chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) </a></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 
 </div>

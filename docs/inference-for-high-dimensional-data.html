@@ -511,74 +511,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 6</span> Inference for High Dimensional Data</h1>
 <p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
-<a class="sourceLine" id="cb355-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
-<a class="sourceLine" id="cb355-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
-<a class="sourceLine" id="cb355-4" title="4"><span class="co">#library(devtools) # allows download from github</span></a>
-<a class="sourceLine" id="cb355-5" title="5"><span class="kw">library</span>(qvalue) <span class="co"># conversion from p values to q values</span></a>
-<a class="sourceLine" id="cb355-6" title="6"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb384-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
+<a class="sourceLine" id="cb384-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;genefilter&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     area</code></pre>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" title="1"><span class="co">#library(devtools) # allows download from github</span></a>
+<a class="sourceLine" id="cb387-2" title="2"><span class="kw">library</span>(qvalue) <span class="co"># conversion from p values to q values</span></a>
+<a class="sourceLine" id="cb387-3" title="3"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a></code></pre></div>
 <div id="exercises-20" class="section level2 unnumbered">
 <h2>6.2 Exercises</h2>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb356-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
+<a class="sourceLine" id="cb388-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
 <p>This package loads three tables: <code>geneAnnotation</code>, <code>geneExpression</code>, and <code>sampleInfo</code>. Answer the following questions to familiarize yourself with the data set:</p>
 <div id="question-1-20" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>How many samples <strong>were</strong> processed on 2005-06-27?</p>
 <hr />
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-27&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-27&#39;</span>))</a></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 </div>
 <div id="questions-2" class="section level3 unnumbered">
 <h3>Questions 2</h3>
 <p>How many of the genes represented in this particular technology are on chromosome Y?</p>
 <hr />
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(geneAnnotation<span class="op">$</span>CHR <span class="op">==</span><span class="st"> &#39;chrY&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(geneAnnotation<span class="op">$</span>CHR <span class="op">==</span><span class="st"> &#39;chrY&#39;</span>))</a></code></pre></div>
 <pre><code>## [1] 21</code></pre>
 </div>
 <div id="question-3-16" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>What is the <strong>value</strong> of the gene ARPC1A on the one subject that we measured on 2005-06-10?</p>
 <hr />
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" title="1">subj &lt;-<span class="st"> </span>sampleInfo[<span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-10&#39;</span>),]<span class="op">$</span>filename</a>
-<a class="sourceLine" id="cb361-2" title="2">probe &lt;-<span class="st"> </span>geneAnnotation[<span class="kw">which</span>(geneAnnotation<span class="op">$</span>SYMBOL <span class="op">==</span><span class="st"> &#39;ARPC1A&#39;</span>),]<span class="op">$</span>PROBEID</a>
-<a class="sourceLine" id="cb361-3" title="3">geneExpression[probe,subj]</a></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1">subj &lt;-<span class="st"> </span>sampleInfo[<span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-10&#39;</span>),]<span class="op">$</span>filename</a>
+<a class="sourceLine" id="cb393-2" title="2">probe &lt;-<span class="st"> </span>geneAnnotation[<span class="kw">which</span>(geneAnnotation<span class="op">$</span>SYMBOL <span class="op">==</span><span class="st"> &#39;ARPC1A&#39;</span>),]<span class="op">$</span>PROBEID</a>
+<a class="sourceLine" id="cb393-3" title="3">geneExpression[probe,subj]</a></code></pre></div>
 <pre><code>## [1] 8.233599</code></pre>
 </div>
 </div>
 <div id="exercises-21" class="section level2 unnumbered">
 <h2>6.4 Exercises</h2>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb363-2" title="2">population =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb363-3" title="3">pvals &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>,{</a>
-<a class="sourceLine" id="cb363-4" title="4">  control =<span class="st"> </span><span class="kw">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb363-5" title="5">  treatment =<span class="st"> </span><span class="kw">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb363-6" title="6">  <span class="kw">t.test</span>(treatment,control)<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb363-7" title="7">})</a>
-<a class="sourceLine" id="cb363-8" title="8"><span class="kw">head</span>(pvals)</a></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb395-2" title="2">population =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>)</a>
+<a class="sourceLine" id="cb395-3" title="3">pvals &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>,{</a>
+<a class="sourceLine" id="cb395-4" title="4">  control =<span class="st"> </span><span class="kw">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb395-5" title="5">  treatment =<span class="st"> </span><span class="kw">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb395-6" title="6">  <span class="kw">t.test</span>(treatment,control)<span class="op">$</span>p.val</a>
+<a class="sourceLine" id="cb395-7" title="7">})</a>
+<a class="sourceLine" id="cb395-8" title="8"><span class="kw">head</span>(pvals)</a></code></pre></div>
 <pre><code>## [1] 0.9758457 0.4723582 0.2068672 0.7023475 0.9407852 0.0723841</code></pre>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="kw">hist</span>(pvals)</a></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" title="1"><span class="kw">hist</span>(pvals)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-172-1.png" width="672" /></p>
 <div id="question-1-21" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>What proportion of the p-values is below 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1"><span class="kw">mean</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1"><span class="kw">mean</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 0.041</code></pre>
 </div>
 <div id="question-2-19" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>What proportion of the p-values is below 0.01?</p>
 <hr />
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1"><span class="kw">mean</span>(pvals<span class="op">&lt;</span><span class="fl">0.01</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1"><span class="kw">mean</span>(pvals<span class="op">&lt;</span><span class="fl">0.01</span>)</a></code></pre></div>
 <pre><code>## [1] 0.008</code></pre>
 </div>
 <div id="question-3-17" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Assume you are testing the effectiveness of 20 diets on mice weight. For each of the 20 diets, you run an experiment with 10 control mice and 10 treated mice. Assume the null hypothesis, that the diet has no effect, is true for all 20 diets and that mice weights follow a normal distribution, with mean 30 grams and a standard deviation of 2 grams. Run a Monte Carlo simulation for one of these studies:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1">cases =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb370-2" title="2">controls =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb370-3" title="3"><span class="kw">t.test</span>(cases,controls)</a></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">cases =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb402-2" title="2">controls =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb402-3" title="3"><span class="kw">t.test</span>(cases,controls)</a></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -592,11 +597,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  30.23172  30.08639</code></pre>
 <p>Now run a Monte Carlo simulation imitating the results for the experiment for all 20 diets. If you set the seed at 100, set.seed(100), how many of p-values are below 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" title="1"><span class="kw">set.seed</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb372-2" title="2">randomData &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">20</span><span class="op">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb372-3" title="3">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb372-4" title="4">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(randomData, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb372-5" title="5"><span class="kw">sum</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1"><span class="kw">set.seed</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb404-2" title="2">randomData &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">20</span><span class="op">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb404-3" title="3">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb404-4" title="4">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(randomData, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb404-5" title="5"><span class="kw">sum</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-4-14" class="section level3 unnumbered">
@@ -604,20 +609,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now create a simulation to learn about the distribution of the number of p-values that are less than 0.05. In question 3, we ran the 20 diet experiment once. Now we will run the experiment 1,000 times and each time save the number of p-values that are less than 0.05.
 Set the seed at 100, <code>set.seed(100)</code>, run the code from Question 3 1,000 times, and save the number of times the p-value is less than 0.05 for each of the 1,000 instances. What is the average of these numbers? This is the expected number of tests (out of the 20 we run) that we will reject when the null is true.</p>
 <hr />
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" title="1"><span class="kw">set.seed</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb374-2" title="2">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb374-3" title="3">  randomData &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">20</span><span class="op">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb374-4" title="4">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(randomData, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb374-5" title="5">  <span class="kw">return</span>(<span class="kw">sum</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)) <span class="co"># total number of false positives per replication</span></a>
-<a class="sourceLine" id="cb374-6" title="6">})</a>
-<a class="sourceLine" id="cb374-7" title="7"><span class="kw">mean</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1"><span class="kw">set.seed</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb406-2" title="2">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
+<a class="sourceLine" id="cb406-3" title="3">  randomData &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">20</span><span class="op">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb406-4" title="4">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(randomData, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb406-5" title="5">  <span class="kw">return</span>(<span class="kw">sum</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)) <span class="co"># total number of false positives per replication</span></a>
+<a class="sourceLine" id="cb406-6" title="6">})</a>
+<a class="sourceLine" id="cb406-7" title="7"><span class="kw">mean</span>(res)</a></code></pre></div>
 <pre><code>## [1] 0.999</code></pre>
 </div>
 <div id="question-5-8" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>What this says is that on average, we expect some p-value to be 0.05 even when the null is true for all diets. Use the same simulation data and report for what percent of the 1,000 replications did we make more than 0 false positives?</p>
 <hr />
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1"><span class="kw">mean</span>(res<span class="op">&gt;</span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1"><span class="kw">mean</span>(res<span class="op">&gt;</span><span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## [1] 0.651</code></pre>
 </div>
 </div>
@@ -628,18 +633,18 @@ Set the seed at 100, <code>set.seed(100)</code>, run the code from Question 3 1,
 <p>Assume the null is true and denote the p-value you would get if you ran a test as P. Define the function <span class="math inline">\(f(x) = Pr(P&gt;x)\)</span>. What does <span class="math inline">\(f(x)\)</span> look like?</p>
 <hr />
 <p>The answer is <strong>B (identity line)</strong>. When the null hypothesis is true, p value has a uniform distribution. If you plot a <strong>cumulative</strong> distribution function, where the y-axis is f(x), then you will observe an identity line. Here is a demonstration using <code>ecdf</code> function to plot a cumulative distribution function.</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1">population &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb378-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb378-3" title="3">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb378-4" title="4">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb378-5" title="5">pvals &lt;-<span class="st"> </span><span class="kw">replicate</span>(B,{</a>
-<a class="sourceLine" id="cb378-6" title="6">  control =<span class="st"> </span><span class="kw">sample</span>(population,N)</a>
-<a class="sourceLine" id="cb378-7" title="7">  treatment =<span class="st"> </span><span class="kw">sample</span>(population,N)</a>
-<a class="sourceLine" id="cb378-8" title="8">  <span class="kw">t.test</span>(treatment,control)<span class="op">$</span>p.val </a>
-<a class="sourceLine" id="cb378-9" title="9">})</a>
-<a class="sourceLine" id="cb378-10" title="10"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb378-11" title="11"><span class="kw">hist</span>(pvals)</a>
-<a class="sourceLine" id="cb378-12" title="12"><span class="kw">plot</span>(<span class="kw">ecdf</span>(pvals)) <span class="co"># identity line</span></a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">population &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
+<a class="sourceLine" id="cb410-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb410-3" title="3">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb410-4" title="4">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb410-5" title="5">pvals &lt;-<span class="st"> </span><span class="kw">replicate</span>(B,{</a>
+<a class="sourceLine" id="cb410-6" title="6">  control =<span class="st"> </span><span class="kw">sample</span>(population,N)</a>
+<a class="sourceLine" id="cb410-7" title="7">  treatment =<span class="st"> </span><span class="kw">sample</span>(population,N)</a>
+<a class="sourceLine" id="cb410-8" title="8">  <span class="kw">t.test</span>(treatment,control)<span class="op">$</span>p.val </a>
+<a class="sourceLine" id="cb410-9" title="9">})</a>
+<a class="sourceLine" id="cb410-10" title="10"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb410-11" title="11"><span class="kw">hist</span>(pvals)</a>
+<a class="sourceLine" id="cb410-12" title="12"><span class="kw">plot</span>(<span class="kw">ecdf</span>(pvals)) <span class="co"># identity line</span></a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-179-1.png" width="672" /></p>
 </div>
 <div id="question-2-20" class="section level3 unnumbered">
@@ -647,26 +652,26 @@ Set the seed at 100, <code>set.seed(100)</code>, run the code from Question 3 1,
 <p>In the previous exercises, we saw how the probability of incorrectly rejecting the null for at least one of 20 experiments for which the null is true, is well over 5%. Now let’s consider a case in which we run thousands of tests, as we would do in a high-throughput experiment.</p>
 <p>We previously learned that under the null, the probability of a p-value <span class="math inline">\(&lt; p\)</span> is p. If we run 8,793 independent tests, what it the probability of incorrectly rejecting at least one of the null hypotheses?</p>
 <hr />
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.95</span><span class="op">^</span><span class="dv">8793</span></a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.95</span><span class="op">^</span><span class="dv">8793</span></a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-3-18" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Suppose we need to run 8,793 statistical tests and we want to make the probability of a mistake very small, say 5%. Use the answer to exercise 2 (<strong>Sidak’s procedure</strong>) to determine how small we have to change the cutoff, previously 0.05, to lower our probability of at least one mistake to be 5%.</p>
 <hr />
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb381-2" title="2"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.95</span><span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>m)</a></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
+<a class="sourceLine" id="cb413-2" title="2"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.95</span><span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>m)</a></code></pre></div>
 <pre><code>## [1] 5.833407e-06</code></pre>
 </div>
 <div id="question-4-15" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>In R define</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1">alphas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.01</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">alphas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.01</span>)</a></code></pre></div>
 <p>Make a plot of <span class="math inline">\(\alpha/m\)</span> and <span class="math inline">\(1-(1-\alpha)^{1/m}\)</span> for various values of <span class="math inline">\(m&gt;1\)</span>. Which procedure is more conservative Bonferrino’s or Sidek’s?</p>
 <hr />
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">plot</span>(alphas<span class="op">/</span>m, (<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>alphas)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>m)), <span class="dt">xlab =</span> <span class="st">&#39;bonf&#39;</span>,</a>
-<a class="sourceLine" id="cb384-2" title="2">     <span class="dt">ylab =</span> <span class="st">&#39;sidak&#39;</span>, <span class="dt">main =</span> <span class="st">&#39;p-val cutoff&#39;</span>)</a>
-<a class="sourceLine" id="cb384-3" title="3"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1"><span class="kw">plot</span>(alphas<span class="op">/</span>m, (<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>alphas)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>m)), <span class="dt">xlab =</span> <span class="st">&#39;bonf&#39;</span>,</a>
+<a class="sourceLine" id="cb416-2" title="2">     <span class="dt">ylab =</span> <span class="st">&#39;sidak&#39;</span>, <span class="dt">main =</span> <span class="st">&#39;p-val cutoff&#39;</span>)</a>
+<a class="sourceLine" id="cb416-3" title="3"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-183-1.png" width="672" /></p>
 <p>Bonferroni’s procedure is more conservative (<strong>choice B</strong>). Conservative refers to strictness. The p-value cutoff for significance is lower in Bonferroni’s procedure, and therefore more conservative.</p>
 </div>
@@ -674,51 +679,51 @@ Set the seed at 100, <code>set.seed(100)</code>, run the code from Question 3 1,
 <h3>Question 5</h3>
 <p>To simulate the p-value results of, say <strong>8,793</strong> t-tests for which the null is true, we don’t actually have to generate the original data. We can generate p-values for a uniform distribution like this: <code>pvals &lt;- runif(8793,0,1)</code>. Using what we have learned, set the cutoff using the Bonferroni correction and report back the FWER. Set the seed at 1 and run 10,000 simulations.</p>
 <hr />
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb385-2" title="2">bonf_res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, {</a>
-<a class="sourceLine" id="cb385-3" title="3">  pvals &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb385-4" title="4">  bonfcall &lt;-<span class="st"> </span><span class="kw">sum</span>((pvals <span class="op">*</span><span class="st"> </span>m) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb385-5" title="5">  <span class="kw">return</span>(bonfcall)</a>
-<a class="sourceLine" id="cb385-6" title="6">})</a>
-<a class="sourceLine" id="cb385-7" title="7"><span class="kw">sum</span>(bonf_res<span class="op">&gt;</span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(bonf_res)</a></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb417-2" title="2">bonf_res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, {</a>
+<a class="sourceLine" id="cb417-3" title="3">  pvals &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb417-4" title="4">  bonfcall &lt;-<span class="st"> </span><span class="kw">sum</span>((pvals <span class="op">*</span><span class="st"> </span>m) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb417-5" title="5">  <span class="kw">return</span>(bonfcall)</a>
+<a class="sourceLine" id="cb417-6" title="6">})</a>
+<a class="sourceLine" id="cb417-7" title="7"><span class="kw">sum</span>(bonf_res<span class="op">&gt;</span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(bonf_res)</a></code></pre></div>
 <pre><code>## [1] 0.0464</code></pre>
 </div>
 <div id="question-6-8" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Using the same seed, repeat exercise 5, but for Sidek’s cutoff.</p>
 <hr />
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb387-2" title="2">sidak_res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, {</a>
-<a class="sourceLine" id="cb387-3" title="3">  pvals &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb387-4" title="4">  sidakcall &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>pvals)<span class="op">^</span>m) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb387-5" title="5">  <span class="kw">return</span>(sidakcall)</a>
-<a class="sourceLine" id="cb387-6" title="6">})</a>
-<a class="sourceLine" id="cb387-7" title="7"></a>
-<a class="sourceLine" id="cb387-8" title="8"><span class="kw">sum</span>(sidak_res<span class="op">&gt;</span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(sidak_res)</a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb419-2" title="2">sidak_res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, {</a>
+<a class="sourceLine" id="cb419-3" title="3">  pvals &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb419-4" title="4">  sidakcall &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>pvals)<span class="op">^</span>m) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb419-5" title="5">  <span class="kw">return</span>(sidakcall)</a>
+<a class="sourceLine" id="cb419-6" title="6">})</a>
+<a class="sourceLine" id="cb419-7" title="7"></a>
+<a class="sourceLine" id="cb419-8" title="8"><span class="kw">sum</span>(sidak_res<span class="op">&gt;</span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(sidak_res)</a></code></pre></div>
 <pre><code>## [1] 0.0473</code></pre>
 </div>
 <div id="question-7-8" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>In the following exercises, we will define error controlling procedures for experimental data. We will make a list of genes based on q-values. We will also assess your understanding of false positives rates and false negative rates by asking you to create a Monte Carlo simulation.
 Load the expression data:</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb389-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
+<a class="sourceLine" id="cb421-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
 <p>We are interested in comparing gene expression between the two groups defined in the <code>sampleInfo</code> table. Compute a p-value for each gene using the function rowttests from the <code>genefilter</code> package.</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">library</span>(genefilter)</a>
-<a class="sourceLine" id="cb390-2" title="2"><span class="co">#?rowttests</span></a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="kw">library</span>(genefilter)</a>
+<a class="sourceLine" id="cb422-2" title="2"><span class="co">#?rowttests</span></a></code></pre></div>
 <p>How many genes have p-values smaller than 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1">g &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb391-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb391-3" title="3"><span class="kw">sum</span>(pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1">g &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
+<a class="sourceLine" id="cb423-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb423-3" title="3"><span class="kw">sum</span>(pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 1383</code></pre>
 </div>
 <div id="question-8-7" class="section level3 unnumbered">
 <h3>Question 8</h3>
 <p>Apply the Bonferroni correction to achieve a FWER of 0.05. How many genes are called significant under this procedure?</p>
 <hr />
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb393-2" title="2"><span class="kw">sum</span>(pvals <span class="op">&lt;</span><span class="st"> </span>(<span class="fl">0.05</span><span class="op">/</span>m))</a></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
+<a class="sourceLine" id="cb425-2" title="2"><span class="kw">sum</span>(pvals <span class="op">&lt;</span><span class="st"> </span>(<span class="fl">0.05</span><span class="op">/</span>m))</a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 </div>
 <div id="question-9-7" class="section level3 unnumbered">
@@ -726,23 +731,23 @@ Load the expression data:</p>
 <p>In R, we can compute q-values using the <code>p.adjust</code> function with the FDR option. Read the help file for p.adjust and compute how many genes achieve a q-value &lt; 0.05 for our
 gene expression dataset.</p>
 <hr />
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" title="1">pvals_adjust &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(pvals, <span class="dt">method =</span> <span class="st">&#39;fdr&#39;</span>)</a>
-<a class="sourceLine" id="cb395-2" title="2"><span class="kw">sum</span>(pvals_adjust <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1">pvals_adjust &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(pvals, <span class="dt">method =</span> <span class="st">&#39;fdr&#39;</span>)</a>
+<a class="sourceLine" id="cb427-2" title="2"><span class="kw">sum</span>(pvals_adjust <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 </div>
 <div id="question-10-6" class="section level3 unnumbered">
 <h3>Question 10</h3>
 <p>Now use the qvalue function, in the Bioconductor <code>qvalue</code> package, to estimate q-values using the procedure described by Storey. How many genes have q-values below 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" title="1">res &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)</a>
-<a class="sourceLine" id="cb397-2" title="2"><span class="kw">sum</span>(res<span class="op">$</span>qvalues <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">res &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)</a>
+<a class="sourceLine" id="cb429-2" title="2"><span class="kw">sum</span>(res<span class="op">$</span>qvalues <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
 <pre><code>## [1] 22</code></pre>
 </div>
 <div id="question-11-3" class="section level3 unnumbered">
 <h3>Question 11</h3>
 <p>Read the help file for qvalue and report the estimated proportion of genes for which the null hypothesis is true <span class="math inline">\(\pi_0 = m_0/m\)</span></p>
 <hr />
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb399-1" title="1">res<span class="op">$</span>pi0</a></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1">res<span class="op">$</span>pi0</a></code></pre></div>
 <pre><code>## [1] 0.6695739</code></pre>
 </div>
 <div id="question-12-3" class="section level3 unnumbered">
@@ -750,8 +755,8 @@ gene expression dataset.</p>
 <p>The number of genes passing the q-value &lt; 0.05 threshold is larger with the q-value function than the <code>p.adjust</code> difference. Why is this the case? Make a plot of
 the ratio of these two estimates to help answer the question.</p>
 <hr />
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" title="1"><span class="kw">plot</span>(pvals_adjust, res<span class="op">$</span>qvalues, <span class="dt">xlab =</span> <span class="st">&#39;fdr&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;qval&#39;</span>)</a>
-<a class="sourceLine" id="cb401-2" title="2"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1"><span class="kw">plot</span>(pvals_adjust, res<span class="op">$</span>qvalues, <span class="dt">xlab =</span> <span class="st">&#39;fdr&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;qval&#39;</span>)</a>
+<a class="sourceLine" id="cb433-2" title="2"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-193-1.png" width="672" /></p>
 <p>The qvalue function estimates the proportion of genes for which the null hypothesis is true and provides a less conservative estimate (<strong>choice C</strong>).</p>
 </div>
@@ -759,39 +764,39 @@ the ratio of these two estimates to help answer the question.</p>
 <h3>Questions 13 &amp; 14</h3>
 <p>This exercise and the remaining one are more advanced. Create a Monte Carlo simulation in which you simulate measurements from 8,793 genes for 24 samples, 12 cases and 12 controls. For <strong>500</strong> genes, create a difierence of 1 between cases and controls. You can use the code provided below. Run this experiment 1,000 times with a Monte Carlo simulation. For each instance, compute p-values using a t-test and keep track of the number of false positives and false negatives. Compute the false positive rate and false negative rate if we use Bonferroni, q-values from <code>p.adjust</code>, and q-values from <code>qvalue</code> function. Set the seed to 1 for all three
 simulations. <strong>What are the false positive and false negative rates for Bonferroni? Note: False positive rate = number of false positives / total number of genes for which the null hypothesis is true. False negative rate = number of false negatives / total number of genes for which the null hypothesis is false</strong>.</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">n &lt;-<span class="st"> </span><span class="dv">24</span></a>
-<a class="sourceLine" id="cb402-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb402-3" title="3">mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>m),m,n)</a>
-<a class="sourceLine" id="cb402-4" title="4">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb402-5" title="5">positives &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb402-6" title="6">mat[<span class="dv">1</span><span class="op">:</span>positives,<span class="dv">1</span><span class="op">:</span>(n<span class="op">/</span><span class="dv">2</span>)] &lt;-<span class="st"> </span>mat[<span class="dv">1</span><span class="op">:</span>positives,<span class="dv">1</span><span class="op">:</span>(n<span class="op">/</span><span class="dv">2</span>)]<span class="op">+</span>delta</a></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1">n &lt;-<span class="st"> </span><span class="dv">24</span></a>
+<a class="sourceLine" id="cb434-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
+<a class="sourceLine" id="cb434-3" title="3">mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>m),m,n)</a>
+<a class="sourceLine" id="cb434-4" title="4">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb434-5" title="5">positives &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb434-6" title="6">mat[<span class="dv">1</span><span class="op">:</span>positives,<span class="dv">1</span><span class="op">:</span>(n<span class="op">/</span><span class="dv">2</span>)] &lt;-<span class="st"> </span>mat[<span class="dv">1</span><span class="op">:</span>positives,<span class="dv">1</span><span class="op">:</span>(n<span class="op">/</span><span class="dv">2</span>)]<span class="op">+</span>delta</a></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb403-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb403-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb403-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb403-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb403-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
-<a class="sourceLine" id="cb403-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
-<a class="sourceLine" id="cb403-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb403-9" title="9"></a>
-<a class="sourceLine" id="cb403-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb403-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb403-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb403-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb403-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb403-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
-<a class="sourceLine" id="cb403-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
-<a class="sourceLine" id="cb403-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb403-18" title="18">  calls &lt;-<span class="st"> </span>pvals <span class="op">&lt;</span><span class="st"> </span>(<span class="fl">0.05</span><span class="op">/</span>m)</a>
-<a class="sourceLine" id="cb403-19" title="19">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
-<a class="sourceLine" id="cb403-20" title="20">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
-<a class="sourceLine" id="cb403-21" title="21">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
-<a class="sourceLine" id="cb403-22" title="22">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
-<a class="sourceLine" id="cb403-23" title="23">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
-<a class="sourceLine" id="cb403-24" title="24">})</a>
-<a class="sourceLine" id="cb403-25" title="25">res&lt;-<span class="kw">t</span>(res)</a>
-<a class="sourceLine" id="cb403-26" title="26"><span class="kw">head</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb435-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
+<a class="sourceLine" id="cb435-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb435-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb435-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb435-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
+<a class="sourceLine" id="cb435-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
+<a class="sourceLine" id="cb435-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb435-9" title="9"></a>
+<a class="sourceLine" id="cb435-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb435-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
+<a class="sourceLine" id="cb435-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
+<a class="sourceLine" id="cb435-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
+<a class="sourceLine" id="cb435-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb435-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
+<a class="sourceLine" id="cb435-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
+<a class="sourceLine" id="cb435-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb435-18" title="18">  calls &lt;-<span class="st"> </span>pvals <span class="op">&lt;</span><span class="st"> </span>(<span class="fl">0.05</span><span class="op">/</span>m)</a>
+<a class="sourceLine" id="cb435-19" title="19">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
+<a class="sourceLine" id="cb435-20" title="20">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
+<a class="sourceLine" id="cb435-21" title="21">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
+<a class="sourceLine" id="cb435-22" title="22">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
+<a class="sourceLine" id="cb435-23" title="23">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
+<a class="sourceLine" id="cb435-24" title="24">})</a>
+<a class="sourceLine" id="cb435-25" title="25">res&lt;-<span class="kw">t</span>(res)</a>
+<a class="sourceLine" id="cb435-26" title="26"><span class="kw">head</span>(res)</a></code></pre></div>
 <pre><code>##              [,1]  [,2]
 ## [1,] 0.0000000000 0.998
 ## [2,] 0.0000000000 0.998
@@ -799,42 +804,42 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 ## [4,] 0.0001205836 0.996
 ## [5,] 0.0000000000 0.992
 ## [6,] 0.0000000000 0.994</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
 <pre><code>## [1] 5.185096e-06</code></pre>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
 <pre><code>## [1] 0.995206</code></pre>
 </div>
 <div id="questions-15-16" class="section level3 unnumbered">
 <h3>Questions 15 &amp; 16</h3>
 <p>What are the false positive and negative rates for <code>p.adjust</code>?</p>
 <hr />
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb409-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb409-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb409-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb409-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb409-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
-<a class="sourceLine" id="cb409-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
-<a class="sourceLine" id="cb409-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb409-9" title="9"></a>
-<a class="sourceLine" id="cb409-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb409-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb409-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb409-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb409-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb409-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
-<a class="sourceLine" id="cb409-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
-<a class="sourceLine" id="cb409-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb409-18" title="18">  pvals_adjust &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(pvals, <span class="dt">method =</span> <span class="st">&#39;fdr&#39;</span>)</a>
-<a class="sourceLine" id="cb409-19" title="19">  calls &lt;-<span class="st"> </span>pvals_adjust <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb409-20" title="20">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
-<a class="sourceLine" id="cb409-21" title="21">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
-<a class="sourceLine" id="cb409-22" title="22">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
-<a class="sourceLine" id="cb409-23" title="23">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
-<a class="sourceLine" id="cb409-24" title="24">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
-<a class="sourceLine" id="cb409-25" title="25">})</a>
-<a class="sourceLine" id="cb409-26" title="26">res&lt;-<span class="kw">t</span>(res)</a>
-<a class="sourceLine" id="cb409-27" title="27"><span class="kw">head</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb441-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
+<a class="sourceLine" id="cb441-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb441-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb441-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb441-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
+<a class="sourceLine" id="cb441-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
+<a class="sourceLine" id="cb441-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb441-9" title="9"></a>
+<a class="sourceLine" id="cb441-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb441-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
+<a class="sourceLine" id="cb441-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
+<a class="sourceLine" id="cb441-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
+<a class="sourceLine" id="cb441-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb441-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
+<a class="sourceLine" id="cb441-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
+<a class="sourceLine" id="cb441-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb441-18" title="18">  pvals_adjust &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(pvals, <span class="dt">method =</span> <span class="st">&#39;fdr&#39;</span>)</a>
+<a class="sourceLine" id="cb441-19" title="19">  calls &lt;-<span class="st"> </span>pvals_adjust <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb441-20" title="20">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
+<a class="sourceLine" id="cb441-21" title="21">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
+<a class="sourceLine" id="cb441-22" title="22">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
+<a class="sourceLine" id="cb441-23" title="23">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
+<a class="sourceLine" id="cb441-24" title="24">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
+<a class="sourceLine" id="cb441-25" title="25">})</a>
+<a class="sourceLine" id="cb441-26" title="26">res&lt;-<span class="kw">t</span>(res)</a>
+<a class="sourceLine" id="cb441-27" title="27"><span class="kw">head</span>(res)</a></code></pre></div>
 <pre><code>##              [,1]  [,2]
 ## [1,] 0.0000000000 0.992
 ## [2,] 0.0002411672 0.966
@@ -842,42 +847,42 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 ## [4,] 0.0002411672 0.950
 ## [5,] 0.0000000000 0.964
 ## [6,] 0.0000000000 0.944</code></pre>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
 <pre><code>## [1] 0.0001201013</code></pre>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
 <pre><code>## [1] 0.962686</code></pre>
 </div>
 <div id="questions-17-18" class="section level3 unnumbered">
 <h3>Questions 17 &amp; 18</h3>
 <p>What are the false positive and negative rates for <code>qvalues</code>?</p>
 <hr />
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb415-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb415-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb415-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb415-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb415-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
-<a class="sourceLine" id="cb415-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
-<a class="sourceLine" id="cb415-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb415-9" title="9"></a>
-<a class="sourceLine" id="cb415-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb415-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb415-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb415-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb415-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb415-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
-<a class="sourceLine" id="cb415-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
-<a class="sourceLine" id="cb415-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb415-18" title="18">  qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalue</a>
-<a class="sourceLine" id="cb415-19" title="19">  calls &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb415-20" title="20">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
-<a class="sourceLine" id="cb415-21" title="21">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
-<a class="sourceLine" id="cb415-22" title="22">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
-<a class="sourceLine" id="cb415-23" title="23">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
-<a class="sourceLine" id="cb415-24" title="24">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
-<a class="sourceLine" id="cb415-25" title="25">})</a>
-<a class="sourceLine" id="cb415-26" title="26">res&lt;-<span class="kw">t</span>(res)</a>
-<a class="sourceLine" id="cb415-27" title="27"><span class="kw">head</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb447-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
+<a class="sourceLine" id="cb447-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb447-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
+<a class="sourceLine" id="cb447-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
+<a class="sourceLine" id="cb447-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
+<a class="sourceLine" id="cb447-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
+<a class="sourceLine" id="cb447-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb447-9" title="9"></a>
+<a class="sourceLine" id="cb447-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb447-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
+<a class="sourceLine" id="cb447-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
+<a class="sourceLine" id="cb447-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
+<a class="sourceLine" id="cb447-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb447-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
+<a class="sourceLine" id="cb447-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
+<a class="sourceLine" id="cb447-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
+<a class="sourceLine" id="cb447-18" title="18">  qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalue</a>
+<a class="sourceLine" id="cb447-19" title="19">  calls &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span></a>
+<a class="sourceLine" id="cb447-20" title="20">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
+<a class="sourceLine" id="cb447-21" title="21">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
+<a class="sourceLine" id="cb447-22" title="22">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
+<a class="sourceLine" id="cb447-23" title="23">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
+<a class="sourceLine" id="cb447-24" title="24">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
+<a class="sourceLine" id="cb447-25" title="25">})</a>
+<a class="sourceLine" id="cb447-26" title="26">res&lt;-<span class="kw">t</span>(res)</a>
+<a class="sourceLine" id="cb447-27" title="27"><span class="kw">head</span>(res)</a></code></pre></div>
 <pre><code>##              [,1]  [,2]
 ## [1,] 0.0000000000 0.988
 ## [2,] 0.0002411672 0.966
@@ -885,40 +890,83 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 ## [4,] 0.0002411672 0.950
 ## [5,] 0.0000000000 0.964
 ## [6,] 0.0000000000 0.942</code></pre>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
 <pre><code>## [1] 0.0001387918</code></pre>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
 <pre><code>## [1] 0.95894</code></pre>
 </div>
 </div>
 <div id="exercises-23" class="section level2 unnumbered">
 <h2>6.12 Exercises</h2>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1"><span class="kw">library</span>(rafalib)</a>
-<a class="sourceLine" id="cb421-2" title="2"><span class="kw">library</span>(SpikeInSubset)</a>
-<a class="sourceLine" id="cb421-3" title="3"><span class="kw">data</span>(mas133)</a></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1"><span class="kw">library</span>(rafalib)</a>
+<a class="sourceLine" id="cb453-2" title="2"><span class="kw">library</span>(SpikeInSubset)</a></code></pre></div>
+<pre><code>## Loading required package: Biobase</code></pre>
+<pre><code>## Loading required package: BiocGenerics</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre><code>## 
+## Attaching package: &#39;BiocGenerics&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
+## 
+##     clusterApply, clusterApplyLB, clusterCall,
+##     clusterEvalQ, clusterExport, clusterMap, parApply,
+##     parCapply, parLapply, parLapplyLB, parRapply,
+##     parSapply, parSapplyLB</code></pre>
+<pre><code>## The following objects are masked from &#39;package:Matrix&#39;:
+## 
+##     colMeans, colSums, rowMeans, rowSums, which</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     combine, intersect, setdiff, union</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     IQR, mad, sd, var, xtabs</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     anyDuplicated, append, as.data.frame, basename,
+##     cbind, colMeans, colnames, colSums, dirname, do.call,
+##     duplicated, eval, evalq, Filter, Find, get, grep,
+##     grepl, intersect, is.unsorted, lapply, lengths, Map,
+##     mapply, match, mget, order, paste, pmax, pmax.int,
+##     pmin, pmin.int, Position, rank, rbind, Reduce,
+##     rowMeans, rownames, rowSums, sapply, setdiff, sort,
+##     table, tapply, union, unique, unsplit, which,
+##     which.max, which.min</code></pre>
+<pre><code>## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     &#39;browseVignettes()&#39;. To cite Bioconductor, see
+##     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages
+##     &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Biobase&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:Hmisc&#39;:
+## 
+##     contents</code></pre>
+<pre><code>## Loading required package: affy</code></pre>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" title="1"><span class="kw">data</span>(mas133)</a></code></pre></div>
 <p>Now make the following plot of the first two samples and compute the correlation:</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">e &lt;-<span class="st"> </span><span class="kw">exprs</span>(mas133)</a>
-<a class="sourceLine" id="cb422-2" title="2"><span class="kw">plot</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>],<span class="dt">main=</span><span class="kw">paste0</span>(<span class="st">&quot;corr=&quot;</span>,<span class="kw">signif</span>(<span class="kw">cor</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>]),<span class="dv">3</span>)), <span class="dt">cex=</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb422-3" title="3">k &lt;-<span class="st"> </span><span class="dv">3000</span></a>
-<a class="sourceLine" id="cb422-4" title="4">b &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co">#a buffer</span></a>
-<a class="sourceLine" id="cb422-5" title="5"><span class="kw">polygon</span>(<span class="kw">c</span>(<span class="op">-</span>b,k,k,<span class="op">-</span>b),<span class="kw">c</span>(<span class="op">-</span>b,<span class="op">-</span>b,k,k),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">density=</span><span class="dv">0</span>,<span class="dt">border=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1">e &lt;-<span class="st"> </span><span class="kw">exprs</span>(mas133)</a>
+<a class="sourceLine" id="cb468-2" title="2"><span class="kw">plot</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>],<span class="dt">main=</span><span class="kw">paste0</span>(<span class="st">&quot;corr=&quot;</span>,<span class="kw">signif</span>(<span class="kw">cor</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>]),<span class="dv">3</span>)), <span class="dt">cex=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb468-3" title="3">k &lt;-<span class="st"> </span><span class="dv">3000</span></a>
+<a class="sourceLine" id="cb468-4" title="4">b &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co">#a buffer</span></a>
+<a class="sourceLine" id="cb468-5" title="5"><span class="kw">polygon</span>(<span class="kw">c</span>(<span class="op">-</span>b,k,k,<span class="op">-</span>b),<span class="kw">c</span>(<span class="op">-</span>b,<span class="op">-</span>b,k,k),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">density=</span><span class="dv">0</span>,<span class="dt">border=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-199-1.png" width="672" /></p>
 <div id="question-1-23" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>What proportion of the points are inside the box?</p>
 <hr />
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(e[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span> <span class="op">&amp;</span><span class="st"> </span>e[,<span class="dv">2</span>]<span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">dim</span>(e)[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(e[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span> <span class="op">&amp;</span><span class="st"> </span>e[,<span class="dv">2</span>]<span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">dim</span>(e)[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## [1] 0.9475336</code></pre>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1"><span class="kw">sum</span>(e[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span> <span class="op">&amp;</span><span class="st"> </span>e[,<span class="dv">2</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span>) <span class="op">/</span><span class="st"> </span><span class="kw">dim</span>(e)[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1"><span class="kw">sum</span>(e[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span> <span class="op">&amp;</span><span class="st"> </span>e[,<span class="dv">2</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span>) <span class="op">/</span><span class="st"> </span><span class="kw">dim</span>(e)[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>## [1] 0.9475336</code></pre>
 </div>
 <div id="question-2-21" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>Now make the sample plot with log:</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1"><span class="kw">plot</span>(<span class="kw">log2</span>(e[,<span class="dv">1</span>]),<span class="kw">log2</span>(e[,<span class="dv">2</span>]))</a>
-<a class="sourceLine" id="cb427-2" title="2">k &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="dv">3000</span>)</a>
-<a class="sourceLine" id="cb427-3" title="3">b &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb427-4" title="4"><span class="kw">polygon</span>(<span class="kw">c</span>(b,k,k,b),<span class="kw">c</span>(b,b,k,k),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">density=</span><span class="dv">0</span>,<span class="dt">border=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1"><span class="kw">plot</span>(<span class="kw">log2</span>(e[,<span class="dv">1</span>]),<span class="kw">log2</span>(e[,<span class="dv">2</span>]))</a>
+<a class="sourceLine" id="cb473-2" title="2">k &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="dv">3000</span>)</a>
+<a class="sourceLine" id="cb473-3" title="3">b &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb473-4" title="4"><span class="kw">polygon</span>(<span class="kw">c</span>(b,k,k,b),<span class="kw">c</span>(b,b,k,k),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">density=</span><span class="dv">0</span>,<span class="dt">border=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-201-1.png" width="672" /></p>
 <p>What is an advantage of taking the log?</p>
 <hr />
@@ -927,24 +975,24 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 <div id="question-3-19" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Make an MA-plot:</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1">e &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">exprs</span>(mas133))</a>
-<a class="sourceLine" id="cb428-2" title="2"><span class="kw">plot</span>((e[,<span class="dv">1</span>]<span class="op">+</span>e[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>],<span class="dt">cex=</span><span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1">e &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">exprs</span>(mas133))</a>
+<a class="sourceLine" id="cb474-2" title="2"><span class="kw">plot</span>((e[,<span class="dv">1</span>]<span class="op">+</span>e[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>],<span class="dt">cex=</span><span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-202-1.png" width="672" /></p>
 <p>The two samples we are plotting are replicates (they are random samples from the same batch of RNA). The correlation of the data was 0.997 in the original scale and 0.96 in the
 log-scale. High correlations are sometimes confused with evidence of replication. However, replication implies we get very small differences between the observations, which is better measured with distance or differences.</p>
 <p>What is the standard deviation of the log ratios for this comparison?</p>
 <hr />
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">e &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">exprs</span>(mas133))</a>
-<a class="sourceLine" id="cb429-2" title="2"><span class="kw">plot</span>((e[,<span class="dv">1</span>]<span class="op">+</span>e[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>],<span class="dt">cex=</span><span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" title="1">e &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">exprs</span>(mas133))</a>
+<a class="sourceLine" id="cb475-2" title="2"><span class="kw">plot</span>((e[,<span class="dv">1</span>]<span class="op">+</span>e[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>],<span class="dt">cex=</span><span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-203-1.png" width="672" /></p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1"><span class="kw">sd</span>(e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1"><span class="kw">sd</span>(e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## [1] 0.7767887</code></pre>
 </div>
 <div id="question-4-16" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>How many fold changes above <strong>absolute</strong> 2 do we see?</p>
 <hr />
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1"><span class="kw">sum</span>(<span class="kw">abs</span>(e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>])<span class="op">&gt;</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1"><span class="kw">sum</span>(<span class="kw">abs</span>(e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>])<span class="op">&gt;</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 3057</code></pre>
 
 </div>
