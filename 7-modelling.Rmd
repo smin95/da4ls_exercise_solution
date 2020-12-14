@@ -380,8 +380,23 @@ qqplot(theory, sort(vars), xlab = 'theory', ylab ='obs') # F approximation vs va
 qqnorm(sort(vars)) # normal approximation vs variance from the data
 ```
 
-The answer is **D : If we exclude the highest 0.1% of the data, the F-distribution provides a good fit.**
+The answer is **D: If we exclude the highest 0.1% of the data, the F-distribution provides a good fit.** Actually I do not think answer is entirely correct but this is the most appropriate one. Even if we exclude the top 0.1% there are still more outliers to remove. Here is a demonstration.
 
+```{r}
+vars_sort <- sort(vars)
+vars_excl <- vars_sort[1:18000] # 18000 out of 22215 kept = 81%
+pf_excl <- (seq(along=vars_excl)-0.5)/length(vars_excl)
+theory <- qf(pf_excl,14,res$df2) 
+
+mypar(2,2)
+qqplot(theory,vars_excl, xlab = 'theory',ylab='obs',
+       main = 'all data compared with F-approximation')
+qqplot(vars_excl,theory, xlim = c(0,0.2),
+       ylim = c(0,100), main = 'zoomed in')
+qqnorm(vars_excl, main = 'normal qqplot') # comparing with normal approximation with filtered variance (81% kept)
+```
+
+Even if I keep up to 81% of the values, F-distribution 
 ## 7.7 Exercises {-}
 
 ### Question 1 {-}

@@ -419,7 +419,7 @@ sum(qvals <0.1)
 
 ## 10.11 Exercises {-}
 
-### Question 1 
+### Question 1{-}
 
 Suppose you want to make an MA-plot of the first two samples `y = geneExpression[,1:2]`. Which of the following projections gives us the projection of y so that column 2 versus column 1 is an MA plot?
 
@@ -489,7 +489,7 @@ y\begin{pmatrix}
 \\
 $$
 
-### Question 2
+### Question 2 {-}
 
 Say $Y$ is $M$x$N$ in the $SVD Y = UDV^T$ which of the following is not correct?
 
