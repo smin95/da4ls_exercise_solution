@@ -3,7 +3,7 @@ December 14th, 2020
 
 Seung Hyun (Sam) Min
 
-This repository contains the Markdown files for the book "Data Analysis for the Life Sciences with R: Exercise Solutions." The book was completed using the bookdown package (www.bookdown.org). 
+This repository contains the Markdown files for the book "Data Analysis for the Life Sciences with R: Exercise Solutions." The book was completed using the bookdown package (www.bookdown.org). You can acccess the book with the link here (https://smin95.github.io/da4ls_exercise_solution/).
 
 ## Frequently Asked Questions
 **1\. Is this the official solution by the book authors?**
