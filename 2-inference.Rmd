@@ -9,7 +9,7 @@ editor_options:
 
 First, upload necessary package(s).
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dplyr) # uplaods the functions filter() and %>%
 library(rafalib) # important for plotting with base R
 ```

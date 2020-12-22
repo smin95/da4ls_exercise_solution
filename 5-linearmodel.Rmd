@@ -4,7 +4,7 @@
 
 First, upload necessary package(s).
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dplyr) # uplaods the function filter() and %>%
 library(rafalib) # important for plotting with base R
 library(contrast)
@@ -91,8 +91,10 @@ Function `popsd`, instead of `sd`, is used because we are not dealing with a sam
 <div class="question">
 In the father and son height examples, we have randomness because we have a random sample of father and son pairs. For the sake of illustration, let's assume that this is the entire population:
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(UsingR)
+```
+```{r}
 x = father.son$fheight
 y = father.son$sheight
 n = length(y)

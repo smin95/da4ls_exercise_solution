@@ -4,7 +4,7 @@
 
 First, upload necessary package(s).
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dplyr) # uplaods the function filter() and %>%
 library(rafalib) # important for plotting with base R
 library(genefilter) # rowttests
@@ -14,7 +14,7 @@ library(GSE5859Subset) # subset of gene expression data
 ```
 
 ## 6.2 Exercises{-}
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(GSE5859Subset)
 data(GSE5859Subset)
 ```
@@ -237,7 +237,7 @@ data(GSE5859Subset)
 
 We are interested in comparing gene expression between the two groups defined in the `sampleInfo` table. Compute a p-value for each gene using the function rowttests from the `genefilter` package.
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(genefilter)
 #?rowttests
 ```
@@ -434,7 +434,7 @@ mean(res[,2]) # false negative rate
 
 ## 6.12 Exercises {-}
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(rafalib)
 library(SpikeInSubset)
 data(mas133)

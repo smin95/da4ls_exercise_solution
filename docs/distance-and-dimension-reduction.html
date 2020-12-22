@@ -24,7 +24,7 @@
 <meta name="author" content="Seung Hyun (Sam) Min" />
 
 
-<meta name="date" content="2020-12-14" />
+<meta name="date" content="2020-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -509,22 +509,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 8</span> Distance and Dimension Reduction</h1>
 <p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
-<a class="sourceLine" id="cb584-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
-<a class="sourceLine" id="cb584-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
-<a class="sourceLine" id="cb584-4" title="4"><span class="co">#library(devtools) # allows download from github</span></a>
-<a class="sourceLine" id="cb584-5" title="5"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a>
-<a class="sourceLine" id="cb584-6" title="6"><span class="kw">library</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb584-7" title="7"><span class="kw">data</span>(tissuesGeneExpression)</a></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb539-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
+<a class="sourceLine" id="cb539-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
+<a class="sourceLine" id="cb539-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
+<a class="sourceLine" id="cb539-4" title="4"><span class="co">#library(devtools) # allows download from github</span></a>
+<a class="sourceLine" id="cb539-5" title="5"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a>
+<a class="sourceLine" id="cb539-6" title="6"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb539-7" title="7"><span class="kw">data</span>(tissuesGeneExpression)</a></code></pre></div>
 <div id="exercises-25" class="section level2 unnumbered">
 <h2>8.4 Exercises</h2>
 <div id="question-1-27" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>How many biological replicates for hippocampus?</p>
 <hr />
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb585-1" title="1"><span class="kw">head</span>(tissue) <span class="co"># from data(tissuesGeneExpression)</span></a></code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" title="1"><span class="kw">head</span>(tissue) <span class="co"># from data(tissuesGeneExpression)</span></a></code></pre></div>
 <pre><code>## [1] &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot; &quot;kidney&quot;</code></pre>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" title="1"><span class="kw">table</span>(tissue)[<span class="st">&#39;hippocampus&#39;</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" title="1"><span class="kw">table</span>(tissue)[<span class="st">&#39;hippocampus&#39;</span>]</a></code></pre></div>
 <pre><code>## hippocampus 
 ##          31</code></pre>
 </div>
@@ -532,12 +532,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 2</h3>
 <p>What is the distance between samples 3 and 45?</p>
 <hr />
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb589-1" title="1">d &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a>
-<a class="sourceLine" id="cb589-2" title="2"><span class="kw">as.matrix</span>(d)[<span class="dv">3</span>,<span class="dv">45</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" title="1">d &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a>
+<a class="sourceLine" id="cb544-2" title="2"><span class="kw">as.matrix</span>(d)[<span class="dv">3</span>,<span class="dv">45</span>]</a></code></pre></div>
 <pre><code>## [1] 152.5662</code></pre>
-<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb591-1" title="1">x &lt;-<span class="st"> </span>e[,<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb591-2" title="2">y &lt;-<span class="st"> </span>e[,<span class="dv">45</span>]</a>
-<a class="sourceLine" id="cb591-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(x<span class="op">-</span>y))</a></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb546-1" title="1">x &lt;-<span class="st"> </span>e[,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb546-2" title="2">y &lt;-<span class="st"> </span>e[,<span class="dv">45</span>]</a>
+<a class="sourceLine" id="cb546-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(x<span class="op">-</span>y))</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 152.5662</code></pre>
 </div>
@@ -545,9 +545,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 3</h3>
 <p>What is the distance between gene <code>210486</code> and <code>200805_at</code>?</p>
 <hr />
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" title="1">x &lt;-<span class="st"> </span>e[<span class="kw">which</span>(<span class="kw">rownames</span>(e)<span class="op">==</span><span class="st">&#39;210486_at&#39;</span>),]</a>
-<a class="sourceLine" id="cb593-2" title="2">y &lt;-<span class="st"> </span>e[<span class="kw">which</span>(<span class="kw">rownames</span>(e)<span class="op">==</span><span class="st">&#39;200805_at&#39;</span>),]</a>
-<a class="sourceLine" id="cb593-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(x<span class="op">-</span>y))</a></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" title="1">x &lt;-<span class="st"> </span>e[<span class="kw">which</span>(<span class="kw">rownames</span>(e)<span class="op">==</span><span class="st">&#39;210486_at&#39;</span>),]</a>
+<a class="sourceLine" id="cb548-2" title="2">y &lt;-<span class="st"> </span>e[<span class="kw">which</span>(<span class="kw">rownames</span>(e)<span class="op">==</span><span class="st">&#39;200805_at&#39;</span>),]</a>
+<a class="sourceLine" id="cb548-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(x<span class="op">-</span>y))</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 41.01153</code></pre>
 </div>
@@ -560,10 +560,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="question-5-12" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>Compute the distance between all pair of samples:</p>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" title="1">d =<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" title="1">d =<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a></code></pre></div>
 <p>Read help file for <code>dist</code>. How many distances are stored in <code>d</code>? Hint: What is the length of d?</p>
 <hr />
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb596-1" title="1"><span class="kw">length</span>(d)</a></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" title="1"><span class="kw">length</span>(d)</a></code></pre></div>
 <pre><code>## [1] 17766</code></pre>
 </div>
 <div id="question-6-11" class="section level3 unnumbered">
@@ -571,15 +571,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Why is the answer to <strong>Question 5</strong> not <code>ncol(e)^2</code>?</p>
 <hr />
 <p>The answer is <strong>C: Because we take advantage of symmetry: only the lower triangular matrix of the full distance matrix is stored thus, only</strong> <code>ncol(e)*(ncol(e)-1)/2</code> <strong>values</strong>. If you are still confused, you can run this demonstration.</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb598-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb598-2" title="2">random_number &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">4</span><span class="op">*</span><span class="dv">4</span>),<span class="dv">4</span>,<span class="dv">4</span>) <span class="co"># 4x4 matrix of random numbers</span></a>
-<a class="sourceLine" id="cb598-3" title="3">d_random &lt;-<span class="st"> </span><span class="kw">dist</span>(random_number)</a>
-<a class="sourceLine" id="cb598-4" title="4">d_random </a></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb553-2" title="2">random_number &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">4</span><span class="op">*</span><span class="dv">4</span>),<span class="dv">4</span>,<span class="dv">4</span>) <span class="co"># 4x4 matrix of random numbers</span></a>
+<a class="sourceLine" id="cb553-3" title="3">d_random &lt;-<span class="st"> </span><span class="kw">dist</span>(random_number)</a>
+<a class="sourceLine" id="cb553-4" title="4">d_random </a></code></pre></div>
 <pre><code>##          1        2        3
 ## 2 2.300929                  
 ## 3 1.998475 4.147861         
 ## 4 2.338790 3.100611 2.932507</code></pre>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb600-1" title="1"><span class="kw">as.matrix</span>(d_random)</a></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" title="1"><span class="kw">as.matrix</span>(d_random)</a></code></pre></div>
 <pre><code>##          1        2        3        4
 ## 1 0.000000 2.300929 1.998475 2.338790
 ## 2 2.300929 0.000000 4.147861 3.100611
@@ -590,41 +590,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="exercises-26" class="section level2 unnumbered">
 <h2>8.7 Exercises</h2>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb602-1" title="1"><span class="kw">library</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb602-2" title="2"><span class="kw">data</span>(tissuesGeneExpression)</a></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" title="1"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb557-2" title="2"><span class="kw">data</span>(tissuesGeneExpression)</a></code></pre></div>
 <div id="question-1-28" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>Compute the SVD of <code>e</code></p>
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(e)</a></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb558-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(e)</a></code></pre></div>
 <p>Now compute the mean of each row:</p>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" title="1">m =<span class="st"> </span><span class="kw">rowMeans</span>(e)</a></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" title="1">m =<span class="st"> </span><span class="kw">rowMeans</span>(e)</a></code></pre></div>
 <p>What is the correlation between the first column of <code>U</code> and <code>m</code>?</p>
 <hr />
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" title="1">U &lt;-<span class="st"> </span>s<span class="op">$</span>u</a>
-<a class="sourceLine" id="cb605-2" title="2"><span class="kw">cor</span>(U[,<span class="dv">1</span>],m)</a></code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb560-1" title="1">U &lt;-<span class="st"> </span>s<span class="op">$</span>u</a>
+<a class="sourceLine" id="cb560-2" title="2"><span class="kw">cor</span>(U[,<span class="dv">1</span>],m)</a></code></pre></div>
 <pre><code>## [1] -0.9999998</code></pre>
 </div>
 <div id="question-2-26" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>In <strong>Question 1</strong> we saw how the first column relates to the mean of the rows of <code>e</code>. If we change these means, the distances between the columns do not change. For example, changing the mean does not change the distance.</p>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" title="1">newmeans =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(e)) <span class="co">##random values we will add to create new means</span></a>
-<a class="sourceLine" id="cb607-2" title="2">newe =<span class="st"> </span>e<span class="op">+</span>newmeans <span class="co">##we change the means</span></a>
-<a class="sourceLine" id="cb607-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb562-1" title="1">newmeans =<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(e)) <span class="co">##random values we will add to create new means</span></a>
+<a class="sourceLine" id="cb562-2" title="2">newe =<span class="st"> </span>e<span class="op">+</span>newmeans <span class="co">##we change the means</span></a>
+<a class="sourceLine" id="cb562-3" title="3"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 152.5662</code></pre>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(newe[,<span class="dv">3</span>]<span class="op">-</span>newe[,<span class="dv">45</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb564-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(newe[,<span class="dv">3</span>]<span class="op">-</span>newe[,<span class="dv">45</span>]))</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 152.5662</code></pre>
 <p>So we might as well make the mean of each row 0, since it does not help us approximate the column distances. We will define y as the detrended e and recompute the SVD:</p>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb611-1" title="1">y =<span class="st"> </span>e <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(e)</a>
-<a class="sourceLine" id="cb611-2" title="2">s =<span class="st"> </span><span class="kw">svd</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb566-1" title="1">y =<span class="st"> </span>e <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(e)</a>
+<a class="sourceLine" id="cb566-2" title="2">s =<span class="st"> </span><span class="kw">svd</span>(y)</a></code></pre></div>
 <p>We showed that <span class="math inline">\(UDV^T\)</span> is equal to <code>y</code> up to numerical error:</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb612-1" title="1">resid =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span>s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(s<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
-<a class="sourceLine" id="cb612-2" title="2"><span class="kw">max</span>(<span class="kw">abs</span>(resid))</a></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" title="1">resid =<span class="st"> </span>y <span class="op">-</span><span class="st"> </span>s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(s<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
+<a class="sourceLine" id="cb567-2" title="2"><span class="kw">max</span>(<span class="kw">abs</span>(resid))</a></code></pre></div>
 <pre><code>## [1] 1.188383e-12</code></pre>
 <p>The above can be made more efficient in two ways. First using the <code>crossprod</code> and, second, not creating a diagonal matrix. In R, we can multiply matrices <code>x</code> by vector <code>a</code>. The result is a matrix with rows <code>i</code> equal to <code>x[i,]*a[i]</code>. Run the following example to see this.</p>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb614-1" title="1">x=<span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">each=</span><span class="dv">5</span>),<span class="dv">5</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb614-2" title="2">x<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" title="1">x=<span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">each=</span><span class="dv">5</span>),<span class="dv">5</span>,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb569-2" title="2">x<span class="op">*</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    2    4
@@ -632,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [4,]    4    8
 ## [5,]    5   10</code></pre>
 <p>which is equivalent to:</p>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb616-1" title="1"><span class="kw">sweep</span>(x,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="st">&quot;*&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" title="1"><span class="kw">sweep</span>(x,<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="st">&quot;*&quot;</span>)</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    2    4
@@ -641,51 +641,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [5,]    5   10</code></pre>
 <p>This means that we don’t have to convert <code>s$d</code> into a matrix. Which of the following gives us the same as <code>diag(s$d) %*% t(s$v)</code>?</p>
 <hr />
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb618-1" title="1"><span class="kw">identical</span>(<span class="kw">diag</span>(s<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v),<span class="kw">t</span>(s<span class="op">$</span>v) <span class="op">*</span><span class="st"> </span>s<span class="op">$</span>d)</a></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb573-1" title="1"><span class="kw">identical</span>(<span class="kw">diag</span>(s<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v),<span class="kw">t</span>(s<span class="op">$</span>v) <span class="op">*</span><span class="st"> </span>s<span class="op">$</span>d)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb620-1" title="1"><span class="kw">identical</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v), <span class="kw">t</span>(s<span class="op">$</span>v) <span class="op">*</span><span class="st"> </span>s<span class="op">$</span>d)</a></code></pre></div>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb575-1" title="1"><span class="kw">identical</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v), <span class="kw">t</span>(s<span class="op">$</span>v) <span class="op">*</span><span class="st"> </span>s<span class="op">$</span>d)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Use <code>identical</code> or <code>near</code> function to compare each answer choice. The answer is <strong>B</strong>: <code>s$d * t(s$v)</code>. To fully understand this question, you will need to understand how a vector and matrix multiply <code>*</code> together in R. <code>s$d</code> is a vector, and <code>s$v</code> is a matrix.</p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb622-1" title="1"><span class="kw">is.vector</span>(s<span class="op">$</span>d) <span class="co"># it is not matrix</span></a></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb577-1" title="1"><span class="kw">is.vector</span>(s<span class="op">$</span>d) <span class="co"># it is not matrix</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb624-1" title="1"><span class="kw">is.matrix</span>(s<span class="op">$</span>v) <span class="co"># it is not vector</span></a></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb579-1" title="1"><span class="kw">is.matrix</span>(s<span class="op">$</span>v) <span class="co"># it is not vector</span></a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="question-3-24" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>If we define <code>vd = t(s$d * t(s$v))</code>, then which of the following is not the same as <span class="math inline">\(UDV^T\)</span>?</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb626-1" title="1">vd =<span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v))</a>
-<a class="sourceLine" id="cb626-2" title="2"><span class="kw">identical</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v), <span class="kw">t</span>(vd))</a></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb581-1" title="1">vd =<span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v))</a>
+<a class="sourceLine" id="cb581-2" title="2"><span class="kw">identical</span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v), <span class="kw">t</span>(vd))</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb628-1" title="1"><span class="co">#(t(s$d) * s$u) %*% t(s$v)</span></a>
-<a class="sourceLine" id="cb628-2" title="2">yhat &lt;-<span class="st"> </span>s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(vd)</a>
-<a class="sourceLine" id="cb628-3" title="3"><span class="kw">identical</span>(s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)),yhat)</a></code></pre></div>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb583-1" title="1"><span class="co">#(t(s$d) * s$u) %*% t(s$v)</span></a>
+<a class="sourceLine" id="cb583-2" title="2">yhat &lt;-<span class="st"> </span>s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(vd)</a>
+<a class="sourceLine" id="cb583-3" title="3"><span class="kw">identical</span>(s<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span>(s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)),yhat)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb630-1" title="1"><span class="co">#identical(s$u %*% s$d * t(s$v),yhat)</span></a>
-<a class="sourceLine" id="cb630-2" title="2"><span class="kw">all</span>(<span class="kw">near</span>(<span class="kw">tcrossprod</span>(<span class="kw">t</span>(s<span class="op">$</span>d<span class="op">*</span><span class="kw">t</span>(s<span class="op">$</span>u)),s<span class="op">$</span>v),yhat))</a></code></pre></div>
+<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb585-1" title="1"><span class="co">#identical(s$u %*% s$d * t(s$v),yhat)</span></a>
+<a class="sourceLine" id="cb585-2" title="2"><span class="kw">all</span>(<span class="kw">near</span>(<span class="kw">tcrossprod</span>(<span class="kw">t</span>(s<span class="op">$</span>d<span class="op">*</span><span class="kw">t</span>(s<span class="op">$</span>u)),s<span class="op">$</span>v),yhat))</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>The answer is <strong>B</strong>: <code>s$u %*% s$d * t(s$v)</code>.</p>
 </div>
 <div id="question-4-21" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>Let <code>z = s$d * t(s$v)</code>. We showed a derivation demonstrating that because <code>U</code> is orthogonal, the distance between <code>e[,3]</code> and <code>e[,45]</code> is the same as the distance between <code>y[,3]</code> and <code>y[,45]</code>, which is the same as <code>vd[,3]</code> and <code>vd[,45]</code></p>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb632-1" title="1">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
-<a class="sourceLine" id="cb632-2" title="2"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>])) <span class="co"># raw data</span></a></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb587-1" title="1">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
+<a class="sourceLine" id="cb587-2" title="2"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>])) <span class="co"># raw data</span></a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 152.5662</code></pre>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb634-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(y[,<span class="dv">3</span>]<span class="op">-</span>y[,<span class="dv">45</span>])) <span class="co"># standardized data</span></a></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb589-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(y[,<span class="dv">3</span>]<span class="op">-</span>y[,<span class="dv">45</span>])) <span class="co"># standardized data</span></a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 152.5662</code></pre>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb636-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[,<span class="dv">3</span>]<span class="op">-</span>z[,<span class="dv">45</span>])) <span class="co"># principal compoennt </span></a></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb591-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[,<span class="dv">3</span>]<span class="op">-</span>z[,<span class="dv">45</span>])) <span class="co"># principal compoennt </span></a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 152.5662</code></pre>
 <p>Note that the columns of <code>z</code> have 189 entries, compared to 22,215 for e. What is the difference, in absolute value, between the actual distance:</p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb638-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb593-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 152.5662</code></pre>
 <p>and the approximation using only two dimensions of <code>z</code>?</p>
 <hr />
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb640-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>])) <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">3</span>]<span class="op">-</span>z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">45</span>]))</a></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb595-1" title="1"><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>])) <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">3</span>]<span class="op">-</span>z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">45</span>]))</a></code></pre></div>
 <pre><code>##          [,1]
 ## [1,] 40.62416</code></pre>
 <p>Recall that <code>s$d</code> describes proportion of variability for each principal component. However, each column of <code>s$v</code> represents each dimension (i.e., principal component). Since <code>z</code> is a product of <code>s$d</code> and <code>t(s$v)</code>, the column of <code>s$v</code> now becomes part of the row of <code>z</code>. Therefore, each row of <code>z</code> now represents dimension.</p>
@@ -694,21 +694,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 5</h3>
 <p>How many dimensions do we need to use for the approximation in <strong>Question 4</strong> to be within 10%?</p>
 <hr />
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb642-1" title="1">actual &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a>
-<a class="sourceLine" id="cb642-2" title="2">percent &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>, <span class="kw">nrow</span>(z))</a>
-<a class="sourceLine" id="cb642-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(percent)) {</a>
-<a class="sourceLine" id="cb642-4" title="4">  percent[[i]] &lt;-<span class="st"> </span>(actual <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[<span class="dv">1</span><span class="op">:</span>i,<span class="dv">3</span>]<span class="op">-</span>z[<span class="dv">1</span><span class="op">:</span>i,<span class="dv">45</span>])))<span class="op">/</span>actual</a>
-<a class="sourceLine" id="cb642-5" title="5">}</a>
-<a class="sourceLine" id="cb642-6" title="6">ind &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">which</span>(percent <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>))</a>
-<a class="sourceLine" id="cb642-7" title="7">ind</a></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb597-1" title="1">actual &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(e[,<span class="dv">3</span>]<span class="op">-</span>e[,<span class="dv">45</span>]))</a>
+<a class="sourceLine" id="cb597-2" title="2">percent &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>, <span class="kw">nrow</span>(z))</a>
+<a class="sourceLine" id="cb597-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(percent)) {</a>
+<a class="sourceLine" id="cb597-4" title="4">  percent[[i]] &lt;-<span class="st"> </span>(actual <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">crossprod</span>(z[<span class="dv">1</span><span class="op">:</span>i,<span class="dv">3</span>]<span class="op">-</span>z[<span class="dv">1</span><span class="op">:</span>i,<span class="dv">45</span>])))<span class="op">/</span>actual</a>
+<a class="sourceLine" id="cb597-5" title="5">}</a>
+<a class="sourceLine" id="cb597-6" title="6">ind &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="kw">which</span>(percent <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.10</span>))</a>
+<a class="sourceLine" id="cb597-7" title="7">ind</a></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 </div>
 <div id="question-6-12" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Compute distances between sample 3 and all other samples.</p>
 <hr />
-<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb644-1" title="1">actual &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">dist</span>(<span class="kw">t</span>(z)))[,<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb644-2" title="2">actual</a></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb599-1" title="1">actual &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">dist</span>(<span class="kw">t</span>(z)))[,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb599-2" title="2">actual</a></code></pre></div>
 <pre><code>##         1         2         3         4         5         6 
 ##  84.38089 112.12484   0.00000  95.48853 103.02366  41.39058 
 ##         7         8         9        10        11        12 
@@ -778,8 +778,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 7</h3>
 <p>Recompute this distance using the two dimensional approximation. What is the Spearman correlation between this approximate distance (<code>z</code>) and the actual distance?</p>
 <hr />
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" title="1">approx2 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">dist</span>(<span class="kw">t</span>(z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,])))[,<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb646-2" title="2"><span class="kw">cor.test</span>(approx2,actual,<span class="dt">method=</span><span class="st">&#39;spearman&#39;</span>)<span class="op">$</span>estimate</a></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb601-1" title="1">approx2 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">dist</span>(<span class="kw">t</span>(z[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,])))[,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb601-2" title="2"><span class="kw">cor.test</span>(approx2,actual,<span class="dt">method=</span><span class="st">&#39;spearman&#39;</span>)<span class="op">$</span>estimate</a></code></pre></div>
 <pre><code>## Warning in cor.test.default(approx2, actual, method =
 ## &quot;spearman&quot;): Cannot compute exact p-value with ties</code></pre>
 <pre><code>##       rho 
@@ -791,98 +791,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="question-1-29" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>Using the <code>z</code> we computed in <strong>Question 4</strong> of the previous exercises</p>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb649-1" title="1"><span class="kw">library</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb649-2" title="2"><span class="kw">data</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb649-3" title="3">y =<span class="st"> </span>e <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(e)</a>
-<a class="sourceLine" id="cb649-4" title="4">s =<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb649-5" title="5">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" title="1"><span class="kw">library</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb604-2" title="2"><span class="kw">data</span>(tissuesGeneExpression)</a>
+<a class="sourceLine" id="cb604-3" title="3">y =<span class="st"> </span>e <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(e)</a>
+<a class="sourceLine" id="cb604-4" title="4">s =<span class="st"> </span><span class="kw">svd</span>(y)</a>
+<a class="sourceLine" id="cb604-5" title="5">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a></code></pre></div>
 <p>e can make an mds plot:</p>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb650-1" title="1"><span class="kw">library</span>(rafalib)</a>
-<a class="sourceLine" id="cb650-2" title="2">ftissue =<span class="st"> </span><span class="kw">factor</span>(tissue)</a>
-<a class="sourceLine" id="cb650-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb650-4" title="4"><span class="kw">plot</span>(z[<span class="dv">1</span>,],z[<span class="dv">2</span>,],<span class="dt">col=</span><span class="kw">as.numeric</span>(ftissue))</a>
-<a class="sourceLine" id="cb650-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="kw">levels</span>(ftissue),<span class="dt">col=</span><span class="kw">seq_along</span>(ftissue),<span class="dt">pch=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-279-1.png" width="672" /></p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" title="1"><span class="kw">library</span>(rafalib)</a>
+<a class="sourceLine" id="cb605-2" title="2">ftissue =<span class="st"> </span><span class="kw">factor</span>(tissue)</a>
+<a class="sourceLine" id="cb605-3" title="3"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb605-4" title="4"><span class="kw">plot</span>(z[<span class="dv">1</span>,],z[<span class="dv">2</span>,],<span class="dt">col=</span><span class="kw">as.numeric</span>(ftissue))</a>
+<a class="sourceLine" id="cb605-5" title="5"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="kw">levels</span>(ftissue),<span class="dt">col=</span><span class="kw">seq_along</span>(ftissue),<span class="dt">pch=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-283-1.png" width="672" /></p>
 <p>Now run the function <code>cmdscale</code> on the original data:</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb651-1" title="1">d =<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a>
-<a class="sourceLine" id="cb651-2" title="2">mds =<span class="st"> </span><span class="kw">cmdscale</span>(d)</a></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb606-1" title="1">d =<span class="st"> </span><span class="kw">dist</span>(<span class="kw">t</span>(e))</a>
+<a class="sourceLine" id="cb606-2" title="2">mds =<span class="st"> </span><span class="kw">cmdscale</span>(d)</a></code></pre></div>
 <p>What is the absolute value of the correlation between the first dimension of z and the first dimension in mds?</p>
 <hr />
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" title="1"><span class="kw">cor</span>(z[<span class="dv">1</span>,],mds[,<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb607-1" title="1"><span class="kw">cor</span>(z[<span class="dv">1</span>,],mds[,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## [1] -1</code></pre>
 </div>
 <div id="question-2-27" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>What is the absolute value of the correlation between the second dimension of z and the second dimension in mds?</p>
 <hr />
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb654-1" title="1"><span class="kw">cor</span>(z[<span class="dv">2</span>,],mds[,<span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb609-1" title="1"><span class="kw">cor</span>(z[<span class="dv">2</span>,],mds[,<span class="dv">2</span>])</a></code></pre></div>
 <pre><code>## [1] -1</code></pre>
 </div>
 <div id="question-3-25" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Load the following dataset:</p>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb656-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb656-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb611-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
+<a class="sourceLine" id="cb611-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
 <p>Compute the svd and compute <code>z</code>.</p>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(geneExpression<span class="op">-</span><span class="kw">rowMeans</span>(geneExpression))</a>
-<a class="sourceLine" id="cb657-2" title="2">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb612-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(geneExpression<span class="op">-</span><span class="kw">rowMeans</span>(geneExpression))</a>
+<a class="sourceLine" id="cb612-2" title="2">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a></code></pre></div>
 <p>Which dimension of <code>z</code> most correlates with the outcome <code>sampleInfo$group</code>?</p>
 <hr />
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb658-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression))</a>
-<a class="sourceLine" id="cb658-2" title="2">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
-<a class="sourceLine" id="cb658-3" title="3">sampleInfo<span class="op">$</span>group</a></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" title="1">s =<span class="st"> </span><span class="kw">svd</span>(geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression))</a>
+<a class="sourceLine" id="cb613-2" title="2">z =<span class="st"> </span>s<span class="op">$</span>d <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(s<span class="op">$</span>v)</a>
+<a class="sourceLine" id="cb613-3" title="3">sampleInfo<span class="op">$</span>group</a></code></pre></div>
 <pre><code>##  [1] 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb660-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">nrow</span>(z))</a>
-<a class="sourceLine" id="cb660-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb660-3" title="3">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(sampleInfo<span class="op">$</span>group, z[i,])</a>
-<a class="sourceLine" id="cb660-4" title="4">}</a>
-<a class="sourceLine" id="cb660-5" title="5"><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb615-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">nrow</span>(z))</a>
+<a class="sourceLine" id="cb615-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
+<a class="sourceLine" id="cb615-3" title="3">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(sampleInfo<span class="op">$</span>group, z[i,])</a>
+<a class="sourceLine" id="cb615-4" title="4">}</a>
+<a class="sourceLine" id="cb615-5" title="5"><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-4-22" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>What is this max correlation?</p>
 <hr />
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb662-1" title="1"><span class="kw">max</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" title="1"><span class="kw">max</span>(res)</a></code></pre></div>
 <pre><code>## [1] 0.6236858</code></pre>
 </div>
 <div id="question-5-14" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>Which dimension of <code>z</code> has the second highest correlation with the outcome <code>sampleInfo$group</code>?</p>
 <hr />
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb664-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(res,<span class="dt">decreasing =</span> T)[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb664-2" title="2">ind</a></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb619-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(res,<span class="dt">decreasing =</span> T)[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb619-2" title="2">ind</a></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 </div>
 <div id="question-6-13" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Note these measurements were made during two months: <code>sampleInfo$date</code></p>
 <p>We can extract the month this way:</p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb666-1" title="1">month =<span class="st"> </span><span class="kw">format</span>( sampleInfo<span class="op">$</span>date, <span class="st">&quot;%m&quot;</span>)</a>
-<a class="sourceLine" id="cb666-2" title="2">month =<span class="st"> </span><span class="kw">factor</span>( month)</a></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" title="1">month =<span class="st"> </span><span class="kw">format</span>( sampleInfo<span class="op">$</span>date, <span class="st">&quot;%m&quot;</span>)</a>
+<a class="sourceLine" id="cb621-2" title="2">month =<span class="st"> </span><span class="kw">factor</span>( month)</a></code></pre></div>
 <p>Which dimension of <code>z</code> has the second highest correlation with the outcome <code>month</code>?</p>
 <hr />
-<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb667-1" title="1">month =<span class="st"> </span><span class="kw">format</span>( sampleInfo<span class="op">$</span>date, <span class="st">&quot;%m&quot;</span>)</a>
-<a class="sourceLine" id="cb667-2" title="2">month =<span class="st"> </span><span class="kw">as.numeric</span>(month)</a>
-<a class="sourceLine" id="cb667-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">nrow</span>(z))</a>
-<a class="sourceLine" id="cb667-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb667-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(month, z[i,])</a>
-<a class="sourceLine" id="cb667-6" title="6">}</a>
-<a class="sourceLine" id="cb667-7" title="7">ind &lt;-<span class="st"> </span><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(res,<span class="dt">decreasing =</span> T)[<span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb667-8" title="8">ind</a></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb622-1" title="1">month =<span class="st"> </span><span class="kw">format</span>( sampleInfo<span class="op">$</span>date, <span class="st">&quot;%m&quot;</span>)</a>
+<a class="sourceLine" id="cb622-2" title="2">month =<span class="st"> </span><span class="kw">as.numeric</span>(month)</a>
+<a class="sourceLine" id="cb622-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">nrow</span>(z))</a>
+<a class="sourceLine" id="cb622-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
+<a class="sourceLine" id="cb622-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(month, z[i,])</a>
+<a class="sourceLine" id="cb622-6" title="6">}</a>
+<a class="sourceLine" id="cb622-7" title="7">ind &lt;-<span class="st"> </span><span class="kw">which</span>(res <span class="op">==</span><span class="st"> </span><span class="kw">sort</span>(res,<span class="dt">decreasing =</span> T)[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb622-8" title="8">ind</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 </div>
 <div id="question-7-11" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>What is this correlation?</p>
 <hr />
-<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb669-1" title="1">res[ind]</a></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb624-1" title="1">res[ind]</a></code></pre></div>
 <pre><code>## [1] 0.4479168</code></pre>
 </div>
 <div id="question-8-9" class="section level3 unnumbered">
 <h3>Question 8</h3>
 <p>The same dimension is correlated with both the group and the date. The following are also correlated:</p>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" title="1"><span class="kw">table</span>(sampleInfo<span class="op">$</span>g, month)</a></code></pre></div>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb626-1" title="1"><span class="kw">table</span>(sampleInfo<span class="op">$</span>g, month)</a></code></pre></div>
 <pre><code>##    month
 ##     6 10
 ##   0 9  3
@@ -890,13 +890,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So is this first dimension related directly to group or is it related only through the month? Note that the correlation with month is higher. This is related to batch effects which we will learn about later.</p>
 <p>In <strong>Question 3</strong> we saw that one of the dimensions was highly correlated to the <code>sampleInfo$group</code>. Now take the 5th column of <span class="math inline">\(U\)</span> and stratify by the gene chromosome. Remove <code>chrUn</code> and make a boxplot of the values of <span class="math inline">\(U_5\)</span> stratified by chromosome. Which chromosome looks different from the rest? Copy and paste the name as it appears in <code>geneAnnotation</code>.</p>
 <hr />
-<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" title="1">gene_list &lt;-<span class="st"> </span><span class="kw">split</span>(geneAnnotation<span class="op">$</span>PROBEID, geneAnnotation<span class="op">$</span>CHR)</a>
-<a class="sourceLine" id="cb673-2" title="2">res &lt;-<span class="st"> </span><span class="kw">split</span>(s<span class="op">$</span>u[,<span class="dv">5</span>], geneAnnotation<span class="op">$</span>CHR)</a>
-<a class="sourceLine" id="cb673-3" title="3">res<span class="op">$</span>chrUn &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb673-4" title="4">res &lt;-<span class="st"> </span><span class="kw">rev</span>(res) <span class="co"># reverse the order of the list so that chrY is the first x-axis tick</span></a>
-<a class="sourceLine" id="cb673-5" title="5"><span class="kw">mypar</span>()</a>
-<a class="sourceLine" id="cb673-6" title="6"><span class="kw">boxplot</span>(res)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-292-1.png" width="672" /></p>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb628-1" title="1">gene_list &lt;-<span class="st"> </span><span class="kw">split</span>(geneAnnotation<span class="op">$</span>PROBEID, geneAnnotation<span class="op">$</span>CHR)</a>
+<a class="sourceLine" id="cb628-2" title="2">res &lt;-<span class="st"> </span><span class="kw">split</span>(s<span class="op">$</span>u[,<span class="dv">5</span>], geneAnnotation<span class="op">$</span>CHR)</a>
+<a class="sourceLine" id="cb628-3" title="3">res<span class="op">$</span>chrUn &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb628-4" title="4">res &lt;-<span class="st"> </span><span class="kw">rev</span>(res) <span class="co"># reverse the order of the list so that chrY is the first x-axis tick</span></a>
+<a class="sourceLine" id="cb628-5" title="5"><span class="kw">mypar</span>()</a>
+<a class="sourceLine" id="cb628-6" title="6"><span class="kw">boxplot</span>(res)</a></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-296-1.png" width="672" /></p>
 <p><code>chrY</code> is the answer.</p>
 
 </div>

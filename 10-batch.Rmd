@@ -4,7 +4,7 @@
 
 First, upload necessary package(s).
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dplyr) # uplaods the function filter() and %>%
 library(rafalib) # important for plotting with base R
 library(genefilter) # rowttests
@@ -22,7 +22,7 @@ library(qvalue)
 
 Load the admissions data from the `dagdata` package (which is available from the genomicsclass repository):
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dagdata)
 data(admissions)
 ```
@@ -677,7 +677,7 @@ mean(chr[ind] %in% c('chrX','chrY'))
 
 ## 10.13 Exercises {-}
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(sva)
 library(Biobase)
 library(GSE5859Subset)

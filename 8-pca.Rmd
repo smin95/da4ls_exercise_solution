@@ -4,7 +4,7 @@
 
 First, upload necessary package(s).
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dplyr) # uplaods the function filter() and %>%
 library(rafalib) # important for plotting with base R
 library(genefilter) # rowttests
@@ -313,7 +313,7 @@ cor(z[2,],mds[,2])
 
 Load the following dataset:
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(GSE5859Subset)
 data(GSE5859Subset)
 ```

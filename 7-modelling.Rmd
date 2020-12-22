@@ -4,9 +4,10 @@
 
 First, upload necessary package(s).
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dplyr) # uplaods the functions filter() and %>%
 library(rafalib) # important for plotting with base R
+library(limma)
 ```
 
 ## 7.5 Exercises {-}
@@ -201,8 +202,11 @@ a plot. What value of `lambdas` maximizes the log-likelihood?
 
 ---
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dagdata)
+```
+
+```{r}
 data(hcmv)
 mypar()
 plot(locations,rep(1,length(locations)),ylab="",yaxt="n")
@@ -327,7 +331,7 @@ qqnorm(sort(counts))
 
 Load the `tissuesGeneExpression` data library:
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(tissuesGeneExpression)
 data("tissuesGeneExpression")
 ```
@@ -360,8 +364,11 @@ Now fit an F-distribution with 14 degrees of freedom using the `fitFDist` functi
 
 ---
 
+```{r results = 'hide', message = FALSE, warning = FALSE}
+library
+```
+
 ```{r}
-library(limma)
 res <- fitFDist(vars,14)
 res
 ```
@@ -497,9 +504,12 @@ post_u
 
 ## 7.9 Exericses {-}
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(Biobase)
 library(SpikeInSubset)
+```
+
+```{r}
 data(rma95)
 y <- exprs(rma95)
 pData(rma95)

@@ -4,7 +4,7 @@
 
 First, upload necessary package(s).
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(dplyr) # uplaods the function filter() and %>%
 library(rafalib) # important for plotting with base R
 library(genefilter) # rowttests
@@ -82,7 +82,7 @@ popsd(res_list)
 
 Run `kmeans` with 4 centers for the blood RNA data:
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(GSE5859Subset)
 data(GSE5859Subset)
 ```
@@ -111,7 +111,7 @@ data(GSE5859Subset)
 
 Pick the 25 genes with the highest across sample variance. This function might help:
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(matrixStats)
 ```
 
@@ -301,7 +301,7 @@ popsd(res)
 
 Load the following dataset:
 
-```{r}
+```{r results = 'hide', message = FALSE, warning = FALSE}
 library(GSE5859Subset)
 data(GSE5859Subset)
 ```
