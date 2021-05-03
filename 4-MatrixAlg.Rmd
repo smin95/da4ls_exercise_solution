@@ -5,8 +5,8 @@
 First, upload necessary package(s).
 
 ```{r results = 'hide', message = FALSE, warning = FALSE}
-library(dplyr) # uplaods the function filter() and %>%
-library(rafalib) # important for plotting with base R
+library(dplyr) # uploads the function filter() and %>%
+library(rafalib) # important for plotting
 ```
 
 ## 4.2 Exercises {-}
@@ -51,7 +51,7 @@ mean(groups['71'] %>% unlist())
 ### Question 3 {-}
 
 <div class="question">
-of the following cannot be written as a linear model?
+Which of the following cannot be written as a linear model?
 </div>
 
 <div class="answer">
