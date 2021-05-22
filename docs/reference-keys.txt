@@ -1,0 +1,10 @@
+getting-started
+inference
+exploratory-data-analysis
+matrix-algebra
+linear-models
+inference-for-high-dimensional-data
+statistical-models
+distance-and-dimension-reduction
+basic-machine-learning
+batch-effects

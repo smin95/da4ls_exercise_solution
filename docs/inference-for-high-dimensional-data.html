@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Inference for High Dimensional Data | Data Analysis for the Life Sciences with R: Exercise Solutions</title>
   <meta name="description" content="Chapter 6 Inference for High Dimensional Data | Data Analysis for the Life Sciences with R: Exercise Solutions" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Inference for High Dimensional Data | Data Analysis for the Life Sciences with R: Exercise Solutions" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Seung Hyun (Sam) Min" />
 
 
-<meta name="date" content="2020-12-22" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="linear-models.html"/>
 <link rel="next" href="statistical-models.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,28 +51,32 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -115,6 +120,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -131,18 +137,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">DA4LS with R: Exercise Solutions</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#contribution"><i class="fa fa-check"></i>Contribution</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#etc"><i class="fa fa-check"></i>Etc</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#before-reading-da4ls-with-r"><i class="fa fa-check"></i>Before reading DA4LS with R</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
+<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a>
+<ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
@@ -154,7 +164,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9"><i class="fa fa-check"></i>Question 9</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
@@ -165,7 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-1"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-1"><i class="fa fa-check"></i>Question 9</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-2"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-2"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-2"><i class="fa fa-check"></i>Question 3</a></li>
@@ -180,11 +192,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12"><i class="fa fa-check"></i>Question 12</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13"><i class="fa fa-check"></i>Question 13</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-3"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-3"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-3"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-3"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-3"><i class="fa fa-check"></i>Question 8</a></li>
@@ -194,12 +208,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-1"><i class="fa fa-check"></i>Question 12</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13-1"><i class="fa fa-check"></i>Question 13</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-4"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-4"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-4"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-4"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-4"><i class="fa fa-check"></i>Question 8</a></li>
@@ -208,43 +223,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-2"><i class="fa fa-check"></i>Question 11</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-2"><i class="fa fa-check"></i>Question 12</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-5"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-5"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-5"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-5"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-5"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-5"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-6"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-6"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-7"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-7"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a><ul>
+<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-8"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-8"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-6"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-6"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-6"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-6"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-5"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-5"><i class="fa fa-check"></i>Question 9</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-4"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-9"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-9"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-7"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-7"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-7"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-7"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-6"><i class="fa fa-check"></i>Question 8</a></li>
@@ -252,83 +273,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-5"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a><ul>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a><ul>
+<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a>
+<ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-10"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-10"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-8"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-8"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-11"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-11"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-9"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-12"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-12"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-10"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-9"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-13"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-13"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-11"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-10"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a><ul>
+<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-14"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-14"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-12"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-11"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-15"><i class="fa fa-check"></i>Question 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-12"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-18"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-17"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-14"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-19"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-18"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-15"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a><ul>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a><ul>
+<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-20"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-2"><i class="fa fa-check"></i>Questions 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-16"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-21"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-19"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-17"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-14"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-22"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-20"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-18"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-15"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-6-8"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-7-8"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-8-7"><i class="fa fa-check"></i>Question 8</a></li>
@@ -340,20 +377,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-15-16"><i class="fa fa-check"></i>Questions 15 &amp; 16</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-17-18"><i class="fa fa-check"></i>Questions 17 &amp; 18</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-23"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-21"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-19"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-16"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a><ul>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a><ul>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-24"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-22"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-20"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-17"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-9"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-7-9"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-8-8"><i class="fa fa-check"></i>Question 8</a></li>
@@ -372,107 +412,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-23"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-21"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-18"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-12"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-10"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a>
+<ul>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-26"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-24"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-22"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-19"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html"><i class="fa fa-check"></i><b>8</b> Distance and Dimension Reduction</a><ul>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-25"><i class="fa fa-check"></i>8.4 Exercises</a><ul>
+<li class="chapter" data-level="8" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html"><i class="fa fa-check"></i><b>8</b> Distance and Dimension Reduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-25"><i class="fa fa-check"></i>8.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-27"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-25"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-23"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-20"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-12"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-13"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-11"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-26"><i class="fa fa-check"></i>8.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-26"><i class="fa fa-check"></i>8.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-28"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-26"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-24"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-21"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-13"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-14"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-12"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-10"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-27"><i class="fa fa-check"></i>8.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-27"><i class="fa fa-check"></i>8.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-29"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-27"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-25"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-22"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-14"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-15"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-13"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-11"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-8-9"><i class="fa fa-check"></i>Question 8</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Basic Machine Learning</a><ul>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-28"><i class="fa fa-check"></i>9.2 Exercises</a><ul>
+<li class="chapter" data-level="9" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Basic Machine Learning</a>
+<ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-28"><i class="fa fa-check"></i>9.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-30"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-28"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-26"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-23"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-15"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-16"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-29"><i class="fa fa-check"></i>9.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-29"><i class="fa fa-check"></i>9.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-31"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-29"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-30"><i class="fa fa-check"></i>9.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-30"><i class="fa fa-check"></i>9.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-32"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-30"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-31"><i class="fa fa-check"></i>9.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-31"><i class="fa fa-check"></i>9.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-33"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-31"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-27"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-24"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-16"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-17"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-6-14"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>10</b> Batch Effects</a><ul>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-32"><i class="fa fa-check"></i>10.3 Exercises</a><ul>
+<li class="chapter" data-level="10" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>10</b> Batch Effects</a>
+<ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-32"><i class="fa fa-check"></i>10.3 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-34"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-32"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-28"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-25"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-17"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-18"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-15"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-12"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-33"><i class="fa fa-check"></i>10.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-33"><i class="fa fa-check"></i>10.6 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-35"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-33"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-29"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-26"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-18"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-19"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-16"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-13"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-10"><i class="fa fa-check"></i>Question 8</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-34"><i class="fa fa-check"></i>10.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-34"><i class="fa fa-check"></i>10.9 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-36"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-34"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-30"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-27"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-19"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-20"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-17"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-14"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-11"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-9-9"><i class="fa fa-check"></i>Question 9</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-35"><i class="fa fa-check"></i>10.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-35"><i class="fa fa-check"></i>10.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-37"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-35"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-31"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-28"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-20"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-21"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-18"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-15"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-12"><i class="fa fa-check"></i>Question 8</a></li>
@@ -481,7 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-11-5"><i class="fa fa-check"></i>Question 11</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-12-5"><i class="fa fa-check"></i>Question 12</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-36"><i class="fa fa-check"></i>10.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-36"><i class="fa fa-check"></i>10.13 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-38"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-36"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
@@ -505,78 +561,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="inference-for-high-dimensional-data" class="section level1">
+<div id="inference-for-high-dimensional-data" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Inference for High Dimensional Data</h1>
 <p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
-<a class="sourceLine" id="cb356-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
-<a class="sourceLine" id="cb356-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
-<a class="sourceLine" id="cb356-4" title="4"><span class="co">#library(devtools) # allows download from github</span></a>
-<a class="sourceLine" id="cb356-5" title="5"><span class="kw">library</span>(qvalue) <span class="co"># conversion from p values to q values</span></a>
-<a class="sourceLine" id="cb356-6" title="6"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="inference-for-high-dimensional-data.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></span>
+<span id="cb356-2"><a href="inference-for-high-dimensional-data.html#cb356-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rafalib) <span class="co"># important for plotting with base R</span></span>
+<span id="cb356-3"><a href="inference-for-high-dimensional-data.html#cb356-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(genefilter) <span class="co"># rowttests</span></span>
+<span id="cb356-4"><a href="inference-for-high-dimensional-data.html#cb356-4" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools) # allows download from github</span></span>
+<span id="cb356-5"><a href="inference-for-high-dimensional-data.html#cb356-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qvalue) <span class="co"># conversion from p values to q values</span></span>
+<span id="cb356-6"><a href="inference-for-high-dimensional-data.html#cb356-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></span></code></pre></div>
 <div id="exercises-20" class="section level2 unnumbered">
 <h2>6.2 Exercises</h2>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb357-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="inference-for-high-dimensional-data.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859Subset)</span>
+<span id="cb357-2"><a href="inference-for-high-dimensional-data.html#cb357-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE5859Subset)</span></code></pre></div>
 <p>This package loads three tables: <code>geneAnnotation</code>, <code>geneExpression</code>, and <code>sampleInfo</code>. Answer the following questions to familiarize yourself with the data set:</p>
 <div id="question-1-20" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>How many samples <strong>were</strong> processed on 2005-06-27?</p>
 <hr />
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-27&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="inference-for-high-dimensional-data.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">which</span>(sampleInfo<span class="sc">$</span>date <span class="sc">==</span> <span class="st">&#39;2005-06-27&#39;</span>))</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 </div>
 <div id="questions-2" class="section level3 unnumbered">
 <h3>Questions 2</h3>
 <p>How many of the genes represented in this particular technology are on chromosome Y?</p>
 <hr />
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(geneAnnotation<span class="op">$</span>CHR <span class="op">==</span><span class="st"> &#39;chrY&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="inference-for-high-dimensional-data.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">which</span>(geneAnnotation<span class="sc">$</span>CHR <span class="sc">==</span> <span class="st">&#39;chrY&#39;</span>))</span></code></pre></div>
 <pre><code>## [1] 21</code></pre>
 </div>
 <div id="question-3-16" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>What is the <strong>value</strong> of the gene ARPC1A on the one subject that we measured on 2005-06-10?</p>
 <hr />
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" title="1">subj &lt;-<span class="st"> </span>sampleInfo[<span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-10&#39;</span>),]<span class="op">$</span>filename</a>
-<a class="sourceLine" id="cb362-2" title="2">probe &lt;-<span class="st"> </span>geneAnnotation[<span class="kw">which</span>(geneAnnotation<span class="op">$</span>SYMBOL <span class="op">==</span><span class="st"> &#39;ARPC1A&#39;</span>),]<span class="op">$</span>PROBEID</a>
-<a class="sourceLine" id="cb362-3" title="3">geneExpression[probe,subj]</a></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="inference-for-high-dimensional-data.html#cb362-1" aria-hidden="true" tabindex="-1"></a>subj <span class="ot">&lt;-</span> sampleInfo[<span class="fu">which</span>(sampleInfo<span class="sc">$</span>date <span class="sc">==</span> <span class="st">&#39;2005-06-10&#39;</span>),]<span class="sc">$</span>filename</span>
+<span id="cb362-2"><a href="inference-for-high-dimensional-data.html#cb362-2" aria-hidden="true" tabindex="-1"></a>probe <span class="ot">&lt;-</span> geneAnnotation[<span class="fu">which</span>(geneAnnotation<span class="sc">$</span>SYMBOL <span class="sc">==</span> <span class="st">&#39;ARPC1A&#39;</span>),]<span class="sc">$</span>PROBEID</span>
+<span id="cb362-3"><a href="inference-for-high-dimensional-data.html#cb362-3" aria-hidden="true" tabindex="-1"></a>geneExpression[probe,subj]</span></code></pre></div>
 <pre><code>## [1] 8.233599</code></pre>
 </div>
 </div>
 <div id="exercises-21" class="section level2 unnumbered">
 <h2>6.4 Exercises</h2>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb364-2" title="2">population =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>)</a>
-<a class="sourceLine" id="cb364-3" title="3">pvals &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>,{</a>
-<a class="sourceLine" id="cb364-4" title="4">  control =<span class="st"> </span><span class="kw">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb364-5" title="5">  treatment =<span class="st"> </span><span class="kw">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb364-6" title="6">  <span class="kw">t.test</span>(treatment,control)<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb364-7" title="7">})</a>
-<a class="sourceLine" id="cb364-8" title="8"><span class="kw">head</span>(pvals)</a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="inference-for-high-dimensional-data.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb364-2"><a href="inference-for-high-dimensional-data.html#cb364-2" aria-hidden="true" tabindex="-1"></a>population <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>)</span>
+<span id="cb364-3"><a href="inference-for-high-dimensional-data.html#cb364-3" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>,{</span>
+<span id="cb364-4"><a href="inference-for-high-dimensional-data.html#cb364-4" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">=</span> <span class="fu">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</span>
+<span id="cb364-5"><a href="inference-for-high-dimensional-data.html#cb364-5" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">=</span> <span class="fu">sample</span>(population[,<span class="dv">1</span>],<span class="dv">12</span>)</span>
+<span id="cb364-6"><a href="inference-for-high-dimensional-data.html#cb364-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(treatment,control)<span class="sc">$</span>p.val</span>
+<span id="cb364-7"><a href="inference-for-high-dimensional-data.html#cb364-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb364-8"><a href="inference-for-high-dimensional-data.html#cb364-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pvals)</span></code></pre></div>
 <pre><code>## [1] 0.9758457 0.4723582 0.2068672 0.7023475 0.9407852 0.0723841</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1"><span class="kw">hist</span>(pvals)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-173-1.png" width="672" /></p>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="inference-for-high-dimensional-data.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pvals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-219-1.png" width="672" /></p>
 <div id="question-1-21" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>What proportion of the p-values is below 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" title="1"><span class="kw">mean</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="inference-for-high-dimensional-data.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 0.041</code></pre>
 </div>
 <div id="question-2-19" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>What proportion of the p-values is below 0.01?</p>
 <hr />
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" title="1"><span class="kw">mean</span>(pvals<span class="op">&lt;</span><span class="fl">0.01</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="inference-for-high-dimensional-data.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals<span class="sc">&lt;</span><span class="fl">0.01</span>)</span></code></pre></div>
 <pre><code>## [1] 0.008</code></pre>
 </div>
 <div id="question-3-17" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Assume you are testing the effectiveness of 20 diets on mice weight. For each of the 20 diets, you run an experiment with 10 control mice and 10 treated mice. Assume the null hypothesis, that the diet has no effect, is true for all 20 diets and that mice weights follow a normal distribution, with mean 30 grams and a standard deviation of 2 grams. Run a Monte Carlo simulation for one of these studies:</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" title="1">cases =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb371-2" title="2">controls =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb371-3" title="3"><span class="kw">t.test</span>(cases,controls)</a></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="inference-for-high-dimensional-data.html#cb371-1" aria-hidden="true" tabindex="-1"></a>cases <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</span>
+<span id="cb371-2"><a href="inference-for-high-dimensional-data.html#cb371-2" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">2</span>)</span>
+<span id="cb371-3"><a href="inference-for-high-dimensional-data.html#cb371-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(cases,controls)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -590,11 +646,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  30.23172  30.08639</code></pre>
 <p>Now run a Monte Carlo simulation imitating the results for the experiment for all 20 diets. If you set the seed at 100, set.seed(100), how many of p-values are below 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" title="1"><span class="kw">set.seed</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb373-2" title="2">randomData &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">20</span><span class="op">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb373-3" title="3">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb373-4" title="4">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(randomData, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb373-5" title="5"><span class="kw">sum</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="inference-for-high-dimensional-data.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb373-2"><a href="inference-for-high-dimensional-data.html#cb373-2" aria-hidden="true" tabindex="-1"></a>randomData <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">20</span><span class="sc">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</span>
+<span id="cb373-3"><a href="inference-for-high-dimensional-data.html#cb373-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">10</span>))</span>
+<span id="cb373-4"><a href="inference-for-high-dimensional-data.html#cb373-4" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(randomData, <span class="fu">factor</span>(g))<span class="sc">$</span>p.value</span>
+<span id="cb373-5"><a href="inference-for-high-dimensional-data.html#cb373-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals<span class="sc">&lt;</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-4-14" class="section level3 unnumbered">
@@ -602,20 +658,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now create a simulation to learn about the distribution of the number of p-values that are less than 0.05. In question 3, we ran the 20 diet experiment once. Now we will run the experiment 1,000 times and each time save the number of p-values that are less than 0.05.
 Set the seed at 100, <code>set.seed(100)</code>, run the code from Question 3 1,000 times, and save the number of times the p-value is less than 0.05 for each of the 1,000 instances. What is the average of these numbers? This is the expected number of tests (out of the 20 we run) that we will reject when the null is true.</p>
 <hr />
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" title="1"><span class="kw">set.seed</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb375-2" title="2">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">1000</span>, {</a>
-<a class="sourceLine" id="cb375-3" title="3">  randomData &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">20</span><span class="op">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb375-4" title="4">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(randomData, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb375-5" title="5">  <span class="kw">return</span>(<span class="kw">sum</span>(pvals<span class="op">&lt;</span><span class="fl">0.05</span>)) <span class="co"># total number of false positives per replication</span></a>
-<a class="sourceLine" id="cb375-6" title="6">})</a>
-<a class="sourceLine" id="cb375-7" title="7"><span class="kw">mean</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="inference-for-high-dimensional-data.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb375-2"><a href="inference-for-high-dimensional-data.html#cb375-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb375-3"><a href="inference-for-high-dimensional-data.html#cb375-3" aria-hidden="true" tabindex="-1"></a>  randomData <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">20</span><span class="sc">*</span><span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">2</span>),<span class="dv">20</span>,<span class="dv">20</span>)</span>
+<span id="cb375-4"><a href="inference-for-high-dimensional-data.html#cb375-4" aria-hidden="true" tabindex="-1"></a>  pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(randomData, <span class="fu">factor</span>(g))<span class="sc">$</span>p.value</span>
+<span id="cb375-5"><a href="inference-for-high-dimensional-data.html#cb375-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(pvals<span class="sc">&lt;</span><span class="fl">0.05</span>)) <span class="co"># total number of false positives per replication</span></span>
+<span id="cb375-6"><a href="inference-for-high-dimensional-data.html#cb375-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb375-7"><a href="inference-for-high-dimensional-data.html#cb375-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res)</span></code></pre></div>
 <pre><code>## [1] 0.999</code></pre>
 </div>
-<div id="question-5-8" class="section level3 unnumbered">
+<div id="question-5-9" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>What this says is that on average, we expect some p-value to be 0.05 even when the null is true for all diets. Use the same simulation data and report for what percent of the 1,000 replications did we make more than 0 false positives?</p>
 <hr />
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" title="1"><span class="kw">mean</span>(res<span class="op">&gt;</span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="inference-for-high-dimensional-data.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">&gt;</span><span class="dv">0</span>)</span></code></pre></div>
 <pre><code>## [1] 0.651</code></pre>
 </div>
 </div>
@@ -626,97 +682,97 @@ Set the seed at 100, <code>set.seed(100)</code>, run the code from Question 3 1,
 <p>Assume the null is true and denote the p-value you would get if you ran a test as P. Define the function <span class="math inline">\(f(x) = Pr(P&gt;x)\)</span>. What does <span class="math inline">\(f(x)\)</span> look like?</p>
 <hr />
 <p>The answer is <strong>B (identity line)</strong>. When the null hypothesis is true, p value has a uniform distribution. If you plot a <strong>cumulative</strong> distribution function, where the y-axis is f(x), then you will observe an identity line. Here is a demonstration using <code>ecdf</code> function to plot a cumulative distribution function.</p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1">population &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()</a>
-<a class="sourceLine" id="cb379-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb379-3" title="3">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb379-4" title="4">B &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb379-5" title="5">pvals &lt;-<span class="st"> </span><span class="kw">replicate</span>(B,{</a>
-<a class="sourceLine" id="cb379-6" title="6">  control =<span class="st"> </span><span class="kw">sample</span>(population,N)</a>
-<a class="sourceLine" id="cb379-7" title="7">  treatment =<span class="st"> </span><span class="kw">sample</span>(population,N)</a>
-<a class="sourceLine" id="cb379-8" title="8">  <span class="kw">t.test</span>(treatment,control)<span class="op">$</span>p.val </a>
-<a class="sourceLine" id="cb379-9" title="9">})</a>
-<a class="sourceLine" id="cb379-10" title="10"><span class="kw">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb379-11" title="11"><span class="kw">hist</span>(pvals)</a>
-<a class="sourceLine" id="cb379-12" title="12"><span class="kw">plot</span>(<span class="kw">ecdf</span>(pvals)) <span class="co"># identity line</span></a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="inference-for-high-dimensional-data.html#cb379-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;femaleControlsPopulation.csv&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span>
+<span id="cb379-2"><a href="inference-for-high-dimensional-data.html#cb379-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb379-3"><a href="inference-for-high-dimensional-data.html#cb379-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb379-4"><a href="inference-for-high-dimensional-data.html#cb379-4" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb379-5"><a href="inference-for-high-dimensional-data.html#cb379-5" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B,{</span>
+<span id="cb379-6"><a href="inference-for-high-dimensional-data.html#cb379-6" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">=</span> <span class="fu">sample</span>(population,N)</span>
+<span id="cb379-7"><a href="inference-for-high-dimensional-data.html#cb379-7" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">=</span> <span class="fu">sample</span>(population,N)</span>
+<span id="cb379-8"><a href="inference-for-high-dimensional-data.html#cb379-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(treatment,control)<span class="sc">$</span>p.val </span>
+<span id="cb379-9"><a href="inference-for-high-dimensional-data.html#cb379-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb379-10"><a href="inference-for-high-dimensional-data.html#cb379-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mypar</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb379-11"><a href="inference-for-high-dimensional-data.html#cb379-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pvals)</span>
+<span id="cb379-12"><a href="inference-for-high-dimensional-data.html#cb379-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(pvals)) <span class="co"># identity line</span></span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-226-1.png" width="672" /></p>
 </div>
 <div id="question-2-20" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>In the previous exercises, we saw how the probability of incorrectly rejecting the null for at least one of 20 experiments for which the null is true, is well over 5%. Now let’s consider a case in which we run thousands of tests, as we would do in a high-throughput experiment.</p>
 <p>We previously learned that under the null, the probability of a p-value <span class="math inline">\(&lt; p\)</span> is p. If we run 8,793 independent tests, what it the probability of incorrectly rejecting at least one of the null hypotheses?</p>
 <hr />
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.95</span><span class="op">^</span><span class="dv">8793</span></a></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="inference-for-high-dimensional-data.html#cb380-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span><span class="sc">^</span><span class="dv">8793</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-3-18" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Suppose we need to run 8,793 statistical tests and we want to make the probability of a mistake very small, say 5%. Use the answer to exercise 2 (<strong>Sidak’s procedure</strong>) to determine how small we have to change the cutoff, previously 0.05, to lower our probability of at least one mistake to be 5%.</p>
 <hr />
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb382-2" title="2"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.95</span><span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>m)</a></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="inference-for-high-dimensional-data.html#cb382-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8793</span></span>
+<span id="cb382-2"><a href="inference-for-high-dimensional-data.html#cb382-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span><span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span>m)</span></code></pre></div>
 <pre><code>## [1] 5.833407e-06</code></pre>
 </div>
 <div id="question-4-15" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>In R define</p>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1">alphas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.01</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="inference-for-high-dimensional-data.html#cb384-1" aria-hidden="true" tabindex="-1"></a>alphas <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.01</span>)</span></code></pre></div>
 <p>Make a plot of <span class="math inline">\(\alpha/m\)</span> and <span class="math inline">\(1-(1-\alpha)^{1/m}\)</span> for various values of <span class="math inline">\(m&gt;1\)</span>. Which procedure is more conservative Bonferrino’s or Sidek’s?</p>
 <hr />
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="kw">plot</span>(alphas<span class="op">/</span>m, (<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>alphas)<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span>m)), <span class="dt">xlab =</span> <span class="st">&#39;bonf&#39;</span>,</a>
-<a class="sourceLine" id="cb385-2" title="2">     <span class="dt">ylab =</span> <span class="st">&#39;sidak&#39;</span>, <span class="dt">main =</span> <span class="st">&#39;p-val cutoff&#39;</span>)</a>
-<a class="sourceLine" id="cb385-3" title="3"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="inference-for-high-dimensional-data.html#cb385-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(alphas<span class="sc">/</span>m, (<span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>alphas)<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span>m)), <span class="at">xlab =</span> <span class="st">&#39;bonf&#39;</span>,</span>
+<span id="cb385-2"><a href="inference-for-high-dimensional-data.html#cb385-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&#39;sidak&#39;</span>, <span class="at">main =</span> <span class="st">&#39;p-val cutoff&#39;</span>)</span>
+<span id="cb385-3"><a href="inference-for-high-dimensional-data.html#cb385-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-230-1.png" width="672" /></p>
 <p>Bonferroni’s procedure is more conservative (<strong>choice B</strong>). Conservative refers to strictness. The p-value cutoff for significance is lower in Bonferroni’s procedure, and therefore more conservative.</p>
 </div>
-<div id="question-5-9" class="section level3 unnumbered">
+<div id="question-5-10" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>To simulate the p-value results of, say <strong>8,793</strong> t-tests for which the null is true, we don’t actually have to generate the original data. We can generate p-values for a uniform distribution like this: <code>pvals &lt;- runif(8793,0,1)</code>. Using what we have learned, set the cutoff using the Bonferroni correction and report back the FWER. Set the seed at 1 and run 10,000 simulations.</p>
 <hr />
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb386-2" title="2">bonf_res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, {</a>
-<a class="sourceLine" id="cb386-3" title="3">  pvals &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb386-4" title="4">  bonfcall &lt;-<span class="st"> </span><span class="kw">sum</span>((pvals <span class="op">*</span><span class="st"> </span>m) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb386-5" title="5">  <span class="kw">return</span>(bonfcall)</a>
-<a class="sourceLine" id="cb386-6" title="6">})</a>
-<a class="sourceLine" id="cb386-7" title="7"><span class="kw">sum</span>(bonf_res<span class="op">&gt;</span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(bonf_res)</a></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="inference-for-high-dimensional-data.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb386-2"><a href="inference-for-high-dimensional-data.html#cb386-2" aria-hidden="true" tabindex="-1"></a>bonf_res <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, {</span>
+<span id="cb386-3"><a href="inference-for-high-dimensional-data.html#cb386-3" aria-hidden="true" tabindex="-1"></a>  pvals <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb386-4"><a href="inference-for-high-dimensional-data.html#cb386-4" aria-hidden="true" tabindex="-1"></a>  bonfcall <span class="ot">&lt;-</span> <span class="fu">sum</span>((pvals <span class="sc">*</span> m) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb386-5"><a href="inference-for-high-dimensional-data.html#cb386-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(bonfcall)</span>
+<span id="cb386-6"><a href="inference-for-high-dimensional-data.html#cb386-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb386-7"><a href="inference-for-high-dimensional-data.html#cb386-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(bonf_res<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">/</span><span class="fu">length</span>(bonf_res)</span></code></pre></div>
 <pre><code>## [1] 0.0464</code></pre>
 </div>
 <div id="question-6-8" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Using the same seed, repeat exercise 5, but for Sidek’s cutoff.</p>
 <hr />
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb388-2" title="2">sidak_res &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">10000</span>, {</a>
-<a class="sourceLine" id="cb388-3" title="3">  pvals &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb388-4" title="4">  sidakcall &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>pvals)<span class="op">^</span>m) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb388-5" title="5">  <span class="kw">return</span>(sidakcall)</a>
-<a class="sourceLine" id="cb388-6" title="6">})</a>
-<a class="sourceLine" id="cb388-7" title="7"></a>
-<a class="sourceLine" id="cb388-8" title="8"><span class="kw">sum</span>(sidak_res<span class="op">&gt;</span><span class="dv">0</span>)<span class="op">/</span><span class="kw">length</span>(sidak_res)</a></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="inference-for-high-dimensional-data.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb388-2"><a href="inference-for-high-dimensional-data.html#cb388-2" aria-hidden="true" tabindex="-1"></a>sidak_res <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, {</span>
+<span id="cb388-3"><a href="inference-for-high-dimensional-data.html#cb388-3" aria-hidden="true" tabindex="-1"></a>  pvals <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">8793</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb388-4"><a href="inference-for-high-dimensional-data.html#cb388-4" aria-hidden="true" tabindex="-1"></a>  sidakcall <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>pvals)<span class="sc">^</span>m) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb388-5"><a href="inference-for-high-dimensional-data.html#cb388-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(sidakcall)</span>
+<span id="cb388-6"><a href="inference-for-high-dimensional-data.html#cb388-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb388-7"><a href="inference-for-high-dimensional-data.html#cb388-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb388-8"><a href="inference-for-high-dimensional-data.html#cb388-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sidak_res<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">/</span><span class="fu">length</span>(sidak_res)</span></code></pre></div>
 <pre><code>## [1] 0.0473</code></pre>
 </div>
 <div id="question-7-8" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>In the following exercises, we will define error controlling procedures for experimental data. We will make a list of genes based on q-values. We will also assess your understanding of false positives rates and false negative rates by asking you to create a Monte Carlo simulation.
 Load the expression data:</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb390-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="inference-for-high-dimensional-data.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859Subset)</span>
+<span id="cb390-2"><a href="inference-for-high-dimensional-data.html#cb390-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE5859Subset)</span></code></pre></div>
 <p>We are interested in comparing gene expression between the two groups defined in the <code>sampleInfo</code> table. Compute a p-value for each gene using the function rowttests from the <code>genefilter</code> package.</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1"><span class="kw">library</span>(genefilter)</a>
-<a class="sourceLine" id="cb391-2" title="2"><span class="co">#?rowttests</span></a></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="inference-for-high-dimensional-data.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(genefilter)</span>
+<span id="cb391-2"><a href="inference-for-high-dimensional-data.html#cb391-2" aria-hidden="true" tabindex="-1"></a><span class="co">#?rowttests</span></span></code></pre></div>
 <p>How many genes have p-values smaller than 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1">g &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb392-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb392-3" title="3"><span class="kw">sum</span>(pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="inference-for-high-dimensional-data.html#cb392-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> sampleInfo<span class="sc">$</span>group</span>
+<span id="cb392-2"><a href="inference-for-high-dimensional-data.html#cb392-2" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression, <span class="fu">factor</span>(g))<span class="sc">$</span>p.value</span>
+<span id="cb392-3"><a href="inference-for-high-dimensional-data.html#cb392-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 1383</code></pre>
 </div>
 <div id="question-8-7" class="section level3 unnumbered">
 <h3>Question 8</h3>
 <p>Apply the Bonferroni correction to achieve a FWER of 0.05. How many genes are called significant under this procedure?</p>
 <hr />
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb394-2" title="2"><span class="kw">sum</span>(pvals <span class="op">&lt;</span><span class="st"> </span>(<span class="fl">0.05</span><span class="op">/</span>m))</a></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="inference-for-high-dimensional-data.html#cb394-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8793</span></span>
+<span id="cb394-2"><a href="inference-for-high-dimensional-data.html#cb394-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals <span class="sc">&lt;</span> (<span class="fl">0.05</span><span class="sc">/</span>m))</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 </div>
 <div id="question-9-7" class="section level3 unnumbered">
@@ -724,23 +780,23 @@ Load the expression data:</p>
 <p>In R, we can compute q-values using the <code>p.adjust</code> function with the FDR option. Read the help file for p.adjust and compute how many genes achieve a q-value &lt; 0.05 for our
 gene expression dataset.</p>
 <hr />
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1">pvals_adjust &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(pvals, <span class="dt">method =</span> <span class="st">&#39;fdr&#39;</span>)</a>
-<a class="sourceLine" id="cb396-2" title="2"><span class="kw">sum</span>(pvals_adjust <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="inference-for-high-dimensional-data.html#cb396-1" aria-hidden="true" tabindex="-1"></a>pvals_adjust <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(pvals, <span class="at">method =</span> <span class="st">&#39;fdr&#39;</span>)</span>
+<span id="cb396-2"><a href="inference-for-high-dimensional-data.html#cb396-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pvals_adjust <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 </div>
 <div id="question-10-6" class="section level3 unnumbered">
 <h3>Question 10</h3>
 <p>Now use the qvalue function, in the Bioconductor <code>qvalue</code> package, to estimate q-values using the procedure described by Storey. How many genes have q-values below 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1">res &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)</a>
-<a class="sourceLine" id="cb398-2" title="2"><span class="kw">sum</span>(res<span class="op">$</span>qvalues <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="inference-for-high-dimensional-data.html#cb398-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)</span>
+<span id="cb398-2"><a href="inference-for-high-dimensional-data.html#cb398-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res<span class="sc">$</span>qvalues <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 22</code></pre>
 </div>
 <div id="question-11-3" class="section level3 unnumbered">
 <h3>Question 11</h3>
 <p>Read the help file for qvalue and report the estimated proportion of genes for which the null hypothesis is true <span class="math inline">\(\pi_0 = m_0/m\)</span></p>
 <hr />
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1">res<span class="op">$</span>pi0</a></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="inference-for-high-dimensional-data.html#cb400-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>pi0</span></code></pre></div>
 <pre><code>## [1] 0.6695739</code></pre>
 </div>
 <div id="question-12-3" class="section level3 unnumbered">
@@ -748,48 +804,48 @@ gene expression dataset.</p>
 <p>The number of genes passing the q-value &lt; 0.05 threshold is larger with the q-value function than the <code>p.adjust</code> difference. Why is this the case? Make a plot of
 the ratio of these two estimates to help answer the question.</p>
 <hr />
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1"><span class="kw">plot</span>(pvals_adjust, res<span class="op">$</span>qvalues, <span class="dt">xlab =</span> <span class="st">&#39;fdr&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;qval&#39;</span>)</a>
-<a class="sourceLine" id="cb402-2" title="2"><span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-194-1.png" width="672" /></p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="inference-for-high-dimensional-data.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pvals_adjust, res<span class="sc">$</span>qvalues, <span class="at">xlab =</span> <span class="st">&#39;fdr&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;qval&#39;</span>)</span>
+<span id="cb402-2"><a href="inference-for-high-dimensional-data.html#cb402-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-240-1.png" width="672" /></p>
 <p>The qvalue function estimates the proportion of genes for which the null hypothesis is true and provides a less conservative estimate (<strong>choice C</strong>).</p>
 </div>
 <div id="questions-13-14" class="section level3 unnumbered">
 <h3>Questions 13 &amp; 14</h3>
 <p>This exercise and the remaining one are more advanced. Create a Monte Carlo simulation in which you simulate measurements from 8,793 genes for 24 samples, 12 cases and 12 controls. For <strong>500</strong> genes, create a difierence of 1 between cases and controls. You can use the code provided below. Run this experiment 1,000 times with a Monte Carlo simulation. For each instance, compute p-values using a t-test and keep track of the number of false positives and false negatives. Compute the false positive rate and false negative rate if we use Bonferroni, q-values from <code>p.adjust</code>, and q-values from <code>qvalue</code> function. Set the seed to 1 for all three
 simulations. <strong>What are the false positive and false negative rates for Bonferroni? Note: False positive rate = number of false positives / total number of genes for which the null hypothesis is true. False negative rate = number of false negatives / total number of genes for which the null hypothesis is false</strong>.</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1">n &lt;-<span class="st"> </span><span class="dv">24</span></a>
-<a class="sourceLine" id="cb403-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb403-3" title="3">mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>m),m,n)</a>
-<a class="sourceLine" id="cb403-4" title="4">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb403-5" title="5">positives &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb403-6" title="6">mat[<span class="dv">1</span><span class="op">:</span>positives,<span class="dv">1</span><span class="op">:</span>(n<span class="op">/</span><span class="dv">2</span>)] &lt;-<span class="st"> </span>mat[<span class="dv">1</span><span class="op">:</span>positives,<span class="dv">1</span><span class="op">:</span>(n<span class="op">/</span><span class="dv">2</span>)]<span class="op">+</span>delta</a></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="inference-for-high-dimensional-data.html#cb403-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">24</span></span>
+<span id="cb403-2"><a href="inference-for-high-dimensional-data.html#cb403-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8793</span></span>
+<span id="cb403-3"><a href="inference-for-high-dimensional-data.html#cb403-3" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>m),m,n)</span>
+<span id="cb403-4"><a href="inference-for-high-dimensional-data.html#cb403-4" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb403-5"><a href="inference-for-high-dimensional-data.html#cb403-5" aria-hidden="true" tabindex="-1"></a>positives <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb403-6"><a href="inference-for-high-dimensional-data.html#cb403-6" aria-hidden="true" tabindex="-1"></a>mat[<span class="dv">1</span><span class="sc">:</span>positives,<span class="dv">1</span><span class="sc">:</span>(n<span class="sc">/</span><span class="dv">2</span>)] <span class="ot">&lt;-</span> mat[<span class="dv">1</span><span class="sc">:</span>positives,<span class="dv">1</span><span class="sc">:</span>(n<span class="sc">/</span><span class="dv">2</span>)]<span class="sc">+</span>delta</span></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb404-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb404-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb404-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb404-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb404-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
-<a class="sourceLine" id="cb404-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
-<a class="sourceLine" id="cb404-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb404-9" title="9"></a>
-<a class="sourceLine" id="cb404-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb404-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb404-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb404-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb404-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb404-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
-<a class="sourceLine" id="cb404-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
-<a class="sourceLine" id="cb404-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb404-18" title="18">  calls &lt;-<span class="st"> </span>pvals <span class="op">&lt;</span><span class="st"> </span>(<span class="fl">0.05</span><span class="op">/</span>m)</a>
-<a class="sourceLine" id="cb404-19" title="19">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
-<a class="sourceLine" id="cb404-20" title="20">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
-<a class="sourceLine" id="cb404-21" title="21">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
-<a class="sourceLine" id="cb404-22" title="22">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
-<a class="sourceLine" id="cb404-23" title="23">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
-<a class="sourceLine" id="cb404-24" title="24">})</a>
-<a class="sourceLine" id="cb404-25" title="25">res&lt;-<span class="kw">t</span>(res)</a>
-<a class="sourceLine" id="cb404-26" title="26"><span class="kw">head</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="inference-for-high-dimensional-data.html#cb404-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</span>
+<span id="cb404-2"><a href="inference-for-high-dimensional-data.html#cb404-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8793</span></span>
+<span id="cb404-3"><a href="inference-for-high-dimensional-data.html#cb404-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb404-4"><a href="inference-for-high-dimensional-data.html#cb404-4" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb404-5"><a href="inference-for-high-dimensional-data.html#cb404-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb404-6"><a href="inference-for-high-dimensional-data.html#cb404-6" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> m<span class="sc">-</span>m1</span>
+<span id="cb404-7"><a href="inference-for-high-dimensional-data.html#cb404-7" aria-hidden="true" tabindex="-1"></a>nullHypothesis <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>,m0),<span class="fu">rep</span>(<span class="cn">FALSE</span>,m1))</span>
+<span id="cb404-8"><a href="inference-for-high-dimensional-data.html#cb404-8" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb404-9"><a href="inference-for-high-dimensional-data.html#cb404-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb404-10"><a href="inference-for-high-dimensional-data.html#cb404-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb404-11"><a href="inference-for-high-dimensional-data.html#cb404-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
+<span id="cb404-12"><a href="inference-for-high-dimensional-data.html#cb404-12" aria-hidden="true" tabindex="-1"></a>  controls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">*</span>m),<span class="at">nrow =</span> m, <span class="at">ncol =</span> N)</span>
+<span id="cb404-13"><a href="inference-for-high-dimensional-data.html#cb404-13" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">*</span>m),<span class="at">nrow =</span> m, <span class="at">ncol =</span> N)</span>
+<span id="cb404-14"><a href="inference-for-high-dimensional-data.html#cb404-14" aria-hidden="true" tabindex="-1"></a>  treatment[<span class="sc">!</span>nullHypothesis,] <span class="ot">&lt;-</span> </span>
+<span id="cb404-15"><a href="inference-for-high-dimensional-data.html#cb404-15" aria-hidden="true" tabindex="-1"></a>    treatment[<span class="sc">!</span>nullHypothesis,] <span class="sc">+</span> delta</span>
+<span id="cb404-16"><a href="inference-for-high-dimensional-data.html#cb404-16" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(controls, treatment)</span>
+<span id="cb404-17"><a href="inference-for-high-dimensional-data.html#cb404-17" aria-hidden="true" tabindex="-1"></a>  pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(dat, <span class="fu">factor</span>(g))<span class="sc">$</span>p.value</span>
+<span id="cb404-18"><a href="inference-for-high-dimensional-data.html#cb404-18" aria-hidden="true" tabindex="-1"></a>  calls <span class="ot">&lt;-</span> pvals <span class="sc">&lt;</span> (<span class="fl">0.05</span><span class="sc">/</span>m)</span>
+<span id="cb404-19"><a href="inference-for-high-dimensional-data.html#cb404-19" aria-hidden="true" tabindex="-1"></a>  R <span class="ot">&lt;-</span> <span class="fu">sum</span>(calls)</span>
+<span id="cb404-20"><a href="inference-for-high-dimensional-data.html#cb404-20" aria-hidden="true" tabindex="-1"></a>  V <span class="ot">&lt;-</span> <span class="fu">sum</span>(nullHypothesis <span class="sc">&amp;</span> calls)</span>
+<span id="cb404-21"><a href="inference-for-high-dimensional-data.html#cb404-21" aria-hidden="true" tabindex="-1"></a>  fp <span class="ot">&lt;-</span> <span class="fu">sum</span>(nullHypothesis <span class="sc">&amp;</span> calls)<span class="sc">/</span>m0 <span class="co"># false positive</span></span>
+<span id="cb404-22"><a href="inference-for-high-dimensional-data.html#cb404-22" aria-hidden="true" tabindex="-1"></a>  fn <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span>nullHypothesis <span class="sc">&amp;</span> <span class="sc">!</span>calls)<span class="sc">/</span>m1 <span class="co"># false negative</span></span>
+<span id="cb404-23"><a href="inference-for-high-dimensional-data.html#cb404-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(fp,fn))</span>
+<span id="cb404-24"><a href="inference-for-high-dimensional-data.html#cb404-24" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb404-25"><a href="inference-for-high-dimensional-data.html#cb404-25" aria-hidden="true" tabindex="-1"></a>res<span class="ot">&lt;-</span><span class="fu">t</span>(res)</span>
+<span id="cb404-26"><a href="inference-for-high-dimensional-data.html#cb404-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res)</span></code></pre></div>
 <pre><code>##              [,1]  [,2]
 ## [1,] 0.0000000000 0.998
 ## [2,] 0.0000000000 0.998
@@ -797,42 +853,42 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 ## [4,] 0.0001205836 0.996
 ## [5,] 0.0000000000 0.992
 ## [6,] 0.0000000000 0.994</code></pre>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="inference-for-high-dimensional-data.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></span></code></pre></div>
 <pre><code>## [1] 5.185096e-06</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="inference-for-high-dimensional-data.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></span></code></pre></div>
 <pre><code>## [1] 0.995206</code></pre>
 </div>
 <div id="questions-15-16" class="section level3 unnumbered">
 <h3>Questions 15 &amp; 16</h3>
 <p>What are the false positive and negative rates for <code>p.adjust</code>?</p>
 <hr />
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb410-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb410-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb410-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb410-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb410-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
-<a class="sourceLine" id="cb410-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
-<a class="sourceLine" id="cb410-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb410-9" title="9"></a>
-<a class="sourceLine" id="cb410-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb410-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb410-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb410-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb410-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb410-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
-<a class="sourceLine" id="cb410-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
-<a class="sourceLine" id="cb410-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb410-18" title="18">  pvals_adjust &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(pvals, <span class="dt">method =</span> <span class="st">&#39;fdr&#39;</span>)</a>
-<a class="sourceLine" id="cb410-19" title="19">  calls &lt;-<span class="st"> </span>pvals_adjust <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb410-20" title="20">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
-<a class="sourceLine" id="cb410-21" title="21">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
-<a class="sourceLine" id="cb410-22" title="22">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
-<a class="sourceLine" id="cb410-23" title="23">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
-<a class="sourceLine" id="cb410-24" title="24">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
-<a class="sourceLine" id="cb410-25" title="25">})</a>
-<a class="sourceLine" id="cb410-26" title="26">res&lt;-<span class="kw">t</span>(res)</a>
-<a class="sourceLine" id="cb410-27" title="27"><span class="kw">head</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="inference-for-high-dimensional-data.html#cb410-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</span>
+<span id="cb410-2"><a href="inference-for-high-dimensional-data.html#cb410-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8793</span></span>
+<span id="cb410-3"><a href="inference-for-high-dimensional-data.html#cb410-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb410-4"><a href="inference-for-high-dimensional-data.html#cb410-4" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb410-5"><a href="inference-for-high-dimensional-data.html#cb410-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb410-6"><a href="inference-for-high-dimensional-data.html#cb410-6" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> m<span class="sc">-</span>m1</span>
+<span id="cb410-7"><a href="inference-for-high-dimensional-data.html#cb410-7" aria-hidden="true" tabindex="-1"></a>nullHypothesis <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>,m0),<span class="fu">rep</span>(<span class="cn">FALSE</span>,m1))</span>
+<span id="cb410-8"><a href="inference-for-high-dimensional-data.html#cb410-8" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb410-9"><a href="inference-for-high-dimensional-data.html#cb410-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb410-10"><a href="inference-for-high-dimensional-data.html#cb410-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb410-11"><a href="inference-for-high-dimensional-data.html#cb410-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
+<span id="cb410-12"><a href="inference-for-high-dimensional-data.html#cb410-12" aria-hidden="true" tabindex="-1"></a>  controls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">*</span>m),<span class="at">nrow =</span> m, <span class="at">ncol =</span> N)</span>
+<span id="cb410-13"><a href="inference-for-high-dimensional-data.html#cb410-13" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">*</span>m),<span class="at">nrow =</span> m, <span class="at">ncol =</span> N)</span>
+<span id="cb410-14"><a href="inference-for-high-dimensional-data.html#cb410-14" aria-hidden="true" tabindex="-1"></a>  treatment[<span class="sc">!</span>nullHypothesis,] <span class="ot">&lt;-</span> </span>
+<span id="cb410-15"><a href="inference-for-high-dimensional-data.html#cb410-15" aria-hidden="true" tabindex="-1"></a>    treatment[<span class="sc">!</span>nullHypothesis,] <span class="sc">+</span> delta</span>
+<span id="cb410-16"><a href="inference-for-high-dimensional-data.html#cb410-16" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(controls, treatment)</span>
+<span id="cb410-17"><a href="inference-for-high-dimensional-data.html#cb410-17" aria-hidden="true" tabindex="-1"></a>  pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(dat, <span class="fu">factor</span>(g))<span class="sc">$</span>p.value</span>
+<span id="cb410-18"><a href="inference-for-high-dimensional-data.html#cb410-18" aria-hidden="true" tabindex="-1"></a>  pvals_adjust <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(pvals, <span class="at">method =</span> <span class="st">&#39;fdr&#39;</span>)</span>
+<span id="cb410-19"><a href="inference-for-high-dimensional-data.html#cb410-19" aria-hidden="true" tabindex="-1"></a>  calls <span class="ot">&lt;-</span> pvals_adjust <span class="sc">&lt;</span> <span class="fl">0.05</span></span>
+<span id="cb410-20"><a href="inference-for-high-dimensional-data.html#cb410-20" aria-hidden="true" tabindex="-1"></a>  R <span class="ot">&lt;-</span> <span class="fu">sum</span>(calls)</span>
+<span id="cb410-21"><a href="inference-for-high-dimensional-data.html#cb410-21" aria-hidden="true" tabindex="-1"></a>  V <span class="ot">&lt;-</span> <span class="fu">sum</span>(nullHypothesis <span class="sc">&amp;</span> calls)</span>
+<span id="cb410-22"><a href="inference-for-high-dimensional-data.html#cb410-22" aria-hidden="true" tabindex="-1"></a>  fp <span class="ot">&lt;-</span> <span class="fu">sum</span>(nullHypothesis <span class="sc">&amp;</span> calls)<span class="sc">/</span>m0 <span class="co"># false positive</span></span>
+<span id="cb410-23"><a href="inference-for-high-dimensional-data.html#cb410-23" aria-hidden="true" tabindex="-1"></a>  fn <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span>nullHypothesis <span class="sc">&amp;</span> <span class="sc">!</span>calls)<span class="sc">/</span>m1 <span class="co"># false negative</span></span>
+<span id="cb410-24"><a href="inference-for-high-dimensional-data.html#cb410-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(fp,fn))</span>
+<span id="cb410-25"><a href="inference-for-high-dimensional-data.html#cb410-25" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb410-26"><a href="inference-for-high-dimensional-data.html#cb410-26" aria-hidden="true" tabindex="-1"></a>res<span class="ot">&lt;-</span><span class="fu">t</span>(res)</span>
+<span id="cb410-27"><a href="inference-for-high-dimensional-data.html#cb410-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res)</span></code></pre></div>
 <pre><code>##              [,1]  [,2]
 ## [1,] 0.0000000000 0.992
 ## [2,] 0.0002411672 0.966
@@ -840,42 +896,42 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 ## [4,] 0.0002411672 0.950
 ## [5,] 0.0000000000 0.964
 ## [6,] 0.0000000000 0.944</code></pre>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="inference-for-high-dimensional-data.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></span></code></pre></div>
 <pre><code>## [1] 0.0001201013</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="inference-for-high-dimensional-data.html#cb414-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></span></code></pre></div>
 <pre><code>## [1] 0.962686</code></pre>
 </div>
 <div id="questions-17-18" class="section level3 unnumbered">
 <h3>Questions 17 &amp; 18</h3>
 <p>What are the false positive and negative rates for <code>qvalues</code>?</p>
 <hr />
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</a>
-<a class="sourceLine" id="cb416-2" title="2">m &lt;-<span class="st"> </span><span class="dv">8793</span></a>
-<a class="sourceLine" id="cb416-3" title="3">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb416-4" title="4">m1 &lt;-<span class="st"> </span><span class="dv">500</span></a>
-<a class="sourceLine" id="cb416-5" title="5">N &lt;-<span class="st"> </span><span class="dv">12</span></a>
-<a class="sourceLine" id="cb416-6" title="6">m0 &lt;-<span class="st"> </span>m<span class="op">-</span>m1</a>
-<a class="sourceLine" id="cb416-7" title="7">nullHypothesis &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>,m0),<span class="kw">rep</span>(<span class="ot">FALSE</span>,m1))</a>
-<a class="sourceLine" id="cb416-8" title="8">delta &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb416-9" title="9"></a>
-<a class="sourceLine" id="cb416-10" title="10"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb416-11" title="11">res &lt;-<span class="st"> </span><span class="kw">replicate</span>(B, {</a>
-<a class="sourceLine" id="cb416-12" title="12">  controls &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb416-13" title="13">  treatment &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(N<span class="op">*</span>m),<span class="dt">nrow =</span> m, <span class="dt">ncol =</span> N)</a>
-<a class="sourceLine" id="cb416-14" title="14">  treatment[<span class="op">!</span>nullHypothesis,] &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb416-15" title="15"><span class="st">    </span>treatment[<span class="op">!</span>nullHypothesis,] <span class="op">+</span><span class="st"> </span>delta</a>
-<a class="sourceLine" id="cb416-16" title="16">  dat &lt;-<span class="st"> </span><span class="kw">cbind</span>(controls, treatment)</a>
-<a class="sourceLine" id="cb416-17" title="17">  pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(dat, <span class="kw">factor</span>(g))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb416-18" title="18">  qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalue</a>
-<a class="sourceLine" id="cb416-19" title="19">  calls &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="cb416-20" title="20">  R &lt;-<span class="st"> </span><span class="kw">sum</span>(calls)</a>
-<a class="sourceLine" id="cb416-21" title="21">  V &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)</a>
-<a class="sourceLine" id="cb416-22" title="22">  fp &lt;-<span class="st"> </span><span class="kw">sum</span>(nullHypothesis <span class="op">&amp;</span><span class="st"> </span>calls)<span class="op">/</span>m0 <span class="co"># false positive</span></a>
-<a class="sourceLine" id="cb416-23" title="23">  fn &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>nullHypothesis <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span>calls)<span class="op">/</span>m1 <span class="co"># false negative</span></a>
-<a class="sourceLine" id="cb416-24" title="24">  <span class="kw">return</span>(<span class="kw">c</span>(fp,fn))</a>
-<a class="sourceLine" id="cb416-25" title="25">})</a>
-<a class="sourceLine" id="cb416-26" title="26">res&lt;-<span class="kw">t</span>(res)</a>
-<a class="sourceLine" id="cb416-27" title="27"><span class="kw">head</span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="inference-for-high-dimensional-data.html#cb416-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">12</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">12</span>))</span>
+<span id="cb416-2"><a href="inference-for-high-dimensional-data.html#cb416-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">8793</span></span>
+<span id="cb416-3"><a href="inference-for-high-dimensional-data.html#cb416-3" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb416-4"><a href="inference-for-high-dimensional-data.html#cb416-4" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb416-5"><a href="inference-for-high-dimensional-data.html#cb416-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb416-6"><a href="inference-for-high-dimensional-data.html#cb416-6" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> m<span class="sc">-</span>m1</span>
+<span id="cb416-7"><a href="inference-for-high-dimensional-data.html#cb416-7" aria-hidden="true" tabindex="-1"></a>nullHypothesis <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>,m0),<span class="fu">rep</span>(<span class="cn">FALSE</span>,m1))</span>
+<span id="cb416-8"><a href="inference-for-high-dimensional-data.html#cb416-8" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb416-9"><a href="inference-for-high-dimensional-data.html#cb416-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb416-10"><a href="inference-for-high-dimensional-data.html#cb416-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb416-11"><a href="inference-for-high-dimensional-data.html#cb416-11" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
+<span id="cb416-12"><a href="inference-for-high-dimensional-data.html#cb416-12" aria-hidden="true" tabindex="-1"></a>  controls <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">*</span>m),<span class="at">nrow =</span> m, <span class="at">ncol =</span> N)</span>
+<span id="cb416-13"><a href="inference-for-high-dimensional-data.html#cb416-13" aria-hidden="true" tabindex="-1"></a>  treatment <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">*</span>m),<span class="at">nrow =</span> m, <span class="at">ncol =</span> N)</span>
+<span id="cb416-14"><a href="inference-for-high-dimensional-data.html#cb416-14" aria-hidden="true" tabindex="-1"></a>  treatment[<span class="sc">!</span>nullHypothesis,] <span class="ot">&lt;-</span> </span>
+<span id="cb416-15"><a href="inference-for-high-dimensional-data.html#cb416-15" aria-hidden="true" tabindex="-1"></a>    treatment[<span class="sc">!</span>nullHypothesis,] <span class="sc">+</span> delta</span>
+<span id="cb416-16"><a href="inference-for-high-dimensional-data.html#cb416-16" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(controls, treatment)</span>
+<span id="cb416-17"><a href="inference-for-high-dimensional-data.html#cb416-17" aria-hidden="true" tabindex="-1"></a>  pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(dat, <span class="fu">factor</span>(g))<span class="sc">$</span>p.value</span>
+<span id="cb416-18"><a href="inference-for-high-dimensional-data.html#cb416-18" aria-hidden="true" tabindex="-1"></a>  qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalue</span>
+<span id="cb416-19"><a href="inference-for-high-dimensional-data.html#cb416-19" aria-hidden="true" tabindex="-1"></a>  calls <span class="ot">&lt;-</span> qvals <span class="sc">&lt;</span> <span class="fl">0.05</span></span>
+<span id="cb416-20"><a href="inference-for-high-dimensional-data.html#cb416-20" aria-hidden="true" tabindex="-1"></a>  R <span class="ot">&lt;-</span> <span class="fu">sum</span>(calls)</span>
+<span id="cb416-21"><a href="inference-for-high-dimensional-data.html#cb416-21" aria-hidden="true" tabindex="-1"></a>  V <span class="ot">&lt;-</span> <span class="fu">sum</span>(nullHypothesis <span class="sc">&amp;</span> calls)</span>
+<span id="cb416-22"><a href="inference-for-high-dimensional-data.html#cb416-22" aria-hidden="true" tabindex="-1"></a>  fp <span class="ot">&lt;-</span> <span class="fu">sum</span>(nullHypothesis <span class="sc">&amp;</span> calls)<span class="sc">/</span>m0 <span class="co"># false positive</span></span>
+<span id="cb416-23"><a href="inference-for-high-dimensional-data.html#cb416-23" aria-hidden="true" tabindex="-1"></a>  fn <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span>nullHypothesis <span class="sc">&amp;</span> <span class="sc">!</span>calls)<span class="sc">/</span>m1 <span class="co"># false negative</span></span>
+<span id="cb416-24"><a href="inference-for-high-dimensional-data.html#cb416-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(fp,fn))</span>
+<span id="cb416-25"><a href="inference-for-high-dimensional-data.html#cb416-25" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb416-26"><a href="inference-for-high-dimensional-data.html#cb416-26" aria-hidden="true" tabindex="-1"></a>res<span class="ot">&lt;-</span><span class="fu">t</span>(res)</span>
+<span id="cb416-27"><a href="inference-for-high-dimensional-data.html#cb416-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res)</span></code></pre></div>
 <pre><code>##              [,1]  [,2]
 ## [1,] 0.0000000000 0.988
 ## [2,] 0.0002411672 0.966
@@ -883,41 +939,41 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 ## [4,] 0.0002411672 0.950
 ## [5,] 0.0000000000 0.964
 ## [6,] 0.0000000000 0.942</code></pre>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="inference-for-high-dimensional-data.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res[,<span class="dv">1</span>]) <span class="co"># false positive rate</span></span></code></pre></div>
 <pre><code>## [1] 0.0001387918</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1"><span class="kw">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></a></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="inference-for-high-dimensional-data.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res[,<span class="dv">2</span>]) <span class="co"># false negative rate</span></span></code></pre></div>
 <pre><code>## [1] 0.95894</code></pre>
 </div>
 </div>
 <div id="exercises-23" class="section level2 unnumbered">
 <h2>6.12 Exercises</h2>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="kw">library</span>(rafalib)</a>
-<a class="sourceLine" id="cb422-2" title="2"><span class="kw">library</span>(SpikeInSubset)</a>
-<a class="sourceLine" id="cb422-3" title="3"><span class="kw">data</span>(mas133)</a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="inference-for-high-dimensional-data.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rafalib)</span>
+<span id="cb422-2"><a href="inference-for-high-dimensional-data.html#cb422-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SpikeInSubset)</span>
+<span id="cb422-3"><a href="inference-for-high-dimensional-data.html#cb422-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mas133)</span></code></pre></div>
 <p>Now make the following plot of the first two samples and compute the correlation:</p>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1">e &lt;-<span class="st"> </span><span class="kw">exprs</span>(mas133)</a>
-<a class="sourceLine" id="cb423-2" title="2"><span class="kw">plot</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>],<span class="dt">main=</span><span class="kw">paste0</span>(<span class="st">&quot;corr=&quot;</span>,<span class="kw">signif</span>(<span class="kw">cor</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>]),<span class="dv">3</span>)), <span class="dt">cex=</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb423-3" title="3">k &lt;-<span class="st"> </span><span class="dv">3000</span></a>
-<a class="sourceLine" id="cb423-4" title="4">b &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co">#a buffer</span></a>
-<a class="sourceLine" id="cb423-5" title="5"><span class="kw">polygon</span>(<span class="kw">c</span>(<span class="op">-</span>b,k,k,<span class="op">-</span>b),<span class="kw">c</span>(<span class="op">-</span>b,<span class="op">-</span>b,k,k),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">density=</span><span class="dv">0</span>,<span class="dt">border=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-200-1.png" width="672" /></p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="inference-for-high-dimensional-data.html#cb423-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">exprs</span>(mas133)</span>
+<span id="cb423-2"><a href="inference-for-high-dimensional-data.html#cb423-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>],<span class="at">main=</span><span class="fu">paste0</span>(<span class="st">&quot;corr=&quot;</span>,<span class="fu">signif</span>(<span class="fu">cor</span>(e[,<span class="dv">1</span>],e[,<span class="dv">2</span>]),<span class="dv">3</span>)), <span class="at">cex=</span><span class="fl">0.5</span>)</span>
+<span id="cb423-3"><a href="inference-for-high-dimensional-data.html#cb423-3" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb423-4"><a href="inference-for-high-dimensional-data.html#cb423-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co">#a buffer</span></span>
+<span id="cb423-5"><a href="inference-for-high-dimensional-data.html#cb423-5" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(<span class="sc">-</span>b,k,k,<span class="sc">-</span>b),<span class="fu">c</span>(<span class="sc">-</span>b,<span class="sc">-</span>b,k,k),<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">density=</span><span class="dv">0</span>,<span class="at">border=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p>
 <div id="question-1-23" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>What proportion of the points are inside the box?</p>
 <hr />
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1"><span class="kw">length</span>(<span class="kw">which</span>(e[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span> <span class="op">&amp;</span><span class="st"> </span>e[,<span class="dv">2</span>]<span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span>)) <span class="op">/</span><span class="st"> </span><span class="kw">dim</span>(e)[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="inference-for-high-dimensional-data.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">which</span>(e[,<span class="dv">1</span>] <span class="sc">&lt;=</span> <span class="dv">3000</span> <span class="sc">&amp;</span> e[,<span class="dv">2</span>]<span class="sc">&lt;=</span> <span class="dv">3000</span>)) <span class="sc">/</span> <span class="fu">dim</span>(e)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 0.9475336</code></pre>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1"><span class="kw">sum</span>(e[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span> <span class="op">&amp;</span><span class="st"> </span>e[,<span class="dv">2</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3000</span>) <span class="op">/</span><span class="st"> </span><span class="kw">dim</span>(e)[<span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="inference-for-high-dimensional-data.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(e[,<span class="dv">1</span>] <span class="sc">&lt;=</span> <span class="dv">3000</span> <span class="sc">&amp;</span> e[,<span class="dv">2</span>] <span class="sc">&lt;=</span> <span class="dv">3000</span>) <span class="sc">/</span> <span class="fu">dim</span>(e)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 0.9475336</code></pre>
 </div>
 <div id="question-2-21" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>Now make the sample plot with log:</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">plot</span>(<span class="kw">log2</span>(e[,<span class="dv">1</span>]),<span class="kw">log2</span>(e[,<span class="dv">2</span>]))</a>
-<a class="sourceLine" id="cb428-2" title="2">k &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="dv">3000</span>)</a>
-<a class="sourceLine" id="cb428-3" title="3">b &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb428-4" title="4"><span class="kw">polygon</span>(<span class="kw">c</span>(b,k,k,b),<span class="kw">c</span>(b,b,k,k),<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">density=</span><span class="dv">0</span>,<span class="dt">border=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-202-1.png" width="672" /></p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="inference-for-high-dimensional-data.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log2</span>(e[,<span class="dv">1</span>]),<span class="fu">log2</span>(e[,<span class="dv">2</span>]))</span>
+<span id="cb428-2"><a href="inference-for-high-dimensional-data.html#cb428-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">log2</span>(<span class="dv">3000</span>)</span>
+<span id="cb428-3"><a href="inference-for-high-dimensional-data.html#cb428-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">log2</span>(<span class="fl">0.5</span>)</span>
+<span id="cb428-4"><a href="inference-for-high-dimensional-data.html#cb428-4" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(b,k,k,b),<span class="fu">c</span>(b,b,k,k),<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">density=</span><span class="dv">0</span>,<span class="at">border=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-248-1.png" width="672" /></p>
 <p>What is an advantage of taking the log?</p>
 <hr />
 <p>The answer choice is <strong>A</strong>: The tails do not dominate the plot, 95% of data are not in a tiny section of the plot.</p>
@@ -925,24 +981,24 @@ simulations. <strong>What are the false positive and false negative rates for Bo
 <div id="question-3-19" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Make an MA-plot:</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">e &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">exprs</span>(mas133))</a>
-<a class="sourceLine" id="cb429-2" title="2"><span class="kw">plot</span>((e[,<span class="dv">1</span>]<span class="op">+</span>e[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>],<span class="dt">cex=</span><span class="fl">0.5</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-203-1.png" width="672" /></p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="inference-for-high-dimensional-data.html#cb429-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">log2</span>(<span class="fu">exprs</span>(mas133))</span>
+<span id="cb429-2"><a href="inference-for-high-dimensional-data.html#cb429-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>((e[,<span class="dv">1</span>]<span class="sc">+</span>e[,<span class="dv">2</span>])<span class="sc">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="sc">-</span>e[,<span class="dv">1</span>],<span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-249-1.png" width="672" /></p>
 <p>The two samples we are plotting are replicates (they are random samples from the same batch of RNA). The correlation of the data was 0.997 in the original scale and 0.96 in the
 log-scale. High correlations are sometimes confused with evidence of replication. However, replication implies we get very small differences between the observations, which is better measured with distance or differences.</p>
 <p>What is the standard deviation of the log ratios for this comparison?</p>
 <hr />
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1">e &lt;-<span class="st"> </span><span class="kw">log2</span>(<span class="kw">exprs</span>(mas133))</a>
-<a class="sourceLine" id="cb430-2" title="2"><span class="kw">plot</span>((e[,<span class="dv">1</span>]<span class="op">+</span>e[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>],<span class="dt">cex=</span><span class="fl">0.5</span>)</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-204-1.png" width="672" /></p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1"><span class="kw">sd</span>(e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="inference-for-high-dimensional-data.html#cb430-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">log2</span>(<span class="fu">exprs</span>(mas133))</span>
+<span id="cb430-2"><a href="inference-for-high-dimensional-data.html#cb430-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>((e[,<span class="dv">1</span>]<span class="sc">+</span>e[,<span class="dv">2</span>])<span class="sc">/</span><span class="dv">2</span>,e[,<span class="dv">2</span>]<span class="sc">-</span>e[,<span class="dv">1</span>],<span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-250-1.png" width="672" /></p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="inference-for-high-dimensional-data.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(e[,<span class="dv">2</span>]<span class="sc">-</span>e[,<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## [1] 0.7767887</code></pre>
 </div>
 <div id="question-4-16" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>How many fold changes above <strong>absolute</strong> 2 do we see?</p>
 <hr />
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1"><span class="kw">sum</span>(<span class="kw">abs</span>(e[,<span class="dv">2</span>]<span class="op">-</span>e[,<span class="dv">1</span>])<span class="op">&gt;</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="inference-for-high-dimensional-data.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">abs</span>(e[,<span class="dv">2</span>]<span class="sc">-</span>e[,<span class="dv">1</span>])<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 3057</code></pre>
 
 </div>
@@ -977,6 +1033,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

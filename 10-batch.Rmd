@@ -16,6 +16,7 @@ library(GSE5859Subset) # subset of gene expression data
 library(tissuesGeneExpression)
 data(tissuesGeneExpression)
 library(qvalue)
+library(RColorBrewer)
 ```
 
 ## 10.3 Exercises {-}
@@ -474,9 +475,8 @@ head(t(matrix(c(1,1,1,-1),2,2) %*% t(y)))
 So none of the choices are equal to `head(z)`. Instead here is my answer that transforms `y` correctly.
 
 ```{r}
-ans <- head(y %*% matrix(c(1/2,1/2,1,-1),2,2))
-ans
-identical(z, ans) # they are identical
+ans <- y %*% matrix(c(1/2,1/2,1,-1),2,2)
+any(!near(z, ans)) # they are identical
 ```
 
 Therefore, my answer is:

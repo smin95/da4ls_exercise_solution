@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Batch Effects | Data Analysis for the Life Sciences with R: Exercise Solutions</title>
   <meta name="description" content="Chapter 10 Batch Effects | Data Analysis for the Life Sciences with R: Exercise Solutions" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Batch Effects | Data Analysis for the Life Sciences with R: Exercise Solutions" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Seung Hyun (Sam) Min" />
 
 
-<meta name="date" content="2020-12-22" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="basic-machine-learning.html"/>
 
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,28 +51,32 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -115,6 +120,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -131,18 +137,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">DA4LS with R: Exercise Solutions</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#contribution"><i class="fa fa-check"></i>Contribution</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#etc"><i class="fa fa-check"></i>Etc</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#before-reading-da4ls-with-r"><i class="fa fa-check"></i>Before reading DA4LS with R</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
+<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a>
+<ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
@@ -154,7 +164,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9"><i class="fa fa-check"></i>Question 9</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
@@ -165,7 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-1"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-1"><i class="fa fa-check"></i>Question 9</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-2"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-2"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-2"><i class="fa fa-check"></i>Question 3</a></li>
@@ -180,11 +192,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12"><i class="fa fa-check"></i>Question 12</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13"><i class="fa fa-check"></i>Question 13</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-3"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-3"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-3"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-3"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-3"><i class="fa fa-check"></i>Question 8</a></li>
@@ -194,12 +208,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-1"><i class="fa fa-check"></i>Question 12</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13-1"><i class="fa fa-check"></i>Question 13</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-4"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-4"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-4"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-4"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-4"><i class="fa fa-check"></i>Question 8</a></li>
@@ -208,43 +223,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-2"><i class="fa fa-check"></i>Question 11</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-2"><i class="fa fa-check"></i>Question 12</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-5"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-5"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-5"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-5"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-5"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-5"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-6"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-6"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-7"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-7"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a><ul>
+<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-8"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-8"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-6"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-6"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-6"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-6"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-5"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-5"><i class="fa fa-check"></i>Question 9</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-4"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-9"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-9"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-7"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-7"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-7"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-7"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-6"><i class="fa fa-check"></i>Question 8</a></li>
@@ -252,83 +273,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-5"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a><ul>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a><ul>
+<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a>
+<ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-10"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-10"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-8"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-8"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-11"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-11"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-9"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-12"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-12"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-10"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-9"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-13"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-13"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-11"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-10"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a><ul>
+<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-14"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-14"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-12"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-11"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-15"><i class="fa fa-check"></i>Question 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-12"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-18"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-17"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-14"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-19"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-18"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-15"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a><ul>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a><ul>
+<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-20"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-2"><i class="fa fa-check"></i>Questions 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-16"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-21"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-19"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-17"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-14"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-22"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-20"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-18"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-15"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-6-8"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-7-8"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-8-7"><i class="fa fa-check"></i>Question 8</a></li>
@@ -340,20 +377,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-15-16"><i class="fa fa-check"></i>Questions 15 &amp; 16</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-17-18"><i class="fa fa-check"></i>Questions 17 &amp; 18</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-23"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-21"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-19"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-16"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a><ul>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a><ul>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-24"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-22"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-20"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-17"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-9"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-7-9"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-8-8"><i class="fa fa-check"></i>Question 8</a></li>
@@ -372,107 +412,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-23"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-21"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-18"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-12"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-10"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a>
+<ul>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-26"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-24"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-22"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-19"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html"><i class="fa fa-check"></i><b>8</b> Distance and Dimension Reduction</a><ul>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-25"><i class="fa fa-check"></i>8.4 Exercises</a><ul>
+<li class="chapter" data-level="8" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html"><i class="fa fa-check"></i><b>8</b> Distance and Dimension Reduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-25"><i class="fa fa-check"></i>8.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-27"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-25"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-23"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-20"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-12"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-13"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-11"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-26"><i class="fa fa-check"></i>8.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-26"><i class="fa fa-check"></i>8.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-28"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-26"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-24"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-21"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-13"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-14"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-12"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-10"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-27"><i class="fa fa-check"></i>8.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-27"><i class="fa fa-check"></i>8.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-29"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-27"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-25"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-22"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-14"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-15"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-13"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-11"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-8-9"><i class="fa fa-check"></i>Question 8</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Basic Machine Learning</a><ul>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-28"><i class="fa fa-check"></i>9.2 Exercises</a><ul>
+<li class="chapter" data-level="9" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Basic Machine Learning</a>
+<ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-28"><i class="fa fa-check"></i>9.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-30"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-28"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-26"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-23"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-15"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-16"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-29"><i class="fa fa-check"></i>9.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-29"><i class="fa fa-check"></i>9.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-31"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-29"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-30"><i class="fa fa-check"></i>9.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-30"><i class="fa fa-check"></i>9.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-32"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-30"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-31"><i class="fa fa-check"></i>9.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-31"><i class="fa fa-check"></i>9.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-33"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-31"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-27"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-24"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-16"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-17"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-6-14"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>10</b> Batch Effects</a><ul>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-32"><i class="fa fa-check"></i>10.3 Exercises</a><ul>
+<li class="chapter" data-level="10" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>10</b> Batch Effects</a>
+<ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-32"><i class="fa fa-check"></i>10.3 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-34"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-32"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-28"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-25"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-17"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-18"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-15"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-12"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-33"><i class="fa fa-check"></i>10.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-33"><i class="fa fa-check"></i>10.6 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-35"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-33"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-29"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-26"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-18"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-19"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-16"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-13"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-10"><i class="fa fa-check"></i>Question 8</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-34"><i class="fa fa-check"></i>10.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-34"><i class="fa fa-check"></i>10.9 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-36"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-34"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-30"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-27"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-19"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-20"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-17"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-14"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-11"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-9-9"><i class="fa fa-check"></i>Question 9</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-35"><i class="fa fa-check"></i>10.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-35"><i class="fa fa-check"></i>10.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-37"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-35"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-31"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-28"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-20"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-21"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-18"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-15"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-12"><i class="fa fa-check"></i>Question 8</a></li>
@@ -481,7 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-11-5"><i class="fa fa-check"></i>Question 11</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-12-5"><i class="fa fa-check"></i>Question 12</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-36"><i class="fa fa-check"></i>10.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-36"><i class="fa fa-check"></i>10.13 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-38"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-36"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
@@ -505,72 +561,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="batch-effects" class="section level1">
+<div id="batch-effects" class="section level1" number="10">
 <h1><span class="header-section-number">Chapter 10</span> Batch Effects</h1>
 <p><strong>Note:</strong> I have rephrased some parts of the questions for clarity. These changes are <strong>bolded</strong>. Due to the random numbers, the exact values of the answers, despite the same seeds, might differ. So please be mindful of that.</p>
 <p>First, upload necessary package(s).</p>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb686-1" title="1"><span class="kw">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></a>
-<a class="sourceLine" id="cb686-2" title="2"><span class="kw">library</span>(rafalib) <span class="co"># important for plotting with base R</span></a>
-<a class="sourceLine" id="cb686-3" title="3"><span class="kw">library</span>(genefilter) <span class="co"># rowttests</span></a>
-<a class="sourceLine" id="cb686-4" title="4"><span class="kw">library</span>(Biobase) <span class="co">##available from Bioconductor</span></a>
-<a class="sourceLine" id="cb686-5" title="5"><span class="kw">library</span>(genefilter)</a>
-<a class="sourceLine" id="cb686-6" title="6"><span class="kw">library</span>(GSE5859) <span class="co">##available from github</span></a>
-<a class="sourceLine" id="cb686-7" title="7"><span class="kw">data</span>(GSE5859)</a>
-<a class="sourceLine" id="cb686-8" title="8"><span class="kw">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></a>
-<a class="sourceLine" id="cb686-9" title="9"><span class="kw">library</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb686-10" title="10"><span class="kw">data</span>(tissuesGeneExpression)</a>
-<a class="sourceLine" id="cb686-11" title="11"><span class="kw">library</span>(qvalue)</a></code></pre></div>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="batch-effects.html#cb685-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># uplaods the function filter() and %&gt;%</span></span>
+<span id="cb685-2"><a href="batch-effects.html#cb685-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rafalib) <span class="co"># important for plotting with base R</span></span>
+<span id="cb685-3"><a href="batch-effects.html#cb685-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(genefilter) <span class="co"># rowttests</span></span>
+<span id="cb685-4"><a href="batch-effects.html#cb685-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Biobase) <span class="do">##available from Bioconductor</span></span>
+<span id="cb685-5"><a href="batch-effects.html#cb685-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(genefilter)</span>
+<span id="cb685-6"><a href="batch-effects.html#cb685-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859) <span class="do">##available from github</span></span>
+<span id="cb685-7"><a href="batch-effects.html#cb685-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE5859)</span>
+<span id="cb685-8"><a href="batch-effects.html#cb685-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859Subset) <span class="co"># subset of gene expression data</span></span>
+<span id="cb685-9"><a href="batch-effects.html#cb685-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tissuesGeneExpression)</span>
+<span id="cb685-10"><a href="batch-effects.html#cb685-10" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tissuesGeneExpression)</span>
+<span id="cb685-11"><a href="batch-effects.html#cb685-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qvalue)</span>
+<span id="cb685-12"><a href="batch-effects.html#cb685-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span></code></pre></div>
 <div id="exercises-32" class="section level2 unnumbered">
 <h2>10.3 Exercises</h2>
 <p>Load the admissions data from the <code>dagdata</code> package (which is available from the genomicsclass repository):</p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb687-1" title="1"><span class="kw">library</span>(dagdata)</a>
-<a class="sourceLine" id="cb687-2" title="2"><span class="kw">data</span>(admissions)</a></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="batch-effects.html#cb686-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagdata)</span>
+<span id="cb686-2"><a href="batch-effects.html#cb686-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(admissions)</span></code></pre></div>
 <p>Familiarize yourself with this table: <code>admissions</code></p>
 <div id="question-1-34" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>Let’s compute the proportion of men who were accepted:</p>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" title="1">index =<span class="st"> </span><span class="kw">which</span>(admissions<span class="op">$</span>Gender<span class="op">==</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb688-2" title="2">accepted=<span class="st"> </span><span class="kw">sum</span>(admissions<span class="op">$</span>Number[index] <span class="op">*</span><span class="st"> </span>admissions<span class="op">$</span>Percent[index]<span class="op">/</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb688-3" title="3">applied =<span class="st"> </span><span class="kw">sum</span>(admissions<span class="op">$</span>Number[index])</a>
-<a class="sourceLine" id="cb688-4" title="4">accepted<span class="op">/</span>applied</a></code></pre></div>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="batch-effects.html#cb687-1" aria-hidden="true" tabindex="-1"></a>index <span class="ot">=</span> <span class="fu">which</span>(admissions<span class="sc">$</span>Gender<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb687-2"><a href="batch-effects.html#cb687-2" aria-hidden="true" tabindex="-1"></a>accepted<span class="ot">=</span> <span class="fu">sum</span>(admissions<span class="sc">$</span>Number[index] <span class="sc">*</span> admissions<span class="sc">$</span>Percent[index]<span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb687-3"><a href="batch-effects.html#cb687-3" aria-hidden="true" tabindex="-1"></a>applied <span class="ot">=</span> <span class="fu">sum</span>(admissions<span class="sc">$</span>Number[index])</span>
+<span id="cb687-4"><a href="batch-effects.html#cb687-4" aria-hidden="true" tabindex="-1"></a>accepted<span class="sc">/</span>applied</span></code></pre></div>
 <pre><code>## [1] 0.4451951</code></pre>
 <p>What is the proportion of women that were accepted?</p>
 <hr />
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb690-1" title="1">index &lt;-<span class="st"> </span>admissions<span class="op">$</span>Gender <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb690-2" title="2">men &lt;-<span class="st"> </span>admissions[index,]</a>
-<a class="sourceLine" id="cb690-3" title="3">women &lt;-<span class="st"> </span>admissions[<span class="op">!</span>index,]</a>
-<a class="sourceLine" id="cb690-4" title="4">menYes &lt;-<span class="st"> </span><span class="kw">sum</span>(men<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>men<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb690-5" title="5">menNo &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>men<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span>) <span class="op">*</span><span class="st"> </span>men<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb690-6" title="6">womenYes &lt;-<span class="st"> </span><span class="kw">sum</span>(women<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>women<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb690-7" title="7">womenNo &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="dv">1</span><span class="op">-</span>women<span class="op">$</span>Percent<span class="op">/</span><span class="dv">100</span>) <span class="op">*</span><span class="st"> </span>women<span class="op">$</span>Number)</a>
-<a class="sourceLine" id="cb690-8" title="8"></a>
-<a class="sourceLine" id="cb690-9" title="9">tab &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(menYes,womenYes,menNo,womenNo),<span class="dv">2</span>,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb690-10" title="10"></a>
-<a class="sourceLine" id="cb690-11" title="11"><span class="kw">print</span>(womenYes<span class="op">/</span>(womenYes<span class="op">+</span>womenNo))</a></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="batch-effects.html#cb689-1" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> admissions<span class="sc">$</span>Gender <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb689-2"><a href="batch-effects.html#cb689-2" aria-hidden="true" tabindex="-1"></a>men <span class="ot">&lt;-</span> admissions[index,]</span>
+<span id="cb689-3"><a href="batch-effects.html#cb689-3" aria-hidden="true" tabindex="-1"></a>women <span class="ot">&lt;-</span> admissions[<span class="sc">!</span>index,]</span>
+<span id="cb689-4"><a href="batch-effects.html#cb689-4" aria-hidden="true" tabindex="-1"></a>menYes <span class="ot">&lt;-</span> <span class="fu">sum</span>(men<span class="sc">$</span>Percent<span class="sc">/</span><span class="dv">100</span> <span class="sc">*</span> men<span class="sc">$</span>Number)</span>
+<span id="cb689-5"><a href="batch-effects.html#cb689-5" aria-hidden="true" tabindex="-1"></a>menNo <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="dv">1</span> <span class="sc">-</span> men<span class="sc">$</span>Percent<span class="sc">/</span><span class="dv">100</span>) <span class="sc">*</span> men<span class="sc">$</span>Number)</span>
+<span id="cb689-6"><a href="batch-effects.html#cb689-6" aria-hidden="true" tabindex="-1"></a>womenYes <span class="ot">&lt;-</span> <span class="fu">sum</span>(women<span class="sc">$</span>Percent<span class="sc">/</span><span class="dv">100</span> <span class="sc">*</span> women<span class="sc">$</span>Number)</span>
+<span id="cb689-7"><a href="batch-effects.html#cb689-7" aria-hidden="true" tabindex="-1"></a>womenNo <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="dv">1</span><span class="sc">-</span>women<span class="sc">$</span>Percent<span class="sc">/</span><span class="dv">100</span>) <span class="sc">*</span> women<span class="sc">$</span>Number)</span>
+<span id="cb689-8"><a href="batch-effects.html#cb689-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb689-9"><a href="batch-effects.html#cb689-9" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(menYes,womenYes,menNo,womenNo),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb689-10"><a href="batch-effects.html#cb689-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb689-11"><a href="batch-effects.html#cb689-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(womenYes<span class="sc">/</span>(womenYes<span class="sc">+</span>womenNo))</span></code></pre></div>
 <pre><code>## [1] 0.3033351</code></pre>
 </div>
 <div id="question-2-32" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>Now that we have observed different acceptance rates between genders, test for the significance of this result. If you perform an independence test, what is the p-value?</p>
 <hr />
-<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb692-1" title="1"><span class="kw">chisq.test</span>(tab)<span class="op">$</span>p.value</a></code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="batch-effects.html#cb691-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab)<span class="sc">$</span>p.value</span></code></pre></div>
 <pre><code>## [1] 9.139492e-22</code></pre>
 </div>
 <div id="question-3-28" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>We can quantify how “hard” a major is by using the percent of students that were accepted. Compute the percent that were accepted (regardless of gender) to each major and call this vector <code>H</code>. Which is the hardest major?</p>
 <hr />
-<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb694-1" title="1">admissions1 &lt;-<span class="st"> </span>admissions <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">accepted =</span> Number <span class="op">*</span><span class="st"> </span>Percent<span class="op">/</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb694-2" title="2">admissions2 &lt;-<span class="st"> </span><span class="kw">cbind</span>(admissions1[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>)], admissions1[<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)]) </a>
-<a class="sourceLine" id="cb694-3" title="3"><span class="kw">colnames</span>(admissions2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;major&#39;</span>,<span class="st">&#39;number_m&#39;</span>,<span class="st">&#39;accepted_m&#39;</span>,</a>
-<a class="sourceLine" id="cb694-4" title="4">                           <span class="st">&#39;number_f&#39;</span>, <span class="st">&#39;accepted_f&#39;</span>)</a>
-<a class="sourceLine" id="cb694-5" title="5">admission3 &lt;-<span class="st"> </span>admissions2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(major) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb694-6" title="6"><span class="st">  </span><span class="kw">transmute</span>(<span class="dt">total_number=</span> number_m<span class="op">+</span>number_f,</a>
-<a class="sourceLine" id="cb694-7" title="7">         <span class="dt">total_accepted=</span> accepted_m <span class="op">+</span><span class="st"> </span>accepted_f,</a>
-<a class="sourceLine" id="cb694-8" title="8">         <span class="dt">proportion =</span> total_accepted<span class="op">/</span>total_number)</a>
-<a class="sourceLine" id="cb694-9" title="9"></a>
-<a class="sourceLine" id="cb694-10" title="10">H &lt;-<span class="st"> </span>admission3 <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(major,proportion)</a>
-<a class="sourceLine" id="cb694-11" title="11">H</a></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="batch-effects.html#cb693-1" aria-hidden="true" tabindex="-1"></a>admissions1 <span class="ot">&lt;-</span> admissions <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">accepted =</span> Number <span class="sc">*</span> Percent<span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb693-2"><a href="batch-effects.html#cb693-2" aria-hidden="true" tabindex="-1"></a>admissions2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(admissions1[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>)], admissions1[<span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)]) </span>
+<span id="cb693-3"><a href="batch-effects.html#cb693-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(admissions2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;major&#39;</span>,<span class="st">&#39;number_m&#39;</span>,<span class="st">&#39;accepted_m&#39;</span>,</span>
+<span id="cb693-4"><a href="batch-effects.html#cb693-4" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&#39;number_f&#39;</span>, <span class="st">&#39;accepted_f&#39;</span>)</span>
+<span id="cb693-5"><a href="batch-effects.html#cb693-5" aria-hidden="true" tabindex="-1"></a>admission3 <span class="ot">&lt;-</span> admissions2 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(major) <span class="sc">%&gt;%</span></span>
+<span id="cb693-6"><a href="batch-effects.html#cb693-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">total_number=</span> number_m<span class="sc">+</span>number_f,</span>
+<span id="cb693-7"><a href="batch-effects.html#cb693-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">total_accepted=</span> accepted_m <span class="sc">+</span> accepted_f,</span>
+<span id="cb693-8"><a href="batch-effects.html#cb693-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">proportion =</span> total_accepted<span class="sc">/</span>total_number)</span>
+<span id="cb693-9"><a href="batch-effects.html#cb693-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb693-10"><a href="batch-effects.html#cb693-10" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> admission3 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(major,proportion)</span>
+<span id="cb693-11"><a href="batch-effects.html#cb693-11" aria-hidden="true" tabindex="-1"></a>H</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ## # Groups:   major [6]
 ##   major proportion
@@ -587,18 +644,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 4</h3>
 <p>What proportion is accepted for this major?</p>
 <hr />
-<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb696-1" title="1">H[H<span class="op">$</span>major <span class="op">==</span><span class="st"> &#39;F&#39;</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="batch-effects.html#cb695-1" aria-hidden="true" tabindex="-1"></a>H[H<span class="sc">$</span>major <span class="sc">==</span> <span class="st">&#39;F&#39;</span>, ]</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
 ## # Groups:   major [1]
 ##   major proportion
 ##   &lt;fct&gt;      &lt;dbl&gt;
 ## 1 F         0.0648</code></pre>
 </div>
-<div id="question-5-17" class="section level3 unnumbered">
+<div id="question-5-18" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>For men, what is the correlation between the number of applications across majors and <code>H</code>?</p>
 <hr />
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb698-1" title="1"><span class="kw">cor.test</span>(men<span class="op">$</span>Number,H<span class="op">$</span>proportion)<span class="op">$</span>estimate</a></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="batch-effects.html#cb697-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(men<span class="sc">$</span>Number,H<span class="sc">$</span>proportion)<span class="sc">$</span>estimate</span></code></pre></div>
 <pre><code>##       cor 
 ## 0.7647567</code></pre>
 </div>
@@ -606,7 +663,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 6</h3>
 <p>For women, what is the correlation between the number of applications across majors and <code>H</code>?</p>
 <hr />
-<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb700-1" title="1"><span class="kw">cor.test</span>(women<span class="op">$</span>Number,H<span class="op">$</span>proportion)<span class="op">$</span>estimate</a></code></pre></div>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="batch-effects.html#cb699-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(women<span class="sc">$</span>Number,H<span class="sc">$</span>proportion)<span class="sc">$</span>estimate</span></code></pre></div>
 <pre><code>##        cor 
 ## -0.6743393</code></pre>
 </div>
@@ -619,15 +676,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="exercises-33" class="section level2 unnumbered">
 <h2>10.6 Exercises</h2>
-<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" title="1"><span class="kw">library</span>(Biobase)</a>
-<a class="sourceLine" id="cb702-2" title="2"><span class="kw">library</span>(GSE5859)</a>
-<a class="sourceLine" id="cb702-3" title="3"><span class="kw">data</span>(GSE5859)</a>
-<a class="sourceLine" id="cb702-4" title="4">geneExpression =<span class="st"> </span><span class="kw">exprs</span>(e)</a>
-<a class="sourceLine" id="cb702-5" title="5">sampleInfo =<span class="st"> </span><span class="kw">pData</span>(e)</a></code></pre></div>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="batch-effects.html#cb701-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Biobase)</span>
+<span id="cb701-2"><a href="batch-effects.html#cb701-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859)</span>
+<span id="cb701-3"><a href="batch-effects.html#cb701-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE5859)</span>
+<span id="cb701-4"><a href="batch-effects.html#cb701-4" aria-hidden="true" tabindex="-1"></a>geneExpression <span class="ot">=</span> <span class="fu">exprs</span>(e)</span>
+<span id="cb701-5"><a href="batch-effects.html#cb701-5" aria-hidden="true" tabindex="-1"></a>sampleInfo <span class="ot">=</span> <span class="fu">pData</span>(e)</span></code></pre></div>
 <p>Familiarize yourself with the <code>sampleInfo</code> table. Note that some samples were processed at different times. This is an extraneous variable and should not affect the values in <code>geneExpression</code>. However, as we have seen in previous analyses, it does appear to have an effect so we will explore this here. You can extract the year from each date like this:</p>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" title="1">year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%y&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="batch-effects.html#cb702-1" aria-hidden="true" tabindex="-1"></a>year <span class="ot">=</span> <span class="fu">format</span>(sampleInfo<span class="sc">$</span>date,<span class="st">&quot;%y&quot;</span>)</span></code></pre></div>
 <p>Note that ethnic group and year is almost perfectly confounded:</p>
-<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb704-1" title="1"><span class="kw">table</span>(year,sampleInfo<span class="op">$</span>ethnicity)</a></code></pre></div>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="batch-effects.html#cb703-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(year,sampleInfo<span class="sc">$</span>ethnicity)</span></code></pre></div>
 <pre><code>##     
 ## year ASN CEU HAN
 ##   02   0  32   0
@@ -639,7 +696,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Question 1</h3>
 <p>For how many of these years do we have more than one ethnicity represented?</p>
 <hr />
-<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" title="1"><span class="kw">table</span>(year,sampleInfo<span class="op">$</span>ethnicity)</a></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="batch-effects.html#cb705-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(year,sampleInfo<span class="sc">$</span>ethnicity)</span></code></pre></div>
 <pre><code>##     
 ## year ASN CEU HAN
 ##   02   0  32   0
@@ -652,66 +709,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="question-2-33" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>Repeat the above exercise, but now, instead of year, consider the month as well. Specifically, instead of the year variable defined above use:</p>
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" title="1">month.year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="batch-effects.html#cb707-1" aria-hidden="true" tabindex="-1"></a>month.year <span class="ot">=</span> <span class="fu">format</span>(sampleInfo<span class="sc">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</span></code></pre></div>
 <p>For what proportion of these <code>month.year</code> values do we have more than one ethnicity represented?</p>
 <hr />
-<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb709-1" title="1">month.year =<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</a>
-<a class="sourceLine" id="cb709-2" title="2">tab &lt;-<span class="st"> </span><span class="kw">table</span>(month.year, sampleInfo<span class="op">$</span>ethnicity)</a>
-<a class="sourceLine" id="cb709-3" title="3">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>, <span class="kw">nrow</span>(tab))</a>
-<a class="sourceLine" id="cb709-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb709-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(tab[i,]))</a>
-<a class="sourceLine" id="cb709-6" title="6">}</a>
-<a class="sourceLine" id="cb709-7" title="7"><span class="kw">mean</span>(res<span class="op">==</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="batch-effects.html#cb708-1" aria-hidden="true" tabindex="-1"></a>month.year <span class="ot">=</span> <span class="fu">format</span>(sampleInfo<span class="sc">$</span>date,<span class="st">&quot;%m%y&quot;</span>)</span>
+<span id="cb708-2"><a href="batch-effects.html#cb708-2" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(month.year, sampleInfo<span class="sc">$</span>ethnicity)</span>
+<span id="cb708-3"><a href="batch-effects.html#cb708-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&#39;double&#39;</span>, <span class="fu">nrow</span>(tab))</span>
+<span id="cb708-4"><a href="batch-effects.html#cb708-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(res)) {</span>
+<span id="cb708-5"><a href="batch-effects.html#cb708-5" aria-hidden="true" tabindex="-1"></a>  res[[i]] <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(tab[i,]))</span>
+<span id="cb708-6"><a href="batch-effects.html#cb708-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb708-7"><a href="batch-effects.html#cb708-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">==</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.04761905</code></pre>
 </div>
 <div id="question-3-29" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Perform a t-test (use <code>rowttests</code>) comparing CEU samples processed in 2002 to those processed in 2003. Then use the <code>qvalue</code> package to obtain q-values for each gene. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb711-1" title="1">eth &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>ethnicity</a>
-<a class="sourceLine" id="cb711-2" title="2">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;02&#39;</span>,<span class="st">&#39;03&#39;</span>))</a>
-<a class="sourceLine" id="cb711-3" title="3">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(year[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb711-4" title="4"></a>
-<a class="sourceLine" id="cb711-5" title="5">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb711-6" title="6"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="batch-effects.html#cb710-1" aria-hidden="true" tabindex="-1"></a>eth <span class="ot">&lt;-</span> sampleInfo<span class="sc">$</span>ethnicity</span>
+<span id="cb710-2"><a href="batch-effects.html#cb710-2" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">which</span>(eth <span class="sc">==</span> <span class="st">&#39;CEU&#39;</span> <span class="sc">&amp;</span> year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;02&#39;</span>,<span class="st">&#39;03&#39;</span>))</span>
+<span id="cb710-3"><a href="batch-effects.html#cb710-3" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression[,ind], <span class="fu">factor</span>(year[ind]))<span class="sc">$</span>p.value</span>
+<span id="cb710-4"><a href="batch-effects.html#cb710-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb710-5"><a href="batch-effects.html#cb710-5" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalues</span>
+<span id="cb710-6"><a href="batch-effects.html#cb710-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 4308</code></pre>
 </div>
 <div id="question-4-26" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>What is the estimate of <code>pi0</code> provided by <code>qvalue</code>?</p>
 <hr />
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb713-1" title="1"><span class="kw">qvalue</span>(pvals)<span class="op">$</span>pi0</a></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="batch-effects.html#cb712-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qvalue</span>(pvals)<span class="sc">$</span>pi0</span></code></pre></div>
 <pre><code>## [1] 0.3628642</code></pre>
 </div>
-<div id="question-5-18" class="section level3 unnumbered">
+<div id="question-5-19" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>Now perform a t-test (use <code>rowttests</code>) comparing CEU samples processed in 2003 to those processed in 2004. Then use the <code>qvalue</code> package to obtain q-values for each gene. How many genes have q-values less than 0.05?</p>
-<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb715-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;03&#39;</span>,<span class="st">&#39;04&#39;</span>))</a>
-<a class="sourceLine" id="cb715-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(year[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb715-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb715-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="batch-effects.html#cb714-1" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">which</span>(eth <span class="sc">==</span> <span class="st">&#39;CEU&#39;</span> <span class="sc">&amp;</span> year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;03&#39;</span>,<span class="st">&#39;04&#39;</span>))</span>
+<span id="cb714-2"><a href="batch-effects.html#cb714-2" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression[,ind], <span class="fu">factor</span>(year[ind]))<span class="sc">$</span>p.value</span>
+<span id="cb714-3"><a href="batch-effects.html#cb714-3" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalues</span>
+<span id="cb714-4"><a href="batch-effects.html#cb714-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 2463</code></pre>
 </div>
 <div id="question-6-16" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Now we are going to compare ethnicities as was done in the original publication in which these data were first presented. Use the qvalue function to compare the ASN population to the CEU population. Once again, use the qvalue function to obtain q-values. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb717-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>))</a>
-<a class="sourceLine" id="cb717-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb717-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb717-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="batch-effects.html#cb716-1" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">which</span>(eth <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>))</span>
+<span id="cb716-2"><a href="batch-effects.html#cb716-2" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression[,ind], <span class="fu">factor</span>(eth[ind]))<span class="sc">$</span>p.value</span>
+<span id="cb716-3"><a href="batch-effects.html#cb716-3" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalues</span>
+<span id="cb716-4"><a href="batch-effects.html#cb716-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 7217</code></pre>
 </div>
 <div id="question-7-13" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>Over 80% of genes are called differentially expressed between ethnic groups. However, due to the confounding with processing date, we need to confirm these differences are actually due to ethnicity.This will not be easy due to the almost perfect confounding. However, above we noted that two groups were represented in 2005. Just like we stratified by majors to remove the “major effect” in our admissions example, here we can stratify by year and perform a t-test comparing ASN and CEU, but only for samples processed in 2005. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb719-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>)<span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st"> &#39;05&#39;</span>)</a>
-<a class="sourceLine" id="cb719-2" title="2">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb719-3" title="3">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb719-4" title="4"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="batch-effects.html#cb718-1" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">which</span>(eth <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;ASN&#39;</span>,<span class="st">&#39;CEU&#39;</span>)<span class="sc">&amp;</span> year <span class="sc">==</span> <span class="st">&#39;05&#39;</span>)</span>
+<span id="cb718-2"><a href="batch-effects.html#cb718-2" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression[,ind], <span class="fu">factor</span>(eth[ind]))<span class="sc">$</span>p.value</span>
+<span id="cb718-3"><a href="batch-effects.html#cb718-3" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalues</span>
+<span id="cb718-4"><a href="batch-effects.html#cb718-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 560</code></pre>
-<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb721-1" title="1"><span class="kw">table</span>(sampleInfo<span class="op">$</span>ethnicity[ind])</a></code></pre></div>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="batch-effects.html#cb720-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sampleInfo<span class="sc">$</span>ethnicity[ind])</span></code></pre></div>
 <pre><code>## 
 ## ASN CEU HAN 
 ##  80   3   0</code></pre>
@@ -721,25 +778,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To provide a more balanced comparison, we repeat the analysis, but now taking 3 random CEU samples from 2002. Repeat the analysis above, but comparing the ASN from 2005 to three random CEU samples from 2002. Set the seed at 3,
 <code>set.seed(3)</code>. How many genes have q-values &lt; 0.05?</p>
 <hr />
-<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb723-1" title="1"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb723-2" title="2">ind_ceu &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st">&#39;CEU&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st"> &#39;02&#39;</span>)</a>
-<a class="sourceLine" id="cb723-3" title="3">ind_ceu2 &lt;-<span class="st"> </span><span class="kw">sample</span>(ind_ceu,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb723-4" title="4">ind_asn &lt;-<span class="st"> </span><span class="kw">which</span>(eth <span class="op">==</span><span class="st"> &#39;ASN&#39;</span> <span class="op">&amp;</span><span class="st"> </span>year <span class="op">==</span><span class="st">&#39;05&#39;</span>)</a>
-<a class="sourceLine" id="cb723-5" title="5">ind &lt;-<span class="st"> </span><span class="kw">c</span>(ind_ceu2,ind_asn)</a>
-<a class="sourceLine" id="cb723-6" title="6"></a>
-<a class="sourceLine" id="cb723-7" title="7">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression[,ind], <span class="kw">factor</span>(eth[ind]))<span class="op">$</span>p.value</a>
-<a class="sourceLine" id="cb723-8" title="8">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb723-9" title="9"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="batch-effects.html#cb722-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb722-2"><a href="batch-effects.html#cb722-2" aria-hidden="true" tabindex="-1"></a>ind_ceu <span class="ot">&lt;-</span> <span class="fu">which</span>(eth <span class="sc">==</span><span class="st">&#39;CEU&#39;</span> <span class="sc">&amp;</span> year <span class="sc">==</span> <span class="st">&#39;02&#39;</span>)</span>
+<span id="cb722-3"><a href="batch-effects.html#cb722-3" aria-hidden="true" tabindex="-1"></a>ind_ceu2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(ind_ceu,<span class="dv">3</span>)</span>
+<span id="cb722-4"><a href="batch-effects.html#cb722-4" aria-hidden="true" tabindex="-1"></a>ind_asn <span class="ot">&lt;-</span> <span class="fu">which</span>(eth <span class="sc">==</span> <span class="st">&#39;ASN&#39;</span> <span class="sc">&amp;</span> year <span class="sc">==</span><span class="st">&#39;05&#39;</span>)</span>
+<span id="cb722-5"><a href="batch-effects.html#cb722-5" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">c</span>(ind_ceu2,ind_asn)</span>
+<span id="cb722-6"><a href="batch-effects.html#cb722-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb722-7"><a href="batch-effects.html#cb722-7" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression[,ind], <span class="fu">factor</span>(eth[ind]))<span class="sc">$</span>p.value</span>
+<span id="cb722-8"><a href="batch-effects.html#cb722-8" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalues</span>
+<span id="cb722-9"><a href="batch-effects.html#cb722-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 3695</code></pre>
 </div>
 </div>
 <div id="exercises-34" class="section level2 unnumbered">
 <h2>10.9 Exercises</h2>
-<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb725-1" title="1"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb725-2" title="2"><span class="kw">data</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb725-3" title="3">sex =<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb725-4" title="4">month =<span class="st"> </span><span class="kw">factor</span>( <span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m&quot;</span>))</a>
-<a class="sourceLine" id="cb725-5" title="5"><span class="kw">table</span>( sampleInfo<span class="op">$</span>group, month)</a></code></pre></div>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="batch-effects.html#cb724-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859Subset)</span>
+<span id="cb724-2"><a href="batch-effects.html#cb724-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE5859Subset)</span>
+<span id="cb724-3"><a href="batch-effects.html#cb724-3" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">=</span> sampleInfo<span class="sc">$</span>group</span>
+<span id="cb724-4"><a href="batch-effects.html#cb724-4" aria-hidden="true" tabindex="-1"></a>month <span class="ot">=</span> <span class="fu">factor</span>( <span class="fu">format</span>(sampleInfo<span class="sc">$</span>date,<span class="st">&quot;%m&quot;</span>))</span>
+<span id="cb724-5"><a href="batch-effects.html#cb724-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>( sampleInfo<span class="sc">$</span>group, month)</span></code></pre></div>
 <pre><code>##    month
 ##     06 10
 ##   0  9  3
@@ -749,9 +806,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Using the functions <code>rowttests</code> and <code>qvalue</code> compare the two groups. Because this is a smaller dataset which decreases our power, we will use the more lenient FDR
 cut-off of 10%. How many gene have q-values less than 0.1?</p>
 <hr />
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb727-1" title="1">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(sex))<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb727-2" title="2">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues </a>
-<a class="sourceLine" id="cb727-3" title="3"><span class="kw">sum</span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="batch-effects.html#cb726-1" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression, <span class="fu">factor</span>(sex))<span class="sc">$</span>p.val</span>
+<span id="cb726-2"><a href="batch-effects.html#cb726-2" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalues </span>
+<span id="cb726-3"><a href="batch-effects.html#cb726-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals<span class="sc">&lt;</span><span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 59</code></pre>
 </div>
 <div id="question-2-34" class="section level3 unnumbered">
@@ -760,40 +817,40 @@ cut-off of 10%. How many gene have q-values less than 0.1?</p>
 are on chrX or chrY.</p>
 <p>For the list calculated in <strong>Question 1</strong>, what proportion of this list is on chrX or chrY?</p>
 <hr />
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb729-1" title="1">ind_qval &lt;-<span class="st"> </span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>) <span class="co"># qvalue index for significance</span></a>
-<a class="sourceLine" id="cb729-2" title="2">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb729-3" title="3">ind_xy &lt;-<span class="st"> </span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a>
-<a class="sourceLine" id="cb729-4" title="4"></a>
-<a class="sourceLine" id="cb729-5" title="5"><span class="kw">sum</span>(ind_xy)<span class="op">/</span><span class="kw">sum</span>(ind_qval)</a></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="batch-effects.html#cb728-1" aria-hidden="true" tabindex="-1"></a>ind_qval <span class="ot">&lt;-</span> (qvals<span class="sc">&lt;</span><span class="fl">0.1</span>) <span class="co"># qvalue index for significance</span></span>
+<span id="cb728-2"><a href="batch-effects.html#cb728-2" aria-hidden="true" tabindex="-1"></a>chr <span class="ot">&lt;-</span> geneAnnotation<span class="sc">$</span>CHR</span>
+<span id="cb728-3"><a href="batch-effects.html#cb728-3" aria-hidden="true" tabindex="-1"></a>ind_xy <span class="ot">&lt;-</span> (chr[ind_qval] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</span>
+<span id="cb728-4"><a href="batch-effects.html#cb728-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb728-5"><a href="batch-effects.html#cb728-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(ind_xy)<span class="sc">/</span><span class="fu">sum</span>(ind_qval)</span></code></pre></div>
 <pre><code>## [1] 0.3389831</code></pre>
 </div>
 <div id="question-3-30" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>We can also check how many of the chromosomes X and Y genes we detected as different. How many are on Y?</p>
 <hr />
-<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb731-1" title="1">chr_ind_xy &lt;-<span class="st"> </span><span class="kw">which</span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a>
-<a class="sourceLine" id="cb731-2" title="2"><span class="kw">length</span>(chr[ind_qval][chr_ind_xy] <span class="op">==</span><span class="st"> &#39;chrY&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="batch-effects.html#cb730-1" aria-hidden="true" tabindex="-1"></a>chr_ind_xy <span class="ot">&lt;-</span> <span class="fu">which</span>(chr[ind_qval] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</span>
+<span id="cb730-2"><a href="batch-effects.html#cb730-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(chr[ind_qval][chr_ind_xy] <span class="sc">==</span> <span class="st">&#39;chrY&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
 </div>
 <div id="question-4-27" class="section level3 unnumbered">
 <h3>Question 4</h3>
 <p>Now for the autosomal genes (not on chrX and chrY) for which q-value &lt; 0.1, perform a t-test comparing samples processed in June to those processed in October. What proportion of these have p-values &lt;0.05? <strong>Hint: Be careful about indexing.</strong></p>
 <hr />
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb733-1" title="1">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(geneExpression, <span class="kw">factor</span>(sex))<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb733-2" title="2">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(pvals)<span class="op">$</span>qvalues </a>
-<a class="sourceLine" id="cb733-3" title="3">ind &lt;-<span class="st"> </span><span class="kw">which</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb733-4" title="4"></a>
-<a class="sourceLine" id="cb733-5" title="5">gene_dat_non_xy &lt;-<span class="st"> </span>geneExpression[ind[<span class="op">!</span>chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)],]</a>
-<a class="sourceLine" id="cb733-6" title="6">pvals &lt;-<span class="st"> </span><span class="kw">rowttests</span>(gene_dat_non_xy, <span class="kw">factor</span>(month))<span class="op">$</span>p.val</a>
-<a class="sourceLine" id="cb733-7" title="7"><span class="kw">mean</span>(pvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="batch-effects.html#cb732-1" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(geneExpression, <span class="fu">factor</span>(sex))<span class="sc">$</span>p.val</span>
+<span id="cb732-2"><a href="batch-effects.html#cb732-2" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(pvals)<span class="sc">$</span>qvalues </span>
+<span id="cb732-3"><a href="batch-effects.html#cb732-3" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">which</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.1</span>)</span>
+<span id="cb732-4"><a href="batch-effects.html#cb732-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb732-5"><a href="batch-effects.html#cb732-5" aria-hidden="true" tabindex="-1"></a>gene_dat_non_xy <span class="ot">&lt;-</span> geneExpression[ind[<span class="sc">!</span>chr[ind] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)],]</span>
+<span id="cb732-6"><a href="batch-effects.html#cb732-6" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">rowttests</span>(gene_dat_non_xy, <span class="fu">factor</span>(month))<span class="sc">$</span>p.val</span>
+<span id="cb732-7"><a href="batch-effects.html#cb732-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(pvals <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8717949</code></pre>
 </div>
-<div id="question-5-19" class="section level3 unnumbered">
+<div id="question-5-20" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>The above result shows that the great majority of the autosomal genes show differences due to processing data. This provides further evidence that confounding is resulting in false positives. So we are going to try to model the month effect to better estimate the sex effect. We are going to use a linear model. Which of the following creates the appropriate design matrix?</p>
 <hr />
-<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb735-1" title="1">batch &lt;-<span class="st"> </span><span class="kw">factor</span>(month)</a>
-<a class="sourceLine" id="cb735-2" title="2"><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>batch) <span class="co"># answer D</span></a></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="batch-effects.html#cb734-1" aria-hidden="true" tabindex="-1"></a>batch <span class="ot">&lt;-</span> <span class="fu">factor</span>(month)</span>
+<span id="cb734-2"><a href="batch-effects.html#cb734-2" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span>sex<span class="sc">+</span>batch) <span class="co"># answer D</span></span></code></pre></div>
 <pre><code>##    (Intercept) sex batch10
 ## 1            1   1       0
 ## 2            1   1       0
@@ -828,62 +885,62 @@ are on chrX or chrY.</p>
 <div id="question-6-17" class="section level3 unnumbered">
 <h3>Question 6</h3>
 <p>Now use the X defined above, to fit a regression model using lm for each gene. You can obtain p-values for estimated parameters using <code>summary</code>. Here is an example</p>
-<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb737-1" title="1">X =<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
-<a class="sourceLine" id="cb737-2" title="2">i =<span class="st"> </span><span class="dv">234</span></a>
-<a class="sourceLine" id="cb737-3" title="3">y =<span class="st"> </span>geneExpression[i,]</a>
-<a class="sourceLine" id="cb737-4" title="4">fit =<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb737-5" title="5"><span class="kw">summary</span>(fit)<span class="op">$</span>coef</a></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="batch-effects.html#cb736-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>sex<span class="sc">+</span>month)</span>
+<span id="cb736-2"><a href="batch-effects.html#cb736-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">234</span></span>
+<span id="cb736-3"><a href="batch-effects.html#cb736-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> geneExpression[i,]</span>
+<span id="cb736-4"><a href="batch-effects.html#cb736-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>X)</span>
+<span id="cb736-5"><a href="batch-effects.html#cb736-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coef</span></code></pre></div>
 <pre><code>##                Estimate Std. Error     t value     Pr(&gt;|t|)
 ## (Intercept)  9.33316105 0.06098459 153.0412990 1.714250e-33
 ## Xsex        -0.04281057 0.09220004  -0.4643227 6.471942e-01
 ## Xmonth10     0.25352885 0.09220004   2.7497696 1.200505e-02</code></pre>
 <p>How many of the q-values for the group comparison are now &lt;0.1? Note the big drop from what we obtained without the correction (<strong>Question 1</strong>).</p>
 <hr />
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb739-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
-<a class="sourceLine" id="cb739-2" title="2"></a>
-<a class="sourceLine" id="cb739-3" title="3">res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb739-4" title="4">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(geneExpression[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb739-5" title="5">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</a>
-<a class="sourceLine" id="cb739-6" title="6">}))</a>
-<a class="sourceLine" id="cb739-7" title="7">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(res)</a>
-<a class="sourceLine" id="cb739-8" title="8"><span class="kw">names</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</a>
-<a class="sourceLine" id="cb739-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res<span class="op">$</span>pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb739-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="batch-effects.html#cb738-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>sex<span class="sc">+</span>month)</span>
+<span id="cb738-2"><a href="batch-effects.html#cb738-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb738-3"><a href="batch-effects.html#cb738-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</span>
+<span id="cb738-4"><a href="batch-effects.html#cb738-4" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(geneExpression[i,]<span class="sc">~</span>X)</span>
+<span id="cb738-5"><a href="batch-effects.html#cb738-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coef[<span class="dv">2</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</span>
+<span id="cb738-6"><a href="batch-effects.html#cb738-6" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb738-7"><a href="batch-effects.html#cb738-7" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(res)</span>
+<span id="cb738-8"><a href="batch-effects.html#cb738-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</span>
+<span id="cb738-9"><a href="batch-effects.html#cb738-9" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(res<span class="sc">$</span>pvals)<span class="sc">$</span>qvalues</span>
+<span id="cb738-10"><a href="batch-effects.html#cb738-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span><span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 17</code></pre>
 </div>
 <div id="question-7-14" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>With this new list, what proportion of these are chrX and chrY? Notice the big improvement.</p>
 <hr />
-<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb741-1" title="1">ind_qval &lt;-<span class="st"> </span>(qvals<span class="op">&lt;</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb741-2" title="2">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb741-3" title="3">ind_xy &lt;-<span class="st"> </span>(chr[ind_qval] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) <span class="co"># index for chrX and chrY</span></a>
-<a class="sourceLine" id="cb741-4" title="4"></a>
-<a class="sourceLine" id="cb741-5" title="5"><span class="kw">sum</span>(ind_xy)<span class="op">/</span><span class="kw">sum</span>(ind_qval)</a></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="batch-effects.html#cb740-1" aria-hidden="true" tabindex="-1"></a>ind_qval <span class="ot">&lt;-</span> (qvals<span class="sc">&lt;</span><span class="fl">0.1</span>)</span>
+<span id="cb740-2"><a href="batch-effects.html#cb740-2" aria-hidden="true" tabindex="-1"></a>chr <span class="ot">&lt;-</span> geneAnnotation<span class="sc">$</span>CHR</span>
+<span id="cb740-3"><a href="batch-effects.html#cb740-3" aria-hidden="true" tabindex="-1"></a>ind_xy <span class="ot">&lt;-</span> (chr[ind_qval] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) <span class="co"># index for chrX and chrY</span></span>
+<span id="cb740-4"><a href="batch-effects.html#cb740-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb740-5"><a href="batch-effects.html#cb740-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(ind_xy)<span class="sc">/</span><span class="fu">sum</span>(ind_qval)</span></code></pre></div>
 <pre><code>## [1] 0.8823529</code></pre>
 </div>
 <div id="question-8-11" class="section level3 unnumbered">
 <h3>Question 8</h3>
 <p>How many on Y or X?</p>
 <hr />
-<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb743-1" title="1"><span class="kw">sum</span>(ind_xy)</a></code></pre></div>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="batch-effects.html#cb742-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(ind_xy)</span></code></pre></div>
 <pre><code>## [1] 15</code></pre>
 </div>
 <div id="question-9-9" class="section level3 unnumbered">
 <h3>Question 9</h3>
 <p>Now from the linear model above, extract the p-values related to the coeffcient representing the October versus June differences using the same linear model. How many of the q-values for the month comparison are now &lt;0.1?
 This approach is basically the approach implemented by Combat.</p>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb745-1" title="1">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex<span class="op">+</span>month)</a>
-<a class="sourceLine" id="cb745-2" title="2"></a>
-<a class="sourceLine" id="cb745-3" title="3">res &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb745-4" title="4">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(geneExpression[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb745-5" title="5">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">3</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</a>
-<a class="sourceLine" id="cb745-6" title="6">}))</a>
-<a class="sourceLine" id="cb745-7" title="7"></a>
-<a class="sourceLine" id="cb745-8" title="8">res &lt;-<span class="st"> </span><span class="kw">data.frame</span>(res)</a>
-<a class="sourceLine" id="cb745-9" title="9"><span class="kw">names</span>(res) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</a>
-<a class="sourceLine" id="cb745-10" title="10">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res<span class="op">$</span>pvals)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb745-11" title="11"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="batch-effects.html#cb744-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>sex<span class="sc">+</span>month)</span>
+<span id="cb744-2"><a href="batch-effects.html#cb744-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb744-3"><a href="batch-effects.html#cb744-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(geneExpression), <span class="cf">function</span>(i) {</span>
+<span id="cb744-4"><a href="batch-effects.html#cb744-4" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(geneExpression[i,]<span class="sc">~</span>X)</span>
+<span id="cb744-5"><a href="batch-effects.html#cb744-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coef[<span class="dv">3</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])</span>
+<span id="cb744-6"><a href="batch-effects.html#cb744-6" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb744-7"><a href="batch-effects.html#cb744-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb744-8"><a href="batch-effects.html#cb744-8" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(res)</span>
+<span id="cb744-9"><a href="batch-effects.html#cb744-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;est&#39;</span>,<span class="st">&#39;pvals&#39;</span>)</span>
+<span id="cb744-10"><a href="batch-effects.html#cb744-10" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(res<span class="sc">$</span>pvals)<span class="sc">$</span>qvalues</span>
+<span id="cb744-11"><a href="batch-effects.html#cb744-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span><span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 3170</code></pre>
 </div>
 </div>
@@ -916,11 +973,11 @@ D. \begin{pmatrix}
 \]</span></p>
 <hr />
 <p>To be honest, according to my attempt, there’s no correct answer among the provided answer choices. Please let me know if I am incorrect (through github or email); I will make sure to put your name in one of the contributors to this project. Here’s my attempt.</p>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb747-1" title="1">y =<span class="st"> </span>geneExpression[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb747-2" title="2">avg =<span class="st"> </span>(y[,<span class="dv">1</span>]<span class="op">+</span>y[,<span class="dv">2</span>])<span class="op">/</span><span class="dv">2</span> <span class="co"># average</span></a>
-<a class="sourceLine" id="cb747-3" title="3">diff =<span class="st"> </span>z2 =<span class="st"> </span>(y[,<span class="dv">1</span>]<span class="op">-</span>y[,<span class="dv">2</span>]) <span class="co"># difference</span></a>
-<a class="sourceLine" id="cb747-4" title="4">z =<span class="st"> </span><span class="kw">cbind</span>(avg,diff)</a>
-<a class="sourceLine" id="cb747-5" title="5"><span class="kw">head</span>(z) <span class="co"># the actual values of average and difference</span></a></code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="batch-effects.html#cb746-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> geneExpression[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb746-2"><a href="batch-effects.html#cb746-2" aria-hidden="true" tabindex="-1"></a>avg <span class="ot">=</span> (y[,<span class="dv">1</span>]<span class="sc">+</span>y[,<span class="dv">2</span>])<span class="sc">/</span><span class="dv">2</span> <span class="co"># average</span></span>
+<span id="cb746-3"><a href="batch-effects.html#cb746-3" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">=</span> z2 <span class="ot">=</span> (y[,<span class="dv">1</span>]<span class="sc">-</span>y[,<span class="dv">2</span>]) <span class="co"># difference</span></span>
+<span id="cb746-4"><a href="batch-effects.html#cb746-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">cbind</span>(avg,diff)</span>
+<span id="cb746-5"><a href="batch-effects.html#cb746-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(z) <span class="co"># the actual values of average and difference</span></span></code></pre></div>
 <pre><code>##                avg       diff
 ## 1007_s_at 6.472712 0.14248432
 ## 1053_at   7.405128 0.28316044
@@ -928,10 +985,10 @@ D. \begin{pmatrix}
 ## 121_at    7.800149 0.18478972
 ## 1255_g_at 3.232791 0.01997527
 ## 1294_at   7.311012 0.44148316</code></pre>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb749-1" title="1"><span class="co"># Now let&#39;s try each answer and compare to head(z).</span></a>
-<a class="sourceLine" id="cb749-2" title="2"></a>
-<a class="sourceLine" id="cb749-3" title="3"><span class="co"># answer A - avg = sqrt(2) x z[,1], diff = z[,2] / sqrt(2)</span></a>
-<a class="sourceLine" id="cb749-4" title="4"><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="batch-effects.html#cb748-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now let&#39;s try each answer and compare to head(z).</span></span>
+<span id="cb748-2"><a href="batch-effects.html#cb748-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb748-3"><a href="batch-effects.html#cb748-3" aria-hidden="true" tabindex="-1"></a><span class="co"># answer A - avg = sqrt(2) x z[,1], diff = z[,2] / sqrt(2)</span></span>
+<span id="cb748-4"><a href="batch-effects.html#cb748-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(y <span class="sc">%*%</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>)) </span></code></pre></div>
 <pre><code>##                [,1]       [,2]
 ## 1007_s_at 12.945424 0.14248432
 ## 1053_at   14.810255 0.28316044
@@ -939,8 +996,8 @@ D. \begin{pmatrix}
 ## 121_at    15.600297 0.18478972
 ## 1255_g_at  6.465583 0.01997527
 ## 1294_at   14.622024 0.44148316</code></pre>
-<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb751-1" title="1"><span class="co"># answer B - avg = 2 x z[1,2], diff = z[,2]</span></a>
-<a class="sourceLine" id="cb751-2" title="2"><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="batch-effects.html#cb750-1" aria-hidden="true" tabindex="-1"></a><span class="co"># answer B - avg = 2 x z[1,2], diff = z[,2]</span></span>
+<span id="cb750-2"><a href="batch-effects.html#cb750-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(y <span class="sc">%*%</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##                [,1]       [,2]
 ## 1007_s_at 12.945424 0.14248432
 ## 1053_at   14.810255 0.28316044
@@ -948,10 +1005,10 @@ D. \begin{pmatrix}
 ## 121_at    15.600297 0.18478972
 ## 1255_g_at  6.465583 0.01997527
 ## 1294_at   14.622024 0.44148316</code></pre>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb753-1" title="1"><span class="co"># answer C - non-comfortable array, can&#39;t multiply </span></a>
-<a class="sourceLine" id="cb753-2" title="2"></a>
-<a class="sourceLine" id="cb753-3" title="3"><span class="co"># answer D -  avg = 2 x z[1,2], diff = z[,2]</span></a>
-<a class="sourceLine" id="cb753-4" title="4"><span class="kw">head</span>(<span class="kw">t</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y)))</a></code></pre></div>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="batch-effects.html#cb752-1" aria-hidden="true" tabindex="-1"></a><span class="co"># answer C - non-comfortable array, can&#39;t multiply </span></span>
+<span id="cb752-2"><a href="batch-effects.html#cb752-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb752-3"><a href="batch-effects.html#cb752-3" aria-hidden="true" tabindex="-1"></a><span class="co"># answer D -  avg = 2 x z[1,2], diff = z[,2]</span></span>
+<span id="cb752-4"><a href="batch-effects.html#cb752-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">t</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>) <span class="sc">%*%</span> <span class="fu">t</span>(y)))</span></code></pre></div>
 <pre><code>##                [,1]       [,2]
 ## 1007_s_at 12.945424 0.14248432
 ## 1053_at   14.810255 0.28316044
@@ -960,16 +1017,8 @@ D. \begin{pmatrix}
 ## 1255_g_at  6.465583 0.01997527
 ## 1294_at   14.622024 0.44148316</code></pre>
 <p>So none of the choices are equal to <code>head(z)</code>. Instead here is my answer that transforms <code>y</code> correctly.</p>
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb755-1" title="1">ans &lt;-<span class="st"> </span><span class="kw">head</span>(y <span class="op">%*%</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb755-2" title="2">ans</a></code></pre></div>
-<pre><code>##               [,1]       [,2]
-## 1007_s_at 6.472712 0.14248432
-## 1053_at   7.405128 0.28316044
-## 117_at    5.226584 0.35207594
-## 121_at    7.800149 0.18478972
-## 1255_g_at 3.232791 0.01997527
-## 1294_at   7.311012 0.44148316</code></pre>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb757-1" title="1"><span class="kw">identical</span>(z, ans) <span class="co"># they are identical</span></a></code></pre></div>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="batch-effects.html#cb754-1" aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> y <span class="sc">%*%</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb754-2"><a href="batch-effects.html#cb754-2" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="sc">!</span><span class="fu">near</span>(z, ans)) <span class="co"># they are identical</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Therefore, my answer is:</p>
 <p><span class="math display">\[
@@ -989,24 +1038,24 @@ y\begin{pmatrix}
 <div id="question-3-31" class="section level3 unnumbered">
 <h3>Question 3</h3>
 <p>Define</p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb759-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="batch-effects.html#cb756-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> geneExpression <span class="sc">-</span> <span class="fu">rowMeans</span>(geneExpression)</span></code></pre></div>
 <p>Compute and plot an image of the correlation for each sample. Make two image plots of these correlations. In the first one, plot the correlation as image. In the second, order the samples by date and then plot an image of the correlation. The only difference in these plots is the order in which the samples are plotted. Based on these plots, which of the following would you say is true?</p>
 <hr />
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb760-1" title="1">n &lt;-<span class="st"> </span><span class="kw">ncol</span>(y)</a>
-<a class="sourceLine" id="cb760-2" title="2">cors=<span class="kw">cor</span>(y)</a>
-<a class="sourceLine" id="cb760-3" title="3">cols=<span class="kw">colorRampPalette</span>(<span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">11</span>,<span class="st">&quot;RdBu&quot;</span>)))(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb760-4" title="4"></a>
-<a class="sourceLine" id="cb760-5" title="5"><span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dv">1</span><span class="op">:</span>n, cors, <span class="dt">col=</span>cols, <span class="dt">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;samples&#39;</span>,</a>
-<a class="sourceLine" id="cb760-6" title="6">      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image</span></a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-361-1.png" width="672" /></p>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb761-1" title="1">ind &lt;-<span class="st"> </span><span class="kw">order</span>(sampleInfo<span class="op">$</span>date)</a>
-<a class="sourceLine" id="cb761-2" title="2"></a>
-<a class="sourceLine" id="cb761-3" title="3">y2 &lt;-<span class="st"> </span>y[,ind]</a>
-<a class="sourceLine" id="cb761-4" title="4">n2 &lt;-<span class="st"> </span><span class="kw">ncol</span>(y)</a>
-<a class="sourceLine" id="cb761-5" title="5">cors2=<span class="kw">cor</span>(y2)</a>
-<a class="sourceLine" id="cb761-6" title="6"><span class="kw">image</span>(<span class="dv">1</span><span class="op">:</span>n2, <span class="dv">1</span><span class="op">:</span>n2, cors2, <span class="dt">col=</span>cols, <span class="dt">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;samples&#39;</span>,</a>
-<a class="sourceLine" id="cb761-7" title="7">      <span class="dt">zlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image after sorting the date. some samples are more correlated within a span of date than others.</span></a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-361-2.png" width="672" /></p>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="batch-effects.html#cb757-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(y)</span>
+<span id="cb757-2"><a href="batch-effects.html#cb757-2" aria-hidden="true" tabindex="-1"></a>cors<span class="ot">=</span><span class="fu">cor</span>(y)</span>
+<span id="cb757-3"><a href="batch-effects.html#cb757-3" aria-hidden="true" tabindex="-1"></a>cols<span class="ot">=</span><span class="fu">colorRampPalette</span>(<span class="fu">rev</span>(<span class="fu">brewer.pal</span>(<span class="dv">11</span>,<span class="st">&quot;RdBu&quot;</span>)))(<span class="dv">100</span>)</span>
+<span id="cb757-4"><a href="batch-effects.html#cb757-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb757-5"><a href="batch-effects.html#cb757-5" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="dv">1</span><span class="sc">:</span>n, cors, <span class="at">col=</span>cols, <span class="at">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;samples&#39;</span>,</span>
+<span id="cb757-6"><a href="batch-effects.html#cb757-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">zlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image</span></span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-407-1.png" width="672" /></p>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="batch-effects.html#cb758-1" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">order</span>(sampleInfo<span class="sc">$</span>date)</span>
+<span id="cb758-2"><a href="batch-effects.html#cb758-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb758-3"><a href="batch-effects.html#cb758-3" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> y[,ind]</span>
+<span id="cb758-4"><a href="batch-effects.html#cb758-4" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">ncol</span>(y)</span>
+<span id="cb758-5"><a href="batch-effects.html#cb758-5" aria-hidden="true" tabindex="-1"></a>cors2<span class="ot">=</span><span class="fu">cor</span>(y2)</span>
+<span id="cb758-6"><a href="batch-effects.html#cb758-6" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(<span class="dv">1</span><span class="sc">:</span>n2, <span class="dv">1</span><span class="sc">:</span>n2, cors2, <span class="at">col=</span>cols, <span class="at">xlab =</span> <span class="st">&#39;samples&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;samples&#39;</span>,</span>
+<span id="cb758-7"><a href="batch-effects.html#cb758-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">zlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># correlation as image after sorting the date. some samples are more correlated within a span of date than others.</span></span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-407-2.png" width="672" /></p>
 <p>The answer is <strong>D</strong>: The fact that in the plot ordered by month we see two groups mainly driven by month, and within these we see subgroups driven by date, seems to suggest
 date more than month per se are the hidden factors.</p>
 </div>
@@ -1014,8 +1063,8 @@ date more than month per se are the hidden factors.</p>
 <h3>Question 4</h3>
 <p>Based on the correlation plots above, we could argue that there are at least two hidden factors. Using PCA estimate these two factors. Specifically, apply the <code>svd</code> to <code>y</code> and use the first two PCs as estimates. Which command gives us these estimates?</p>
 <hr />
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb762-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb762-2" title="2"><span class="kw">head</span>(s<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="batch-effects.html#cb759-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">svd</span>(y)</span>
+<span id="cb759-2"><a href="batch-effects.html#cb759-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(s<span class="sc">$</span>v[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code></pre></div>
 <pre><code>##              [,1]        [,2]
 ## [1,] -0.232970658 -0.01693543
 ## [2,] -0.034229085 -0.13955710
@@ -1025,30 +1074,30 @@ date more than month per se are the hidden factors.</p>
 ## [6,]  0.353302375 -0.09079626</code></pre>
 <p>The answer is <strong>B</strong>: <code>pcs = svd(y)$v[,1:2]</code>.</p>
 </div>
-<div id="question-5-20" class="section level3 unnumbered">
+<div id="question-5-21" class="section level3 unnumbered">
 <h3>Question 5</h3>
 <p>Plot each of the estimated factors ordered by the date. Use color to denote month. The first factor is clearly related to date. Which of the following appears to be most different according to this factor?</p>
 <hr />
 <p>To be honest, I do not know what the question is actually asking for. I also think this is one of the most difficult questions in the book. It can possibly ask either of these two things: 1) which date appears to be most different in the function of PC1? 2) which dates are most different from each other in the function of PC1? To answer both of these questions, we need to visualize each date in a plot where the x-axis is PC1 and y-axis is PC2. My code below also displays the range of PC1 for each date blue.</p>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb764-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb764-2" title="2">ind_<span class="dv">0610</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-10&#39;</span>)</a>
-<a class="sourceLine" id="cb764-3" title="3">ind_<span class="dv">0623</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-23&#39;</span>)</a>
-<a class="sourceLine" id="cb764-4" title="4">ind_<span class="dv">0627</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-06-27&#39;</span>)</a>
-<a class="sourceLine" id="cb764-5" title="5">ind_<span class="dv">1007</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-10-07&#39;</span>)</a>
-<a class="sourceLine" id="cb764-6" title="6">ind_<span class="dv">1028</span> &lt;-<span class="st"> </span><span class="kw">which</span>(sampleInfo<span class="op">$</span>date <span class="op">==</span><span class="st"> &#39;2005-10-28&#39;</span>)</a>
-<a class="sourceLine" id="cb764-7" title="7"></a>
-<a class="sourceLine" id="cb764-8" title="8">index_list &lt;-<span class="st"> </span><span class="kw">list</span>(ind_<span class="dv">0610</span>, ind_<span class="dv">0623</span>, ind_<span class="dv">0627</span>, ind_<span class="dv">1007</span>, ind_<span class="dv">1028</span>)</a>
-<a class="sourceLine" id="cb764-9" title="9">res_range &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">length</span>(index_list))</a>
-<a class="sourceLine" id="cb764-10" title="10"><span class="kw">mypar</span>(<span class="dv">2</span>,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb764-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(index_list)) {</a>
-<a class="sourceLine" id="cb764-12" title="12">  <span class="kw">plot</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]],  s<span class="op">$</span>v[,<span class="dv">2</span>][index_list[[i]]], </a>
-<a class="sourceLine" id="cb764-13" title="13">       <span class="dt">xlab =</span> <span class="st">&#39;PC1&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;PC2&#39;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.4</span>,.<span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb764-14" title="14">       <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.4</span>,<span class="fl">0.6</span>),</a>
-<a class="sourceLine" id="cb764-15" title="15">       <span class="dt">main =</span> <span class="kw">paste0</span>(<span class="kw">unique</span>(sampleInfo<span class="op">$</span>date[index_list[[i]]])))</a>
-<a class="sourceLine" id="cb764-16" title="16">  res_range[[i]] &lt;-<span class="st"> </span><span class="kw">max</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]])<span class="op">-</span><span class="kw">min</span>(s<span class="op">$</span>v[,<span class="dv">1</span>][index_list[[i]]])</a>
-<a class="sourceLine" id="cb764-17" title="17">  <span class="kw">text</span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>, <span class="kw">signif</span>(res_range[[i]],<span class="dv">2</span>), <span class="dt">pos=</span><span class="dv">2</span>,<span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a>
-<a class="sourceLine" id="cb764-18" title="18">}</a></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-363-1.png" width="672" /></p>
+<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="batch-effects.html#cb761-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">svd</span>(y)</span>
+<span id="cb761-2"><a href="batch-effects.html#cb761-2" aria-hidden="true" tabindex="-1"></a>ind_0610 <span class="ot">&lt;-</span> <span class="fu">which</span>(sampleInfo<span class="sc">$</span>date <span class="sc">==</span> <span class="st">&#39;2005-06-10&#39;</span>)</span>
+<span id="cb761-3"><a href="batch-effects.html#cb761-3" aria-hidden="true" tabindex="-1"></a>ind_0623 <span class="ot">&lt;-</span> <span class="fu">which</span>(sampleInfo<span class="sc">$</span>date <span class="sc">==</span> <span class="st">&#39;2005-06-23&#39;</span>)</span>
+<span id="cb761-4"><a href="batch-effects.html#cb761-4" aria-hidden="true" tabindex="-1"></a>ind_0627 <span class="ot">&lt;-</span> <span class="fu">which</span>(sampleInfo<span class="sc">$</span>date <span class="sc">==</span> <span class="st">&#39;2005-06-27&#39;</span>)</span>
+<span id="cb761-5"><a href="batch-effects.html#cb761-5" aria-hidden="true" tabindex="-1"></a>ind_1007 <span class="ot">&lt;-</span> <span class="fu">which</span>(sampleInfo<span class="sc">$</span>date <span class="sc">==</span> <span class="st">&#39;2005-10-07&#39;</span>)</span>
+<span id="cb761-6"><a href="batch-effects.html#cb761-6" aria-hidden="true" tabindex="-1"></a>ind_1028 <span class="ot">&lt;-</span> <span class="fu">which</span>(sampleInfo<span class="sc">$</span>date <span class="sc">==</span> <span class="st">&#39;2005-10-28&#39;</span>)</span>
+<span id="cb761-7"><a href="batch-effects.html#cb761-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb761-8"><a href="batch-effects.html#cb761-8" aria-hidden="true" tabindex="-1"></a>index_list <span class="ot">&lt;-</span> <span class="fu">list</span>(ind_0610, ind_0623, ind_0627, ind_1007, ind_1028)</span>
+<span id="cb761-9"><a href="batch-effects.html#cb761-9" aria-hidden="true" tabindex="-1"></a>res_range <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="fu">length</span>(index_list))</span>
+<span id="cb761-10"><a href="batch-effects.html#cb761-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mypar</span>(<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb761-11"><a href="batch-effects.html#cb761-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(index_list)) {</span>
+<span id="cb761-12"><a href="batch-effects.html#cb761-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(s<span class="sc">$</span>v[,<span class="dv">1</span>][index_list[[i]]],  s<span class="sc">$</span>v[,<span class="dv">2</span>][index_list[[i]]], </span>
+<span id="cb761-13"><a href="batch-effects.html#cb761-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&#39;PC1&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;PC2&#39;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>,.<span class="dv">4</span>),</span>
+<span id="cb761-14"><a href="batch-effects.html#cb761-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>,<span class="fl">0.6</span>),</span>
+<span id="cb761-15"><a href="batch-effects.html#cb761-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste0</span>(<span class="fu">unique</span>(sampleInfo<span class="sc">$</span>date[index_list[[i]]])))</span>
+<span id="cb761-16"><a href="batch-effects.html#cb761-16" aria-hidden="true" tabindex="-1"></a>  res_range[[i]] <span class="ot">&lt;-</span> <span class="fu">max</span>(s<span class="sc">$</span>v[,<span class="dv">1</span>][index_list[[i]]])<span class="sc">-</span><span class="fu">min</span>(s<span class="sc">$</span>v[,<span class="dv">1</span>][index_list[[i]]])</span>
+<span id="cb761-17"><a href="batch-effects.html#cb761-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="fl">0.1</span>,<span class="fl">0.1</span>, <span class="fu">signif</span>(res_range[[i]],<span class="dv">2</span>), <span class="at">pos=</span><span class="dv">2</span>,<span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span>
+<span id="cb761-18"><a href="batch-effects.html#cb761-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-409-1.png" width="672" /></p>
 <p>The plot shows data that are spread in the function of PC1. The blue numbers show the range of PC1 that each date’s data span. Oct 7th has a highest difference in the function of PC1, with a range of <code>0.38</code>. However, the range of Oct 28th is merely <code>0.075</code>. Also they do not seem to be much different from each other, primarily because Oct 7th covers a wide range of PC1. This rules out answer choice B.</p>
 <p>June 10th and 23th seem to be not much different from each other. Also, the range of June 10th is <code>0</code> because it only has one point. This rules out answer choice C. Answer D is eliminated because there is no June 15th.</p>
 <p>Answer choice <strong>A</strong> seems to be most appropriate because both June 23th and 27th data seem to be spread in the function of PC1. Also they do seem to be quite different from each other in terms of their location in the PC1 x-axis.</p>
@@ -1057,52 +1106,52 @@ date more than month per se are the hidden factors.</p>
 <h3>Question 6</h3>
 <p>Use the <code>svd</code> function to obtain the principal components (PCs) for our detrended gene expression data <code>y</code>. How many PCs explain more than 10% of the variability?</p>
 <hr />
-<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb765-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
-<a class="sourceLine" id="cb765-2" title="2">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb765-3" title="3"><span class="kw">sum</span>((s<span class="op">$</span>d<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span><span class="kw">sum</span>(s<span class="op">$</span>d<span class="op">^</span><span class="dv">2</span>) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="batch-effects.html#cb762-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> geneExpression <span class="sc">-</span> <span class="fu">rowMeans</span>(geneExpression)</span>
+<span id="cb762-2"><a href="batch-effects.html#cb762-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">svd</span>(y)</span>
+<span id="cb762-3"><a href="batch-effects.html#cb762-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((s<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sum</span>(s<span class="sc">$</span>d<span class="sc">^</span><span class="dv">2</span>) <span class="sc">&gt;</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 </div>
 <div id="question-7-15" class="section level3 unnumbered">
 <h3>Question 7</h3>
 <p>Which PC most correlates (negative or positive correlation) with month?</p>
 <hr />
-<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb767-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">ncol</span>(s<span class="op">$</span>v))</a>
-<a class="sourceLine" id="cb767-2" title="2">month &lt;-<span class="st"> </span><span class="kw">format</span>(sampleInfo<span class="op">$</span>date,<span class="st">&quot;%m&quot;</span>)</a>
-<a class="sourceLine" id="cb767-3" title="3">month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(month)</a>
-<a class="sourceLine" id="cb767-4" title="4"></a>
-<a class="sourceLine" id="cb767-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb767-6" title="6">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(month, s<span class="op">$</span>v[,i])</a>
-<a class="sourceLine" id="cb767-7" title="7">}</a>
-<a class="sourceLine" id="cb767-8" title="8">ind &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">==</span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a>
-<a class="sourceLine" id="cb767-9" title="9">ind</a></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="batch-effects.html#cb764-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="fu">ncol</span>(s<span class="sc">$</span>v))</span>
+<span id="cb764-2"><a href="batch-effects.html#cb764-2" aria-hidden="true" tabindex="-1"></a>month <span class="ot">&lt;-</span> <span class="fu">format</span>(sampleInfo<span class="sc">$</span>date,<span class="st">&quot;%m&quot;</span>)</span>
+<span id="cb764-3"><a href="batch-effects.html#cb764-3" aria-hidden="true" tabindex="-1"></a>month <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(month)</span>
+<span id="cb764-4"><a href="batch-effects.html#cb764-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb764-5"><a href="batch-effects.html#cb764-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(res)) {</span>
+<span id="cb764-6"><a href="batch-effects.html#cb764-6" aria-hidden="true" tabindex="-1"></a>  res[[i]] <span class="ot">&lt;-</span> <span class="fu">cor</span>(month, s<span class="sc">$</span>v[,i])</span>
+<span id="cb764-7"><a href="batch-effects.html#cb764-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb764-8"><a href="batch-effects.html#cb764-8" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(res)<span class="sc">==</span><span class="fu">max</span>(<span class="fu">abs</span>(res)))</span>
+<span id="cb764-9"><a href="batch-effects.html#cb764-9" aria-hidden="true" tabindex="-1"></a>ind</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-8-12" class="section level3 unnumbered">
 <h3>Question 8</h3>
 <p>What is this correlation (in absolute value)?</p>
 <hr />
-<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb769-1" title="1"><span class="kw">abs</span>(res[ind])</a></code></pre></div>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="batch-effects.html#cb766-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(res[ind])</span></code></pre></div>
 <pre><code>## [1] 0.8297915</code></pre>
 </div>
 <div id="question-9-10" class="section level3 unnumbered">
 <h3>Question 9</h3>
 <p>Which PC most correlates (negative or positive correlation) with sex?</p>
 <hr />
-<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb771-1" title="1">res &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="kw">ncol</span>(s<span class="op">$</span>v))</a>
-<a class="sourceLine" id="cb771-2" title="2">sex &lt;-<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb771-3" title="3"></a>
-<a class="sourceLine" id="cb771-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(res)) {</a>
-<a class="sourceLine" id="cb771-5" title="5">  res[[i]] &lt;-<span class="st"> </span><span class="kw">cor</span>(sex, s<span class="op">$</span>v[,i])</a>
-<a class="sourceLine" id="cb771-6" title="6">}</a>
-<a class="sourceLine" id="cb771-7" title="7">ind &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">==</span><span class="kw">max</span>(<span class="kw">abs</span>(res)))</a>
-<a class="sourceLine" id="cb771-8" title="8">ind</a></code></pre></div>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="batch-effects.html#cb768-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&#39;double&#39;</span>,<span class="fu">ncol</span>(s<span class="sc">$</span>v))</span>
+<span id="cb768-2"><a href="batch-effects.html#cb768-2" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> sampleInfo<span class="sc">$</span>group</span>
+<span id="cb768-3"><a href="batch-effects.html#cb768-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb768-4"><a href="batch-effects.html#cb768-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(res)) {</span>
+<span id="cb768-5"><a href="batch-effects.html#cb768-5" aria-hidden="true" tabindex="-1"></a>  res[[i]] <span class="ot">&lt;-</span> <span class="fu">cor</span>(sex, s<span class="sc">$</span>v[,i])</span>
+<span id="cb768-6"><a href="batch-effects.html#cb768-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb768-7"><a href="batch-effects.html#cb768-7" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(res)<span class="sc">==</span><span class="fu">max</span>(<span class="fu">abs</span>(res)))</span>
+<span id="cb768-8"><a href="batch-effects.html#cb768-8" aria-hidden="true" tabindex="-1"></a>ind</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="question-10-8" class="section level3 unnumbered">
 <h3>Question 10</h3>
 <p>What is this correlation (in absolute value)?</p>
 <hr />
-<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb773-1" title="1"><span class="kw">abs</span>(res[ind])</a></code></pre></div>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="batch-effects.html#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span>(res[ind])</span></code></pre></div>
 <pre><code>## [1] 0.6236858</code></pre>
 </div>
 <div id="question-11-5" class="section level3 unnumbered">
@@ -1110,48 +1159,48 @@ date more than month per se are the hidden factors.</p>
 <p>Now instead of using month, which we have shown does not quite describe the batch (<strong>Question 5</strong>), add the two estimated factors <code>s$v[,1:2]</code> to the linear model we used
 above. Apply this model to each gene and compute q-values for the sex difference. How many q-values &lt; 0.1 for the sex comparison?</p>
 <hr />
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb775-1" title="1">y =<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
-<a class="sourceLine" id="cb775-2" title="2">s &lt;-<span class="st"> </span><span class="kw">svd</span>(y)</a>
-<a class="sourceLine" id="cb775-3" title="3">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex <span class="op">+</span><span class="st"> </span>s<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb775-4" title="4">res &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(y), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb775-5" title="5">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb775-6" title="6">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb775-7" title="7">})</a>
-<a class="sourceLine" id="cb775-8" title="8"></a>
-<a class="sourceLine" id="cb775-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res)<span class="op">$</span>qvalues </a>
-<a class="sourceLine" id="cb775-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="batch-effects.html#cb772-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> geneExpression <span class="sc">-</span> <span class="fu">rowMeans</span>(geneExpression)</span>
+<span id="cb772-2"><a href="batch-effects.html#cb772-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">svd</span>(y)</span>
+<span id="cb772-3"><a href="batch-effects.html#cb772-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>sex <span class="sc">+</span> s<span class="sc">$</span>v[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
+<span id="cb772-4"><a href="batch-effects.html#cb772-4" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(y), <span class="cf">function</span>(i) {</span>
+<span id="cb772-5"><a href="batch-effects.html#cb772-5" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[i,]<span class="sc">~</span>X)</span>
+<span id="cb772-6"><a href="batch-effects.html#cb772-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb772-7"><a href="batch-effects.html#cb772-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb772-8"><a href="batch-effects.html#cb772-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb772-9"><a href="batch-effects.html#cb772-9" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(res)<span class="sc">$</span>qvalues </span>
+<span id="cb772-10"><a href="batch-effects.html#cb772-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 14</code></pre>
 </div>
 <div id="question-12-5" class="section level3 unnumbered">
 <h3>Question 12</h3>
 <p>What proportion of the genes are on chromosomes X and Y?</p>
 <hr />
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb777-1" title="1">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb777-2" title="2">ind &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb777-3" title="3"><span class="kw">mean</span>(chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="batch-effects.html#cb774-1" aria-hidden="true" tabindex="-1"></a>chr <span class="ot">&lt;-</span> geneAnnotation<span class="sc">$</span>CHR</span>
+<span id="cb774-2"><a href="batch-effects.html#cb774-2" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> qvals <span class="sc">&lt;</span> <span class="fl">0.1</span></span>
+<span id="cb774-3"><a href="batch-effects.html#cb774-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(chr[ind] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>))</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 </div>
 <div id="exercises-36" class="section level2 unnumbered">
 <h2>10.13 Exercises</h2>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb779-1" title="1"><span class="kw">library</span>(sva)</a>
-<a class="sourceLine" id="cb779-2" title="2"><span class="kw">library</span>(Biobase)</a>
-<a class="sourceLine" id="cb779-3" title="3"><span class="kw">library</span>(GSE5859Subset)</a>
-<a class="sourceLine" id="cb779-4" title="4"><span class="kw">data</span>(GSE5859Subset)</a></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="batch-effects.html#cb776-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sva)</span>
+<span id="cb776-2"><a href="batch-effects.html#cb776-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Biobase)</span>
+<span id="cb776-3"><a href="batch-effects.html#cb776-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GSE5859Subset)</span>
+<span id="cb776-4"><a href="batch-effects.html#cb776-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(GSE5859Subset)</span></code></pre></div>
 <div id="question-1-38" class="section level3 unnumbered">
 <h3>Question 1</h3>
 <p>In a previous section we estimated factors using PCA, but we noted that the first factor was correlated with our outcome of interest:</p>
-<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb780-1" title="1">s &lt;-<span class="st"> </span><span class="kw">svd</span>(geneExpression<span class="op">-</span><span class="kw">rowMeans</span>(geneExpression))</a>
-<a class="sourceLine" id="cb780-2" title="2"><span class="kw">cor</span>(sampleInfo<span class="op">$</span>group,s<span class="op">$</span>v[,<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="batch-effects.html#cb777-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">svd</span>(geneExpression<span class="sc">-</span><span class="fu">rowMeans</span>(geneExpression))</span>
+<span id="cb777-2"><a href="batch-effects.html#cb777-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(sampleInfo<span class="sc">$</span>group,s<span class="sc">$</span>v[,<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## [1] 0.6236858</code></pre>
 <p>The <code>svafit</code> function estimates factors, but downweighs the genes that appear to correlate with the outcome of interest. It also tries to estimate the number of factors and returns
 the estimated factors like this:</p>
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb782-1" title="1">sex =<span class="st"> </span>sampleInfo<span class="op">$</span>group</a>
-<a class="sourceLine" id="cb782-2" title="2">mod =<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex)</a>
-<a class="sourceLine" id="cb782-3" title="3">svafit =<span class="st"> </span><span class="kw">sva</span>(geneExpression,mod)</a></code></pre></div>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="batch-effects.html#cb779-1" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">=</span> sampleInfo<span class="sc">$</span>group</span>
+<span id="cb779-2"><a href="batch-effects.html#cb779-2" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>sex)</span>
+<span id="cb779-3"><a href="batch-effects.html#cb779-3" aria-hidden="true" tabindex="-1"></a>svafit <span class="ot">=</span> <span class="fu">sva</span>(geneExpression,mod)</span></code></pre></div>
 <pre><code>## Number of significant surrogate variables is:  5 
 ## Iteration (out of 5 ):1  2  3  4  5</code></pre>
-<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb784-1" title="1"><span class="kw">head</span>(svafit<span class="op">$</span>sv)</a></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="batch-effects.html#cb781-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(svafit<span class="sc">$</span>sv)</span></code></pre></div>
 <pre><code>##             [,1]        [,2]        [,3]       [,4]         [,5]
 ## [1,] -0.26862626 -0.03838109  0.15306742 -0.3007374  0.210098158
 ## [2,] -0.06132157 -0.15755769 -0.03538763  0.0851655 -0.063869257
@@ -1160,9 +1209,9 @@ the estimated factors like this:</p>
 ## [5,] -0.01850853  0.18648507  0.17931970  0.4244993 -0.007840835
 ## [6,]  0.36062840 -0.08542758 -0.10726746  0.1074114  0.033204590</code></pre>
 <p>The resulting estimated factors are not that different from the PCs.</p>
-<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb786-1" title="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(svafit<span class="op">$</span>sv)){</a>
-<a class="sourceLine" id="cb786-2" title="2">  <span class="kw">print</span>( <span class="kw">cor</span>(s<span class="op">$</span>v[,i],svafit<span class="op">$</span>sv[,i]) )</a>
-<a class="sourceLine" id="cb786-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="batch-effects.html#cb783-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(svafit<span class="sc">$</span>sv)){</span>
+<span id="cb783-2"><a href="batch-effects.html#cb783-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>( <span class="fu">cor</span>(s<span class="sc">$</span>v[,i],svafit<span class="sc">$</span>sv[,i]) )</span>
+<span id="cb783-3"><a href="batch-effects.html#cb783-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 0.9944755
 ## [1] 0.9964202
 ## [1] -0.9915972
@@ -1170,25 +1219,25 @@ the estimated factors like this:</p>
 ## [1] -0.9518427</code></pre>
 <p>Now fit a linear model to each gene that instead of month includes these factors in the model. Use the <code>qvalue</code> function. How many genes have q-value &lt; 0.1?</p>
 <hr />
-<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb788-1" title="1">y &lt;-<span class="st"> </span>geneExpression <span class="op">-</span><span class="st"> </span><span class="kw">rowMeans</span>(geneExpression)</a>
-<a class="sourceLine" id="cb788-2" title="2">X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>sex <span class="op">+</span><span class="st"> </span>svafit<span class="op">$</span>sv)</a>
-<a class="sourceLine" id="cb788-3" title="3"></a>
-<a class="sourceLine" id="cb788-4" title="4">res &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(y), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb788-5" title="5">  fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y[i,]<span class="op">~</span>X)</a>
-<a class="sourceLine" id="cb788-6" title="6">  <span class="kw">return</span>(<span class="kw">summary</span>(fit)<span class="op">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb788-7" title="7">})</a>
-<a class="sourceLine" id="cb788-8" title="8"></a>
-<a class="sourceLine" id="cb788-9" title="9">qvals &lt;-<span class="st"> </span><span class="kw">qvalue</span>(res)<span class="op">$</span>qvalues</a>
-<a class="sourceLine" id="cb788-10" title="10"><span class="kw">sum</span>(qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="batch-effects.html#cb785-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> geneExpression <span class="sc">-</span> <span class="fu">rowMeans</span>(geneExpression)</span>
+<span id="cb785-2"><a href="batch-effects.html#cb785-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span>sex <span class="sc">+</span> svafit<span class="sc">$</span>sv)</span>
+<span id="cb785-3"><a href="batch-effects.html#cb785-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb785-4"><a href="batch-effects.html#cb785-4" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(y), <span class="cf">function</span>(i) {</span>
+<span id="cb785-5"><a href="batch-effects.html#cb785-5" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[i,]<span class="sc">~</span>X)</span>
+<span id="cb785-6"><a href="batch-effects.html#cb785-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb785-7"><a href="batch-effects.html#cb785-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb785-8"><a href="batch-effects.html#cb785-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb785-9"><a href="batch-effects.html#cb785-9" aria-hidden="true" tabindex="-1"></a>qvals <span class="ot">&lt;-</span> <span class="fu">qvalue</span>(res)<span class="sc">$</span>qvalues</span>
+<span id="cb785-10"><a href="batch-effects.html#cb785-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(qvals <span class="sc">&lt;</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 13</code></pre>
 </div>
 <div id="question-2-36" class="section level3 unnumbered">
 <h3>Question 2</h3>
 <p>How many of these genes are from <code>chrY</code> or <code>chrX</code>?</p>
 <hr />
-<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb790-1" title="1">chr &lt;-<span class="st"> </span>geneAnnotation<span class="op">$</span>CHR</a>
-<a class="sourceLine" id="cb790-2" title="2">ind &lt;-<span class="st"> </span>qvals <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb790-3" title="3"><span class="kw">sum</span>(chr[ind] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="batch-effects.html#cb787-1" aria-hidden="true" tabindex="-1"></a>chr <span class="ot">&lt;-</span> geneAnnotation<span class="sc">$</span>CHR</span>
+<span id="cb787-2"><a href="batch-effects.html#cb787-2" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> qvals <span class="sc">&lt;</span> <span class="fl">0.1</span></span>
+<span id="cb787-3"><a href="batch-effects.html#cb787-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(chr[ind] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;chrX&#39;</span>,<span class="st">&#39;chrY&#39;</span>)) </span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 
 </div>
@@ -1223,6 +1272,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Data Analysis for the Life Sciences with R: Exercise Solutions</title>
   <meta name="description" content="Data Analysis for the Life Sciences with R: Exercise Solutions" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Data Analysis for the Life Sciences with R: Exercise Solutions" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Seung Hyun (Sam) Min" />
 
 
-<meta name="date" content="2020-12-22" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 
 <link rel="next" href="getting-started.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,28 +51,32 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -115,6 +120,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -131,18 +137,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">DA4LS with R: Exercise Solutions</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome!</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgment"><i class="fa fa-check"></i>Acknowledgment</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#frequently-asked-questions"><i class="fa fa-check"></i>Frequently Asked Questions</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#contribution"><i class="fa fa-check"></i>Contribution</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#etc"><i class="fa fa-check"></i>Etc</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="1" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>1</b> Getting started</a>
+<ul>
 <li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html#before-reading-da4ls-with-r"><i class="fa fa-check"></i>Before reading DA4LS with R</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a><ul>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a><ul>
+<li class="chapter" data-level="2" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>2</b> Inference</a>
+<ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises"><i class="fa fa-check"></i>2.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3"><i class="fa fa-check"></i>Question 3</a></li>
@@ -154,7 +164,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9"><i class="fa fa-check"></i>Question 9</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-10"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-1"><i class="fa fa-check"></i>2.9 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-1"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-1"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-1"><i class="fa fa-check"></i>Question 3</a></li>
@@ -165,7 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-1"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-9-1"><i class="fa fa-check"></i>Question 9</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-2"><i class="fa fa-check"></i>2.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-2"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-2"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-2"><i class="fa fa-check"></i>Question 3</a></li>
@@ -180,11 +192,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12"><i class="fa fa-check"></i>Question 12</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13"><i class="fa fa-check"></i>Question 13</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-3"><i class="fa fa-check"></i>2.13 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-3"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-3"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-3"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-3"><i class="fa fa-check"></i>Question 4</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-3"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-3"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-3"><i class="fa fa-check"></i>Question 8</a></li>
@@ -194,12 +208,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-1"><i class="fa fa-check"></i>Question 12</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-13-1"><i class="fa fa-check"></i>Question 13</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-4"><i class="fa fa-check"></i>2.18 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-4"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-4"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-4"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-4"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-3"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-4"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-4"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-8-4"><i class="fa fa-check"></i>Question 8</a></li>
@@ -208,43 +223,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-11-2"><i class="fa fa-check"></i>Question 11</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-12-2"><i class="fa fa-check"></i>Question 12</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-5"><i class="fa fa-check"></i>2.21 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-5"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-5"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-3-5"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-4-5"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-4"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-6-5"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-7-5"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-6"><i class="fa fa-check"></i>2.23 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-6"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-6"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#exercises-7"><i class="fa fa-check"></i>2.25 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-1-7"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference.html"><a href="inference.html#question-2-7"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a><ul>
+<li class="chapter" data-level="3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>3</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-8"><i class="fa fa-check"></i>3.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-8"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-8"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-6"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-6"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-5"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-6"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-6"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-5"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-9-5"><i class="fa fa-check"></i>Question 9</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-4"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercises-9"><i class="fa fa-check"></i>3.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-1-9"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-2-9"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-3-7"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-4-7"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-6"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-6-7"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-7-7"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-8-6"><i class="fa fa-check"></i>Question 8</a></li>
@@ -252,83 +273,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#question-10-5"><i class="fa fa-check"></i>Question 10</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a><ul>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a><ul>
+<li class="chapter" data-level="4" data-path="matrix-algebra.html"><a href="matrix-algebra.html"><i class="fa fa-check"></i><b>4</b> Matrix Algebra</a>
+<ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-10"><i class="fa fa-check"></i>4.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-10"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-10"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-8"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-8"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-11"><i class="fa fa-check"></i>4.6 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-11"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-11"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-9"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-12"><i class="fa fa-check"></i>4.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-12"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-12"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-10"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-9"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#exercises-13"><i class="fa fa-check"></i>4.10 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-1-13"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-2-13"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-3-11"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="matrix-algebra.html"><a href="matrix-algebra.html#question-4-10"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a><ul>
+<li class="chapter" data-level="5" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-14"><i class="fa fa-check"></i>5.1 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-14"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-14"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-12"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-11"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-15"><i class="fa fa-check"></i>5.3 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-15"><i class="fa fa-check"></i>Question 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-16"><i class="fa fa-check"></i>5.5 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-16"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-15"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-17"><i class="fa fa-check"></i>5.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-17"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-16"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-13"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-12"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-18"><i class="fa fa-check"></i>5.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-18"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-17"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-14"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-4-13"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-7"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#exercises-19"><i class="fa fa-check"></i>5.15 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-1-19"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-2-18"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="linear-models.html"><a href="linear-models.html#question-3-15"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a><ul>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a><ul>
+<li class="chapter" data-level="6" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html"><i class="fa fa-check"></i><b>6</b> Inference for High Dimensional Data</a>
+<ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-20"><i class="fa fa-check"></i>6.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-20"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-2"><i class="fa fa-check"></i>Questions 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-16"><i class="fa fa-check"></i>Question 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-21"><i class="fa fa-check"></i>6.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-21"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-19"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-17"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-14"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-8"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-22"><i class="fa fa-check"></i>6.10 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-22"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-20"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-18"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-15"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-9"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-6-8"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-7-8"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-8-7"><i class="fa fa-check"></i>Question 8</a></li>
@@ -340,20 +377,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-15-16"><i class="fa fa-check"></i>Questions 15 &amp; 16</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#questions-17-18"><i class="fa fa-check"></i>Questions 17 &amp; 18</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#exercises-23"><i class="fa fa-check"></i>6.12 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-1-23"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-2-21"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-3-19"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="inference-for-high-dimensional-data.html"><a href="inference-for-high-dimensional-data.html#question-4-16"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a><ul>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a><ul>
+<li class="chapter" data-level="7" data-path="statistical-models.html"><a href="statistical-models.html"><i class="fa fa-check"></i><b>7</b> Statistical Models</a>
+<ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exercises-24"><i class="fa fa-check"></i>7.5 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-24"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-22"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-20"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-17"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-10"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-9"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-7-9"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-8-8"><i class="fa fa-check"></i>Question 8</a></li>
@@ -372,107 +412,122 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-23"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-21"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-18"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-11"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-5-12"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-6-10"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a><ul>
+<li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#exericses"><i class="fa fa-check"></i>7.9 Exericses</a>
+<ul>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-1-26"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-2-24"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-3-22"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="statistical-models.html"><a href="statistical-models.html#question-4-19"><i class="fa fa-check"></i>Question 4</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html"><i class="fa fa-check"></i><b>8</b> Distance and Dimension Reduction</a><ul>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-25"><i class="fa fa-check"></i>8.4 Exercises</a><ul>
+<li class="chapter" data-level="8" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html"><i class="fa fa-check"></i><b>8</b> Distance and Dimension Reduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-25"><i class="fa fa-check"></i>8.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-27"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-25"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-23"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-20"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-12"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-13"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-11"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-26"><i class="fa fa-check"></i>8.7 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-26"><i class="fa fa-check"></i>8.7 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-28"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-26"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-24"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-21"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-13"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-14"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-12"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-10"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-27"><i class="fa fa-check"></i>8.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#exercises-27"><i class="fa fa-check"></i>8.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-1-29"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-2-27"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-3-25"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-4-22"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-14"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-5-15"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-6-13"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-7-11"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="distance-and-dimension-reduction.html"><a href="distance-and-dimension-reduction.html#question-8-9"><i class="fa fa-check"></i>Question 8</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Basic Machine Learning</a><ul>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-28"><i class="fa fa-check"></i>9.2 Exercises</a><ul>
+<li class="chapter" data-level="9" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Basic Machine Learning</a>
+<ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-28"><i class="fa fa-check"></i>9.2 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-30"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-28"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-26"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-23"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-15"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-16"><i class="fa fa-check"></i>Question 5</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-29"><i class="fa fa-check"></i>9.4 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-29"><i class="fa fa-check"></i>9.4 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-31"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-29"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-30"><i class="fa fa-check"></i>9.8 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-30"><i class="fa fa-check"></i>9.8 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-32"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-30"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-31"><i class="fa fa-check"></i>9.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#exercises-31"><i class="fa fa-check"></i>9.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-1-33"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-2-31"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-3-27"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-4-24"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-16"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-5-17"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="basic-machine-learning.html"><a href="basic-machine-learning.html#question-6-14"><i class="fa fa-check"></i>Question 6</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>10</b> Batch Effects</a><ul>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-32"><i class="fa fa-check"></i>10.3 Exercises</a><ul>
+<li class="chapter" data-level="10" data-path="batch-effects.html"><a href="batch-effects.html"><i class="fa fa-check"></i><b>10</b> Batch Effects</a>
+<ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-32"><i class="fa fa-check"></i>10.3 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-34"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-32"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-28"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-25"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-17"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-18"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-15"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-12"><i class="fa fa-check"></i>Question 7</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-33"><i class="fa fa-check"></i>10.6 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-33"><i class="fa fa-check"></i>10.6 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-35"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-33"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-29"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-26"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-18"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-19"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-16"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-13"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-10"><i class="fa fa-check"></i>Question 8</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-34"><i class="fa fa-check"></i>10.9 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-34"><i class="fa fa-check"></i>10.9 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-36"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-34"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-30"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-27"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-19"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-20"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-17"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-14"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-11"><i class="fa fa-check"></i>Question 8</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-9-9"><i class="fa fa-check"></i>Question 9</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-35"><i class="fa fa-check"></i>10.11 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-35"><i class="fa fa-check"></i>10.11 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-37"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-35"><i class="fa fa-check"></i>Question 2</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-3-31"><i class="fa fa-check"></i>Question 3</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-4-28"><i class="fa fa-check"></i>Question 4</a></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-20"><i class="fa fa-check"></i>Question 5</a></li>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-5-21"><i class="fa fa-check"></i>Question 5</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-6-18"><i class="fa fa-check"></i>Question 6</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-7-15"><i class="fa fa-check"></i>Question 7</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-8-12"><i class="fa fa-check"></i>Question 8</a></li>
@@ -481,7 +536,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-11-5"><i class="fa fa-check"></i>Question 11</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-12-5"><i class="fa fa-check"></i>Question 12</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-36"><i class="fa fa-check"></i>10.13 Exercises</a><ul>
+<li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#exercises-36"><i class="fa fa-check"></i>10.13 Exercises</a>
+<ul>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-1-38"><i class="fa fa-check"></i>Question 1</a></li>
 <li class="chapter" data-level="" data-path="batch-effects.html"><a href="batch-effects.html#question-2-36"><i class="fa fa-check"></i>Question 2</a></li>
 </ul></li>
@@ -508,7 +564,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Data Analysis for the Life Sciences with R: Exercise Solutions</h1>
 <p class="author"><em>Seung Hyun (Sam) Min</em></p>
-<p class="date"><em>2020-12-22</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-05-22</em></p>
 </div>
 <div id="index" class="section level1 unnumbered">
 <h1>Welcome!</h1>
@@ -565,6 +621,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -573,7 +630,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/smin95/da4ls_exercise_solution/edit/master/0-index.Rmd",
+"link": "https://github.com/smin95/da4ls_exercise_solution/edit/master/index.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -581,7 +638,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/smin95/da4ls_exercise_solution/blob/master/0-index.Rmd",
+"link": "https://github.com/smin95/da4ls_exercise_solution/blob/master/index.Rmd",
 "text": null
 },
 "download": null,

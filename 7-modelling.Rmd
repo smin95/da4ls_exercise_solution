@@ -115,13 +115,13 @@ exact - approx
 The Cs in our genomes can be methylated or unmethylated. Suppose we have a large (millions) group of cells in which a proportion p of the Cs of interest are methylated. We break up the DNA of these cells and randomly select pieces and
 end up with $N$ pieces that contain the C we care about. This means that the probability of seeing $k$ methylated Cs is binomial:
 
-```{r}
+```{r, eval = F}
 exact = dbinom(k,N,p)
 ```
 
 We can approximate this with the normal distribution:
 
-```{r}
+```{r, eval = F}
 a <- (k+0.5 - N*p)/sqrt(N*p*(1-p))
 b <- (k-0.5 - N*p)/sqrt(N*p*(1-p))
 approx = pnorm(a) - pnorm(b)
@@ -129,7 +129,7 @@ approx = pnorm(a) - pnorm(b)
 
 Compute the difference `approx-exact` for:
 
-```{r}
+```{r, eval = F}
 N <- c(5,10,50,100,500)
 p <- seq(0,1,0.25)
 ```
